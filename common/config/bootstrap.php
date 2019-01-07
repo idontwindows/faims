@@ -19,10 +19,10 @@ if (isset($_SERVER['SERVER_NAME'])) {
         $Backend_URI = $Backend_URI . "/uploads/user/photo/";
         $FrontendBaseURI = 'http://' . $_SERVER['SERVER_NAME'] . ':8082/';
     } else {
-        $Backend_URI = 'http://192.168.1.90:8082/fais/backend/web/uploads/user/photo/';
-        $BaseURI = "http://localhost/fais/backend/web/";
-        $BaseURI2 = "http://localhost/fais/frontend/web/";
-        $FrontendBaseURI = "http://localhost/fais/frontend/web/";
+        $Backend_URI = 'http://192.168.1.90:8082/faims/backend/web/uploads/user/photo/';
+        $BaseURI = "http://localhost/faims/backend/web/";
+        $BaseURI2 = "http://localhost/faims/frontend/web/";
+        $FrontendBaseURI = "http://localhost/faims/frontend/web/";
     }
     $GLOBALS['upload_url'] = $Backend_URI;
     $GLOBALS['base_uri'] = $BaseURI;
