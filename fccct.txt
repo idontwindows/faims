@@ -1,0 +1,20 @@
+     <?= $form->field($model, 'section_id')->widget(Select2::classname(), [
+                    'data' => $listSection,
+                    'language' => 'en',
+                    'options' => ['placeholder' => 'Select Section'],
+                    'pluginOptions' => [
+                        'allowClear' => true
+                    ],
+                ]); ?>
+				
+				
+				
+				
+				        <?= $form->field($model, 'division_id')->widget(Select2::classname(), [
+                    'data' => $listDivisions,
+                    'language' => 'en',
+                    'options' => ['placeholder' => 'Select Division'],
+                    'pluginOptions' => [
+                        'allowClear' => true
+                    ],
+                ]); ?>
