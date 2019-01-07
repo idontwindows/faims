@@ -1,1 +1,1 @@
-# faims
+# Finance and Administrative Information Management System
