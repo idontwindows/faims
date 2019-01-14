@@ -38,3 +38,6 @@ phpunit.phar
 
 #/vendor/
 
+#database config
+common/config/db.php
+
