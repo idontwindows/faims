@@ -141,7 +141,7 @@ if(Yii::$app->user->isGuest){
                             ['label' => 'Sign Out', 'icon' => 'user-times'  , 'url' => Yii::$app->urlManager->createUrl(['/site/logout']), 'visible' => !Yii::$app->user->isGuest, 'template' => '<a href="{url}" data-method="post">{icon}{label}</a>'],
                         ]
                     ],
-                    /*
+                    
                     [
                         'label' => 'PAAI',
                         'icon' => 'user-secret',
@@ -155,7 +155,6 @@ if(Yii::$app->user->isGuest){
                             //['label' => 'Sign Out', 'icon' => 'user-times'  , 'url' => Yii::$app->urlManager->createUrl(['/site/logout']), 'visible' => !Yii::$app->user->isGuest, 'template' => '<a href="{url}" data-method="post">{icon}{label}</a>'],
                         ]
                     ],
-                    */
                 ],
             ]
         ) ?>

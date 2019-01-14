@@ -355,7 +355,6 @@ $BaseURL = $GLOBALS['frontend_base_uri'];
                             <div class="col-lg-2">
                                 <?php
                                 echo '<label class="control-label">Lot Bids</label>';
-
                                 echo SwitchInput::widget([
                                     'name' => 'chkBids',
                                     'type' => SwitchInput::CHECKBOX,
@@ -534,8 +533,6 @@ $BaseURL = $GLOBALS['frontend_base_uri'];
                                               'vAlign' => 'top',
                                               'rowSelectedClass'=>GridView::TYPE_INFO,
                                               'checkboxOptions' => function($data) {
-                                                        //$s = $data->bid->supplier->supplier_id;
-                                                        //$c = $data->supplier_id;
                                                        if($data->bids_details_status==2) {
                                                             $bool = false;
                                                             return ['checked' => $bool,

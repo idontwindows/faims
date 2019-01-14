@@ -27,6 +27,7 @@ $this->registerJsFile('https://code.jquery.com/ui/1.12.1/jquery-ui.js');
 $this->registerJsFile($BaseURL.'js/jquery.tabletojson.js');
 $this->registerJsFile($BaseURL.'js/custom.js');
 
+
 //$model = new PurchaseRequest();
 $prdetails = new PurchaseRequestDetails();
 $departmentmodel = new Department();
@@ -47,24 +48,34 @@ $lineItemBudget = ArrayHelper::map($section,'section_id','name');
     <div class="col-lg-12">
         <div id="add-container">
             <div class="popup-container">
-                <div class="mypopup">
+                <div class="mypopup" style="background: #ffffff;">
                     <div class="col-lg-12">
-                        <h1 style="text-align: center">Test</h1>
-                        <h1 style="text-align: center">Test</h1>
-                        <h1 style="text-align: center">Test</h1>
-                        <h1 style="text-align: center">Test</h1>
-                        <h1 style="text-align: center">Test</h1>
-                        <h1 style="text-align: center">Test</h1>
-                        <h1 style="text-align: center">Test</h1>
-                        <h1 style="text-align: center">Test</h1>
-                        <h1 style="text-align: center">Test</h1>
-                        <h1 style="text-align: center">Test</h1>
-                        <h1 style="text-align: center">Test</h1>
-                        <h1 style="text-align: center">Test</h1>
-                        <h1 style="text-align: center">Test</h1>
-                        <h1 style="text-align: center">Test</h1>
-                        <h1 style="text-align: center">Test</h1>
-                        <h1 style="text-align: center">Test</h1>
+                        <div class="row">
+                            <h5 style="text-align: center">Add Item</h5>
+                            <div class="col-lg-12">
+                                    <div class="col-lg-12">
+                                        <input type="text" class="form-control" placeholder="Units" id="txtunits" name="txtunits" required><span class="one req">* unit is required</span>
+                                        <div class="space-20"></div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <textarea row="50" class="form-control" placeholder="Item Description" id="txtitemdesc" name="txtitemdesc" required></textarea><span class="two req">* description is required</span>
+                                        <div class="space-20"></div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <input type="number" class="form-control" placeholder="Qty" id="txtqty" name="txtqty" required><span class="three req">* quantity is required</span>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <input type="number" class="form-control" placeholder="0.00" id="txtcost" required><span class="four req">* cost is required</span>
+                                        <div class="space-20"></div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <button class="btn btn-success btn-block" id="btnAdd">Add <span class="fa fa-plus"></span></button>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <button class="btn btn-danger btn-block" id="btnClose">Close <span class="fa fa-remove"></span></button>
+                                    </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -168,6 +179,7 @@ $lineItemBudget = ArrayHelper::map($section,'section_id','name');
                                 <thead>
                                 <tr class="table-header">
                                     <td><div class="radio-container"><div id="main-radio" class="radio"><input type="radio" name="test" class="radio-ui"></div></div></td>
+                                    <td>Detail# </td>
                                     <td>Unit</td>
                                     <td>Item Description</td>
                                     <td>Quantity</td>
@@ -276,3 +288,5 @@ $lineItemBudget = ArrayHelper::map($section,'section_id','name');
     </div>
 
 </div>
+
+<?php $this->registerJsFile($BaseURL.'js/procurement/purchaserequest/purchaserequest.js'); ?>

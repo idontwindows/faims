@@ -17,14 +17,15 @@ use Yii;
  * @property string $payee
  * @property string $office
  * @property string $address
- * @property string $requested_by
+ * @property integer $requested_by
  * @property string $requested_bypos
- * @property string $funds_available
+ * @property integer $funds_available
  * @property string $funds_available_pos
  * @property string $purchase_no
  * @property string $os_type
  * @property string $dv_no
- * @property string $username
+ * @property integer $user_id
+ * @property string $resp_center
  */
 class Obligationrequest extends \yii\db\ActiveRecord
 {
@@ -52,9 +53,10 @@ class Obligationrequest extends \yii\db\ActiveRecord
         return [
             [['os_date'], 'safe'],
             [['particulars'], 'string'],
-            [['amount'], 'number'],
-            [['os_no', 'ppa', 'account_code', 'payee', 'office', 'requested_by', 'requested_bypos', 'funds_available', 'funds_available_pos', 'purchase_no', 'os_type', 'dv_no', 'username'], 'string', 'max' => 100],
+            [['amount','user_id','requested_by','funds_available'], 'number'],
+            [['os_no','resp_center', 'ppa', 'account_code', 'payee', 'office', 'requested_bypos', 'funds_available_pos', 'purchase_no', 'os_type', 'dv_no'], 'string', 'max' => 100],
             [['address'], 'string', 'max' => 255],
+            [['payee'],'required'],
         ];
     }
 
@@ -65,10 +67,10 @@ class Obligationrequest extends \yii\db\ActiveRecord
     {
         return [
             'obligation_request_id' => 'Obligation Request ID',
-            'os_no' => 'Os No',
+            'os_no' => 'OS No',
             'os_date' => 'Os Date',
             'particulars' => 'Particulars',
-            'ppa' => 'Ppa',
+            'ppa' => 'PPA',
             'account_code' => 'Account Code',
             'amount' => 'Amount',
             'payee' => 'Payee',
@@ -81,7 +83,8 @@ class Obligationrequest extends \yii\db\ActiveRecord
             'purchase_no' => 'Purchase No',
             'os_type' => 'Os Type',
             'dv_no' => 'Dv No',
-            'username' => 'Username',
+            'user_id' => 'User ID',
+            'resp_center' =>'Responsibility Center',
         ];
     }
 }

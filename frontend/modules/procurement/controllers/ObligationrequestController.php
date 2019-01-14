@@ -5,6 +5,7 @@ namespace frontend\modules\procurement\controllers;
 use Yii;
 use common\models\procurement\Obligationrequest;
 use common\models\procurement\ObligationrequestSearch;
+use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -51,9 +52,37 @@ class ObligationrequestController extends Controller
      */
     public function actionView($id)
     {
-        return $this->render('view', [
+        return $this->renderAjax('view', [
             'model' => $this->findModel($id),
         ]);
+    }
+
+    /**
+     * @return string
+     * @throws \yii\db\Exception
+     */
+
+    public function GenerateOSNumber($ostype) {
+        if ($ostype=="PS") {
+            $characters = "OS-100";
+        }elseif ($ostype=="MOOE1") {
+            $characters = "OS-200";
+        }else{
+            $characters = "OS-300";
+        }
+        $qry = "SELECT COUNT(`tbl_obligationrequest`.`os_no`) + 1 AS NextNumber  FROM `fais-procurement`.`tbl_obligationrequest` WHERE LEFT(`tbl_obligationrequest`.`os_no`,6) = '".$characters."'";
+        $yr = date('y');
+        $mt = date('m');
+        $con =  Yii::$app->db;
+        $command = $con->createCommand($qry);
+        $nextValue = $command->queryAll();
+        foreach ($nextValue as $bbb) {
+            $a = $bbb['NextNumber'];
+        }
+        $nextValue = $a;
+        $documentcode = $characters."-".$yr."-".$mt."-";
+        $documentcode=$documentcode.str_pad($nextValue, 4, '0', STR_PAD_LEFT);
+        return $documentcode;
     }
 
     /**
@@ -63,15 +92,75 @@ class ObligationrequestController extends Controller
      */
     public function actionCreate()
     {
-        $model = new Obligationrequest();
+        $ostype_data = [
+            "PS" => "Personal Services",
+            "MOOE1" => "Maintenance & Other Operation Expenses",
+            "CO" => "Capital Outlay",
+        ];
+        $obrequest = new Obligationrequest();
+        $con =  Yii::$app->db;
+        $command_employee = $con->createCommand("SELECT `tbl_profile`.`user_id`,CONCAT(`tbl_profile`.`lastname`,', ', `tbl_profile`.`firstname` ,' ', `tbl_profile`.`middleinitial`, ' - ' , `tbl_profile`.`designation`) AS employeename
+        FROM `tbl_profile`");
+        $employees = $command_employee->queryAll();
+        $command_po = $con->createCommand("SELECT `tbl_purchase_order`.`purchase_order_number` FROM `fais-procurement`.`tbl_purchase_order`");
+        $ponum = $command_po->queryAll();
+        $listEmployee = ArrayHelper::map($employees, 'user_id', 'employeename');
+        $listPono = ArrayHelper::map($ponum, 'purchase_order_number', 'purchase_order_number');
+        //if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($obrequest->load(Yii::$app->request->post())) {
+            if ($obrequest->validate()) {
+                $osnumber = $this->GenerateOSNumber($obrequest->os_type);
+                $obrequest->os_no = $osnumber; //'PR-13-01-0028';
+                $obrequest->save();
+                //return $osnumber;
+                return $this->redirect('index');
+            } else {
+                // validation failed: $errors is an array containing error messages
+                $errors = $obrequest->errors;
+                return $errors;
+            }
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->obligation_request_id]);
         } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
+            if (Yii::$app->request->isAjax) {
+                return $this->renderAjax('create', [
+                    'model' => $obrequest,
+                    'listEmployee'=>$listEmployee,
+                    'listPono'=>$listPono,
+                    'ostype_data'=>$ostype_data,
+                ]);
+            }else{
+                return $this->render('create', [
+                    'model' => $obrequest,
+                    'listEmployee'=>$listEmployee,
+                    'listPono'=>$listPono,
+                    'ostype_data'=>$ostype_data,
+                ]);
+            }
         }
+    }
+
+    /**
+     * @return string
+     *
+     */
+
+    public function actionCheckimportid()
+    {
+        $request = Yii::$app->request;
+        $po_num = $request->post('po_num');
+        $con = Yii::$app->procurementdb;
+        $sql = "SELECT `tbl_purchase_order`.`purchase_order_number` ,CONCAT('TO PAYMENT of items to be delivered to DOST IX per P.O. No. ',`tbl_purchase_order`.`purchase_order_number`,
+' dated ' , `tbl_purchase_order`.`purchase_order_date`) AS Particulars ";
+        $sql = $sql.", SUM(`tbl_bids_details`.`bids_quantity` * `tbl_bids_details`.`bids_price`) AS Amount,
+	`tbl_purchase_order`.`purchase_order_date`
+	FROM `tbl_purchase_order` INNER JOIN `tbl_purchase_order_details`
+	ON `tbl_purchase_order_details`.`purchase_order_id` = `tbl_purchase_order`.`purchase_order_id`
+	INNER JOIN `tbl_bids_details` ON 
+	`tbl_bids_details`.`bids_details_id` = `tbl_purchase_order_details`.`bids_details_id`
+	WHERE `tbl_purchase_order`.`purchase_order_number` = '".$po_num."';";
+        $checkxml = $con->createCommand($sql)->queryAll();
+       return json_encode($checkxml);
+
     }
 
     /**
@@ -80,17 +169,41 @@ class ObligationrequestController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionUpdate($id)
+    public function actionUpdate()
     {
-        $model = $this->findModel($id);
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->obligation_request_id]);
-        } else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
+        $model = new Obligationrequest();
+        $ostype_data = [
+            "PS" => "Personal Services",
+            "MOOE1" => "Maintenance & Other Operation Expenses",
+            "CO" => "Capital Outlay",
+        ];
+        $session = Yii::$app->session;
+        $request = Yii::$app->request;
+        if($request->get('id') && $request->get('view')) {
+            $id = $request->get('id');
+            $model = $this->findModel($id);
+            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                $this->redirect('index');
+            } else {
+                $con =  Yii::$app->db;
+                $command_employee = $con->createCommand("SELECT `tbl_profile`.`user_id`,CONCAT(`tbl_profile`.`lastname`,', ', `tbl_profile`.`firstname` ,' ', `tbl_profile`.`middleinitial`, ' - ' , `tbl_profile`.`designation`) AS employeename
+                FROM `tbl_profile`");
+                $employees = $command_employee->queryAll();
+                $command_po = $con->createCommand("SELECT `tbl_purchase_order`.`purchase_order_number` FROM `fais-procurement`.`tbl_purchase_order`");
+                $ponum = $command_po->queryAll();
+                $listEmployee = ArrayHelper::map($employees, 'user_id', 'employeename');
+                $listPono = ArrayHelper::map($ponum, 'purchase_order_number', 'purchase_order_number');
+                //if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                return $this->renderAjax('_form', [
+                    'model' => $model,
+                    'ostype_data'=>$ostype_data,
+                    'listEmployee'=>$listEmployee,
+                    'listPono'=>$listPono,
+                ]);
+            }
         }
+
+
     }
 
     /**

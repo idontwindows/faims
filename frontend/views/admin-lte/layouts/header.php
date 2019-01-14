@@ -37,7 +37,7 @@ if(Yii::$app->user->isGuest){
     }
 }
 
-$moduleDir= Yii::$app->basePath.'/modules';
+$moduleDir= Yii::$app->basePath.'\modules';
 $Directories = scandir($moduleDir);
 $Packages= Package::find()->all();
 $conditions = ['to' => Yii::$app->user->id, 'status' => 0];

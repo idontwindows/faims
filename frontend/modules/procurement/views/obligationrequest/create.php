@@ -12,10 +12,11 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="obligationrequest-create">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-
     <?= $this->render('_form', [
         'model' => $model,
+        'listEmployee' => $listEmployee,
+        'listPono'=>$listPono,
+        'ostype_data'=>$ostype_data,
     ]) ?>
 
 </div>

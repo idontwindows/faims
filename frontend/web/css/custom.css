@@ -197,7 +197,7 @@ tr.ng-scope:hover {
 
 .modal {
     /* background: url('../images/slice2.gif')!important; */
-    background: url('../images/slice.png')!important;
+    /*background: url('../images/slice.png')!important;*/
 }
 
 .loadpartial {
@@ -389,5 +389,12 @@ table#myHead {
     background-size: 100% 100%;
 }
 
+.req {
+    display: none!important;
+}
+.req.visible {
+    display: block!important;
+    color: red;
+}
 
 

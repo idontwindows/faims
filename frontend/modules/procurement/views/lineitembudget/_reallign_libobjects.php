@@ -230,8 +230,8 @@ $BaseURL = $GLOBALS['frontend_base_uri'];
                     "data-method"=>"post",
                     "data-confirm"=>"Are you sure you want to delete?",
                     "class"=>"btn btn-danger"
-                ]);
-            }
+                        ]);
+                    }
                  ],
                     'urlCreator' => function ($action, $model, $key, $index) {
                         if ($action === 'delete') {

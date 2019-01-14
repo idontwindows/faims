@@ -24,6 +24,7 @@ Modal::begin([
 echo "<div id='modalContent'><div style='text-align:center'><img src='/images/loading.gif'></div></div>";
 Modal::end();
 
+
 ?>
 <div class="employee-index">
 
@@ -35,13 +36,18 @@ Modal::end();
         $gridColumns = [
         // the name column configuration
         [
-           'label'=>'name',
-           'format' => 'raw',
-           'value'=>function ($data) {
-                return Html::a($data['title'],['view', 'id'=>$data['line_item_budget_id']]);
-            },
+            'class'=>'kartik\grid\EditableColumn',
+            'attribute'=>'title',
+            'pageSummary'=>true,
+            'editableOptions'=> function ($model, $key, $index) {
+                 return [
+                      'header'=>'Name',
+                      'size'=>'md',
+                      'formOptions'=>['action' => ['lineitembudget/editLibObject']],
+                      'inputType' => \kartik\editable\Editable::INPUT_TEXT,// point to the new action
+                ];
+            }
         ],
-        'period',
 
         [
             'class' => '\kartik\grid\ActionColumn',

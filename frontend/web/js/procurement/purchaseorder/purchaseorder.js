@@ -12,7 +12,6 @@ jQuery(document).ready(function ($) {
         $(".loadpartial").fadeIn(300);
         $(".loadpartial").show();
         var x = $(this).data('id');
-        alert(x);
         jQuery.ajax( {
             type: "POST",
             url: frontendURI + "procurement/purchaseorder/view?id=" + x + "&view=purchaseorder",

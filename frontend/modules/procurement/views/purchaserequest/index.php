@@ -32,7 +32,6 @@ $this->registerJsFile($BaseURL.'js/angular.min.js');
 $this->registerJsFile($BaseURL.'js/ui-bootstrap-tpls-0.10.0.min.js');
 $this->registerJsFile($BaseURL.'js/jquery.tabletojson.js');
 $this->registerJsFile($BaseURL.'js/app.js');
-$this->registerJsFile($BaseURL.'js/procurement/purchaserequest/purchaserequest.js');
 $this->registerJsFile($BaseURL.'js/custom.js');
 ?>
 

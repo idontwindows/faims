@@ -108,7 +108,7 @@ jQuery(document).ready(function ($) {
         } );
     });
     $('#myAdd').on('hidden.bs.modal', function () {
-        Location.reload();
+        location.reload();
     });
     $('#Update').on('hidden.bs.modal', function () {
         //alert('tst');

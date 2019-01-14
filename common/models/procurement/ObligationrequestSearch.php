@@ -18,8 +18,8 @@ class ObligationrequestSearch extends Obligationrequest
     public function rules()
     {
         return [
-            [['obligation_request_id'], 'integer'],
-            [['os_no', 'os_date', 'particulars', 'ppa', 'account_code', 'payee', 'office', 'address', 'requested_by', 'requested_bypos', 'funds_available', 'funds_available_pos', 'purchase_no', 'os_type', 'dv_no', 'username'], 'safe'],
+            [['obligation_request_id', 'requested_by', 'funds_available', 'user_id'], 'integer'],
+            [['os_no', 'os_date', 'particulars', 'ppa', 'account_code', 'payee', 'office', 'address', 'requested_bypos', 'funds_available_pos', 'purchase_no', 'os_type', 'dv_no'], 'safe'],
             [['amount'], 'number'],
         ];
     }
@@ -48,6 +48,7 @@ class ObligationrequestSearch extends Obligationrequest
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'sort'=> ['defaultOrder' => ['obligation_request_id'=>SORT_DESC]]
         ]);
 
         $this->load($params);
@@ -79,8 +80,8 @@ class ObligationrequestSearch extends Obligationrequest
             ->andFilterWhere(['like', 'purchase_no', $this->purchase_no])
             ->andFilterWhere(['like', 'os_type', $this->os_type])
             ->andFilterWhere(['like', 'dv_no', $this->dv_no])
-            ->andFilterWhere(['like', 'username', $this->username]);
-
+            ->andFilterWhere(['like', 'user_id', $this->user_id])
+            ->andFilterWhere(['like', 'resp_center', $this->resp_center]);
         return $dataProvider;
     }
 }
