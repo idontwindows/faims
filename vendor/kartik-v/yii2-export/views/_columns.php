@@ -2,8 +2,8 @@
 /**
  * @package   yii2-export
  * @author    Kartik Visweswaran <kartikv2@gmail.com>
- * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2015 - 2017
- * @version   1.2.7
+ * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2015 - 2018
+ * @version   1.3.8
  * 
  * Column Selector View
  *
@@ -13,6 +13,7 @@ use yii\helpers\Html;
 use yii\helpers\ArrayHelper;
 
 /**
+ * @var bool $isBs4
  * @var array $options
  * @var array $batchToggle
  * @var array $columnSelector
@@ -58,7 +59,7 @@ echo Html::beginTag('ul', $menuOptions);
             </label>
         </div>
     </li>
-    <li class="divider"></li>
+    <li class="<?= $isBs4 ? 'dropdown-' : '' ?>divider"></li>
 <?php endif; ?>
 
 <?php

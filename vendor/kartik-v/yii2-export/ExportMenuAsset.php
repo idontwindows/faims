@@ -1,9 +1,9 @@
 <?php
 
 /**
- * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2015 - 2017
+ * @copyright Copyright &copy; Kartik Visweswaran, Krajee.com, 2015 - 2018
  * @package yii2-export
- * @version 1.2.7
+ * @version 1.3.8
  */
 
 namespace kartik\export;
@@ -23,9 +23,9 @@ class ExportMenuAsset extends AssetBundle
      */
     public function init()
     {
+        $this->depends = array_merge(["\\kartik\\dialog\\DialogAsset"], $this->depends);
         $this->setSourcePath(__DIR__ . '/assets');
         $this->setupAssets('js', ['js/kv-export-data']);
-        $this->setupAssets('css', ['css/kv-export-data']);
         parent::init();
     }
 }
