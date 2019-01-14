@@ -13,7 +13,7 @@ use kartik\select2\Select2;
 use kartik\grid\GridView;
 use yii\data\ActiveDataProvider;
 use common\models\procurement\Expenditureobject;
-use common\models\procurement\Expenditureobjectsearch;
+use common\models\procurement\ExpenditureobjectSearch;
 use common\models\procurement\Expenditureclass;
 use common\models\procurement\Lineitembudgetobject;
 
