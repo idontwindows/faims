@@ -36,11 +36,17 @@ $section = Section::find()->all();
 $divisions = Division::find()->all();
 $command = $con->createCommand("SELECT `tbl_employee`.`employee_id`,CONCAT(`tbl_employee`.`lastname`,', ',`tbl_employee`.`firstname`,' ',`tbl_employee`.`middlename`) AS employeename 
     FROM `fais-procurement`.`tbl_employee`");
+$command2 = $con->createCommand("SELECT unit_type_id, name_short AS units FROM `tbl_unit_type`
+UNION ALL
+SELECT unit_type_id, name_long AS units FROM `tbl_unit_type`
+ORDER BY units");
+$units = $command2->queryAll();
 $employees = $command->queryAll();
 $listEmployees = ArrayHelper::map($employees, 'employee_id', 'employeename');
 $listSection = ArrayHelper::map($section, 'section_id', 'name');
 $listDivisions = ArrayHelper::map($divisions,'division_id','name');
 $lineItemBudget = ArrayHelper::map($section,'section_id','name');
+$listUnits = ArrayHelper::map($units,'unit_type_id','units');
 ?>
 
 
@@ -54,7 +60,22 @@ $lineItemBudget = ArrayHelper::map($section,'section_id','name');
                             <h5 style="text-align: center">Add Item</h5>
                             <div class="col-lg-12">
                                     <div class="col-lg-12">
-                                        <input type="text" class="form-control" placeholder="Units" id="txtunits" name="txtunits" required><span class="one req">* unit is required</span>
+                                        <?=
+                                        Select2::widget([
+                                            'name' => 'txtunits',
+                                            'id'=> 'txtunits',
+                                            'data' => $listUnits,
+                                            'options' => ['placeholder' => 'Select Unit Type','tabindex'=>0,],
+                                            'pluginEvents' => [
+                                                "change" => "function() {
+                                                                 var data=$(this).val();
+                                                        }",
+                                            ],
+                                        ]);
+                                        ?>
+
+                                      <!--  <input type="text" class="form-control" placeholder="Units" id="txtunits" name="txtunits" required> -->
+                                        <span class="one req">* unit is required</span>
                                         <div class="space-20"></div>
                                     </div>
                                     <div class="col-lg-12">

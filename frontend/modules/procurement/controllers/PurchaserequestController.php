@@ -135,11 +135,12 @@ class PurchaserequestController extends Controller
                         $itemdescription = $budgets["Item Description"];
                         $quantity = $budgets["Quantity"];
                         $unitcost = $budgets["Unit Cost"];
+                        $unit_type = $budgets["Unit"];
                         $totalCost = $budgets["Total Cost"];
-                        $data[] =  [$prequest->purchase_request_id,$itemdescription,$quantity,$unitcost];
+                        $data[] =  [$prequest->purchase_request_id,$itemdescription,$quantity,$unitcost,$unit_type];
                     }
                     $connection->createCommand()->batchInsert
-                    ('fais-procurement.tbl_purchase_request_details', ['purchase_request_id', 'purchase_request_details_item_description', 'purchase_request_details_quantity','purchase_request_details_price'],$data)
+                    ('fais-procurement.tbl_purchase_request_details', ['purchase_request_id', 'purchase_request_details_item_description', 'purchase_request_details_quantity','purchase_request_details_price','unit_id'],$data)
                      ->execute();
                     $transaction->commit();
                     $session->set('savepopup',"executed");
@@ -178,6 +179,24 @@ class PurchaserequestController extends Controller
             $id = $request->get('id');
             $model = $this->findModel($id);
             if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                $connection =  Yii::$app->db;
+                $lineitembudget = $model->lineitembudgetlist;
+                $arr = json_decode($lineitembudget,true);
+                foreach ($arr as $budgets) {
+                    $details = $budgets["Detail#"];
+                    $unit = $budgets["Unit"];
+                    $itemdescription = $budgets["Item Description"];
+                    $quantity = $budgets["Quantity"];
+                    $unitcost = $budgets["Unit Cost"];
+                    $unit_type = $budgets["Unit"];
+                    $totalCost = $budgets["Total Cost"];
+                    if ($details=="-1") {
+                        $data[] =  [$model->purchase_request_id,$itemdescription,$quantity,$unitcost,$unit_type];
+                    }
+                }
+                $connection->createCommand()->batchInsert
+                ('fais-procurement.tbl_purchase_request_details', ['purchase_request_id', 'purchase_request_details_item_description', 'purchase_request_details_quantity','purchase_request_details_price','unit_id'],$data)
+                    ->execute();
                 $session->set('updatepopup', "executed");
                 //return $this->redirect(['index']);
                 $this->redirect('index');
@@ -200,7 +219,7 @@ class PurchaserequestController extends Controller
         $sql = "SELECT * FROM `fais-procurement`.`tbl_purchase_request_details` INNER JOIN `tbl_purchase_request` ON `tbl_purchase_request`.`purchase_request_id` = `tbl_purchase_request_details`.`purchase_request_id`
         WHERE `tbl_purchase_request`.`purchase_request_number` = '".$pr_no."'";
         $prdetails = $con->createCommand($sql)->queryAll();
-
+        $data=array();
         $x = 0;
         foreach ($prdetails as $pr) {
             $x++;
@@ -231,6 +250,19 @@ class PurchaserequestController extends Controller
     }
 
     /**
+     *
+     */
+
+    public function actionDeletedetails()
+    {
+        $pr = Yii::$app->request;
+        $session = Yii::$app->session;
+        $pr_no = $pr->get('idno');
+        $this->findModelDetails($pr_no)->delete();
+        return 'success';
+    }
+
+    /**
      * Finds the Purchaserequest model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
@@ -250,10 +282,13 @@ class PurchaserequestController extends Controller
      *
      */
 
-    public function  actionTestajax() {
-       // $request = Yii::$app->request;
-        //$id = $request->get('id');
-        //return $id;
+    protected function findModelDetails($id)
+    {
+        if (($model = Purchaserequestdetails::findOne($id)) !== null) {
+            return $model;
+        } else {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
     }
 
     /**

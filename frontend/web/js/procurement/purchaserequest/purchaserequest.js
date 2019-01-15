@@ -30,7 +30,7 @@ jQuery(document).ready(function ($) {
                     checkbox = "<td><div class=\"radio-container\"><div class=\"radio tbl-tmt\" data-id='"+purchase_request_details_id+"' data-radio=\"test\"><input type=\"radio\" name=\"test\" class=\"radio-ui\"></div></div></td>"
                     closetr = "</tr>";
                     var pd_id ="<td>" + purchase_request_details_id + "</td>";
-                    unit = "<td>1</td>";
+                    unit = "<td>"+unit_id+"</td>";
                     itemdescription = "<td>"+purchase_request_details_item_description+"</td>";
                     qty = "<td>"+purchase_request_details_quantity+"</td>";
                     unitcost = "<td>"+ purchase_request_details_price +"</td>";
@@ -72,6 +72,7 @@ jQuery(document).ready(function ($) {
         opentr  = "<tr class='table-data'>";
         checkbox = "<td><div class=\"radio-container\"><div class=\"radio tbl-tmt\" data-id=\"2\" data-radio=\"test\"><input type=\"radio\" name=\"test\" class=\"radio-ui\"></div></div></td>"
         closetr = "</tr>";
+        p_id = "<td>" + -1 + "</td>";
         unit = "<td>" + $("#txtunits").val() + "</td>";
         itemdescription = "<td>"  + $("#txtitemdesc").val() + "</td>";
         qty ="<td>" + $("#txtqty").val() + "</td>";
@@ -96,7 +97,7 @@ jQuery(document).ready(function ($) {
         }else{
             var tt = parseFloat($("#txtqty").val()) * parseFloat($("#txtcost").val());
             totalcost = "<td>" +  tt.toFixed(2) + "</td>";
-            $dataAppend = opentr + checkbox  + unit + itemdescription + qty + unitcost + totalcost + closetr;
+            $dataAppend = opentr + checkbox + p_id + unit + itemdescription + qty + unitcost + totalcost + closetr;
             $('table tbody.table-body').append($dataAppend);
             var table = $('#pr-table').tableToJSON();
             var jsonstring = JSON.stringify(table);
@@ -141,15 +142,35 @@ jQuery(document).ready(function ($) {
     $('body').on('click','.delete-row' , function() {
         $("table tbody").find('.radio.tbl-tmt').each(function(){
             if($(this).hasClass('check')) {
-                $(this).parents("tr").remove();
-                $('#tbl-item-selected').html($('.radio.tbl-tmt.check').length+ " selected").show('fast');
-                var table = $('#pr-table').tableToJSON();
-                var jsonstring = JSON.stringify(table);
-                $('.radio.tbl-tmt').length > 0 ? $('.delete-row').prop('disabled',false) : $('.delete-row').prop('disabled',true);
-                $('#purchaserequest-lineitembudgetlist').val(jsonstring);
+                var id = $(this).attr('data-id');
+                if (id==2) {
+                    $(this).parents("tr").remove();
+                    $('#tbl-item-selected').html($('.radio.tbl-tmt.check').length+ " selected").show('fast');
+                    var table = $('#pr-table').tableToJSON();
+                    var jsonstring = JSON.stringify(table);
+                    $('.radio.tbl-tmt').length > 0 ? $('.delete-row').prop('disabled',false) : $('.delete-row').prop('disabled',true);
+                    $('#purchaserequest-lineitembudgetlist').val(jsonstring);
+                }else{
+                    var s  = DelDetails(id);
+                }
+                if (s=='success') {
+                    $(this).parents("tr").remove();
+                    $('#tbl-item-selected').html($('.radio.tbl-tmt.check').length+ " selected").show('fast');
+                    var table = $('#pr-table').tableToJSON();
+                    var jsonstring = JSON.stringify(table);
+                    $('.radio.tbl-tmt').length > 0 ? $('.delete-row').prop('disabled',false) : $('.delete-row').prop('disabled',true);
+                    $('#purchaserequest-lineitembudgetlist').val(jsonstring);
+                }
             }
         });
     });
+
+    function DelDetails(id) {
+        $.get(frontendURI + "procurement/purchaserequest/deletedetails?idno=" + id , function(data, status){
+
+        });
+        return 'success';
+    }
 
 
 });
