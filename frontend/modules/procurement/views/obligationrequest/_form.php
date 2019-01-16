@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use kartik\select2\Select2;
-use kartik\widgets\SwitchInput  ;
+use kartik\widgets\SwitchInput;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\procurement\Obligationrequest */
@@ -220,7 +220,8 @@ use kartik\widgets\SwitchInput  ;
             <div class="row" style="text-align: right;">
                 <div class="col-lg-12">
                     <div class="form-group">
-                        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+                        <?= Html::submitButton($model->isNewRecord ? 'Save' : 'Update', ['id'=>$model->isNewRecord ? "btnSave" : "btnUpdate",'class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary','name'=> $model->isNewRecord ? "btnSave" : "btnUpdate"]) ?>
+                        <?= Html::submitButton($model->isNewRecord ? 'Save & Print' : 'Update & Print', ['id'=>$model->isNewRecord ? "btnSavePrint" : "btnUpdatePrint",'class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary','name'=> $model->isNewRecord ? "btnSavePrint" : "btnUpdatePrint"]) ?>
                     </div>
                 </div>
             </div>

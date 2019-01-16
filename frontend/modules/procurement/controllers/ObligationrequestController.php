@@ -5,10 +5,12 @@ namespace frontend\modules\procurement\controllers;
 use Yii;
 use common\models\procurement\Obligationrequest;
 use common\models\procurement\ObligationrequestSearch;
+use common\modules\pdfprint;
 use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use kartik\mpdf\Pdf;
 
 /**
  * ObligationrequestController implements the CRUD actions for Obligationrequest model.
@@ -86,6 +88,66 @@ class ObligationrequestController extends Controller
     }
 
     /**
+     *
+     */
+
+    public function actionReportob($id) {
+        $request = Yii::$app->request;
+        $id = $request->get('id');
+        $model = $this->findModel($id);
+        //$obdetails = $this->getobDetails($model->os_no);
+        $content = $this->renderPartial('_report', ['model'=> $model]);
+        $pdf = new Pdf();
+        $pdf->format = pdf::FORMAT_A4;
+        $pdf->orientation = Pdf::ORIENT_PORTRAIT;
+        $pdf->destination =  $pdf::DEST_BROWSER;
+        $pdf->content  = $content;
+        $pdf->cssFile = '@vendor/kartik-v/yii2-mpdf/assets/kv-mpdf-bootstrap.min.css';
+        $pdf->cssInline = '.kv-heading-1{font-size:18px}.nospace-border{border:0px;}.no-padding{ padding:0px;}.print-container{font-size:11px;font-family:Arial,Helvetica Neue,Helvetica,sans-serif; }';
+        $LeftFooterContent = '<div style="text-align: left;font-weight: lighter">Monday, April 30, 2018</div>';
+        $RightFooterContent = '<div style="text-align: right;padding-top:-50px;">Page {PAGENO} of {nbpg}</div>';
+        $oddEvenConfiguration =
+            [
+                'L' => [ // L for Left part of the header
+                    'content' => $LeftFooterContent,
+                ],
+                'C' => [ // C for Center part of the header
+                    'content' => '',
+                ],
+                'R' => [
+                    'content' => $RightFooterContent,
+                ],
+                'line' => 0, // That's the relevant parameter
+            ];
+        $headerFooterConfiguration = [
+            'odd' => $oddEvenConfiguration,
+            'even' => $oddEvenConfiguration
+        ];
+        $pdf->options = [
+            'title' => 'Report Title',
+            'subject'=> 'Report Subject'];
+        $pdf->methods = [
+            'SetHeader'=>[''],
+            'SetFooter'=>[$headerFooterConfiguration],
+        ];
+
+        return $pdf->render();
+    }
+
+    /**
+     *
+     */
+
+    function getobDetails($id)
+    {
+        //Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        $con = Yii::$app->procurementdb;
+        $sql = "SELECT * FROM `tbl_obligationrequest` WHERE `purchase_request_id`=".$id;
+        $porequest = $con->createCommand($sql)->queryAll();
+        return $porequest;
+    }
+
+    /**
      * Creates a new Obligationrequest model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
@@ -97,6 +159,7 @@ class ObligationrequestController extends Controller
             "MOOE1" => "Maintenance & Other Operation Expenses",
             "CO" => "Capital Outlay",
         ];
+        $requesting = Yii::$app->request;
         $obrequest = new Obligationrequest();
         $con =  Yii::$app->db;
         $command_employee = $con->createCommand("SELECT `tbl_profile`.`user_id`,CONCAT(`tbl_profile`.`lastname`,', ', `tbl_profile`.`firstname` ,' ', `tbl_profile`.`middleinitial`, ' - ' , `tbl_profile`.`designation`) AS employeename
@@ -106,20 +169,22 @@ class ObligationrequestController extends Controller
         $ponum = $command_po->queryAll();
         $listEmployee = ArrayHelper::map($employees, 'user_id', 'employeename');
         $listPono = ArrayHelper::map($ponum, 'purchase_order_number', 'purchase_order_number');
-        //if ($model->load(Yii::$app->request->post()) && $model->save()) {
+
         if ($obrequest->load(Yii::$app->request->post())) {
             if ($obrequest->validate()) {
                 $osnumber = $this->GenerateOSNumber($obrequest->os_type);
-                $obrequest->os_no = $osnumber; //'PR-13-01-0028';
+                $obrequest->os_no = $osnumber;
                 $obrequest->save();
-                //return $osnumber;
-                return $this->redirect('index');
+                if(isset($_POST['btnSavePrint'])) {
+                   return $this->redirect('reportob?id='.$obrequest->os_no);
+                }else{
+                   return $this->redirect('index');
+                }
             } else {
                 // validation failed: $errors is an array containing error messages
                 $errors = $obrequest->errors;
                 return $errors;
             }
-
         } else {
             if (Yii::$app->request->isAjax) {
                 return $this->renderAjax('create', [
@@ -141,7 +206,6 @@ class ObligationrequestController extends Controller
 
     /**
      * @return string
-     *
      */
 
     public function actionCheckimportid()
@@ -150,17 +214,16 @@ class ObligationrequestController extends Controller
         $po_num = $request->post('po_num');
         $con = Yii::$app->procurementdb;
         $sql = "SELECT `tbl_purchase_order`.`purchase_order_number` ,CONCAT('TO PAYMENT of items to be delivered to DOST IX per P.O. No. ',`tbl_purchase_order`.`purchase_order_number`,
-' dated ' , `tbl_purchase_order`.`purchase_order_date`) AS Particulars ";
+        ' dated ' , `tbl_purchase_order`.`purchase_order_date`) AS Particulars ";
         $sql = $sql.", SUM(`tbl_bids_details`.`bids_quantity` * `tbl_bids_details`.`bids_price`) AS Amount,
-	`tbl_purchase_order`.`purchase_order_date`
-	FROM `tbl_purchase_order` INNER JOIN `tbl_purchase_order_details`
-	ON `tbl_purchase_order_details`.`purchase_order_id` = `tbl_purchase_order`.`purchase_order_id`
-	INNER JOIN `tbl_bids_details` ON 
-	`tbl_bids_details`.`bids_details_id` = `tbl_purchase_order_details`.`bids_details_id`
-	WHERE `tbl_purchase_order`.`purchase_order_number` = '".$po_num."';";
+	    `tbl_purchase_order`.`purchase_order_date`
+	    FROM `tbl_purchase_order` INNER JOIN `tbl_purchase_order_details`
+	    ON `tbl_purchase_order_details`.`purchase_order_id` = `tbl_purchase_order`.`purchase_order_id`
+	    INNER JOIN `tbl_bids_details` ON 
+	    `tbl_bids_details`.`bids_details_id` = `tbl_purchase_order_details`.`bids_details_id`
+	    WHERE `tbl_purchase_order`.`purchase_order_number` = '".$po_num."';";
         $checkxml = $con->createCommand($sql)->queryAll();
-       return json_encode($checkxml);
-
+        return json_encode($checkxml);
     }
 
     /**
@@ -183,7 +246,11 @@ class ObligationrequestController extends Controller
             $id = $request->get('id');
             $model = $this->findModel($id);
             if ($model->load(Yii::$app->request->post()) && $model->save()) {
-                $this->redirect('index');
+                if(isset($_POST['btnUpdatePrint'])) {
+                    return $this->redirect('reportob?id='.$id);
+                }else{
+                    return $this->redirect('index');
+                }
             } else {
                 $con =  Yii::$app->db;
                 $command_employee = $con->createCommand("SELECT `tbl_profile`.`user_id`,CONCAT(`tbl_profile`.`lastname`,', ', `tbl_profile`.`firstname` ,' ', `tbl_profile`.`middleinitial`, ' - ' , `tbl_profile`.`designation`) AS employeename

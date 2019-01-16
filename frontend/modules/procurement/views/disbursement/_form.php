@@ -2,6 +2,8 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use kartik\select2\Select2;
+use kartik\widgets\SwitchInput;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\procurement\Disbursement */
@@ -11,6 +13,29 @@ use yii\widgets\ActiveForm;
 <div class="disbursement-form">
 
     <?php $form = ActiveForm::begin(); ?>
+
+
+    <div class="row">
+        <div class="col-lg-12">
+            <?=
+            $form->field($model, 'dv_type')->widget(Select2::classname(), [
+                'name' => 'cbodvType',
+                'id'=> 'cbodvType',
+                'hideSearch' => true,
+                'data' => $dvtype_data,
+                'options' => [
+                    'multiple' => false
+                ],
+                'pluginEvents' => [
+                    "change" => "function() {
+                                             var data=$(this).val();
+                                    }",
+                ],
+            ])->label('OS Type');
+            ?>
+        </div>
+    </div>
+
 
     <?= $form->field($model, 'dv_no')->textInput(['maxlength' => true]) ?>
 

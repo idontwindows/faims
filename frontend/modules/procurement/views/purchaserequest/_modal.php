@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by Larry Mark B. Somocor.
- * User: Larry
- * Date: 3/16/2018
- * Time: 9:16 AM
- */
-
 use yii\widgets\ActiveForm;
 use kartik\select2\Select2;
 use common\models\procurement\Purchaserequest;
@@ -27,8 +20,6 @@ $this->registerJsFile('https://code.jquery.com/ui/1.12.1/jquery-ui.js');
 $this->registerJsFile($BaseURL.'js/jquery.tabletojson.js');
 $this->registerJsFile($BaseURL.'js/custom.js');
 
-
-//$model = new PurchaseRequest();
 $prdetails = new PurchaseRequestDetails();
 $departmentmodel = new Department();
 $con =  Yii::$app->db;
@@ -48,7 +39,6 @@ $listDivisions = ArrayHelper::map($divisions,'division_id','name');
 $lineItemBudget = ArrayHelper::map($section,'section_id','name');
 $listUnits = ArrayHelper::map($units,'unit_type_id','units');
 ?>
-
 
 <div class="purchaserequest-modal">
     <div class="col-lg-12">
@@ -301,7 +291,7 @@ $listUnits = ArrayHelper::map($units,'unit_type_id','units');
                 <a href="reportpr?id=<?=$model->purchase_request_id?>" class="btn-pdfprint btn btn-lg btn-primary btn-block">Print</a>
                 <?= pdfprint\Pdfprint::widget([
                     'elementClass' => '.btn-pdfprint'
-                ]);?>
+                ]); ?>
             </div>
         </div>
 

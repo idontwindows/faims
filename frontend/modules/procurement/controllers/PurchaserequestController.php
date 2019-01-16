@@ -181,6 +181,7 @@ class PurchaserequestController extends Controller
             if ($model->load(Yii::$app->request->post()) && $model->save()) {
                 $connection =  Yii::$app->db;
                 $lineitembudget = $model->lineitembudgetlist;
+                $data=array();
                 $arr = json_decode($lineitembudget,true);
                 foreach ($arr as $budgets) {
                     $details = $budgets["Detail#"];

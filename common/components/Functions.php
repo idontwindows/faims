@@ -124,7 +124,7 @@ class Functions extends Component
         if($linktitle=="") {
             //nothing
         }else{
-            $gridheader = $gridheader.'<button data-toggle="modal" data-target="#'.$linktarget.'" href="#'.$linktarget.'" class="'.$linktarget.' btn btn-primary btn-block">'.$linktitle.' <i class="fa fa-plus"></i></button>';
+            $gridheader = $gridheader.'<button data-toggle="modal" data-target="#'.$linktarget.'" href="#'.$linktarget.'" class="'.$linktarget.' btn btn-success btn-block">'.$linktitle.' <i class="fa fa-plus"></i></button>';
         }
         $gridheader = $gridheader.'</div></div>';
         $gridheader = $gridheader.'<div class="space-20"></div>';

@@ -63,15 +63,65 @@ class DisbursementController extends Controller
      */
     public function actionCreate()
     {
-        $model = new Disbursement();
+       /* $model = new Disbursement();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->dv_id]);
         } else {
-            return $this->render('create', [
+            return $this->renderAjax('create', [
                 'model' => $model,
             ]);
         }
+       */
+
+
+
+
+
+
+        $dvtype_data = [
+            "MDS" => "MDS 101",
+            "TF" => "Trust Fund",
+            "ST" => "S & T Scholarship Fund",
+            "BI" => "B I R Taxes",
+        ];
+
+
+        $dbursement = new Disbursement();
+
+        if ($dbursement->load(Yii::$app->request->post())) {
+            if ($dbursement->validate()) {
+                //$osnumber = $this->GenerateOSNumber($obrequest->os_type);
+               // $dbursement-> = $osnumber; //'PR-13-01-0028';
+                $dbursement->save();
+                //return $osnumber;
+                return $this->redirect('index');
+            } else {
+                // validation failed: $errors is an array containing error messages
+                $errors = $dbursement->errors;
+                return $errors;
+            }
+
+        } else {
+            if (Yii::$app->request->isAjax) {
+                return $this->renderAjax('create', [
+                    'model' => $dbursement,
+                    'dvtype_data' => $dvtype_data,
+                ]);
+            }else{
+                return $this->render('create', [
+                    'model' => $dbursement,
+                    'dvtype_data' => $dvtype_data,
+                ]);
+            }
+        }
+
+
+
+
+
+
+
     }
 
     /**
