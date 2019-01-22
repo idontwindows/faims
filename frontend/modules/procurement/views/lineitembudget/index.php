@@ -35,18 +35,13 @@ Modal::end();
     // you can add more column entries you need for your use case)
         $gridColumns = [
         // the name column configuration
+            
         [
-            'class'=>'kartik\grid\EditableColumn',
-            'attribute'=>'title',
-            'pageSummary'=>true,
-            'editableOptions'=> function ($model, $key, $index) {
-                 return [
-                      'header'=>'Name',
-                      'size'=>'md',
-                      'formOptions'=>['action' => ['lineitembudget/editLibObject']],
-                      'inputType' => \kartik\editable\Editable::INPUT_TEXT,// point to the new action
-                ];
-            }
+           'label'=>'title',
+           'format' => 'raw',
+           'value'=>function ($data) {
+                return Html::a($data['title'],['view', 'id'=>$data['line_item_budget_id']]);
+            },
         ],
 
         [
