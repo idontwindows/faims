@@ -11,7 +11,6 @@ $whitelist = array(
     '::1',
     //'::8082',
     'localhost',
-    '192.168.1.241'
 );
 if (isset($_SERVER['SERVER_NAME'])) {
     if (!in_array($_SERVER['SERVER_NAME'], $whitelist)) {
