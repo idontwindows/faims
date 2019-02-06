@@ -33,7 +33,6 @@ jQuery(document).ready(function ($) {
     );
 
     $(document).on('click','#myabstract' , function () {
-
             $('.btn-group').show();
             $("#kv-grid-data2-togdata-all").click();
             $("#kv-grid-data2-togdata-page").click();

@@ -43,7 +43,7 @@ class AjaxController extends \yii\web\Controller
         return $porequest;
     }
 
-    public function actionRequestforquotationbidsandawards()
+    public function actionQuotationbidsandawards()
     {
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         //$Purchase = new Purchaserequest();

@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by Larry Mark B. Somocor.
- * User: Larry
- * Date: 3/13/2018
- * Time: 9:47 AM
- */
-
 use yii\helpers\Html;
 
 
@@ -15,7 +8,7 @@ $func = new Functions();
 
 
 $BaseURL = $GLOBALS['frontend_base_uri'];
-$this->title = 'Request For Quotation Bids and Awards';
+$this->title = 'Quotation Bids and Awards';
 $angularcontroller = "";
 $this->params['breadcrumbs'][] = '';
 $this->registerJsFile($BaseURL.'js/angular.min.js');
@@ -71,8 +64,8 @@ $this->registerJsFile($BaseURL.'js/custom.js');
         GridButton(datavalue,buttontitle,buttonid,buttontype,buttonblock="",css,fa-icon,buttonname,moduleURL)
     -->
     <?= $func->GridGroupStart('button-control')?>
-    <?= $func->GridButton('purchase_request_id',"Bids And Awards","btnBidsandAwards","default ","","grdbutton","fa fa-industry","bids","bids") ?>
-    <?= $func->GridButton('purchase_request_id',"Quotation","btnQuotation","default ","","grdbutton","fa fa-paperclip","quotation","quotation") ?>
+    <?= $func->GridButton('purchase_request_id',"Bids And Awards","btnBidsandAwards","success ","","grdbutton","fa fa-industry","bids","bids") ?>
+    <?= $func->GridButton('purchase_request_id',"Quotation","btnQuotation","warning ","","grdbutton","fa fa-paperclip","quotation","quotation") ?>
     <?= $func->GridGroupEnd();?>
     <!-- *********************************** Close Group for Buttons ************************************************ -->
     <?=

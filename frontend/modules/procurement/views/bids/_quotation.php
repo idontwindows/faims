@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by Larry Mark B. Somocor.
- * User: Larry
- * Date: 3/16/2018
- * Time: 9:16 AM
- */
-
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use kartik\select2\Select2;

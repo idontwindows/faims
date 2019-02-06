@@ -56,6 +56,7 @@ class Disbursement extends \yii\db\ActiveRecord
             [['dv_date'], 'safe'],
             [['particulars'], 'string'],
             [['dv_amount', 'dv_total'], 'number'],
+            [['dv_amount','particulars'], 'required'],
             [['certified_a', 'certified_b', 'approved', 'taxable', 'funding_id', 'supporting_docs', 'cash_available', 'subject_ada', 'user_id'], 'integer'],
             [['dv_no', 'payee', 'os_no', 'dv_type', 'po_no', 'fundings'], 'string', 'max' => 100],
             [['address'], 'string', 'max' => 255],

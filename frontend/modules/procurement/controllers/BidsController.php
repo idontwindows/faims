@@ -65,6 +65,7 @@ class BidsController extends Controller
                     return ''; // any custom error after model save
                 },
             ]
+
             ,
 
 
@@ -191,7 +192,9 @@ class BidsController extends Controller
         $procCon = Yii::$app->procurementdb;
         $transaction = $procCon->beginTransaction();
         try {
+            $curdate = date('Y-m-d');
             $pOrder->purchase_order_number = $PoID;
+            $pOrder->purchase_order_date = $curdate;
             $pOrder->save();
             do {
                 $mdata = $data[$s];

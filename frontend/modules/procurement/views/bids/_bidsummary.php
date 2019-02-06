@@ -1,17 +1,10 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Larry
- * Date: 5/18/2018
- * Time: 11:17 AM
- */
 use kartik\grid\GridView;
 ?>
 <div id="bidsummary">
 
     <div class="row">
         <div class="col-lg-12">
-
             <?php
 
             $colorPluginOptions =  [

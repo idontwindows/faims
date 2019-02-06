@@ -131,7 +131,7 @@ class Functions extends Component
         $gridheader = $gridheader.'</div>';
         $gridheader = $gridheader.'<div class="row">';
         $gridheader = $gridheader.'<div class="col-md-12" ng-show="filteredItems > 0">';
-        $gridheader = $gridheader.'<div class="table-responsive"><table class="table">';
+        $gridheader = $gridheader.'<div class="table-responsive"><table class="table kartik-sheet-style">';
         $gridheader = $gridheader.'<thead>';
 
         return $gridheader;
@@ -157,9 +157,9 @@ class Functions extends Component
 
     function GridHeader($HeaderTitle,$Sortfields) {
         if ($Sortfields=="") {
-            $gridheader='<th style="text-align-right">'.$HeaderTitle.'</th>';
+            $gridheader='<th style="text-align: right!important;" class="kartik-sheet-style">'.$HeaderTitle.'</th>';
         }else{
-        $gridheader='<th>'.$HeaderTitle.'<a ng-click="sort_by('.$Sortfields.');"><i class="glyphicon glyphicon-sort"></i></a></th>';
+        $gridheader='<th class="kartik-sheet-style">'.$HeaderTitle.'<a ng-click="sort_by('.$Sortfields.');"><i class="glyphicon glyphicon-sort"></i></a></th>';
         }
         return $gridheader;
 

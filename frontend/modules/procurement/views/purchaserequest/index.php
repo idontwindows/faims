@@ -9,7 +9,7 @@
 
 
 use yii\helpers\Html;
-
+use common\modules\pdfprint;
 
 use common\components\Functions;
 use yii2mod\alert\Alert;
@@ -36,7 +36,7 @@ $this->registerJsFile($BaseURL.'js/custom.js');
 ?>
 
 <div class="request-index">
-    <h1 class="centered"><i class="fa fa-sitemap"></i> <?= Html::encode($this->title) ?></h1>
+    <h1 class="centered"><i class="fa fa-cart-plus"></i> <?= Html::encode($this->title) ?></h1>
     <?php
     //Generate Header Controller AngularJS
     $maincontroller=str_replace(" ", "",strtolower(Html::encode($this->title)))."ctrl";?>
@@ -64,6 +64,7 @@ $this->registerJsFile($BaseURL.'js/custom.js');
     <!-- *********************************** Start Group for Buttons ************************************************ -->
 
     <?= $func->GridGroupStart('button-control')?>
+    <a href="reportpr?id={{data.purchase_request_id}}" class="btn-pdfprint btn btn-warning grdbutton"> <i class="fa fa-print"></i></a>
     <?= $func->GridButton('purchase_request_id',"","btnDelete","danger","","grdbutton","fa fa-minus","Delete","procurement/purchaserequest/") ?>
     <?= $func->GridButton('purchase_request_id',"","btnEdit","default ","","grdbutton","fa fa-edit","Update","myEdit") ?>
     <?= $func->GridButton('purchase_request_id',"","btnView","primary","","grdbutton", "fa fa-eye","myView","myView") ?>
@@ -146,7 +147,9 @@ $this->registerJsFile($BaseURL.'js/custom.js');
         }
     }
     ?>
-
+    <?= pdfprint\Pdfprint::widget([
+        'elementClass' => '.btn-pdfprint'
+    ]); ?>
 
 </div>
 

@@ -11,6 +11,7 @@ use Yii;
  * @property string $purchase_order_number
  * @property integer $supplier_id
  * @property integer $purchase_order_status
+ * @property date $purchase_order_date
  */
 class Purchaseorder extends \yii\db\ActiveRecord
 {
@@ -51,6 +52,7 @@ class Purchaseorder extends \yii\db\ActiveRecord
             'purchase_order_number' => 'Purchase Order Number',
             'supplier_id' => 'Supplier ID',
             'purchase_order_status' => 'Purchase Order Status',
+            'purchase_order_date' => 'Purchase Order Date',
         ];
     }
 }

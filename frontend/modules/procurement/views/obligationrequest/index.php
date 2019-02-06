@@ -1,5 +1,5 @@
 <?php
-
+use common\modules\pdfprint;
 use yii\helpers\Html;
 use kartik\grid\GridView;
 
@@ -39,6 +39,7 @@ $this->params['breadcrumbs'][] = $this->title;
     ?>
 
 
+    <h1 class="centered" style="margin-bottom: 0px;"><i class="fa fa-sitemap"></i> Obligation Request</h1>
 <?php
 
     $colorPluginOptions =  [
@@ -107,13 +108,14 @@ $this->params['breadcrumbs'][] = $this->title;
             'contentOptions' => [
                 'style'=>'max-width:200px; overflow: auto; white-space: normal; word-wrap: break-word;'
             ],
-            'width'=>'37%',
+            'width'=>'36%',
             'headerOptions' => ['class' => 'kartik-sheet-style'],
         ],
 
         [
             'class' => '\kartik\grid\ActionColumn',
-            'width'=>'5%',
+            'width'=>'6%',
+            'template' => '{view}{update}{delete} {print}',
             'buttons'=>[
             'update' => function($url,$model,$key){
             $btn = Html::button('<span class=\'glyphicon glyphicon-pencil\'></span>', ['value' => Url::to(['update?id='.$model["obligation_request_id"].'&view=edit']), 'title' => 'Edit Obligation Request', 'tab-index'=>0 , 'class' => 'btn btn-success', 'style'=>'margin-right: 6px;', 'id'=>'buttonAddObligation']);
@@ -133,6 +135,16 @@ $this->params['breadcrumbs'][] = $this->title;
                  "class"=>"btn btn-danger"
                   ]);
             },
+             'print' => function($url,$model,$key){
+                return Html::a('<span class="glyphicon glyphicon-print"></span>', ['reportob?id='.$model["obligation_request_id"]], [
+                     'class'=>'btn-pdfprint btn btn-warning',
+                     'data-pjax'=>"0",
+                     'pjax'=>"0",
+                     'title'=>'Will open the generated PDF file in a new window'
+                 ]);
+                    //$btn = Html::submitButton('<span class=\'glyphicon glyphicon-print\'></span>', ['value' => Url::to(['reportob?id='.$model["obligation_request_id"]]), 'title' => 'Print Obligation Request', 'tab-index'=>0 , 'class' => 'btn btn-info', 'style'=>'margin-right: 6px;']);
+                    //return $btn;
+             },
         ],
             'headerOptions' => ['class' => 'kartik-sheet-style'],
             'deleteOptions' => ['label' => '<span class="glyphicon glyphicon-remove"></span>']
@@ -156,21 +168,22 @@ $this->params['breadcrumbs'][] = $this->title;
         'containerOptions' => ['style' => 'overflow: auto'], // only set when $responsive = false
         'headerRowOptions' => ['class' => 'kartik-sheet-style'],
         'filterRowOptions' => ['class' => 'kartik-sheet-style'],
-
         'toolbar' =>
             [
+                '{export}',
+                '{toggleData}',
                 [
                     'content'=>
                         Html::button('Create Obligation Request', ['value' => Url::to(['obligationrequest/create']), 'title' => 'Create Obligation Request', 'tab-index'=>0 , 'class' => 'btn btn-success', 'style'=>'margin-right: 6px;', 'id'=>'buttonAddObligation']) .
                         Html::a('<i class="glyphicon glyphicon-repeat"></i>', ['index'], ['data-pjax' => false, 'class' => 'btn btn-default', 'title'=>'Reset Grid'])
+                    ,
                 ],
-                '{export}',
-                '{toggleData}'
             ],
         // set export properties
         'export' => [
             'fontAwesome' => true
         ],
+        'toolbarContainerOptions' => ['class' => 'btn-toolbar kv-grid-toolbar toolbar-container pull-left'],
         'bordered' => true,
         'striped' => true,
         'condensed' => true,
@@ -178,11 +191,14 @@ $this->params['breadcrumbs'][] = $this->title;
         'hover' => true,
         'showPageSummary' => true,
         'panel' => [
-            'heading' => 'Data Details',
+            'heading' => '',
         ],
         'persistResize' => false,
         'toggleDataOptions' => ['minCount' => 10],
         'exportConfig' => true,
     ]);
     ?>
+    <?= pdfprint\Pdfprint::widget([
+        'elementClass' => '.btn-pdfprint'
+    ]); ?>
 </div>

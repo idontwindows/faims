@@ -32,7 +32,7 @@ $this->registerJsFile($BaseURL.'js/custom.js');
 ?>
 
 <div class="request-index">
-    <h1 class="centered"><i class="fa fa-sitemap"></i> <?= Html::encode($this->title) ?></h1>
+    <h1 class="centered" style="margin-bottom: 0px;"><i class="fa fa-sitemap"></i> <?= Html::encode($this->title) ?></h1>
     <!-- content -->
     <?php
 
@@ -193,8 +193,7 @@ $this->registerJsFile($BaseURL.'js/custom.js');
         'hover' => true,
         'showPageSummary' => true,
         'panel' => [
-            'type' => GridView::TYPE_PRIMARY,
-            'heading' => 'Data Details',
+            'heading' => '',
         ],
         'persistResize' => false,
         'toggleDataOptions' => ['minCount' => 10],

@@ -113,11 +113,11 @@ $this->params['breadcrumbs'][] = $this->title;
             'width'=>'5%',
             'buttons'=>[
                 'update' => function($url,$model,$key){
-                    $btn = Html::button('<span class=\'glyphicon glyphicon-pencil\'></span>', ['value' => Url::to(['update?id='.$model["dv_id"].'&view=edit']), 'title' => 'Edit Obligation Request', 'tab-index'=>0 , 'class' => 'btn btn-success', 'style'=>'margin-right: 6px;', 'id'=>'buttonAddObligation']);
+                    $btn = Html::button('<span class=\'glyphicon glyphicon-pencil\'></span>', ['value' => Url::to(['update?id='.$model["dv_id"].'&view=edit']), 'title' => 'Edit Disbursement', 'tab-index'=>0 , 'class' => 'btn btn-success', 'style'=>'margin-right: 6px;', 'id'=>'buttonAddDisbursement']);
                     return $btn;
                 },
                 'view' => function($url,$model,$key){
-                    $btn = Html::button('<span class=\'glyphicon glyphicon-eye-open\'></span>', ['value' => Url::to(['view?id='.$model["dv_id"]]), 'title' => 'View Obligation Request', 'tab-index'=>0 , 'class' => 'btn btn-info', 'style'=>'margin-right: 6px;', 'id'=>'buttonAddObligation']);
+                    $btn = Html::button('<span class=\'glyphicon glyphicon-eye-open\'></span>', ['value' => Url::to(['view?id='.$model["dv_id"]]), 'title' => 'View Disbursement', 'tab-index'=>0 , 'class' => 'btn btn-info', 'style'=>'margin-right: 6px;', 'id'=>'buttonAddDisbursement']);
                     return $btn;
                 },
                 'delete'=>function($url, $model){
@@ -154,13 +154,14 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterRowOptions' => ['class' => 'kartik-sheet-style'],
         'toolbar' =>
             [
+                '{export}',
+                '{toggleData}',
                 [
                     'content'=>
                         Html::button('Create Disbursement', ['value' => Url::to(['disbursement/create']), 'title' => 'Create Disbursement', 'tab-index'=>0 , 'class' => 'btn btn-success', 'style'=>'margin-right: 6px;', 'id'=>'buttonAddDisbursement']) .
                         Html::a('<i class="glyphicon glyphicon-repeat"></i>', ['index'], ['data-pjax' => false, 'class' => 'btn btn-default', 'title'=>'Reset Grid'])
                 ],
-                '{export}',
-                '{toggleData}'
+
             ],
         // set export properties
         'export' => [
@@ -175,6 +176,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'panel' => [
             'heading' => 'Data Details',
         ],
+        'toolbarContainerOptions' => ['class' => 'btn-toolbar kv-grid-toolbar toolbar-container pull-left'],
         'persistResize' => false,
         'toggleDataOptions' => ['minCount' => 10],
         'exportConfig' => true,

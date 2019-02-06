@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by Larry Mark B. Somocor.
- * User: Larry
- * Date: 3/16/2018
- * Time: 9:16 AM
- */
-
 use kartik\helpers\Panel;
 use kartik\select2\Select2;
 use kartik\widgets\SwitchInput  ;

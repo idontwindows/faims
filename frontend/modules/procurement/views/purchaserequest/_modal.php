@@ -25,15 +25,15 @@ $departmentmodel = new Department();
 $con =  Yii::$app->db;
 $section = Section::find()->all();
 $divisions = Division::find()->all();
-$command = $con->createCommand("SELECT `tbl_employee`.`employee_id`,CONCAT(`tbl_employee`.`lastname`,', ',`tbl_employee`.`firstname`,' ',`tbl_employee`.`middlename`) AS employeename 
-    FROM `fais-procurement`.`tbl_employee`");
+$command = $con->createCommand("SELECT `tbl_profile`.`user_id`,CONCAT(`tbl_profile`.`lastname`,', ', `tbl_profile`.`firstname` ,' ', `tbl_profile`.`middleinitial`, ' - ' , `tbl_profile`.`designation`) AS employeename
+        FROM `tbl_profile`");
 $command2 = $con->createCommand("SELECT unit_type_id, name_short AS units FROM `tbl_unit_type`
 UNION ALL
 SELECT unit_type_id, name_long AS units FROM `tbl_unit_type`
 ORDER BY units");
 $units = $command2->queryAll();
 $employees = $command->queryAll();
-$listEmployees = ArrayHelper::map($employees, 'employee_id', 'employeename');
+$listEmployees = ArrayHelper::map($employees, 'user_id', 'employeename');
 $listSection = ArrayHelper::map($section, 'section_id', 'name');
 $listDivisions = ArrayHelper::map($divisions,'division_id','name');
 $lineItemBudget = ArrayHelper::map($section,'section_id','name');
