@@ -178,3 +178,11 @@ vendor/kartik-v/yii2-export/messages/zh-CN/kvexport.php
 vendor/kartik-v/yii2-export/messages/zh-TW/kvexport.php
 vendor/kartik-v/yii2-export/messages/zu/kvexport.php
 vendor/kartik-v/yii2-export/views/_columns.php
+common/config/bootstrap.php
+common/config/db.php
+common/config/main.php
+common/config/db.php
+common/config/db.php
+common/config/main.php
+common/config/db.php
+common/config/main.php

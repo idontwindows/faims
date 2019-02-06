@@ -167,7 +167,6 @@ jQuery(document).ready(function ($) {
 
     function DelDetails(id) {
         $.get(frontendURI + "procurement/purchaserequest/deletedetails?idno=" + id , function(data, status){
-
         });
         return 'success';
     }
