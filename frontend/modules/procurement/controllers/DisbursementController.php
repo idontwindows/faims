@@ -110,8 +110,6 @@ class DisbursementController extends Controller
         return json_encode($checkxml);
     }
 
-
-
     /**
      *
      */

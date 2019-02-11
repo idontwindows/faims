@@ -38,6 +38,7 @@ $("body").on("change","input[name='Disbursement[taxable]']",function () {
     var s= $(this).val()
     var amt = $("#disbursement-dv_amount").val();
     if(amt=='') {
+        $("input[name='Disbursement[taxable]'][value='0']").prop('checked', true);
     }else{
         if (s==1) {
              var gross = amt;
@@ -45,29 +46,26 @@ $("body").on("change","input[name='Disbursement[taxable]']",function () {
              var tax = lesstax * 0.05;
              var ewt = lesstax * 0.01;
              var net = gross - tax - ewt;
-             alert('dsss');
+            var disb =  $("#disbursement-particulars").text();
+            localStorage["lastSet"] = disb;
              if (gross > 10000) {
-                 var disb =  $("#disbursement-particulars").text();
-                 localStorage["lastSet"] = disb;
                  $("#disbursement-particulars").html(disb
                      +'&#13;&#13;' + 'GROSS : ' + parseFloat( gross ).toFixed(2)
                      +'&#13;' + 'Less TAX : ' + parseFloat( tax ).toFixed(2)
                      +'&#13;' + 'Less EWT : ' + parseFloat( ewt ).toFixed(2)
                      +'&#13;' + 'NET AMOUNT : ' + parseFloat( net ).toFixed(2));
              }else{
-                 var disb =  $("#disbursement-particulars").text();
-                 localStorage["lastSet"] = disb;
                  $("#disbursement-particulars").html(disb
                      +'&#13;&#13;' + 'GROSS : ' + parseFloat( gross ).toFixed(2)
                      +'&#13;' + 'Less TAX : ' + parseFloat( tax ).toFixed(2)
                      +'&#13;' + 'NET AMOUNT : ' + parseFloat( net ).toFixed(2));
              }
         }else{
-            disb = '';
             var s = document.getElementById('disbursement-particulars');
-            s.value = localStorage["lastSet"];
+            var f = document.getElementById('disbursement-dv_amount');
+            f.value = '';
+            s.value = '';
             s.focus();
-            //$("#disbursement-particulars").html(localStorage["lastSet"]);
         }
     }
 })

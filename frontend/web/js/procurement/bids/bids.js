@@ -173,8 +173,6 @@ jQuery(document).ready(function ($) {
         }
     });
 
-
-
     $('body').on('click','#btnCreatePO' , function(e) {
         var selectedrows = $('#kv-grid-data').yiiGridView('getSelectedRows');
         var table = $(".kv-grid-table").tableToJSON();
