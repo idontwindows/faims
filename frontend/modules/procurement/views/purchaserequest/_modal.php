@@ -40,6 +40,18 @@ $listDivisions = ArrayHelper::map($divisions,'division_id','name');
 $lineItemBudget = ArrayHelper::map($section,'section_id','name');
 $listUnits = ArrayHelper::map($units,'unit_type_id','units');
 
+$gg='SELECT unit_type_id, name_short AS units FROM `tbl_unit_type`
+UNION ALL
+SELECT unit_type_id, name_long AS units FROM `tbl_unit_type`
+ORDER BY units';
+
+echo $gg.'<br/>';
+
+var_dump($listUnits);
+
+
+
+
 if ($model->purchase_request_requestedby_id=='')
     $model->purchase_request_requestedby_id = $userid;
 ?>

@@ -8,7 +8,7 @@
 
 jQuery(document).ready(function ($) {
 
-    $(document).on('click','.purchaseorder' , function() {
+  /*   $(document).on('click','.purchaseorder' , function() {
         $(".loadpartial").fadeIn(300);
         $(".loadpartial").show();
         var x = $(this).data('id');
@@ -26,6 +26,17 @@ jQuery(document).ready(function ($) {
             }
         } );
     });
-
+*/
 
 });
+
+$("body").on("click","#buttonAddObligation",function () {
+    $('#modalPurchaseOrder').modal('show')
+        .find('#modalContent')
+        .load($(this).attr('value'));
+    $('#modalHeader').html($(this).attr('title'));
+    setTimeout(function () {
+    },1500);
+});
+
+

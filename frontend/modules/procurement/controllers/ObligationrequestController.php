@@ -104,7 +104,7 @@ class ObligationrequestController extends Controller
         $pdf->content  = $content;
         $pdf->cssFile = '@vendor/kartik-v/yii2-mpdf/assets/kv-mpdf-bootstrap.min.css';
         $pdf->cssInline = '.kv-heading-1{font-size:18px}.nospace-border{border:0px;}.no-padding{ padding:0px;}.print-container{font-size:11px;font-family:Arial,Helvetica Neue,Helvetica,sans-serif; }';
-        $LeftFooterContent = '<div style="text-align: left;font-weight: lighter">Monday, April 30, 2018</div>';
+        $LeftFooterContent = '<div style="text-align: left;font-weight: lighter">'.date("F j, Y").'</div>';
         $RightFooterContent = '<div style="text-align: right;padding-top:-50px;">Page {PAGENO} of {nbpg}</div>';
         $oddEvenConfiguration =
             [

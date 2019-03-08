@@ -14,6 +14,8 @@ use yii\helpers\Html;
 use common\components\Functions;
 use kartik\grid\GridView;
 use yii\data\ArrayDataProvider;
+use yii\bootstrap\Modal;
+
 
 $func = new Functions();
 
@@ -38,7 +40,7 @@ $this->registerJsFile($BaseURL.'js/custom.js');
     //Modal
     Modal::begin([
         'header' => '<h4 id="modalHeader" style="color: #ffffff"></h4>',
-        'id' => 'modalDisbursement',
+        'id' => 'modalPurchaseOrder',
         'size' => 'modal-lg',
         'options'=> [
             'tabindex'=>false,
@@ -221,10 +223,10 @@ $this->registerJsFile($BaseURL.'js/custom.js');
     <!-- *********************************** Generate Header Modal for Create ************************************************
                         GenerateHeaderModal (id,title,widthsize,topheight)
     -->
-    <?= $func->GenerateHeaderModal("purchaseorder","Purchase Order",'80',2) ?>
-    <div class="request-bids">
+    <?php //$func->GenerateHeaderModal("purchaseorder","Purchase Order",'80',2) ?>
+   <!-- <div class="request-bids">
         <div class= "loadpartial">
-            <img src="<?= $BaseURL; ?>/images/loading.gif">
+            <img src="/images/loading.gif">
         </div>
         <div id="purchaseorderview">Units	SIGN PEN, RED, liquid/gel ink, 0.5mm needle tip, refillable	8	42.00
             8	BAMBOO GARDEN SOCIAL HALL & CATERING SERVICES	Units	CLIP, BACKFOLD, all metal, clamping: 19mm	15	75.00
@@ -232,12 +234,15 @@ $this->registerJsFile($BaseURL.'js/custom.js');
             10	PO-18-09-0004	GARDEN ORCHID HOTEL
         </div>
     </div>
-    <?=
-    $func->GenerateFooterModal("Close","Proceed",0);
+    -->
+    <?php
+    //$func->GenerateFooterModal("Close","Proceed",0);
     ?>
     <!-- *********************************** Close for View ************************************************
                             GenerateFooterModal(title,nextbuttiontitle,allowbutton=booloean)
     -->
+
+    <?php //$BaseURL; ?>
 </div>
 
 
