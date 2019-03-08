@@ -55,9 +55,9 @@ class AjaxController extends \yii\web\Controller
 	    `tbl_section`.`name` AS section_name,
 	    `tbl_purchase_request`.`purchase_request_purpose`
 	    FROM `tbl_purchase_request`
-	    INNER JOIN `tbl_division`
+	    INNER JOIN `fais`.`tbl_division`
 	    ON `tbl_division`.`division_id` = `tbl_purchase_request`.`division_id`
-	    INNER JOIN `tbl_section`
+	    INNER JOIN `fais`.`tbl_section`
 	    ON `tbl_section`.`section_id` = `tbl_purchase_request`.`section_id`";
         $porequest = $con->createCommand($sql)->queryAll();
         return $porequest;
