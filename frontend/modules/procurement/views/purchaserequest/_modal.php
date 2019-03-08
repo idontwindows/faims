@@ -22,6 +22,7 @@ $this->registerJsFile($BaseURL.'js/custom.js');
 
 $prdetails = new PurchaseRequestDetails();
 $departmentmodel = new Department();
+$userid = yii::$app->user->getId();
 $con =  Yii::$app->db;
 $section = Section::find()->all();
 $divisions = Division::find()->all();
@@ -38,7 +39,11 @@ $listSection = ArrayHelper::map($section, 'section_id', 'name');
 $listDivisions = ArrayHelper::map($divisions,'division_id','name');
 $lineItemBudget = ArrayHelper::map($section,'section_id','name');
 $listUnits = ArrayHelper::map($units,'unit_type_id','units');
+
+if ($model->purchase_request_requestedby_id=='')
+    $model->purchase_request_requestedby_id = $userid;
 ?>
+
 
 <div class="purchaserequest-modal">
     <div class="col-lg-12">
@@ -147,24 +152,13 @@ $listUnits = ArrayHelper::map($units,'unit_type_id','units');
                     <h4 style="border-bottom: #1c1c1c 2.5px solid;text-transform: uppercase;">Line Item Budget</h4>
                 </div>
                 <div class="col-lg-4">
-                    <?=
-                    Select2::widget([
+                    <?='';
+                    /* Select2::widget([
                         'data'=> $listSection,
                         'id' => 'cbolineitembudget',
                         'name' => 'cbolineitembudget'
-                    ])
+                    ]); */
                     ?>
-                </div>
-                <div class="col-lg-2">
-                    <?= Html::button('Insert Item [F2]',[
-                            'id'=>'btnInsert',
-                            'name'=>'btnInsert',
-                            'class'=>'btn btn-sm btn-success btn-block small',
-                            'tabindex'=>'-1',
-                        ]);
-                    ?>
-                </div>
-                <div class="col-lg-2">
                     <?= Html::button('Add Item [F4]',[
                         'id'=>'btnAddLineItem',
                         'name'=>'btnAddLineItem',
@@ -172,6 +166,19 @@ $listUnits = ArrayHelper::map($units,'unit_type_id','units');
                         'tabindex'=>'-1',
                     ]);
                     ?>
+                </div>
+                <div class="col-lg-2">
+                    <?= '';
+                        /* Html::button('Insert Item [F2]',[
+                            'id'=>'btnInsert',
+                            'name'=>'btnInsert',
+                            'class'=>'btn btn-sm btn-success btn-block small',
+                            'tabindex'=>'-1',
+                        ]); */
+                    ?>
+                </div>
+               <div class="col-lg-2">
+
                 </div>
                 <div class="col-lg-6"></div>
 
@@ -199,16 +206,7 @@ $listUnits = ArrayHelper::map($units,'unit_type_id','units');
                                 </tr>
                                 </thead>
                                 <tbody class="table-body">
-                                <!--
-                                <tr class="table-data">
-                                        <td><div class="radio-container"><div class="radio tbl-tmt" data-id="1" data-radio="test"><input type="radio" name="test" class="radio-ui"></div></div></td>
-                                    <td>Unit</td>
-                                    <td>Item Lorem Ipsum</td>
-                                    <td>3</td>
-                                    <td>300.00</td>
-                                    <td>900.00</td>
-                                </tr>
-                                -->
+                                    <!-- Populate Data -->
                                 </tbody>
                             </table>
 

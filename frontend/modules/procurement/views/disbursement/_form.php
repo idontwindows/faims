@@ -29,6 +29,7 @@ $this->registerJsFile($BaseURL.'js/disbursement/function.js');
                 'name' => 'cbodvType',
                 'id'=> 'cbodvType',
                 'hideSearch' => true,
+                'disabled'=> $model->isNewRecord ? false : true,
                 'data' => $dvtype_data,
                 'options' => [
                     'multiple' => false
@@ -41,6 +42,13 @@ $this->registerJsFile($BaseURL.'js/disbursement/function.js');
                                                     $('#specify').hide(500);
                                                     $('#pono').hide(500);
                                                     $('#taxable').show(500);
+                                                    $(\".cboEmployeeA\").select2({
+                                                        disabled : true,
+                                                        dropdownParent: $('#modalDisbursement'),
+                                                        theme : \"krajee\"
+                                                    });
+                                                      $(\"#disbursement-certified_a\").val('').trigger('change');
+                                                            alert('test');
                                              }
                                              if (data=='TF') {
                                                     $('#sono').hide(500);
@@ -49,18 +57,34 @@ $this->registerJsFile($BaseURL.'js/disbursement/function.js');
                                                     var value=0;
                                                     $(\"input[name=rdList][value=\" + value + \"]\").prop('checked', true);
                                                     $('#taxable').show(500);
+                                                    $(\".cboEmployeeA\").select2({
+                                                        disabled : false,
+                                                        dropdownParent: $('#modalDisbursement'),
+                                                        theme : \"krajee\",
+                                                    });
+                                                  
                                              }
                                              if (data == 'ST') {
                                                     $('#sono').hide(500);
                                                     $('#specify').show(500);
                                                     $('#pono').show(500);
                                                     $('#taxable').show(500);
+                                                    $(\".cboEmployeeA\").select2({
+                                                        disabled : false,
+                                                        dropdownParent: $('#modalDisbursement'),
+                                                        theme : \"krajee\",
+                                                    });
                                              }
                                              if (data == 'BI') {
                                                     $('#sono').hide(500);
                                                     $('#specify').hide(500);
                                                     $('#pono').hide(500);
                                                     $('#taxable').hide(500);
+                                                    $(\".cboEmployeeA\").select2({
+                                                        disabled : false,
+                                                        dropdownParent: $('#modalDisbursement'),
+                                                        theme : \"krajee\",
+                                                    });
                                              }
                                     },",
 
@@ -136,7 +160,7 @@ $this->registerJsFile($BaseURL.'js/disbursement/function.js');
                 'id'=> 'cboEmployeeA',
                 'name'=> 'cboEmployeeA',
                 'language' => 'en',
-                'options' => ['placeholder' => 'Select Employee','tabindex'=>-1],
+                'options' => ['placeholder' => 'Select Employee','tabindex'=>-1,'class'=>'cboEmployeeA'],
                 'pluginOptions' => [
                     'allowClear' => true,
                     'dropdownParent'=> new yii\web\JsExpression('$("#modalDisbursement")')
@@ -180,7 +204,7 @@ $this->registerJsFile($BaseURL.'js/disbursement/function.js');
 
         <div class="col-lg-1" id="taxable">
             <?php $model->isNewRecord==1 ? $model->taxable=0:$model->taxable;?>
-            <?= $form->field($model, 'taxable')->radioList(array('1'=>'Yes','0'=>'No')); ?>
+            <?= $form->field($model, 'taxable')->radioList(array('1'=>'Yes','0'=>'No'),['itemOptions' => ['disabled' => $model->isNewRecord ? false : true]]); ?>
         </div>
 
         <div class="col-lg-2" id="sono">
@@ -226,7 +250,7 @@ $this->registerJsFile($BaseURL.'js/disbursement/function.js');
 
         <div class="col-lg-4" id="specify">
             <label>Pls Specify...</label>
-                <?= Html::radioList('rdList',1,array('0'=>'Purchase','1'=>'Salary','2'=>'Scholarship','3'=>'Travel/Others')); ?>
+                <?= Html::radioList('rdList',1,array('0'=>'Purchase','1'=>'Salary','2'=>'Scholarship','3'=>'Travel/Others'),['itemOptions' => ['disabled' => $model->isNewRecord ? false : true]]); ?>
         </div>
 
         <div class="col-lg-4" id="pono">
@@ -238,7 +262,7 @@ $this->registerJsFile($BaseURL.'js/disbursement/function.js');
                 'theme'=>Select2::THEME_KRAJEE,
                 'language' => 'en',
                 'options' => ['placeholder' => 'Select P.O.','style'=> 'padding-top:0px;','disabled'=>true,
-                    'class'=> 'cboPono',],
+                    'class'=> 'cboPono'],
                 'pluginOptions' => [
                     'allowClear' => true,
                     'dropdownParent'=> new yii\web\JsExpression('$("#modalDisbursement")')

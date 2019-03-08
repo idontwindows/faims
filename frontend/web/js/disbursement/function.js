@@ -11,6 +11,12 @@ $("body").ready(function() {
         $('#specify').hide(500);
         $('#pono').hide(500);
         $('#taxable').show(500);
+        $(".cboEmployeeA").select2({
+            disabled : true,
+            dropdownParent: $('#modalDisbursement'),
+            theme : "krajee"
+        });
+        $("#disbursement-certified_a").val('').trigger('change');
     }
     if (data=='TF') {
         $('#sono').hide(500);
@@ -19,18 +25,33 @@ $("body").ready(function() {
         var value=0;
         $("input[name=rdList][value=" + value + "]").prop('checked', true);
         $('#taxable').show(500);
+        $(".cboEmployeeA").select2({
+            disabled : false,
+            dropdownParent: $('#modalDisbursement'),
+            theme : "krajee"
+        });
     }
     if (data == 'ST') {
         $('#sono').hide(500);
         $('#specify').show(500);
         $('#pono').show(500);
         $('#taxable').show(500);
+        $(".cboEmployeeA").select2({
+            disabled : false,
+            dropdownParent: $('#modalDisbursement'),
+            theme : "krajee"
+        });
     }
     if (data == 'BI') {
         $('#sono').hide(500);
         $('#specify').hide(500);
         $('#pono').hide(500);
         $('#taxable').hide(500);
+        $(".cboEmployeeA").select2({
+            disabled : false,
+            dropdownParent: $('#modalDisbursement'),
+            theme : "krajee"
+        });
     }
 });
 

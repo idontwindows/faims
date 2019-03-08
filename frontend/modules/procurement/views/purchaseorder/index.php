@@ -33,6 +33,23 @@ $this->registerJsFile($BaseURL.'js/custom.js');
 
 <div class="request-index">
     <h1 class="centered" style="margin-bottom: 0px;"><i class="fa fa-sitemap"></i> <?= Html::encode($this->title) ?></h1>
+
+    <?php
+    //Modal
+    Modal::begin([
+        'header' => '<h4 id="modalHeader" style="color: #ffffff"></h4>',
+        'id' => 'modalDisbursement',
+        'size' => 'modal-lg',
+        'options'=> [
+            'tabindex'=>false,
+        ]
+    ]);
+    echo "<div id='modalContent'><div style='text-align:center'><img src='/images/loading.gif'></div></div>";
+    Modal::end();
+    ?>
+
+
+
     <!-- content -->
     <?php
 

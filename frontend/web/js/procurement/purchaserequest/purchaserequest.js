@@ -68,6 +68,15 @@ jQuery(document).ready(function ($) {
 
     });
 
+    $("body").on('click','#btnAddLineItem',function () {
+
+        $('#add-container').each(function () {
+            if ($(".mypopup").hasClass('selected')) { $(".mypopup").removeClass('selected'); }else{  $(".mypopup").addClass('selected');}
+        });
+
+
+    });
+
     $("body").on('click','#btnAdd',function () {
         opentr  = "<tr class='table-data'>";
         checkbox = "<td><div class=\"radio-container\"><div class=\"radio tbl-tmt\" data-id=\"2\" data-radio=\"test\"><input type=\"radio\" name=\"test\" class=\"radio-ui\"></div></div></td>"
