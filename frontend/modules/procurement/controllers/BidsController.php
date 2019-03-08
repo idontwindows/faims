@@ -8,7 +8,7 @@ use common\models\procurement\BidsSearch;
 use common\models\procurement\Purchaseorder;
 use common\models\procurement\Purchaserequest;
 use common\models\procurement\Purchaserequestdetails;
-use common\models\procurement\PurchaserequestSearchdetails;
+use common\models\procurement\Purchaserequestsearchdetails;
 use common\models\procurement\Supplier;
 use kartik\grid\EditableColumnAction;
 use yii\data\SqlDataProvider;
@@ -25,7 +25,7 @@ class BidsController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new PurchaserequestSearchdetails();
+        $searchModel = new Purchaserequestsearchdetails();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -466,7 +466,7 @@ class BidsController extends Controller
 
     public function actionMtest()
     {
-        $searchModel = new PurchaserequestSearchdetails();
+        $searchModel = new Purchaserequestsearchdetails();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         return $this->render('_test', [
             'searchModel' => $searchModel,
@@ -485,7 +485,7 @@ class BidsController extends Controller
             $prdetails = $this->getprDetails($model->purchase_request_id);
             $biddetails = $this->getbidDetails($model->purchase_request_id);
             $ListPOprovider = $this->getpoDetails($model->purchase_request_id);
-            $searchModel = new PurchaserequestSearchdetails();
+            $searchModel = new Purchaserequestsearchdetails();
             $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
             $searchModelBid = new BidsSearch();
             $bidsProvider = $searchModelBid->search(Yii::$app->request->queryParams);
