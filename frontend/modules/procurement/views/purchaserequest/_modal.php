@@ -2,7 +2,7 @@
 use yii\widgets\ActiveForm;
 use kartik\select2\Select2;
 use common\models\procurement\Purchaserequest;
-use common\models\procurement\PurchaseRequestDetails;
+use common\models\procurement\Purchaserequestdetails;
 use common\models\procurement\Section;
 use common\models\procurement\Division;
 use common\models\procurement\Department;
@@ -21,7 +21,7 @@ $this->registerJsFile('https://code.jquery.com/ui/1.12.1/jquery-ui.js');
 $this->registerJsFile($BaseURL.'js/jquery.tabletojson.js');
 $this->registerJsFile($BaseURL.'js/custom.js');
 
-$prdetails = new PurchaseRequestDetails();
+$prdetails = new Purchaserequestdetails();
 $departmentmodel = new Department();
 $userid = yii::$app->user->getId();
 $con =  Yii::$app->db;
