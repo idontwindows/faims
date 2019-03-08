@@ -6,6 +6,7 @@ use common\models\procurement\PurchaseRequestDetails;
 use common\models\procurement\Section;
 use common\models\procurement\Division;
 use common\models\procurement\Department;
+use common\models\procurement\UnitType;
 use common\modules\pdfprint;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
@@ -32,13 +33,14 @@ $command2 = $con->createCommand("SELECT unit_type_id, name_short AS units FROM `
 UNION ALL
 SELECT unit_type_id, name_long AS units FROM `tbl_unit_type`
 ORDER BY units");
-$units = $command2->queryAll();
+//$units = $command2->queryAll();
+$units = UnitType::find()->all();
 $employees = $command->queryAll();
 $listEmployees = ArrayHelper::map($employees, 'user_id', 'employeename');
 $listSection = ArrayHelper::map($section, 'section_id', 'name');
 $listDivisions = ArrayHelper::map($divisions,'division_id','name');
 $lineItemBudget = ArrayHelper::map($section,'section_id','name');
-$listUnits = ArrayHelper::map($units,'unit_type_id','units');
+$listUnits = ArrayHelper::map($units,'unit_type_id','name_short');
 
 $gg='SELECT unit_type_id, name_short AS units FROM `tbl_unit_type`
 UNION ALL
