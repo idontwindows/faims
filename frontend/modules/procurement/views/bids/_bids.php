@@ -5,7 +5,7 @@ use kartik\widgets\SwitchInput  ;
 use yii\helpers\Url;
 use kartik\grid\GridView;
 use yii\helpers\ArrayHelper;
-use common\models\procurement\Bidsdetailsearch;
+use common\models\procurement\BidsdetailSearch;
 use common\components\Functions;
 use common\models\procurement\Supplier;
 use common\modules\pdfprint;
@@ -391,7 +391,7 @@ $BaseURL = $GLOBALS['frontend_base_uri'];
 
                                 <?php
 
-                                $searchModelBidDetails = new BidsDetailSearch();
+                                $searchModelBidDetails = new BidsdetailSearch();
                                 //$searchModelBidDetails->with='purchaserequest';
                                 $bidsDetailProvider = $searchModelBidDetails->search(Yii::$app->request->queryParams);
                                /* $bidsDetailProvider->sort->defaultOrder = [
