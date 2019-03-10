@@ -162,6 +162,7 @@ class PurchaseorderController extends \yii\web\Controller
          $supplier='';
          $ponum='';
          $prno='';
+         $pdate='';
          $prdate='';
          foreach ($prdetails as $pr) {
              $supplier = $pr["supplier_name"];
