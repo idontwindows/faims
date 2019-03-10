@@ -12,21 +12,26 @@ use yii\helpers\Html;
 
 
 use common\components\Functions;
+use common\models\procurement\Purchaseorderdetails;
 use kartik\grid\GridView;
 use yii\data\ArrayDataProvider;
 use yii\bootstrap\Modal;
+use common\modules\pdfprint;
 
 
 $func = new Functions();
 
 
 $BaseURL = $GLOBALS['frontend_base_uri'];
-$this->title = 'Purchase Order';
+$this->title = 'Inspection and Acceptance';
 $angularcontroller = "";
 $this->params['breadcrumbs'][] = '';
 //$this->registerJsFile($BaseURL.'js/angular.min.js');
 //$this->registerJsFile($BaseURL.'js/ui-bootstrap-tpls-0.10.0.min.js');
 //$this->registerJsFile($BaseURL.'js/app.js');
+$this->registerJsFile($BaseURL.'js/angular.min.js');
+$this->registerJsFile($BaseURL.'js/ui-bootstrap-tpls-0.10.0.min.js');
+$this->registerJsFile($BaseURL.'js/app.js');
 $this->registerJsFile($BaseURL.'js/jquery.tabletojson.js');
 $this->registerJsFile($BaseURL.'js/procurement/purchaseorder/purchaseorder.js');
 $this->registerJsFile($BaseURL.'js/custom.js');
@@ -165,6 +170,17 @@ $this->registerJsFile($BaseURL.'js/custom.js');
             'width'=>'10%',
             'headerOptions' => ['class' => 'kartik-sheet-style'],
         ],
+
+        [
+            'class' => 'kartik\grid\CheckboxColumn',
+            'headerOptions' => ['class' => 'kartik-sheet-style'],
+            'checkboxOptions' => function($model, $key, $index, $column) {
+                    return ['checked' => $model["delivered"],'value'=> $model["purchase_order_details_id"]];
+
+            },
+        ],
+
+
         [
 
             'label'=>'Actions',
@@ -173,7 +189,12 @@ $this->registerJsFile($BaseURL.'js/custom.js');
             'subGroupOf'=>1, // supplier column index is the parent group
             'format'=>'raw',
             'value' => function ($data) use ($func) {
-                return '<a data-target="#purchaseorder" data-id="{{data.'.$data['purchase_order_id'].'}}" data-toggle="modal" class="purchaseorder btn btn-sm btn-success">Print PO<i class="fa fa-print"></i></a>';
+                return Html::a('<span class="glyphicon glyphicon-print"></span>', ['reportpo?id='.$data["purchase_order_number"]], [
+                    'class'=>'btn-pdfprint btn btn-warning',
+                    'data-pjax'=>"0",
+                    'pjax'=>"0",
+                    'title'=>'Will open the generated PDF file in a new window'
+                ]);
             },
         ],
 
@@ -184,6 +205,7 @@ $this->registerJsFile($BaseURL.'js/custom.js');
         'dataProvider'=> $dataprovider,
         'filterModel' => $searchModel,
         'pjax' => true,
+
         'columns' => $gridColumns,
         'pjaxSettings' => [
             'neverTimeout'=>true,
@@ -219,6 +241,11 @@ $this->registerJsFile($BaseURL.'js/custom.js');
         'exportConfig' => true,
     ]);
     ?>
+
+
+    <?= pdfprint\Pdfprint::widget([
+        'elementClass' => '.btn-pdfprint'
+    ]); ?>
 
     <!-- *********************************** Generate Header Modal for Create ************************************************
                         GenerateHeaderModal (id,title,widthsize,topheight)

@@ -68,20 +68,26 @@ class PurchaseorderController extends \yii\web\Controller
      {
         $con = Yii::$app->procurementdb;
          $sql = "SELECT `tbl_purchase_order`.`purchase_order_number`  ,
-                  `tbl_bids_details`.`bids_details_id`,
-                  `fnGetSupplierName`(`tbl_bids`.`supplier_id`) AS supplier_name,
-                  `tbl_bids_details`.`bids_item_description` , 
-                  `tbl_bids_details`.`bids_quantity` , 
-                  `tbl_bids_details`.`bids_unit` , 
-                  `tbl_bids_details`.`bids_price`,
-                  `tbl_purchase_order`.`purchase_order_id`
-                  FROM `fais-procurement`.`tbl_purchase_order`
-                  INNER JOIN `fais-procurement`.`tbl_purchase_order_details`
-                  ON `tbl_purchase_order_details`.`purchase_order_id` = `tbl_purchase_order`.`purchase_order_id`
-                  INNER JOIN `fais-procurement`.`tbl_bids_details`
-                  ON `tbl_bids_details`.`bids_details_id` = `tbl_purchase_order_details`.`bids_details_id`
-                  INNER JOIN `fais-procurement`.`tbl_bids` 
-                  ON `tbl_bids`.`bids_id` = `tbl_bids_details`.`bids_id`";
+                 `tbl_bids_details`.`bids_details_id`,
+                 `fnGetSupplierName`(`tbl_bids`.`supplier_id`) AS supplier_name,
+                 `tbl_bids_details`.`bids_item_description` , 
+                 `tbl_bids_details`.`bids_quantity` , 
+                 `tbl_bids_details`.`bids_unit` , 
+                 `tbl_bids_details`.`bids_price`,
+		 `tbl_purchase_order`.`purchase_order_id`,
+		 `tbl_purchase_order_details`.`delivered`,
+		 `tbl_purchase_order`.`purchase_order_date`,
+		 `tbl_purchase_request`.`purchase_request_number`,
+		 `tbl_purchase_request`.`purchase_request_date`
+                 FROM `fais-procurement`.`tbl_purchase_order`
+                 INNER JOIN `fais-procurement`.`tbl_purchase_order_details`
+                 ON `tbl_purchase_order_details`.`purchase_order_id` = `tbl_purchase_order`.`purchase_order_id`
+                 INNER JOIN `fais-procurement`.`tbl_bids_details`
+                 ON `tbl_bids_details`.`bids_details_id` = `tbl_purchase_order_details`.`bids_details_id`
+                 INNER JOIN `fais-procurement`.`tbl_bids` 
+                 ON `tbl_bids`.`bids_id` = `tbl_bids_details`.`bids_id`
+                 INNER JOIN `tbl_purchase_request`
+                 ON `tbl_purchase_request`.`purchase_request_id` = `tbl_bids_details`.`purchase_request_id`";
          $pordetails = $con->createCommand($sql)->queryAll();
 
          $x = 0;

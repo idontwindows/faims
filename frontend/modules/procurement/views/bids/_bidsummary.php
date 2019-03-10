@@ -105,7 +105,7 @@ use kartik\grid\GridView;
                             'size'=>'sm',
                             'inputType' => \kartik\editable\Editable::INPUT_TEXT,
                             'formOptions'=>['action' => ['bids/editPrice']], // point to the new action
-                            'options'=>['pluginOptions'=>['min'=>0, 'max'=>5000,'step'=>100,'decimal'=>2 ,'prefix'=>'PHP']]
+                            'options'=>['pluginOptions'=>['min'=>0, 'max'=>50000000000,'step'=>100,'decimal'=>2 ,'prefix'=>'PHP']]
                         ];
                     },
 

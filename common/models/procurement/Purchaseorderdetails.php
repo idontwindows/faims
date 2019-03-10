@@ -11,6 +11,7 @@ use Yii;
  * @property integer $purchase_order_id
  * @property integer $bids_details_id
  * @property integer $purchase_request_details_status
+ * @property integer $delivered
  */
 class Purchaseorderdetails extends \yii\db\ActiveRecord
 {
@@ -36,7 +37,7 @@ class Purchaseorderdetails extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['purchase_order_id', 'bids_details_id', 'purchase_request_details_status'], 'integer'],
+            [['purchase_order_id', 'bids_details_id', 'purchase_request_details_status','delivered'], 'integer'],
         ];
     }
 
@@ -50,6 +51,7 @@ class Purchaseorderdetails extends \yii\db\ActiveRecord
             'purchase_order_id' => 'Purchase Order ID',
             'bids_details_id' => 'Bids Details ID',
             'purchase_request_details_status' => 'Purchase Request Details Status',
+            'delivered' => 'Delivered',
         ];
     }
 }

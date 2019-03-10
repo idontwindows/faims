@@ -28,7 +28,7 @@ jQuery(document).ready(function ($) {
     });
 */
 
-});
+
 
 $("body").on("click","#buttonAddObligation",function () {
     $('#modalPurchaseOrder').modal('show')
@@ -40,3 +40,31 @@ $("body").on("click","#buttonAddObligation",function () {
 });
 
 
+$('body').on('click','.kv-row-checkbox' , function() {
+        var chkRow = $(this);
+        var checked = chkRow.is(':checked');
+        var bools;
+        if (checked==true) {
+            bools = 1;
+        }else{
+            bools = 0;
+        }
+        jQuery.ajax({
+            type: "POST",
+            url: frontendURI + "procurement/inspection/checkselected",
+            data: {chkRow: chkRow.val() , chkStatus: bools},
+            success: function (response) {
+                //alert(response);
+                console.log(response);
+                $("#kv-grid-data-togdata-all").click();
+                $("#kv-grid-data-togdata-page").click();
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert(thrownError);
+            }
+        });
+});
+
+
+
+});
