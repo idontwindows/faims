@@ -159,6 +159,10 @@ class PurchaseorderController extends \yii\web\Controller
          $pdf->content  = $content;
          $pdf->cssFile = '@vendor/kartik-v/yii2-mpdf/assets/kv-mpdf-bootstrap.min.css';
          $pdf->cssInline = '.kv-heading-1{font-size:18px}.nospace-border{border:0px;}.no-padding{ padding:0px;}.print-container{font-size:11px;font-family:Arial,Helvetica Neue,Helvetica,sans-serif;}h6 {  }';
+         $supplier='';
+         $ponum='';
+         $prno='';
+         $prdate='';
          foreach ($prdetails as $pr) {
              $supplier = $pr["supplier_name"];
              $ponum = $pr["purchase_order_number"];
