@@ -10,7 +10,7 @@
 
 use yii\helpers\Html;
 
-use common\modules\pdfprint;
+
 use common\components\Functions;
 use kartik\grid\GridView;
 use yii\data\ArrayDataProvider;
@@ -173,12 +173,7 @@ $this->registerJsFile($BaseURL.'js/custom.js');
             'subGroupOf'=>1, // supplier column index is the parent group
             'format'=>'raw',
             'value' => function ($data) use ($func) {
-                return Html::a('<span class="glyphicon glyphicon-print"></span>', ['reportpo?id='.$data["purchase_order_number"]], [
-                    'class'=>'btn-pdfprint btn btn-warning',
-                    'data-pjax'=>"0",
-                    'pjax'=>"0",
-                    'title'=>'Will open the generated PDF file in a new window'
-                ]);
+                return '<a data-target="#purchaseorder" data-id="{{data.'.$data['purchase_order_id'].'}}" data-toggle="modal" class="purchaseorder btn btn-sm btn-success">Print PO<i class="fa fa-print"></i></a>';
             },
         ],
 
@@ -224,10 +219,6 @@ $this->registerJsFile($BaseURL.'js/custom.js');
         'exportConfig' => true,
     ]);
     ?>
-
-    <?= pdfprint\Pdfprint::widget([
-        'elementClass' => '.btn-pdfprint'
-    ]); ?>
 
     <!-- *********************************** Generate Header Modal for Create ************************************************
                         GenerateHeaderModal (id,title,widthsize,topheight)
