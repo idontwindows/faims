@@ -98,6 +98,56 @@ $this->registerJsFile($BaseURL.'js/disbursement/function.js');
 
     <div class="row">
 
+        <div class="col-lg-12">
+
+        <div class="col-lg-1" id="taxable">
+            <?php $model->isNewRecord==1 ? $model->taxable=0:$model->taxable;?>
+            <?= $form->field($model, 'taxable')->radioList(array('1'=>'Yes','0'=>'No'),['itemOptions' => ['disabled' => $model->isNewRecord ? false : true]]); ?>
+        </div>
+
+        <div class="col-lg-2" id="sono">
+
+            <?= $form->field($model, 'os_no')->widget(Select2::classname(), [
+                'data' => $listSono,
+                'id'=> 'cboSono',
+                'name'=> 'cboSono',
+                'language' => 'en',
+                'options' => ['placeholder' => 'Select S.O','style'=> 'padding-top:0px;','disabled'=> false,
+                    'class'=> 'cboSono','tabindex'=>-1],
+                'pluginOptions' => [
+                    'allowClear' => true,
+                    'dropdownParent'=> new yii\web\JsExpression('$("#modalDisbursement")')
+                ],
+                'pluginEvents' => [
+                    "change" => "function() {
+                                             var so_num=$(this).val();
+                                            jQuery.ajax( {
+                                                type: \"POST\",
+                                                data: {
+                                                    so_num: so_num,
+                                                },
+                                                url: \"/procurement/disbursement/checkimportid\",
+                                                dataType: \"text\",
+                                                success: function ( response ) {                                 
+                                                    data = $.parseJSON(response);
+                                                    $.each(data, function(i, item) {
+                                                        var particular = item.particulars;
+                                                        var amount = item.amount;
+                                                        $('#disbursement-particulars').text(particular);
+                                                        $('#disbursement-dv_amount').val(amount);
+                                                    });
+                                                },
+                                                error: function ( xhr, ajaxOptions, thrownError ) {
+                                                    alert( thrownError );
+                                                }
+                                            });
+                                         }",
+                ],
+            ])->label(''); ?>
+        </div>
+
+        </div>
+
         <div class="col-lg-3">
             <?= $form->field($model, 'payee')->textInput(['maxlength' => true,'placeholder'=>'John Doe']) ?>
             <?= $form->field($model, 'fundings')->textInput(['maxlength' => true,'placeholder'=>'Fundings']) ?>
@@ -202,51 +252,7 @@ $this->registerJsFile($BaseURL.'js/disbursement/function.js');
 
     <div class="row">
 
-        <div class="col-lg-1" id="taxable">
-            <?php $model->isNewRecord==1 ? $model->taxable=0:$model->taxable;?>
-            <?= $form->field($model, 'taxable')->radioList(array('1'=>'Yes','0'=>'No'),['itemOptions' => ['disabled' => $model->isNewRecord ? false : true]]); ?>
-        </div>
 
-        <div class="col-lg-2" id="sono">
-
-            <?= $form->field($model, 'os_no')->widget(Select2::classname(), [
-                'data' => $listSono,
-                'id'=> 'cboSono',
-                'name'=> 'cboSono',
-                'language' => 'en',
-                'options' => ['placeholder' => 'Select S.O','style'=> 'padding-top:0px;','disabled'=> false,
-                    'class'=> 'cboSono','tabindex'=>-1],
-                'pluginOptions' => [
-                    'allowClear' => true,
-                    'dropdownParent'=> new yii\web\JsExpression('$("#modalDisbursement")')
-                ],
-                'pluginEvents' => [
-                    "change" => "function() {
-                                             var so_num=$(this).val();
-                                            jQuery.ajax( {
-                                                type: \"POST\",
-                                                data: {
-                                                    so_num: so_num,
-                                                },
-                                                url: \"/procurement/disbursement/checkimportid\",
-                                                dataType: \"text\",
-                                                success: function ( response ) {                                 
-                                                    data = $.parseJSON(response);
-                                                    $.each(data, function(i, item) {
-                                                        var particular = item.particulars;
-                                                        var amount = item.amount;
-                                                        $('#disbursement-particulars').text(particular);
-                                                        $('#disbursement-dv_amount').val(amount);
-                                                    });
-                                                },
-                                                error: function ( xhr, ajaxOptions, thrownError ) {
-                                                    alert( thrownError );
-                                                }
-                                            });
-                                         }",
-                ],
-            ])->label(''); ?>
-        </div>
 
         <div class="col-lg-4" id="specify">
             <label>Pls Specify...</label>

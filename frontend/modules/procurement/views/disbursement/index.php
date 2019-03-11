@@ -2,7 +2,7 @@
 
 use yii\helpers\Html;
 use kartik\grid\GridView;
-
+use common\modules\pdfprint;
 use yii\helpers\Url;
 use yii\bootstrap\Modal;
 
@@ -111,6 +111,7 @@ $this->params['breadcrumbs'][] = $this->title;
         [
             'class' => '\kartik\grid\ActionColumn',
             'width'=>'5%',
+            'template' => '{view}{update}{delete} {print}',
             'buttons'=>[
                 'update' => function($url,$model,$key){
                     $btn = Html::button('<span class=\'glyphicon glyphicon-pencil\'></span>', ['value' => Url::to(['update?id='.$model["dv_id"].'&view=edit']), 'title' => 'Edit Disbursement', 'tab-index'=>0 , 'class' => 'btn btn-success', 'style'=>'margin-right: 6px;', 'id'=>'buttonAddDisbursement']);
@@ -129,6 +130,16 @@ $this->params['breadcrumbs'][] = $this->title;
                         "data-confirm"=>"Are you sure you want to delete?",
                         "class"=>"btn btn-danger"
                     ]);
+                },
+
+                'print' => function($url,$model,$key){
+                    return Html::a('<span class="glyphicon glyphicon-print"></span>', ['reportdv?id='.$model["dv_id"]], [
+                        'class'=>'btn-pdfprint btn btn-warning',
+                        'data-pjax'=>"0",
+                        'pjax'=>"0",
+                        'title'=>'Will open the generated PDF file in a new window'
+                    ]);
+
                 },
             ],
             'headerOptions' => ['class' => 'kartik-sheet-style'],
@@ -182,4 +193,8 @@ $this->params['breadcrumbs'][] = $this->title;
         'exportConfig' => true,
     ]);
     ?>
+
+    <?= pdfprint\Pdfprint::widget([
+        'elementClass' => '.btn-pdfprint'
+    ]); ?>
 </div>

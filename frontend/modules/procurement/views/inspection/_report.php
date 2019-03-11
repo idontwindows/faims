@@ -10,10 +10,9 @@
         $price = $pr["bids_price"];
         $totalcost =  $quantity * $price;
         $append = "<tr class=\"nospace-border\">";
+        $append = $append . "<td width='12%' style='padding-left: 25px;'>" . $quantity . "</td>";
         $append = $append . "<td width='10%' style='padding-left: 5px;'>units</td>";
         $append = $append . "<td width='54%' style='text-align: justify;   '>" . $itemdescription . "</td>";
-        $append = $append . "<td width='12%' style='padding-left: 25px;'>" . $quantity . "</td>";
-        $append = $append . "<td width='12%' style='padding-left: 15px;'>" . $price . "</td>";
         $append = $append . "<td width='12%' style=''>" . number_format($totalcost,2) . "</td>";
         $append = $append . "</tr>";
         $fin = $fin . $append;
