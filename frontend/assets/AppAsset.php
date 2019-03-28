@@ -14,13 +14,17 @@ class AppAsset extends AssetBundle
     public $css = [
         'css/site.css',
         'css/breadcrumbs.css',
-        'css/custom.css'
+        'css/custom.css',
+        'css/introjs.css',
+        'css/bootstrap-responsive.min.css',
+        'css/demo.css',
     ];
     public $js = [
         'js/bootbox.min.js',
         'js/main.js',
         'js/jquery.validate.min.js',
         'js/lineitembudget/ajax-modal-popup.js',
+        'js/intro.js',
         
     ];
     public $depends = [

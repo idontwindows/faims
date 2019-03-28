@@ -18,12 +18,14 @@ use kartik\widgets\SwitchInput;
         <div class="panel-body">
 
             <!-- Panel Start -->
-
+            <h5><a id="startButton2"  href="javascript:void(0);">Show me how</a></h5>
 
             <?php   $form = ActiveForm::begin(['id' => 'obligationrequest-form', 'enableClientValidation' => true]); ?>
 
             <div class="row">
                 <div class="col-lg-12">
+
+                    <h5 style='margin:0px;' data-step='6' data-intro='Select OS Type'><span>
                     <?=
                     $form->field($model, 'os_type')->widget(Select2::classname(), [
                         'name' => 'cboOSType',
@@ -53,6 +55,7 @@ use kartik\widgets\SwitchInput;
                         ],
                     ])->label('OS Type');
                     ?>
+                        </span></h5>
                 </div>
             </div>
 
@@ -234,3 +237,13 @@ use kartik\widgets\SwitchInput;
     </div>
 
 </div>
+
+
+
+<script type="text/javascript">
+    document.getElementById('startButton2').onclick = function() {
+        introJs().setOption('doneLabel', 'Next page').start().oncomplete(function() {
+            window.location.href = 'index?multipage=true';
+        });
+    };
+</script>

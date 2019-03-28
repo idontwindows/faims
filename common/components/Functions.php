@@ -124,7 +124,7 @@ class Functions extends Component
         if($linktitle=="") {
             //nothing
         }else{
-            $gridheader = $gridheader.'<button data-toggle="modal" data-target="#'.$linktarget.'" href="#'.$linktarget.'" class="'.$linktarget.' btn btn-success btn-block">'.$linktitle.' <i class="fa fa-plus"></i></button>';
+            $gridheader = $gridheader.'<h5 style=\'display: inline-block;margin:0px;\' data-step=\'1\' data-intro=\'Click here to Create\'><span><button data-toggle="modal" data-target="#'.$linktarget.'" href="#'.$linktarget.'" class="'.$linktarget.' btn btn-success btn-block">'.$linktitle.' <i class="fa fa-plus"></i></button></h5</span>';
         }
         $gridheader = $gridheader.'</div></div>';
         $gridheader = $gridheader.'<div class="space-20"></div>';
@@ -190,7 +190,7 @@ class Functions extends Component
      */
 
     function GridGroupStart($classname="") {
-          $groupstart = "<td class='".$classname."'>";
+          $groupstart = "<td class='".$classname."' style='float:right;'>";
           return $groupstart;
     }
 
@@ -218,16 +218,16 @@ class Functions extends Component
         $buttontitle="";
         switch ($btncase) {
             case "myView":
-                $grdbtn = '<a type="button" title="'.$tooltips.'" data-target="#'.$btncase.'" data-toggle="modal" data-id="{{data.'.$datavalue.'}}"  class="'.$ModuleURL.' btn btn-'.$buttontype.' '.$buttonblock.' '.$css.'">'.$buttontitle.' <i class="'.$fa.'"></i></a>';
+                $grdbtn = '<h5 style=\'display: inline-block;margin:0px;\' data-step=\'2\' data-intro=\'Click here to View\'><a type="button" title="'.$tooltips.'" data-target="#'.$btncase.'" data-toggle="modal" data-id="{{data.'.$datavalue.'}}"  class="'.$ModuleURL.' btn btn-'.$buttontype.' '.$buttonblock.' '.$css.'">'.$buttontitle.' <i class="'.$fa.'"></i></a></h5>';
                 break;
             case "Update":
-                $grdbtn = '<a type="button" title="'.$tooltips.'" data-target="#'.$btncase.'" data-toggle="modal" data-id="{{data.'.$datavalue.'}}" class="'.$ModuleURL.' btn btn-'.$buttontype.' '.$buttonblock.' '.$css.'">'.$buttontitle.' <i class="'.$fa.'"></i></a>';
+                $grdbtn = '<h5 style=\'display: inline-block;margin:0px;\' data-step=\'3\' data-intro=\'Click here to Update\'><a type="button" title="'.$tooltips.'" data-target="#'.$btncase.'" data-toggle="modal" data-id="{{data.'.$datavalue.'}}" class="'.$ModuleURL.' btn btn-'.$buttontype.' '.$buttonblock.' '.$css.'">'.$buttontitle.' <i class="'.$fa.'"></i></a></h5>';
                 break;
             case "Delete":
-                $grdbtn = '<a data-method="post" title="Delete" aria-label="Delete" data-pjax="0" data-confirm="Are you sure you want to delete this item?" href="'.$BaseURL.$ModuleURL.'delete?id={{data.'.$datavalue.'}}" data-id="{{data.'.$datavalue.'}}" data-ok="Yes" data-cancel="No" data-title="Delete" id="'.$buttonid.'" class="btn btn-'.$buttontype.' '.$buttonblock.' '.$css.'">'.$buttontitle.' <i class="'.$fa.'"></i></a>';
+                $grdbtn = '<h5 style=\'display: inline-block;margin:0px;\' data-step=\'4\' data-intro=\'Click here to Delete\'><a data-method="post" title="Delete" aria-label="Delete" data-pjax="0" data-confirm="Are you sure you want to delete this item?" href="'.$BaseURL.$ModuleURL.'delete?id={{data.'.$datavalue.'}}" data-id="{{data.'.$datavalue.'}}" data-ok="Yes" data-cancel="No" data-title="Delete" id="'.$buttonid.'" class="btn btn-'.$buttontype.' '.$buttonblock.' '.$css.'">'.$buttontitle.' <i class="'.$fa.'"></i></a></h5>';
                 break;
             default:
-                $grdbtn = '<a type="button" title="'.$tooltips.'" data-target="#'.$btncase.'" data-toggle="modal" data-id="{{data.'.$datavalue.'}}"  class="'.$ModuleURL.' btn btn-'.$buttontype.' '.$buttonblock.' '.$css.'">'.$buttontitle.' <i class="'.$fa.'"></i></a>';
+                $grdbtn = '<h5 style=\'display: inline-block;margin:0px;\' data-step=\'2\' data-intro=\'Click here to View\'><a type="button" title="'.$tooltips.'" data-target="#'.$btncase.'" data-toggle="modal" data-id="{{data.'.$datavalue.'}}"  class="'.$ModuleURL.' btn btn-'.$buttontype.' '.$buttonblock.' '.$css.'">'.$buttontitle.' <i class="'.$fa.'"></i></a></h5>';
                 break;
         }
         return $grdbtn;

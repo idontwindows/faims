@@ -40,6 +40,8 @@ $this->params['breadcrumbs'][] = $this->title;
 
 
     <h1 class="centered" style="margin-bottom: 0px;"><i class="fa fa-sitemap"></i> Obligation Request</h1>
+
+    <h5><a id="startButton"  href="javascript:void(0);">Show me how</a></h5>
 <?php
 
     $colorPluginOptions =  [
@@ -118,30 +120,30 @@ $this->params['breadcrumbs'][] = $this->title;
             'template' => '{view}{update}{delete} {print}',
             'buttons'=>[
             'update' => function($url,$model,$key){
-            $btn = Html::button('<span class=\'glyphicon glyphicon-pencil\'></span>', ['value' => Url::to(['update?id='.$model["obligation_request_id"].'&view=edit']), 'title' => 'Edit Obligation Request', 'tab-index'=>0 , 'class' => 'btn btn-success', 'style'=>'margin-right: 6px;', 'id'=>'buttonAddObligation']);
+            $btn = "<h5 style='display: inline-block;margin:0px;' data-step='3' data-intro='Click here to update Obligation Request'><span>".Html::button('<span class=\'glyphicon glyphicon-pencil\'></span>', ['value' => Url::to(['update?id='.$model["obligation_request_id"].'&view=edit']), 'title' => 'Edit Obligation Request', 'tab-index'=>0 , 'class' => 'btn btn-success', 'style'=>'margin-right: 6px;', 'id'=>'buttonAddObligation'])."</span></h5>";
             return $btn;
             },
             'view' => function($url,$model,$key){
-            $btn = Html::button('<span class=\'glyphicon glyphicon-eye-open\'></span>', ['value' => Url::to(['view?id='.$model["obligation_request_id"]]), 'title' => 'View Obligation Request', 'tab-index'=>0 , 'class' => 'btn btn-info', 'style'=>'margin-right: 6px;', 'id'=>'buttonAddObligation']);
+            $btn ="<h5 style='display: inline-block;margin:0px;' data-step='2' data-intro='Click here to view Obligation Request'><span>". Html::button('<span class=\'glyphicon glyphicon-eye-open\'></span>', ['value' => Url::to(['view?id='.$model["obligation_request_id"]]), 'title' => 'View Obligation Request', 'tab-index'=>0 , 'class' => 'btn btn-info', 'style'=>'margin-right: 6px;', 'id'=>'buttonAddObligation'])."</span></h5>";
             return $btn;
             },
             'delete'=>function($url, $model){
-                return Html::a("<span class='glyphicon glyphicon-trash'></span>", $url, [
+                return "<h5 style='display: inline-block;margin:0px;' data-step='4' data-intro='Click here to delete Obligation Request'><span>".Html::a("<span class='glyphicon glyphicon-trash'></span>", $url, [
                 "title"=>"Delete",
                  "aria-label"=>"Delete",
                  "data-pjax"=>"1",
                  "data-method"=>"post",
                  "data-confirm"=>"Are you sure you want to delete?",
                  "class"=>"btn btn-danger"
-                  ]);
+                  ])."</span></h5>";
             },
              'print' => function($url,$model,$key){
-                return Html::a('<span class="glyphicon glyphicon-print"></span>', ['reportob?id='.$model["obligation_request_id"]], [
+                return "<h5 style='display: inline-block;margin:0px;' data-step='5' data-intro='Click here to print Obligation Request'><span>".Html::a('<span class="glyphicon glyphicon-print"></span>', ['reportob?id='.$model["obligation_request_id"]], [
                      'class'=>'btn-pdfprint btn btn-warning',
                      'data-pjax'=>"0",
                      'pjax'=>"0",
                      'title'=>'Will open the generated PDF file in a new window'
-                 ]);
+                 ])."</span></h5>";
                     //$btn = Html::submitButton('<span class=\'glyphicon glyphicon-print\'></span>', ['value' => Url::to(['reportob?id='.$model["obligation_request_id"]]), 'title' => 'Print Obligation Request', 'tab-index'=>0 , 'class' => 'btn btn-info', 'style'=>'margin-right: 6px;']);
                     //return $btn;
              },
@@ -174,8 +176,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 '{toggleData}',
                 [
                     'content'=>
-                        Html::button('Create Obligation Request', ['value' => Url::to(['obligationrequest/create']), 'title' => 'Create Obligation Request', 'tab-index'=>0 , 'class' => 'btn btn-success', 'style'=>'margin-right: 6px;', 'id'=>'buttonAddObligation']) .
-                        Html::a('<i class="glyphicon glyphicon-repeat"></i>', ['index'], ['data-pjax' => false, 'class' => 'btn btn-default', 'title'=>'Reset Grid'])
+                           "<h5 style='display: inline-block;margin:0px;' data-step='1' data-intro='Click here to create Obligation Request'><span>".Html::button('Create Obligation Request', ['value' => Url::to(['obligationrequest/create']), 'title' => 'Create Obligation Request', 'tab-index'=>0 , 'class' => 'btn btn-success', 'style'=>'margin-right: 6px;', 'id'=>'buttonAddObligation']) .
+                        Html::a('<i class="glyphicon glyphicon-repeat"></i>', ['index'], ['data-pjax' => false, 'class' => 'btn btn-default', 'title'=>'Reset Grid']). '</span></h5>'
                     ,
                 ],
             ],
@@ -202,3 +204,11 @@ $this->params['breadcrumbs'][] = $this->title;
         'elementClass' => '.btn-pdfprint'
     ]); ?>
 </div>
+
+<script type="text/javascript">
+    document.getElementById('startButton').onclick = function() {
+        introJs().setOption('doneLabel', 'Next page').start().oncomplete(function() {
+            $("#buttonAddObligation").click();
+        });
+    };
+</script>
