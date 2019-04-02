@@ -19,52 +19,8 @@
         $fin = $fin . $append;
     }
     ?>
-<div style="height: 68px;"></div>
 
-   <table class="table table-responsive">
-       <tbody>
-        <tr class="nospace-border">
-            <td width="70%" style="padding: 0px;"></td>
-            <td width="30%" style="padding: 0px; padding-left: 15px; padding-top: 0px;"><?= $model->purchase_request_referrence_no ?></td>
-        </tr>
-        <tr class="nospace-border">
-            <td width="70%" style="padding: 0px;"></td>
-            <td width="30%" style="padding: 0px;padding-left: 15px;"><?= $model->purchase_request_project_name ?></td>
-        </tr>
-        <tr class="nospace-border">
-            <td width="70%" style="padding: 0px;"></td>
-            <td width="30%" style="padding: 0px;padding-left: 15px;"><?= $model->purchase_request_location_project ?></td>
-        </tr>
-        <tr class="nospace-border">
-            <td style="padding: 0px; padding-top: 34px" width="">City Mart Z.C</td>
-        </tr>
-        <tr class="nospace-border">
-            <td style="padding: 0px;" width="">Zamboanga City.</td>
-        </tr>
-        <tr class="nospace-border">
-            <td style="height: 50px;"></td>
-        </tr>
-        <tr class="nospace-border">
-            <td style="padding: 0px; padding-top:4px; padding-left:50px;" width="">May 5, 2018</td>
-        </tr>
-
-        <tr class="nospace-border">
-            <td style="height: 50px;"></td>
-        </tr>
-
-        <tr class="nospace-border">
-            <td width="80%"></td>
-            <td style="padding: -10px; padding-left: -20px; text-align: center; text-decoration: underline;" width="20%">THELMA E. DIEGO</td>
-        </tr>
-        <tr class="nospace-border">
-            <td width="80%"></td>
-            <td style="padding: 0px; padding-left: -20px; text-align: center;" width="20%">Supply Officer</td>
-        </tr>
-
-       </tbody>
-    </table>
-
-    <div style="height: 152px;"></div>
+    <div style="height: 500px;"></div>
 
     <table border="0">
         <?php

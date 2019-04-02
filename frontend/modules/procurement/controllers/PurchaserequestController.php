@@ -77,17 +77,20 @@ class PurchaserequestController extends Controller
             $pdf->content  = $content;
             $pdf->cssFile = '@vendor/kartik-v/yii2-mpdf/assets/kv-mpdf-bootstrap.min.css';
             $pdf->cssInline = '.kv-heading-1{font-size:18px}.nospace-border{border:0px;}.no-padding{ padding:0px;}.print-container{font-size:11px;font-family:Arial,Helvetica Neue,Helvetica,sans-serif;}h6 {  }';
+            $pdf->marginFooter=5;
+
+
             foreach ($prdetails as $pr) {
                 $requested_by = $pr["requested_by"];
                 $requested_by_position = $pr["requested_by_position"];
                 $approved_by = $pr["approved_by"];
                 $approved_by_position = $pr["approved_by_position"];
             }
-            $pdf->marginTop = 45;
-            $pdf->marginBottom = 75;
-            $pdf->marginFooter = 30;
 
-            $headers= '<div style="height: 110px;"></div>
+
+            $pdf->marginTop = 45;
+
+            $headers= '<div style="height: 75px;"></div>
                         <table width="100%">
                             <tr class="nospace-border">
                                 <td width="60%" style="padding-left: 55px;">Department of Science And Technology</td>
@@ -95,70 +98,73 @@ class PurchaserequestController extends Controller
                                 <td width="10%">'.$model->purchase_request_date.'</td>
                             </tr>
                         </table>';
-            $LeftFooterContent = '<div class="row">
-                                       <div class="col-lg-12">
-                                          <h6>'.$model->purchase_request_purpose.'</h6>
-                                       </div>
-                                       <div class="col-g-12">
-                                          <h6>Project Reference No. : '.$model->purchase_request_referrence_no.'</h6>
-                                       </div>
-                                       <div class="col-lg-12">
-                                          <h6>Project Name : '.$model->purchase_request_project_name .'</h6>
-                                       </div>
-                                       <div class="col-lg-12">
-                                          <h6>Project Location : '.$model->purchase_request_location_project.'</h6>
-                                       </div>
-                                       <div class="col-lg-12">
-                                          <div>'.date("F j, Y").'</div>
-                                       </div>
-                                   </div>';
-            $CenterFooterContent = '<table width="300">
+        $LeftFooterContent = '<table style="width: 50%;" border="0" cellpadding="1">
+                                <tbody>
+                                <tr>
+                                <td><h6>'.$model->purchase_request_purpose.'</h6></td>
+                                <td>&nbsp;</td>
+                                </tr>
+                                <tr>
+                                <td><h6>Project Reference No. : '.$model->purchase_request_referrence_no.'</h6>
+                                </td>
+                                <td>&nbsp;</td>
+                                </tr>
+                                <tr>
+                                <td><h6>Project Name : '.$model->purchase_request_project_name .'</h6></td>
+                                <td>&nbsp;</td>
+                                </tr>
+                                <tr>
+                                <td><h6>Project Location : '.$model->purchase_request_location_project.'</h6></td>
+                                <td>&nbsp;</td>
+                                </tr>
+                                </tbody>
+                                </table>';
+        $s = "";
+        $x = 0;
+        while ($x<20) {
+            $x++;
+            $s = $s.'<tr class="nospace-border">
+                      <td width="50%" style="text-align: right;padding-left: 50px;"></td>
+                      <td width="50%" style="text-align: right;padding-right: 100px;"></td>
+                     </tr>';
+            }
+        $LeftFooterContent =
+            $LeftFooterContent.'<table width="100%">
+                                    '.$s.'
                                     <tr class="nospace-border">
-                                        <td width="45%" style="text-align: right;padding-left: 50px;">Rosemarie Salazar</td>
-                                        <td width="45%" style="text-align: right;padding-left: 0px;">Martin A. Wee</td>
+                                        <td width="50%" style="text-align: right;padding-left: 50px;">'.$requested_by.'</td>
+                                        <td width="50%" style="text-align: right;padding-right: 100px;">'.$approved_by.'</td>
                                     </tr>
                                     <tr class="nospace-border">
-                                        <td width="45%" style="text-align: right;">ARD-FASTS</td>
-                                        <td width="45%" style="text-align: right;">Regional Director</td>
+                                        <td width="50%" style="text-align: right;">'.$requested_by_position.'</td>
+                                        <td width="50%" style="text-align: right;padding-right: 100px;">'.$approved_by_position.'</td>
                                     </tr>
+                                    <tr><td></td><td></td></tr>
+                                    <tr><td></td><td></td></tr>
+                                    <tr><td></td><td></td></tr> 
+                                    <tr><td></td><td></td></tr>
+                                    <tr><td></td><td></td></tr>
+                                    <tr><td></td><td></td></tr> 
+                                    <tr><td></td><td></td></tr>
+                                    <tr><td></td><td></td></tr>
+                                    <tr><td></td><td></td></tr> 
+                                    <tr><td></td><td></td></tr>
+                                    <tr><td></td><td></td></tr>
+                                    <tr><td></td><td></td></tr>                                                                                                                                               
+                                    <tr style="text-align: right;">
+                                         <td>'.date("F j, Y").'</td>
+                                         <td style="text-align: right;">Page {PAGENO} of {nbpg}</td>
+                                    </tr>    
                                   </table>';
-            $RightFooterContent = '<div style="text-align: left;">Page {PAGENO} of {nbpg}</div>';
-            $oddEvenConfiguration =
-                [
-                    'L' => [ // L for Left part of the header
-                        'content' => $LeftFooterContent,
-                        'font-size' => 7,
-                        'footer-style-left' => 300,
-                        'font-family' => 'Arial',
-                        'color'=>'#000000'
-                    ],
-                    'C' => [ // C for Center part of the header
-                        'content' => $CenterFooterContent,
-                        'font-size' => 6,
-                        'font-style' => 'B',
-                        'font-family' => 'arial',
-                        'color'=>'#000000',
-                    ],
-                    'R' => [
-                        'content' => $RightFooterContent,
-                        'font-size' => 6,
-                        'font-style' => 'B',
-                        'font-family' => 'arial',
-                        'color'=>'#000000'
-                    ],
-                    'line' =>0, // That's the relevant parameter
-                ];
-            $headerFooterConfiguration = [
-                'odd' => $oddEvenConfiguration,
-                'even' => $oddEvenConfiguration
-            ];
+
             $pdf->options = [
                 'title' => 'Report Title',
                 'defaultheaderline' => 0,
+                'defaultfooterline' => 0,
                 'subject'=> 'Report Subject'];
             $pdf->methods = [
                 'SetHeader'=>[$headers],
-                'SetFooter'=>[$headerFooterConfiguration],
+                'SetFooter'=>[$LeftFooterContent],
             ];
 
             return $pdf->render();

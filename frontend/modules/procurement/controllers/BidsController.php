@@ -139,7 +139,6 @@ class BidsController extends Controller
                     $data[] = [$bids->bids_id, $unit, $itemdescription, $quantity, $price, $requestID, $prdetailID];
                 }
             }
-
             $updateStatus = "UPDATE tbl_purchase_request_details SET purchase_request_details_status=0 , purchase_request_details_price=0 WHERE `purchase_request_id`=" . $pID ." AND purchase_request_details_status<>2";
             $procCon->createCommand($updateStatus)->query();
             $procCon->createCommand()->batchInsert
@@ -305,10 +304,17 @@ class BidsController extends Controller
         return $x;
     }
 
+
     public function actionReport()
 {
     $request = Yii::$app->request;
-    $id = $request->get('id');
+    $id = $request->post('id');
+    $supplier = $request->post('cbosupplier');
+    $address = $request->post('txtaddress');
+    $sub = $request->post('txtsubmission');
+    $employee = $request->post('cboemployees');
+    $employee = explode("|",$employee);
+    $sub = date_create($sub);
     $model = $this->findModel($id);
     $prdetails = $this->getprDetails($model->purchase_request_id);
     $content = $this->renderPartial('_report', ['prdetails' => $prdetails, 'model' => $model]);
@@ -319,7 +325,53 @@ class BidsController extends Controller
     $pdf->content = $content;
     $pdf->cssFile = '@vendor/kartik-v/yii2-mpdf/assets/kv-mpdf-bootstrap.min.css';
     $pdf->cssInline = '.kv-heading-1{font-size:18px}.nospace-border{border:0px;}.no-padding{ padding:0px;}.print-container{font-size:11px;font-family:Arial,Helvetica Neue,Helvetica,sans-serif; }';
-    $LeftFooterContent = '<div style="text-align: left;font-weight: bold;">' . $model->purchase_request_number . '</div><div style="text-align: left;font-weight: lighter">Monday, April 30, 2018</div>';
+
+    $headers = '<div style="height: 68px;"></div>
+   <table class="table table-responsive">
+       <tbody>
+        <tr class="nospace-border">
+            <td width="70%" style="padding: 0px;"></td>
+            <td width="30%" style="padding: 0px; padding-left: 15px; padding-top: 0px;">'.$model->purchase_request_referrence_no.'</td>
+        </tr>
+        <tr class="nospace-border">
+            <td width="70%" style="padding: 0px;"></td>
+            <td width="30%" style="padding: 0px;padding-left: 15px;">'.$model->purchase_request_project_name.'</td>
+        </tr>
+        <tr class="nospace-border">
+            <td width="70%" style="padding: 0px;"></td>
+            <td width="30%" style="padding: 0px;padding-left: 15px;">'.$model->purchase_request_location_project.'</td>
+        </tr>
+        <tr class="nospace-border">
+            <td style="padding: 0px; padding-top: 34px" width="">'.$supplier.'</td>
+        </tr>
+        <tr class="nospace-border">
+            <td style="padding: 0px;" width="">'.$address.'</td>
+        </tr>
+        <tr class="nospace-border">
+            <td style="height: 50px;"></td>
+        </tr>
+        <tr class="nospace-border">
+            <td style="padding: 0px; padding-top:4px; padding-left:50px;" width="">'.date_format($sub, "F j, Y").'</td>
+        </tr>
+
+        <tr class="nospace-border">
+            <td style="height: 50px;"></td>
+        </tr>
+
+        <tr class="nospace-border">
+            <td width="80%"></td>
+            <td style="padding: -10px; padding-left: -20px; text-align: center; text-decoration: underline;" width="20%">'.$employee[0].'</td>
+        </tr>
+        <tr class="nospace-border">
+            <td width="80%"></td>
+            <td style="padding: 0px; padding-left: -20px; text-align: center;" width="20%">'.$employee[1].'</td>
+        </tr>
+       </tbody>
+    </table>
+    ';
+
+
+    $LeftFooterContent = '<div style="text-align: left;font-weight: bold;">' . $model->purchase_request_number . '</div><div style="text-align: left;font-weight: lighter">'.date("F j, Y").'</div>';
     $RightFooterContent = '<div style="text-align: right;padding-top:-50px;">Page {PAGENO} of {nbpg}</div>';
     $oddEvenConfiguration =
         [
@@ -340,9 +392,12 @@ class BidsController extends Controller
     ];
     $pdf->options = [
         'title' => 'Report Title',
+        'defaultheaderline' => 0,
+        'defaultfooterline' => 0,
         'subject' => 'Report Subject'];
+
     $pdf->methods = [
-        'SetHeader' => [''],
+        'SetHeader' => [$headers],
         'SetFooter' => [$headerFooterConfiguration],
     ];
 
@@ -369,27 +424,58 @@ class BidsController extends Controller
         $pdf->marginLeft=26;
         $pdf->marginRight=3;
         $pdf->marginTop=50;
-        $pdf->marginBottom=50;
+        $pdf->marginBottom=5;
         $pdf->defaultFontSize=7;
         $pdf->content = $content;
         $pdf->cssFile = '@vendor/kartik-v/yii2-mpdf/assets/kv-mpdf-bootstrap.min.css';
         $pdf->cssInline = '.kv-heading-1{font-size:18px}.nospace-border{border:0px;}.no-padding{ padding:0px;}.print-container{font-size:11px;font-family:Arial,Helvetica Neue,Helvetica,sans-serif; }';
+        $headers='<table style="padding-right: 150px;text-align: right;" width="100%"> 
+            <tr>
+                <td style="padding-top: 55px;"></td>
+            </tr>
+            <tr>
+                <td style="font-size: 9px;padding-left: 250px;">'.$model->purchase_request_referrence_no.'</td>
+            </tr>
+            <tr>
+                <td style="font-size: 9px;padding-left: 200px;">'.$model->purchase_request_project_name.'</td>
+            </tr>
+             <tr>
+                <td style="font-size: 9px;padding-left: 200px;">'.$model->purchase_request_location_project.'</td>
+            </tr>
+        </table>';
         $LeftFooterContent = '
-<table>
+<table width="100%">
     <tr>
-        <td style="font-size: 11px;text-align: center;">ROSEMARIE S. SALAZAR<br/>Chairman</td>
+        <td style="font-size: 11px;text-align: center; width=16.67">ROSEMARIE S. SALAZAR<br/>Chairman</td>
         <td style="width: 50px;"></td>
-        <td style="font-size: 11px;text-align: center;">JALI J. BADIOLA<br/>Member</td>
+        <td style="font-size: 11px;text-align: center; width=16.67">THELMA E. DIEGO<br/>Member</td>
         <td style="width: 50px;"></td>
-        <td style="font-size: 11px;text-align: center;">JOSEPHINE B. NOHAY<br/>Member</div></td>
+        <td style="font-size: 11px;text-align: center; width=16.67">JALI J. BADIOLA<br/>Member</td>
         <td style="width: 50px;"></td>
-        <td style="font-size: 11px;text-align: center;">RONNEL B. GUNDOY<br/>Member</td>
+        <td style="font-size: 11px;text-align: center; width=16.67">JOSEPHINE B. NOHAY<br/>Member</td>
+        <td style="height: 100px;"></td>
+        <td style="font-size: 11px;text-align: center; width=16.67">INGRID T. ABELLA-COLCOL<br/>Member</td>
+        <td style="height: 100px;"></td>
+        <td style="font-size: 11px;text-align: center; width=16.67">MARTIN A. WEE<br/>Regional Director</td>
         <td style="height: 100px;"></td>
     </tr>
+        <tr>
+        <td style="font-size: 11px;text-align: center; width=16.67">'.date("F j, Y").'</td>
+        <td style="width: 50px;"></td>
+        <td style="font-size: 11px;text-align: center; width=16.67"></td>
+        <td style="width: 50px;"></td>
+        <td style="font-size: 11px;text-align: center; width=16.67"></td>
+        <td style="width: 50px;"></td>
+        <td style="font-size: 11px;text-align: center; width=16.67"></td>
+        <td style=""></td>
+        <td style="font-size: 11px;text-align: center; width=16.67"></td>
+        <td style=""></td>
+        <td style="font-size: 11px;text-align: center; width=16.67">Page {PAGENO} of {nbpg}</td>
+        <td style=""></td>
+    </tr>
 </table>
-<div style="text-align: left;font-weight: bold;font-size: 6px;">' . $model->purchase_request_number . '</div>
-<div style="text-align: left;font-weight: lighter;font-size: 6px;">'.date("Y-m-d h:i:sa").'</div>';
-        $RightFooterContent = '
+';
+       /* $RightFooterContent = '
 <table>
     <tr>
         <td style="font-size: 11px;text-align: center;">MARTIN A. WEE<br/>Regional Director</td>
@@ -417,6 +503,10 @@ class BidsController extends Controller
             </tr>
         </table>
         ';
+
+       */
+
+        /*
         $oddEvenHeaderConfiguration =
             [
                 'L' => [ // L for Left part of the header
@@ -445,6 +535,7 @@ class BidsController extends Controller
                 ],
                 'line' => 0, // That's the relevant parameter
             ];
+
         $headerConfiguration = [
             'odd' => $oddEvenHeaderConfiguration,
             'even' => $oddEvenHeaderConfiguration
@@ -453,12 +544,15 @@ class BidsController extends Controller
             'odd' => $oddEvenConfiguration,
             'even' => $oddEvenConfiguration
         ];
+        */
         $pdf->options = [
             'title' => 'ABSTRACT OF BIDS',
+            'defaultheaderline' => 0,
+            'defaultfooterline' => 0,
             'subject' => 'Report Abstract'];
         $pdf->methods = [
-            'SetHeader' => [$headerConfiguration],
-            'SetFooter' => [$headerFooterConfiguration],
+            'SetHeader' => [$headers],
+            'SetFooter' => [$LeftFooterContent],
         ];
 
         return $pdf->render();
@@ -563,6 +657,14 @@ class BidsController extends Controller
     }
 
     function getprDetails($id)
+    {
+        $con = Yii::$app->procurementdb;
+        $sql = "SELECT * FROM `tbl_purchase_request_details` WHERE `purchase_request_id`=" . $id;
+        $porequest = $con->createCommand($sql)->queryAll();
+        return $porequest;
+    }
+
+    function getpr($id)
     {
         $con = Yii::$app->procurementdb;
         $sql = "SELECT * FROM `tbl_purchase_request_details` WHERE `purchase_request_id`=" . $id;

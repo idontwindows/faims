@@ -23,6 +23,7 @@ $BaseURL = $GLOBALS['frontend_base_uri'];
 
 <div class="bids-form">
     <?php //$form = \kartik\form\ActiveForm::begin(['options' => ['data-pjax' => true ]]);?>
+    <h5><a id="startButton2"  href="javascript:void(0);"><img src="<?= $BaseURL;?>images\help.png" height="52" width="98" style="padding: 10px;"></a></h5>
     <div class="form-group">
         <div class="row">
             <div class="col-lg-12">
@@ -69,18 +70,20 @@ $BaseURL = $GLOBALS['frontend_base_uri'];
                             <div class="row">
                                 <div class="col-lg-1">
                                     <div class="space-20"></div>
-                                    <button id="btnAddBids" class="btn btn-success btn-md"><i class="fa fa-plus"></i> Add New</button>
+                                    <h5 style='margin:0px;' data-step='1' data-intro='Click here to Add New'><span><button id="btnAddBids" class="btn btn-success btn-md"><i class="fa fa-plus"></i> Add New</button></span></h5>
                                 </div>
                                 <div class="col-lg-4">
                                     <div class="space-20"></div>
+                                    <h5 style='margin:0px;' data-step='2' data-intro='Select A Supplier'><span>
                                     <?php
                                     echo $func->GetSupplier('',$supp,true,"Supplier",$model->purchase_request_id);
                                     ?>
-
+                                        </span></h5>
                                 </div>
                                 <div class="col-lg-1">
                                     <div class="space-20"></div>
-                                    <button id="btnCreatePO" name="btnCreatePO" class="btn btn-lg btn-primary"><i class="fa fa-envelope-o"></i> Save Bids</button>
+                                    <h5 style='margin:0px;' data-step='3' data-intro='Add Bids (Before Saving bids must have a value in the GRID'><span>
+                                    <button id="btnCreatePO" name="btnCreatePO" class="btn btn-lg btn-primary"><i class="fa fa-envelope-o"></i> Save Bids</button></span></h5>
                                 </div>
                                 <div class="col-lg-6">
                                     <label>Remarks Status</label>
@@ -346,6 +349,7 @@ $BaseURL = $GLOBALS['frontend_base_uri'];
                         <div class="row">
                             <div class="space-20"></div>
                             <div class="col-lg-2">
+
                                 <?php
                                 echo '<label class="control-label">Lot Bids</label>';
                                 echo SwitchInput::widget([
@@ -780,5 +784,17 @@ $BaseURL = $GLOBALS['frontend_base_uri'];
     </div>
 
 </div>
+
+    <script type="text/javascript">
+        document.getElementById('startButton2').onclick = function() {
+            introJs().setOption('doneLabel', 'Next page').start().oncomplete(function() {
+                //window.location.href = 'index?multipage=true';
+                var tabs = $('.nav-tabs > li');
+                var active = tabs.filter('.active');
+                var next = active.next('li').length ? active.next('li').find('a') : tabs.filter(':first-child').find('a');
+                next.tab('show');
+            });
+        };
+    </script>
 
 

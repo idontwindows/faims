@@ -41,8 +41,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1 class="centered" style="margin-bottom: 0px;"><i class="fa fa-sitemap"></i> Obligation Request</h1>
 
-    <h5><a id="startButton"  href="javascript:void(0);">Show me how</a></h5>
-<?php
+    <h5><a id="startButton"  href="javascript:void(0);"><img src="<?= $BaseURL;?>images\help.png" height="52" width="98" style="padding: 10px;"></a></h5>
+
+    <?php
 
     $colorPluginOptions =  [
         'showPalette' => true,
