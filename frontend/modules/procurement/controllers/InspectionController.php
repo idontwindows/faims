@@ -190,71 +190,94 @@ class InspectionController extends \yii\web\Controller
             $prno = $pr["purchase_request_number"];
             $prdate = $pr["purchase_request_date"];
         }
-        $pdf->marginTop = 45;
+        $pdf->marginTop = 5;
         $pdf->marginBottom = 75;
-        $pdf->marginFooter = 5;
+        $pdf->marginFooter = 0;
 
-        $headers= '<div style="height: 50px"></div>
+        $headers= '<div style="height: 150px"></div>
                     <table border="0" width="100%">
                         <tr style="text-align: left;">
                             <td>'.$supplier.'</td>
-                            <td style="text-align: right;">'.$ponum.'</td>
+                            <td style="text-align: right;">'.str_replace('PO','IAR',$ponum).'</td>
                         </tr>
                         <tr style="text-align: right;">
-                            <td>Zamboanga City</td>
+                            <td>'.$ponum.'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$pdate.'</td>
                             <td style="text-align: right;">'.$pdate.'</td>
                         </tr>
                         <tr style="text-align: right;">
                             <td></td>
                             <td style="text-align: right;"></td>
-                        </tr> 
-                        <tr style="text-align: right;">
-                            <td></td>
-                            <td style="text-align: right;">'.$prno.'</td>
-                        </tr>    
-                        <tr style="text-align: right;">
-                            <td></td>
-                            <td style="text-align: right;">'.$prdate.'</td>
-                        </tr>        
-                        <tr style="text-align: right;">
-                            <td>Department of Science and Technology</td>
-                            <td style="text-align: right;"></td>
-                        </tr>                                          
+                        </tr>                                       
                     </table>
                     ';
         $footerss= '<div style="height: 50px"></div>
                     <table border="0" width="100%">
                         <tr style="text-align: left;">
-                            <td>'.$supplier.'</td>
-                            <td style="text-align: right;">MARTIN A. WEE</td>
+                            <td>JOSE MARIA M. MOLINA</td>
+                            <td style="text-align: right;"></td>
                         </tr>
-                       <tr><td></td><td></td></tr>
-                       <tr><td></td><td></td></tr>
+                        <tr style="text-align: left;">
+                            <td style="padding-left: 40px;">Chairman</td>
+                            <td style="text-align: right;"></td>
+                        </tr>
+                        <tr style="text-align: left;">
+                            <td>MARIA NOEMI F. DAMILES</td>
+                            <td style="text-align: right;">RONNEL B. GUNDOY</td>
+                        </tr>
+                        <tr style="text-align: left;">
+                            <td style="padding-left: 40px">Member</td>
+                            <td style="text-align: right;">Supply Officer</td>
+                        </tr>
                         <tr style="text-align: right;">
-                            <td>ROBERT B. ABELLA</td>
+                            <td>ARIS D. MORATALLA</td>
                             <td style="text-align: right;"></td>
                         </tr>  
-                        <tr><td></td><td></td></tr>
-                        <tr><td></td><td></td></tr>
-                        <tr><td></td><td></td></tr>                       
-                        <tr><td></td><td></td></tr>                       
-                        <tr><td></td><td></td></tr>                       
-                        <tr><td></td><td></td></tr>                       
-                        <tr><td></td><td></td></tr>                       
-                        <tr><td></td><td></td></tr>                       
-                        <tr><td></td><td></td></tr>                       
-                        <tr><td></td><td></td></tr>                       
-                        <tr><td></td><td></td></tr>                       
-                        <tr><td></td><td></td></tr>                       
-                        <tr><td></td><td></td></tr>                       
-                        <tr><td></td><td></td></tr>                       
-                        <tr><td></td><td></td></tr>                       
-                        <tr><td></td><td></td></tr>                       
-                        <tr><td></td><td></td></tr>                       
-                        <tr><td></td><td></td></tr>                       
-                        <tr><td></td><td></td></tr>                       
-                        <tr><td></td><td></td></tr>                       
-                    
+                        <tr style="text-align: right;">
+                            <td style="padding-left: 40px;">Member</td>
+                            <td style="text-align: right;"></td>
+                        </tr>  
+                                                <tr style="text-align: right;">
+                            <td style="padding-left: 40px;"></td>
+                            <td style="text-align: right;"></td>
+                        </tr>                          <tr style="text-align: right;">
+                            <td style="padding-left: 40px;"></td>
+                            <td style="text-align: right;"></td>
+                        </tr>                          <tr style="text-align: right;">
+                            <td style="padding-left: 40px;"></td>
+                            <td style="text-align: right;"></td>
+                        </tr>                          <tr style="text-align: right;">
+                            <td style="padding-left: 40px;"></td>
+                            <td style="text-align: right;"></td>
+                        </tr>      
+                        <tr style="text-align: right;">
+                            <td style="padding-left: 40px;"></td>
+                            <td style="text-align: right;"></td>
+                        </tr>                          <tr style="text-align: right;">
+                            <td style="padding-left: 40px;"></td>
+                            <td style="text-align: right;"></td>
+                        </tr>                          <tr style="text-align: right;">
+                            <td style="padding-left: 40px;"></td>
+                            <td style="text-align: right;"></td>
+                        </tr>                          <tr style="text-align: right;">
+                            <td style="padding-left: 40px;"></td>
+                            <td style="text-align: right;"></td>
+                        </tr>                                <tr style="text-align: right;">
+                            <td style="padding-left: 40px;"></td>
+                            <td style="text-align: right;"></td>
+                        </tr>                          <tr style="text-align: right;">
+                            <td style="padding-left: 40px;"></td>
+                            <td style="text-align: right;"></td>
+                        </tr>                          <tr style="text-align: right;">
+                            <td style="padding-left: 40px;"></td>
+                            <td style="text-align: right;"></td>
+                        </tr>                          <tr style="text-align: right;">
+                            <td style="padding-left: 40px;"></td>
+                            <td style="text-align: right;"></td>
+                        </tr>                       
+                        <tr style="text-align: right;">
+                            <td style="padding-left: 40px;"></td>
+                            <td style="text-align: right;"></td>
+                        </tr>  
                         <tr style="text-align: right;">
                             <td>'.date("F j, Y").'</td>
                             <td style="text-align: right;">Page {PAGENO} of {nbpg}</td>

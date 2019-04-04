@@ -151,44 +151,12 @@ class DisbursementController extends Controller
             $dvamount = $pr["dv_amount"];
         }
         $pdf->marginTop = 45;
-        $pdf->marginBottom = 75;
         $pdf->marginFooter = 5;
 
         $headers= '
      ';
-        $footerss= '<div style="height: 50px"></div>
+        $footerss= '
                     <table border="0" width="100%">
-                        <tr style="text-align: left;">
-                          <td>'.$supplier.'</td>
-                            <td style="text-align: right;">MARTIN A. WEE</td>
-                        </tr>
-                       <tr><td></td><td></td></tr>
-                       <tr><td></td><td></td></tr>
-                        <tr style="text-align: right;">
-                            <td>ROBERT B. ABELLA</td>
-                            <td style="text-align: right;"></td>
-                        </tr>  
-                        <tr><td></td><td></td></tr>
-                        <tr><td></td><td></td></tr>
-                        <tr><td></td><td></td></tr>                       
-                        <tr><td></td><td></td></tr>                       
-                        <tr><td></td><td></td></tr>                       
-                        <tr><td></td><td></td></tr>                       
-                        <tr><td></td><td></td></tr>                       
-                        <tr><td></td><td></td></tr>                       
-                        <tr><td></td><td></td></tr>                       
-                        <tr><td></td><td></td></tr>                       
-                        <tr><td></td><td></td></tr>                       
-                        <tr><td></td><td></td></tr>                       
-                        <tr><td></td><td></td></tr>                       
-                        <tr><td></td><td></td></tr>                       
-                        <tr><td></td><td></td></tr>                       
-                        <tr><td></td><td></td></tr>                       
-                        <tr><td></td><td></td></tr>                       
-                        <tr><td></td><td></td></tr>                       
-                        <tr><td></td><td></td></tr>                       
-                        <tr><td></td><td></td></tr>                       
-                    
                         <tr style="text-align: right;">
                             <td>'.date("F j, Y").'</td>
                             <td style="text-align: right;">Page {PAGENO} of {nbpg}</td>
@@ -230,6 +198,7 @@ class DisbursementController extends Controller
         $pdf->options = [
             'title' => 'Report Title',
             'defaultheaderline' => 0,
+            'defaultfooterline' => 0,
             'subject'=> 'Report Subject'];
         $pdf->methods = [
             'SetHeader'=>[$headers],

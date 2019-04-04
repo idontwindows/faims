@@ -1,5 +1,5 @@
 <div class="print-container">
-<div style="height: 75px;"></div>
+<div style="height: 300px;"></div>
 <?php
     $fin="";
     $x=0;
@@ -24,5 +24,27 @@
             echo $fin;
         ?>
     </table>
+
+        <table  width="100%" border="0">
+            <?php
+             $x=0;
+             while($x<95) {
+                 $x++;
+             ?>
+            <tr class="nospace-border">
+                <td width='12%' style='padding-left: 25px;'></>
+                <td width='10%' style='padding-left: 5px;'></td>
+                <td width='54%' style='text-align: justify'>    </td>
+                <td width="12%" style="padding-left: 50px;"></td>
+            </tr>
+            <?php }?>
+            <tr class="nospace-border">
+                <td width='12%' style='padding-left: 25px;'></>
+                <td width='10%' style='padding-left: 5px;'></td>
+                <td width='54%' style='text-align: justify'>    </td>
+                <td width="12%" style="padding-left: 50px;"><?= number_format($totalcost,2); ?></td>
+            </tr>
+        </table>
+    </div>
 
 </div>
