@@ -14,6 +14,13 @@
         $prno = $pr["taxable"];
         $dvamount = $pr["dv_amount"];
         $totalcost = $price;
+        $dv_type = $pr["dv_type"];
+        $assig1 =  $pr["Assig1"];
+        $assig2 =  $pr["Assig2"];
+        $assig3 =  $pr["Assig3"];
+        $Assig1Position =  $pr["Assig1Position"];
+        $Assig2Position =  $pr["Assig2Position"];
+        $Assig3Position =  $pr["Assig3Position"];
         $xxx = '
         <table border="0" width="100%">
         <tr style="text-align: left;">
@@ -50,21 +57,65 @@
 
     </table>
 
-    <div style="height: 100px;"></div>
+    <div style="height: 25px;"></div>
+<?php if($dv_type=='MDS') { ?>
+
+    <table border="0" width="100%">
+        <tr style="text-align: left;">
+            <td style="text-align: center;"><?= $assig2; ?></td>
+            <td style="text-align: center;"></td>
+            <td style="text-align: center;"><?= $assig3; ?></td>
+        </tr>
+        <tr style="text-align: right;">
+            <td style="text-align: center;"><?= $Assig2Position; ?></td>
+            <td style="text-align: center;"></td>
+            <td style="text-align: center;"><?= $Assig3Position; ?></td>
+        </tr>
+    </table>
+    <div style="height: 35px;"></div>
+    <table border="0" width="100%">
+        <tr style="text-align: left;">
+            <td style="text-align: center;"></td>
+            <td style="text-align: center;">LAND BANK OF THE PHILIPPINES</td>
+            <td style="text-align: center;"></td>
+        </tr>
+        <tr style="text-align: right;">
+            <td style="text-align: center;"></td>
+            <td style="text-align: center;"><?= $payee; ?></td>
+            <td style="text-align: center;"></td>
+        </tr>
+    </table>
+
+<?php }else{ ?>
+
 
 <table border="0" width="100%">
     <tr style="text-align: left;">
-        <td>ROBERTO B. ABELLA</td>
-        <td style="text-align: right;">MARTIN A. WEE</td>
+        <td style="text-align: center;"><?= $assig1; ?></td>
+        <td style="text-align: center;"><?= $assig2; ?></td>
+        <td style="text-align: center;"><?= $assig3; ?></td>
     </tr>
     <tr style="text-align: right;">
-        <td>Accountant III</td>
-        <td style="text-align: right;">Regional Director</td>
+        <td style="text-align: center;"><?= $Assig1Position; ?></td>
+        <td style="text-align: center;"><?= $Assig2Position; ?></td>
+        <td style="text-align: center;"><?= $Assig3Position; ?></td>
     </tr>
 </table>
+    <div style="height: 35px;"></div>
+    <table border="0" width="100%">
+        <tr style="text-align: left;">
+            <td style="text-align: center;"></td>
+            <td style="text-align: center;">LAND BANK OF THE PHILIPPINES</td>
+            <td style="text-align: center;"></td>
+        </tr>
+        <tr style="text-align: right;">
+            <td style="text-align: center;"></td>
+            <td style="text-align: center;"><?= $payee; ?></td>
+            <td style="text-align: center;"></td>
+        </tr>
+    </table>
 
-
-
+<?php } ?>
 
 
     <?php
@@ -115,17 +166,66 @@
         echo $fin;
         ?>
     </table>
-    <div style="height: 100px;"></div>
-    <table border="0" width="100%">
-        <tr style="text-align: left;">
-            <td>ROBERTO B. ABELLA</td>
-            <td style="text-align: right;">MARTIN A. WEE</td>
-        </tr>
-        <tr style="text-align: right;">
-            <td>Accountant III</td>
-            <td style="text-align: right;">Regional Director</td>
-        </tr>
-    </table>
 
+    <div style="height: 25px;"></div>
+
+    <?php if($dv_type=='MDS') { ?>
+
+        <table border="0" width="100%">
+            <tr style="text-align: left;">
+                <td style="text-align: center;"><?= $assig2; ?></td>
+                <td style="text-align: center;"></td>
+                <td style="text-align: center;"><?= $assig3; ?></td>
+            </tr>
+            <tr style="text-align: right;">
+                <td style="text-align: center;"><?= $Assig2Position; ?></td>
+                <td style="text-align: center;"></td>
+                <td style="text-align: center;"><?= $Assig3Position; ?></td>
+            </tr>
+        </table>
+        <div style="height: 35px;"></div>
+        <table border="0" width="100%">
+            <tr style="text-align: left;">
+                <td style="text-align: center;"></td>
+                <td style="text-align: center;">LAND BANK OF THE PHILIPPINES</td>
+                <td style="text-align: center;"></td>
+            </tr>
+            <tr style="text-align: right;">
+                <td style="text-align: center;"></td>
+                <td style="text-align: center;"><?= $payee; ?></td>
+                <td style="text-align: center;"></td>
+            </tr>
+        </table>
+
+    <?php }else{ ?>
+
+
+        <table border="0" width="100%">
+            <tr style="text-align: left;">
+                <td style="text-align: center;"><?= $assig1; ?></td>
+                <td style="text-align: center;"><?= $assig2; ?></td>
+                <td style="text-align: center;"><?= $assig3; ?></td>
+            </tr>
+            <tr style="text-align: right;">
+                <td style="text-align: center;"><?= $Assig1Position; ?></td>
+                <td style="text-align: center;"><?= $Assig2Position; ?></td>
+                <td style="text-align: center;"><?= $Assig3Position; ?></td>
+            </tr>
+        </table>
+        <div style="height: 35px;"></div>
+        <table border="0" width="100%">
+            <tr style="text-align: left;">
+                <td style="text-align: center;"></td>
+                <td style="text-align: center;">LAND BANK OF THE PHILIPPINES</td>
+                <td style="text-align: center;"></td>
+            </tr>
+            <tr style="text-align: right;">
+                <td style="text-align: center;"></td>
+                <td style="text-align: center;"><?= $payee; ?></td>
+                <td style="text-align: center;"></td>
+            </tr>
+        </table>
+
+    <?php } ?>
 
 </div>

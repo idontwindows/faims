@@ -120,7 +120,12 @@ class DisbursementController extends Controller
     {
         //Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         $con = Yii::$app->procurementdb;
-        $sql = "SELECT * FROM tbl_disbursement WHERE dv_id ='".$id."'";
+        $sql = "SELECT *,`fais-procurement`.`fnGetAssignatoryName`(`tbl_disbursement`.`certified_a`) AS Assig1 , 
+	       `fais-procurement`.`fnGetAssignatoryPosition`(`tbl_disbursement`.`certified_a`) AS Assig1Position,
+	       `fais-procurement`.`fnGetAssignatoryName`(`tbl_disbursement`.`certified_b`) AS Assig2 , 
+	       `fais-procurement`.`fnGetAssignatoryPosition`(`tbl_disbursement`.`certified_b`) AS Assig2Position,
+	       `fais-procurement`.`fnGetAssignatoryName`(`tbl_disbursement`.`approved`) AS Assig3 , 
+	       `fais-procurement`.`fnGetAssignatoryPosition`(`tbl_disbursement`.`approved`) AS Assig3Position FROM tbl_disbursement WHERE dv_id ='".$id."'";
         $porequest = $con->createCommand($sql)->queryAll();
         return $porequest;
     }

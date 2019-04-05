@@ -416,6 +416,7 @@ class BidsController extends Controller
         if (empty($queryres)) {
             $columns = $con->getTableSchema('tmpheader')->getColumnNames();
         }
+        $assig = $this->getassig();
         $content = $this->renderPartial('_report_abstract', ['prdetails' => $prdetails, 'model' => $model , 'columns' => $columns]);
         $pdf = new Pdf();
         $pdf->format = [215.9,330.2];
@@ -443,20 +444,34 @@ class BidsController extends Controller
                 <td style="font-size: 9px;padding-left: 200px;">'.$model->purchase_request_location_project.'</td>
             </tr>
         </table>';
+        foreach ($assig as $sg) {
+           $assig1 =  $sg["Assig1"];
+           $assig2 =  $sg["Assig2"];
+           $assig3 =  $sg["Assig3"];
+           $assig4 =  $sg["Assig4"];
+           $assig5 =  $sg["Assig5"];
+           $assig6 =  $sg["Assig6"];
+           $Assig1Position =  $sg["Assig1Position"];
+           $Assig2Position =  $sg["Assig2Position"];
+           $Assig3Position =  $sg["Assig3Position"];
+           $Assig4Position =  $sg["Assig4Position"];
+           $Assig5Position =  $sg["Assig5Position"];
+           $Assig6Position =  $sg["Assig6Position"];
+        }
         $LeftFooterContent = '
 <table width="100%">
     <tr>
-        <td style="font-size: 11px;text-align: center; width=16.67">ROSEMARIE S. SALAZAR<br/>Chairman</td>
+        <td style="font-size: 11px;text-align: center; width=16.67">'.$assig1.'<br/>'.$Assig1Position.'</td>
         <td style="width: 50px;"></td>
-        <td style="font-size: 11px;text-align: center; width=16.67">THELMA E. DIEGO<br/>Member</td>
+        <td style="font-size: 11px;text-align: center; width=16.67">'.$assig2.'<br/>'.$Assig2Position.'</td>
         <td style="width: 50px;"></td>
-        <td style="font-size: 11px;text-align: center; width=16.67">JALI J. BADIOLA<br/>Member</td>
+        <td style="font-size: 11px;text-align: center; width=16.67">'.$assig3.'<br/>'.$Assig3Position.'</td>
         <td style="width: 50px;"></td>
-        <td style="font-size: 11px;text-align: center; width=16.67">JOSEPHINE B. NOHAY<br/>Member</td>
+        <td style="font-size: 11px;text-align: center; width=16.67">'.$assig4.'<br/>'.$Assig4Position.'</td>
         <td style="height: 100px;"></td>
-        <td style="font-size: 11px;text-align: center; width=16.67">INGRID T. ABELLA-COLCOL<br/>Member</td>
+        <td style="font-size: 11px;text-align: center; width=16.67">'.$assig5.'<br/>'.$Assig5Position.'</td>
         <td style="height: 100px;"></td>
-        <td style="font-size: 11px;text-align: center; width=16.67">MARTIN A. WEE<br/>Regional Director</td>
+        <td style="font-size: 11px;text-align: center; width=16.67">'.$assig6.'<br/>'.$Assig6Position.'</td>
         <td style="height: 100px;"></td>
     </tr>
         <tr>
@@ -700,6 +715,28 @@ class BidsController extends Controller
     {
         $con = Yii::$app->procurementdb;
         $sql = "CALL `fais-procurement`.spGenerateAbstractOfBids(" . $id . ",1)";
+        $pordetails = $con->createCommand($sql)->queryAll();
+        return $pordetails;
+    }
+
+    function getassig()
+    {
+        $con = Yii::$app->db;
+        $sql = "SELECT `fais-procurement`.`fnGetAssignatoryName`(`tbl_assignatory`.`assignatory_1`) AS Assig1 , 
+	       `fais-procurement`.`fnGetAssignatoryPosition`(`tbl_assignatory`.`assignatory_1`) AS Assig1Position,
+	       `fais-procurement`.`fnGetAssignatoryName`(`tbl_assignatory`.`assignatory_2`) AS Assig2 , 
+	       `fais-procurement`.`fnGetAssignatoryPosition`(`tbl_assignatory`.`assignatory_2`) AS Assig2Position,
+	       `fais-procurement`.`fnGetAssignatoryName`(`tbl_assignatory`.`assignatory_3`) AS Assig3 , 
+	       `fais-procurement`.`fnGetAssignatoryPosition`(`tbl_assignatory`.`assignatory_3`) AS Assig3Position,
+	       `fais-procurement`.`fnGetAssignatoryName`(`tbl_assignatory`.`assignatory_4`) AS Assig4 , 
+	       `fais-procurement`.`fnGetAssignatoryPosition`(`tbl_assignatory`.`assignatory_4`) AS Assig4Position,
+	       `fais-procurement`.`fnGetAssignatoryName`(`tbl_assignatory`.`assignatory_5`) AS Assig5 , 
+	       `fais-procurement`.`fnGetAssignatoryPosition`(`tbl_assignatory`.`assignatory_5`) AS Assig5Position,
+	       `fais-procurement`.`fnGetAssignatoryName`(`tbl_assignatory`.`assignatory_6`) AS Assig6 , 
+	       `fais-procurement`.`fnGetAssignatoryPosition`(`tbl_assignatory`.`assignatory_6`) AS Assig6Position
+	FROM `tbl_assignatory`
+	WHERE `tbl_assignatory`.`assignatory_id` = 4
+";
         $pordetails = $con->createCommand($sql)->queryAll();
         return $pordetails;
     }

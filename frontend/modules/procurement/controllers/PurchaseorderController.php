@@ -157,6 +157,7 @@ class PurchaseorderController extends \yii\web\Controller
          $id = $request->get('id');
          $model = $this->findModelDetails($id);
          $prdetails = $this->getprDetails($id);
+         $assig = $this->getassig();
          $content = $this->renderPartial('_report', ['prdetails'=> $prdetails,'model'=>$model]);
          $pdf = new Pdf();
          $pdf->format = pdf::FORMAT_A4;
@@ -176,6 +177,13 @@ class PurchaseorderController extends \yii\web\Controller
              $pdate = $pr["purchase_order_date"];
              $prno = $pr["purchase_request_number"];
              $prdate = $pr["purchase_request_date"];
+         }
+
+         foreach ($assig as $sg) {
+             $assig1 =  $sg["Assig1"];
+             $assig2 =  $sg["Assig2"];
+             $Assig1Position =  $sg["Assig1Position"];
+             $Assig2Position =  $sg["Assig2Position"];
          }
          $pdf->marginTop = 45;
          $pdf->marginBottom = 75;
@@ -213,12 +221,12 @@ class PurchaseorderController extends \yii\web\Controller
                     <table border="0" width="100%">
                         <tr style="text-align: left;">
                             <td>'.$supplier.'</td>
-                            <td style="text-align: right;">MARTIN A. WEE</td>
+                            <td style="text-align: center;">'.$assig2.'<br>'.$Assig2Position.'</td>
                         </tr>
                        <tr><td></td><td></td></tr>
                        <tr><td></td><td></td></tr>
-                        <tr style="text-align: right;">
-                            <td>ROBERT B. ABELLA</td>
+                        <tr style="text-align: right;padding-left: 50px;">
+                            <td style="text-align: center;">'.$assig1.'<br>'.$Assig1Position.'</td>
                             <td style="text-align: right;"></td>
                         </tr>  
                         <tr><td></td><td></td></tr>
@@ -292,6 +300,19 @@ class PurchaseorderController extends \yii\web\Controller
          return $pdf->render();
      }
 
+
+    function getassig()
+    {
+        $con = Yii::$app->db;
+        $sql = "	SELECT `fais-procurement`.`fnGetAssignatoryName`(`tbl_assignatory`.`assignatory_1`) AS Assig1 , 
+	       `fais-procurement`.`fnGetAssignatoryPosition`(`tbl_assignatory`.`assignatory_1`) AS Assig1Position,
+	       `fais-procurement`.`fnGetAssignatoryName`(`tbl_assignatory`.`assignatory_2`) AS Assig2 , 
+	       `fais-procurement`.`fnGetAssignatoryPosition`(`tbl_assignatory`.`assignatory_2`) AS Assig2Position
+	       	FROM `tbl_assignatory`
+	WHERE `tbl_assignatory`.`assignatory_id` = 7";
+        $pordetails = $con->createCommand($sql)->queryAll();
+        return $pordetails;
+    }
 
 
      /**

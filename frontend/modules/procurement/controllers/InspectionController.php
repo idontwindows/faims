@@ -170,6 +170,7 @@ class InspectionController extends \yii\web\Controller
         $id = $request->get('id');
         $model = $this->findModelDetails($id);
         $prdetails = $this->getprDetails($id);
+        $assig = $this->getassig();
         $content = $this->renderPartial('_report', ['prdetails'=> $prdetails,'model'=>$model]);
         $pdf = new Pdf();
         $pdf->format = pdf::FORMAT_A4;
@@ -189,6 +190,16 @@ class InspectionController extends \yii\web\Controller
             $pdate = $pr["purchase_order_date"];
             $prno = $pr["purchase_request_number"];
             $prdate = $pr["purchase_request_date"];
+        }
+        foreach ($assig as $sg) {
+            $assig1 =  $sg["Assig1"];
+            $assig2 =  $sg["Assig2"];
+            $assig3 =  $sg["Assig3"];
+            $assig4 =  $sg["Assig4"];
+            $Assig1Position =  $sg["Assig1Position"];
+            $Assig2Position =  $sg["Assig2Position"];
+            $Assig3Position =  $sg["Assig3Position"];
+            $Assig4Position =  $sg["Assig4Position"];
         }
         $pdf->marginTop = 5;
         $pdf->marginBottom = 75;
@@ -213,7 +224,7 @@ class InspectionController extends \yii\web\Controller
         $footerss= '<div style="height: 50px"></div>
                     <table border="0" width="100%">
                         <tr style="text-align: left;">
-                            <td>JOSE MARIA M. MOLINA</td>
+                            <td>'.$assig1.'</td>
                             <td style="text-align: right;"></td>
                         </tr>
                         <tr style="text-align: left;">
@@ -221,21 +232,22 @@ class InspectionController extends \yii\web\Controller
                             <td style="text-align: right;"></td>
                         </tr>
                         <tr style="text-align: left;">
-                            <td>MARIA NOEMI F. DAMILES</td>
-                            <td style="text-align: right;">RONNEL B. GUNDOY</td>
+                            <td>'.$assig2.'</td>
+                            <td style="text-align: right;">'.$assig3.'</td>
                         </tr>
                         <tr style="text-align: left;">
                             <td style="padding-left: 40px">Member</td>
                             <td style="text-align: right;">Supply Officer</td>
                         </tr>
                         <tr style="text-align: right;">
-                            <td>ARIS D. MORATALLA</td>
+                            <td>'.$assig4.'</td>
                             <td style="text-align: right;"></td>
                         </tr>  
                         <tr style="text-align: right;">
                             <td style="padding-left: 40px;">Member</td>
                             <td style="text-align: right;"></td>
                         </tr>  
+                     
                                                 <tr style="text-align: right;">
                             <td style="padding-left: 40px;"></td>
                             <td style="text-align: right;"></td>
@@ -326,6 +338,24 @@ class InspectionController extends \yii\web\Controller
         ];
 
         return $pdf->render();
+    }
+
+
+    function getassig()
+    {
+        $con = Yii::$app->db;
+        $sql = "SELECT `fais-procurement`.`fnGetAssignatoryName`(`tbl_assignatory`.`assignatory_1`) AS Assig1 , 
+	       `fais-procurement`.`fnGetAssignatoryPosition`(`tbl_assignatory`.`assignatory_1`) AS Assig1Position,
+	       `fais-procurement`.`fnGetAssignatoryName`(`tbl_assignatory`.`assignatory_2`) AS Assig2 , 
+	       `fais-procurement`.`fnGetAssignatoryPosition`(`tbl_assignatory`.`assignatory_2`) AS Assig2Position,
+	       `fais-procurement`.`fnGetAssignatoryName`(`tbl_assignatory`.`assignatory_3`) AS Assig3 , 
+	       `fais-procurement`.`fnGetAssignatoryPosition`(`tbl_assignatory`.`assignatory_3`) AS Assig3Position,
+	       `fais-procurement`.`fnGetAssignatoryName`(`tbl_assignatory`.`assignatory_4`) AS Assig4 , 
+	       `fais-procurement`.`fnGetAssignatoryPosition`(`tbl_assignatory`.`assignatory_4`) AS Assig4Position
+	       	FROM `tbl_assignatory`
+	WHERE `tbl_assignatory`.`assignatory_id` = 6";
+        $pordetails = $con->createCommand($sql)->queryAll();
+        return $pordetails;
     }
 
 
