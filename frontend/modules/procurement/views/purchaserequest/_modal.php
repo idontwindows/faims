@@ -172,7 +172,7 @@ if ($model->purchase_request_requestedby_id=='')
         <!-- ********************************************** -->
         <div class="row">
                 <div class="col-lg-12">
-                    <h4 style="border-bottom: #1c1c1c 2.5px solid;text-transform: uppercase;">Line Item Budget</h4>
+                    <h4 style="border-bottom: #1c1c1c 2.5px solid;text-transform: uppercase;"></h4>
                 </div>
                 <div class="col-lg-4">
                     <?='';
