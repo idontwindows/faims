@@ -76,9 +76,9 @@ if(Yii::$app->user->isGuest){
                         'items' => [
                             ['label' => 'Purchase Request', 'icon' => 'cart-plus', 'url' => ['/procurement/purchaserequest/index']],
                             ['label' => 'Obligation Request', 'icon' => 'object-ungroup', 'url' => ['/procurement/obligationrequest/index']],
-                            ['label' => 'Quotations, Bids and Awards', 'icon' => 'object-ungroup', 'url' => ['/procurement/bids/index']],
-                            ['label' => 'Purchase Order', 'icon' => 'tags', 'url' => ['/procurement/purchaseorder/index']],
-                            ['label' => 'Inspection and Acceptance', 'icon' => 'search', 'url' => ['/procurement/inspection']],
+                            ['label' => 'Quotations, Bids and Awards', 'icon' => 'object-ungroup', 'url' => ['/procurement/bids/index'],'visible'=> Yii::$app->user->can('access-bidsquotation')],
+                            ['label' => 'Purchase Order', 'icon' => 'tags', 'url' => ['/procurement/purchaseorder/index'],'visible'=> Yii::$app->user->can('access-purchaseorder')],
+                            ['label' => 'Inspection and Acceptance', 'icon' => 'search', 'url' => ['/procurement/inspection'],'visible'=> Yii::$app->user->can('access-inspection')],
                             ['label' => 'Disbursement and Payment', 'icon' => 'ruble ', 'url' => ['/procurement/disbursement']],
                         ]
                     ],

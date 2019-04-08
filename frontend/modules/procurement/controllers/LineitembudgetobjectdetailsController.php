@@ -6,6 +6,8 @@ use Yii;
 use common\models\procurement\Lineitembudgetobjectdetails;
 use common\models\procurement\LineitembudgetobjectdetailsSearch;
 use common\models\procurement\Objectdetail;
+use common\models\procurement\Objectdetailcategory;
+use common\models\procurement\Position;
 
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -79,6 +81,7 @@ class LineitembudgetobjectdetailsController extends Controller
                     'model' => $model,
                     'id' => $request['id'],
                     'objectdetails' => ArrayHelper::map(Objectdetail::find()->all(), 'object_detail_id', 'name'),
+                    'objectdetailscategory' => ArrayHelper::map(Objectdetailcategory::find()->all(), 'object_detail_category_id', 'name'),
                 ])  ;
             }
         }
@@ -131,5 +134,49 @@ class LineitembudgetobjectdetailsController extends Controller
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+    
+    public function actionListobjectdetails() {
+        $out = [];
+        if (isset($_POST['depdrop_parents'])) {
+            $id = end($_POST['depdrop_parents']);
+            
+            switch ($id) {
+                case 1:
+                    $list = Position::find()->asArray()->all();
+                    
+                    $selected  = null;
+                    if ($id != null && count($list) > 0) {
+                        $selected = '';
+
+                        foreach ($list as $i => $object) {
+                            $out[] = ['id' => $object['position_id'], 'name' => $object['name']];
+                            if ($i == 0) {
+                                $selected = $object['position_id'];
+                            }
+                        }
+                        // Shows how you can preselect a value
+                        echo Json::encode(['output' => $out, 'selected'=>$selected]);
+                        //echo Json::encode(['output' => $out, 'selected'=>$selected]);
+                        return;
+                    }
+                    break;
+                    
+                case 2:
+                    //$list = Position::find()->andWhere(['position_id'=>$id])->asArray()->all();
+                    break;
+                default:
+                    echo 'code to be executed if n is different from all labels';
+            }
+            
+
+            
+        }
+        echo Json::encode(['output' => '', 'selected'=>'']);
+    }
+    
+    function processDepDropObjects()
+    {
+        
     }
 }

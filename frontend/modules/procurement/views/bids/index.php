@@ -21,6 +21,10 @@ $this->registerJsFile($BaseURL.'js/custom.js');
 
 <div class="request-index">
     <h1 class="centered"><i class="fa fa-sitemap"></i> <?= Html::encode($this->title) ?></h1>
+
+    <!-- Panel Start -->
+    <h5><a id="startButton"  href="javascript:void(0);"><img src="<?= $BaseURL;?>images\help.png" height="52" width="98" style="padding: 10px;"></a></h5>
+
     <?php
     /* Generate Header Controller AngularJS
     */
@@ -64,8 +68,14 @@ $this->registerJsFile($BaseURL.'js/custom.js');
         GridButton(datavalue,buttontitle,buttonid,buttontype,buttonblock="",css,fa-icon,buttonname,moduleURL)
     -->
     <?= $func->GridGroupStart('button-control')?>
+    <h5 style='margin:0px;' data-step='1' data-intro='Proceed to Bids And Awards'><span>
     <?= $func->GridButton('purchase_request_id',"Bids And Awards","btnBidsandAwards","success ","","grdbutton","fa fa-industry","bids","bids") ?>
+    </span>
+    </h5>
+    <h5 style='margin:0px;' data-step='2' data-intro='Proceed to Request for Quotation'><span>
     <?= $func->GridButton('purchase_request_id',"Quotation","btnQuotation","warning ","","grdbutton","fa fa-paperclip","quotation","quotation") ?>
+    </span>
+    </h5>
     <?= $func->GridGroupEnd();?>
     <!-- *********************************** Close Group for Buttons ************************************************ -->
     <?=
@@ -113,3 +123,13 @@ $this->registerJsFile($BaseURL.'js/custom.js');
 </div>
 
 
+
+
+
+<script type="text/javascript">
+    document.getElementById('startButton').onclick = function() {
+        introJs().setOption('doneLabel', 'Next page').start().oncomplete(function() {
+            //window.location.href = 'index?multipage=true';
+        });
+    };
+</script>

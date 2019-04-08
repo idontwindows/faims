@@ -8,7 +8,7 @@ use common\models\procurement\BidsSearch;
 use common\models\procurement\Purchaseorder;
 use common\models\procurement\Purchaserequest;
 use common\models\procurement\Purchaserequestdetails;
-use common\models\procurement\PurchaserequestSearchdetails;
+use common\models\procurement\Purchaserequestsearchdetails;
 use common\models\procurement\Supplier;
 use kartik\grid\EditableColumnAction;
 use yii\data\SqlDataProvider;
@@ -25,7 +25,7 @@ class BidsController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new PurchaserequestSearchdetails();
+        $searchModel = new Purchaserequestsearchdetails();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -139,7 +139,6 @@ class BidsController extends Controller
                     $data[] = [$bids->bids_id, $unit, $itemdescription, $quantity, $price, $requestID, $prdetailID];
                 }
             }
-
             $updateStatus = "UPDATE tbl_purchase_request_details SET purchase_request_details_status=0 , purchase_request_details_price=0 WHERE `purchase_request_id`=" . $pID ." AND purchase_request_details_status<>2";
             $procCon->createCommand($updateStatus)->query();
             $procCon->createCommand()->batchInsert
@@ -305,10 +304,17 @@ class BidsController extends Controller
         return $x;
     }
 
+
     public function actionReport()
 {
     $request = Yii::$app->request;
-    $id = $request->get('id');
+    $id = $request->post('id');
+    $supplier = $request->post('cbosupplier');
+    $address = $request->post('txtaddress');
+    $sub = $request->post('txtsubmission');
+    $employee = $request->post('cboemployees');
+    $employee = explode("|",$employee);
+    $sub = date_create($sub);
     $model = $this->findModel($id);
     $prdetails = $this->getprDetails($model->purchase_request_id);
     $content = $this->renderPartial('_report', ['prdetails' => $prdetails, 'model' => $model]);
@@ -319,7 +325,53 @@ class BidsController extends Controller
     $pdf->content = $content;
     $pdf->cssFile = '@vendor/kartik-v/yii2-mpdf/assets/kv-mpdf-bootstrap.min.css';
     $pdf->cssInline = '.kv-heading-1{font-size:18px}.nospace-border{border:0px;}.no-padding{ padding:0px;}.print-container{font-size:11px;font-family:Arial,Helvetica Neue,Helvetica,sans-serif; }';
-    $LeftFooterContent = '<div style="text-align: left;font-weight: bold;">' . $model->purchase_request_number . '</div><div style="text-align: left;font-weight: lighter">Monday, April 30, 2018</div>';
+
+    $headers = '<div style="height: 68px;"></div>
+   <table class="table table-responsive">
+       <tbody>
+        <tr class="nospace-border">
+            <td width="70%" style="padding: 0px;"></td>
+            <td width="30%" style="padding: 0px; padding-left: 15px; padding-top: 0px;">'.$model->purchase_request_referrence_no.'</td>
+        </tr>
+        <tr class="nospace-border">
+            <td width="70%" style="padding: 0px;"></td>
+            <td width="30%" style="padding: 0px;padding-left: 15px;">'.$model->purchase_request_project_name.'</td>
+        </tr>
+        <tr class="nospace-border">
+            <td width="70%" style="padding: 0px;"></td>
+            <td width="30%" style="padding: 0px;padding-left: 15px;">'.$model->purchase_request_location_project.'</td>
+        </tr>
+        <tr class="nospace-border">
+            <td style="padding: 0px; padding-top: 34px" width="">'.$supplier.'</td>
+        </tr>
+        <tr class="nospace-border">
+            <td style="padding: 0px;" width="">'.$address.'</td>
+        </tr>
+        <tr class="nospace-border">
+            <td style="height: 50px;"></td>
+        </tr>
+        <tr class="nospace-border">
+            <td style="padding: 0px; padding-top:4px; padding-left:50px;" width="">'.date_format($sub, "F j, Y").'</td>
+        </tr>
+
+        <tr class="nospace-border">
+            <td style="height: 50px;"></td>
+        </tr>
+
+        <tr class="nospace-border">
+            <td width="80%"></td>
+            <td style="padding: -10px; padding-left: -20px; text-align: center; text-decoration: underline;" width="20%">'.$employee[0].'</td>
+        </tr>
+        <tr class="nospace-border">
+            <td width="80%"></td>
+            <td style="padding: 0px; padding-left: -20px; text-align: center;" width="20%">'.$employee[1].'</td>
+        </tr>
+       </tbody>
+    </table>
+    ';
+
+
+    $LeftFooterContent = '<div style="text-align: left;font-weight: bold;">' . $model->purchase_request_number . '</div><div style="text-align: left;font-weight: lighter">'.date("F j, Y").'</div>';
     $RightFooterContent = '<div style="text-align: right;padding-top:-50px;">Page {PAGENO} of {nbpg}</div>';
     $oddEvenConfiguration =
         [
@@ -340,9 +392,12 @@ class BidsController extends Controller
     ];
     $pdf->options = [
         'title' => 'Report Title',
+        'defaultheaderline' => 0,
+        'defaultfooterline' => 0,
         'subject' => 'Report Subject'];
+
     $pdf->methods = [
-        'SetHeader' => [''],
+        'SetHeader' => [$headers],
         'SetFooter' => [$headerFooterConfiguration],
     ];
 
@@ -361,6 +416,7 @@ class BidsController extends Controller
         if (empty($queryres)) {
             $columns = $con->getTableSchema('tmpheader')->getColumnNames();
         }
+        $assig = $this->getassig();
         $content = $this->renderPartial('_report_abstract', ['prdetails' => $prdetails, 'model' => $model , 'columns' => $columns]);
         $pdf = new Pdf();
         $pdf->format = [215.9,330.2];
@@ -369,27 +425,72 @@ class BidsController extends Controller
         $pdf->marginLeft=26;
         $pdf->marginRight=3;
         $pdf->marginTop=50;
-        $pdf->marginBottom=50;
+        $pdf->marginBottom=5;
         $pdf->defaultFontSize=7;
         $pdf->content = $content;
         $pdf->cssFile = '@vendor/kartik-v/yii2-mpdf/assets/kv-mpdf-bootstrap.min.css';
         $pdf->cssInline = '.kv-heading-1{font-size:18px}.nospace-border{border:0px;}.no-padding{ padding:0px;}.print-container{font-size:11px;font-family:Arial,Helvetica Neue,Helvetica,sans-serif; }';
+        $headers='<table style="padding-right: 150px;text-align: right;" width="100%"> 
+            <tr>
+                <td style="padding-top: 55px;"></td>
+            </tr>
+            <tr>
+                <td style="font-size: 9px;padding-left: 250px;">'.$model->purchase_request_referrence_no.'</td>
+            </tr>
+            <tr>
+                <td style="font-size: 9px;padding-left: 200px;">'.$model->purchase_request_project_name.'</td>
+            </tr>
+             <tr>
+                <td style="font-size: 9px;padding-left: 200px;">'.$model->purchase_request_location_project.'</td>
+            </tr>
+        </table>';
+        foreach ($assig as $sg) {
+           $assig1 =  $sg["Assig1"];
+           $assig2 =  $sg["Assig2"];
+           $assig3 =  $sg["Assig3"];
+           $assig4 =  $sg["Assig4"];
+           $assig5 =  $sg["Assig5"];
+           $assig6 =  $sg["Assig6"];
+           $Assig1Position =  $sg["Assig1Position"];
+           $Assig2Position =  $sg["Assig2Position"];
+           $Assig3Position =  $sg["Assig3Position"];
+           $Assig4Position =  $sg["Assig4Position"];
+           $Assig5Position =  $sg["Assig5Position"];
+           $Assig6Position =  $sg["Assig6Position"];
+        }
         $LeftFooterContent = '
-<table>
+<table width="100%">
     <tr>
-        <td style="font-size: 11px;text-align: center;">ROSEMARIE S. SALAZAR<br/>Chairman</td>
+        <td style="font-size: 11px;text-align: center; width=16.67">'.$assig1.'<br/>'.$Assig1Position.'</td>
         <td style="width: 50px;"></td>
-        <td style="font-size: 11px;text-align: center;">JALI J. BADIOLA<br/>Member</td>
+        <td style="font-size: 11px;text-align: center; width=16.67">'.$assig2.'<br/>'.$Assig2Position.'</td>
         <td style="width: 50px;"></td>
-        <td style="font-size: 11px;text-align: center;">JOSEPHINE B. NOHAY<br/>Member</div></td>
+        <td style="font-size: 11px;text-align: center; width=16.67">'.$assig3.'<br/>'.$Assig3Position.'</td>
         <td style="width: 50px;"></td>
-        <td style="font-size: 11px;text-align: center;">RONNEL B. GUNDOY<br/>Member</td>
+        <td style="font-size: 11px;text-align: center; width=16.67">'.$assig4.'<br/>'.$Assig4Position.'</td>
+        <td style="height: 100px;"></td>
+        <td style="font-size: 11px;text-align: center; width=16.67">'.$assig5.'<br/>'.$Assig5Position.'</td>
+        <td style="height: 100px;"></td>
+        <td style="font-size: 11px;text-align: center; width=16.67">'.$assig6.'<br/>'.$Assig6Position.'</td>
         <td style="height: 100px;"></td>
     </tr>
+        <tr>
+        <td style="font-size: 11px;text-align: center; width=16.67">'.date("F j, Y").'</td>
+        <td style="width: 50px;"></td>
+        <td style="font-size: 11px;text-align: center; width=16.67"></td>
+        <td style="width: 50px;"></td>
+        <td style="font-size: 11px;text-align: center; width=16.67"></td>
+        <td style="width: 50px;"></td>
+        <td style="font-size: 11px;text-align: center; width=16.67"></td>
+        <td style=""></td>
+        <td style="font-size: 11px;text-align: center; width=16.67"></td>
+        <td style=""></td>
+        <td style="font-size: 11px;text-align: center; width=16.67">Page {PAGENO} of {nbpg}</td>
+        <td style=""></td>
+    </tr>
 </table>
-<div style="text-align: left;font-weight: bold;font-size: 6px;">' . $model->purchase_request_number . '</div>
-<div style="text-align: left;font-weight: lighter;font-size: 6px;">'.date("Y-m-d h:i:sa").'</div>';
-        $RightFooterContent = '
+';
+       /* $RightFooterContent = '
 <table>
     <tr>
         <td style="font-size: 11px;text-align: center;">MARTIN A. WEE<br/>Regional Director</td>
@@ -417,6 +518,10 @@ class BidsController extends Controller
             </tr>
         </table>
         ';
+
+       */
+
+        /*
         $oddEvenHeaderConfiguration =
             [
                 'L' => [ // L for Left part of the header
@@ -445,6 +550,7 @@ class BidsController extends Controller
                 ],
                 'line' => 0, // That's the relevant parameter
             ];
+
         $headerConfiguration = [
             'odd' => $oddEvenHeaderConfiguration,
             'even' => $oddEvenHeaderConfiguration
@@ -453,12 +559,15 @@ class BidsController extends Controller
             'odd' => $oddEvenConfiguration,
             'even' => $oddEvenConfiguration
         ];
+        */
         $pdf->options = [
             'title' => 'ABSTRACT OF BIDS',
+            'defaultheaderline' => 0,
+            'defaultfooterline' => 0,
             'subject' => 'Report Abstract'];
         $pdf->methods = [
-            'SetHeader' => [$headerConfiguration],
-            'SetFooter' => [$headerFooterConfiguration],
+            'SetHeader' => [$headers],
+            'SetFooter' => [$LeftFooterContent],
         ];
 
         return $pdf->render();
@@ -466,7 +575,7 @@ class BidsController extends Controller
 
     public function actionMtest()
     {
-        $searchModel = new PurchaserequestSearchdetails();
+        $searchModel = new Purchaserequestsearchdetails();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         return $this->render('_test', [
             'searchModel' => $searchModel,
@@ -485,7 +594,7 @@ class BidsController extends Controller
             $prdetails = $this->getprDetails($model->purchase_request_id);
             $biddetails = $this->getbidDetails($model->purchase_request_id);
             $ListPOprovider = $this->getpoDetails($model->purchase_request_id);
-            $searchModel = new PurchaserequestSearchdetails();
+            $searchModel = new Purchaserequestsearchdetails();
             $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
             $searchModelBid = new BidsSearch();
             $bidsProvider = $searchModelBid->search(Yii::$app->request->queryParams);
@@ -570,6 +679,14 @@ class BidsController extends Controller
         return $porequest;
     }
 
+    function getpr($id)
+    {
+        $con = Yii::$app->procurementdb;
+        $sql = "SELECT * FROM `tbl_purchase_request_details` WHERE `purchase_request_id`=" . $id;
+        $porequest = $con->createCommand($sql)->queryAll();
+        return $porequest;
+    }
+
     function getbidDetails($id)
     {
         $con = Yii::$app->procurementdb;
@@ -598,6 +715,28 @@ class BidsController extends Controller
     {
         $con = Yii::$app->procurementdb;
         $sql = "CALL `fais-procurement`.spGenerateAbstractOfBids(" . $id . ",1)";
+        $pordetails = $con->createCommand($sql)->queryAll();
+        return $pordetails;
+    }
+
+    function getassig()
+    {
+        $con = Yii::$app->db;
+        $sql = "SELECT `fais-procurement`.`fnGetAssignatoryName`(`tbl_assignatory`.`assignatory_1`) AS Assig1 , 
+	       `fais-procurement`.`fnGetAssignatoryPosition`(`tbl_assignatory`.`assignatory_1`) AS Assig1Position,
+	       `fais-procurement`.`fnGetAssignatoryName`(`tbl_assignatory`.`assignatory_2`) AS Assig2 , 
+	       `fais-procurement`.`fnGetAssignatoryPosition`(`tbl_assignatory`.`assignatory_2`) AS Assig2Position,
+	       `fais-procurement`.`fnGetAssignatoryName`(`tbl_assignatory`.`assignatory_3`) AS Assig3 , 
+	       `fais-procurement`.`fnGetAssignatoryPosition`(`tbl_assignatory`.`assignatory_3`) AS Assig3Position,
+	       `fais-procurement`.`fnGetAssignatoryName`(`tbl_assignatory`.`assignatory_4`) AS Assig4 , 
+	       `fais-procurement`.`fnGetAssignatoryPosition`(`tbl_assignatory`.`assignatory_4`) AS Assig4Position,
+	       `fais-procurement`.`fnGetAssignatoryName`(`tbl_assignatory`.`assignatory_5`) AS Assig5 , 
+	       `fais-procurement`.`fnGetAssignatoryPosition`(`tbl_assignatory`.`assignatory_5`) AS Assig5Position,
+	       `fais-procurement`.`fnGetAssignatoryName`(`tbl_assignatory`.`assignatory_6`) AS Assig6 , 
+	       `fais-procurement`.`fnGetAssignatoryPosition`(`tbl_assignatory`.`assignatory_6`) AS Assig6Position
+	FROM `tbl_assignatory`
+	WHERE `tbl_assignatory`.`assignatory_id` = 4
+";
         $pordetails = $con->createCommand($sql)->queryAll();
         return $pordetails;
     }

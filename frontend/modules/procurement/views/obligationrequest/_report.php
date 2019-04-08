@@ -37,14 +37,24 @@
         </tr>
 </table>
 <div style="height:75px;"></div>
+    <?php
+    $fin="";
+    $x=0;
+    foreach ($assig as $ob) {
+        $requestedby = $ob["RequestedBy"];
+        $requestedposition = $ob["RequestedPosition"];
+        $fundsavailable = $ob["FundsAvailable"];
+        $fundsposition = $ob["FundsAvailablePosition"];
+    }
+    ?>
 <table width="100%">
     <tr class="nospace-border">
-        <td width="50%" style="text-align: center;">Rosemarie Salazar</td>
-        <td width="50%" style="text-align: center;">Martin A. Wee</td>
+        <td width="50%" style="text-align: center;"><?= $requestedby; ?></td>
+        <td width="50%" style="text-align: center;"><?= $fundsavailable; ?></td>
     </tr>
     <tr class="nospace-border">
-        <td width="50%" style="text-align: center;">ARD-FASTS</td>
-        <td width="50%" style="text-align: center;">Regional Director</td>
+        <td width="50%" style="text-align: center;"><?= $requestedposition; ?></td>
+        <td width="50%" style="text-align: center;"><?= $fundsposition; ?></td>
     </tr>
 </table>
 

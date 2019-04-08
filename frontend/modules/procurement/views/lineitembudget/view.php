@@ -139,6 +139,7 @@ Modal::end();
                         'columns' => [
                             [
                                 'attribute'=>'expenditureObject.expenditureSubClass.ExpenditureClass.name', 
+                                'contentOptions' => ['style' => 'font-weight: bold; text-decoration: underline;'],
                                 'width'=>'5px',
                                 'value'=>function ($model, $key, $index, $widget) { 
                                     return $model->expenditureObject->expenditureSubClass->expenditureClass->name;
@@ -176,8 +177,6 @@ Modal::end();
                                         'pagination' => false,
                                     ]);
 
-                                    //var_dump($model);
-
                                     return Yii::$app->controller->renderPartial('_object-details', ['model' => $model, 'dataProvider'=>$dataProvider]);
                                 },
                                 'headerOptions' => ['class' => 'kartik-sheet-style'],
@@ -202,6 +201,7 @@ Modal::end();
                                     'placement'=>'left',
                                     'header'=>'Amount',
                                     'formOptions'=>['action' => ['lineitembudget/editLibObjects']], // point to the new action
+                                    //'formOptions'=>['action' => ['lineitembudget/editamount']], // point to the new action
                                     'inputType' => \kartik\editable\Editable::INPUT_MONEY,
                                         'options' => [
                                             'pluginOptions' => ['min' => 0, 'max' => 10000000,'prefix'=>'PHP ','decimals'=>2, 'decPoint'=>'.', 'thousandSep'=>',','format'=>'number'],

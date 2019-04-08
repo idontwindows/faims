@@ -10,10 +10,12 @@
 
 use yii\helpers\Html;
 
-
+use common\modules\pdfprint;
 use common\components\Functions;
 use kartik\grid\GridView;
 use yii\data\ArrayDataProvider;
+use yii\bootstrap\Modal;
+
 
 $func = new Functions();
 
@@ -33,6 +35,23 @@ $this->registerJsFile($BaseURL.'js/custom.js');
 
 <div class="request-index">
     <h1 class="centered" style="margin-bottom: 0px;"><i class="fa fa-sitemap"></i> <?= Html::encode($this->title) ?></h1>
+
+    <?php
+    //Modal
+    Modal::begin([
+        'header' => '<h4 id="modalHeader" style="color: #ffffff"></h4>',
+        'id' => 'modalPurchaseOrder',
+        'size' => 'modal-lg',
+        'options'=> [
+            'tabindex'=>false,
+        ]
+    ]);
+    echo "<div id='modalContent'><div style='text-align:center'><img src='/images/loading.gif'></div></div>";
+    Modal::end();
+    ?>
+
+
+
     <!-- content -->
     <?php
 
@@ -154,7 +173,12 @@ $this->registerJsFile($BaseURL.'js/custom.js');
             'subGroupOf'=>1, // supplier column index is the parent group
             'format'=>'raw',
             'value' => function ($data) use ($func) {
-                return '<a data-target="#purchaseorder" data-id="{{data.'.$data['purchase_order_id'].'}}" data-toggle="modal" class="purchaseorder btn btn-sm btn-success">Print PO<i class="fa fa-print"></i></a>';
+                return Html::a('<span class="glyphicon glyphicon-print"></span>', ['reportpo?id='.$data["purchase_order_number"]], [
+                    'class'=>'btn-pdfprint btn btn-warning',
+                    'data-pjax'=>"0",
+                    'pjax'=>"0",
+                    'title'=>'Will open the generated PDF file in a new window'
+                ]);
             },
         ],
 
@@ -201,13 +225,17 @@ $this->registerJsFile($BaseURL.'js/custom.js');
     ]);
     ?>
 
+    <?= pdfprint\Pdfprint::widget([
+        'elementClass' => '.btn-pdfprint'
+    ]); ?>
+
     <!-- *********************************** Generate Header Modal for Create ************************************************
                         GenerateHeaderModal (id,title,widthsize,topheight)
     -->
-    <?= $func->GenerateHeaderModal("purchaseorder","Purchase Order",'80',2) ?>
-    <div class="request-bids">
+    <?php //$func->GenerateHeaderModal("purchaseorder","Purchase Order",'80',2) ?>
+   <!-- <div class="request-bids">
         <div class= "loadpartial">
-            <img src="<?= $BaseURL; ?>/images/loading.gif">
+            <img src="/images/loading.gif">
         </div>
         <div id="purchaseorderview">Units	SIGN PEN, RED, liquid/gel ink, 0.5mm needle tip, refillable	8	42.00
             8	BAMBOO GARDEN SOCIAL HALL & CATERING SERVICES	Units	CLIP, BACKFOLD, all metal, clamping: 19mm	15	75.00
@@ -215,12 +243,15 @@ $this->registerJsFile($BaseURL.'js/custom.js');
             10	PO-18-09-0004	GARDEN ORCHID HOTEL
         </div>
     </div>
-    <?=
-    $func->GenerateFooterModal("Close","Proceed",0);
+    -->
+    <?php
+    //$func->GenerateFooterModal("Close","Proceed",0);
     ?>
     <!-- *********************************** Close for View ************************************************
                             GenerateFooterModal(title,nextbuttiontitle,allowbutton=booloean)
     -->
+
+    <?php //$BaseURL; ?>
 </div>
 
 

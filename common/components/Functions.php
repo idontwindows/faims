@@ -12,6 +12,8 @@ use yii\base\Component;
 use yii2mod\alert\Alert;
 use kartik\select2\Select2;
 use yii\web\JsExpression;
+
+use kartik\grid\GridView;
 /**
  * Description of Functions
  *
@@ -124,7 +126,7 @@ class Functions extends Component
         if($linktitle=="") {
             //nothing
         }else{
-            $gridheader = $gridheader.'<button data-toggle="modal" data-target="#'.$linktarget.'" href="#'.$linktarget.'" class="'.$linktarget.' btn btn-success btn-block">'.$linktitle.' <i class="fa fa-plus"></i></button>';
+            $gridheader = $gridheader.'<h5 style=\'display: inline-block;margin:0px;\' data-step=\'1\' data-intro=\'Click here to Create\'><span><button data-toggle="modal" data-target="#'.$linktarget.'" href="#'.$linktarget.'" class="'.$linktarget.' btn btn-success btn-block">'.$linktitle.' <i class="fa fa-plus"></i></button></h5</span>';
         }
         $gridheader = $gridheader.'</div></div>';
         $gridheader = $gridheader.'<div class="space-20"></div>';
@@ -190,7 +192,7 @@ class Functions extends Component
      */
 
     function GridGroupStart($classname="") {
-          $groupstart = "<td class='".$classname."'>";
+          $groupstart = "<td class='".$classname."' style='float:right;'>";
           return $groupstart;
     }
 
@@ -218,16 +220,16 @@ class Functions extends Component
         $buttontitle="";
         switch ($btncase) {
             case "myView":
-                $grdbtn = '<a type="button" title="'.$tooltips.'" data-target="#'.$btncase.'" data-toggle="modal" data-id="{{data.'.$datavalue.'}}"  class="'.$ModuleURL.' btn btn-'.$buttontype.' '.$buttonblock.' '.$css.'">'.$buttontitle.' <i class="'.$fa.'"></i></a>';
+                $grdbtn = '<h5 style=\'display: inline-block;margin:0px;\' data-step=\'2\' data-intro=\'Click here to View\'><a type="button" title="'.$tooltips.'" data-target="#'.$btncase.'" data-toggle="modal" data-id="{{data.'.$datavalue.'}}"  class="'.$ModuleURL.' btn btn-'.$buttontype.' '.$buttonblock.' '.$css.'">'.$buttontitle.' <i class="'.$fa.'"></i></a></h5>';
                 break;
             case "Update":
-                $grdbtn = '<a type="button" title="'.$tooltips.'" data-target="#'.$btncase.'" data-toggle="modal" data-id="{{data.'.$datavalue.'}}" class="'.$ModuleURL.' btn btn-'.$buttontype.' '.$buttonblock.' '.$css.'">'.$buttontitle.' <i class="'.$fa.'"></i></a>';
+                $grdbtn = '<h5 style=\'display: inline-block;margin:0px;\' data-step=\'3\' data-intro=\'Click here to Update\'><a type="button" title="'.$tooltips.'" data-target="#'.$btncase.'" data-toggle="modal" data-id="{{data.'.$datavalue.'}}" class="'.$ModuleURL.' btn btn-'.$buttontype.' '.$buttonblock.' '.$css.'">'.$buttontitle.' <i class="'.$fa.'"></i></a></h5>';
                 break;
             case "Delete":
-                $grdbtn = '<a data-method="post" title="Delete" aria-label="Delete" data-pjax="0" data-confirm="Are you sure you want to delete this item?" href="'.$BaseURL.$ModuleURL.'delete?id={{data.'.$datavalue.'}}" data-id="{{data.'.$datavalue.'}}" data-ok="Yes" data-cancel="No" data-title="Delete" id="'.$buttonid.'" class="btn btn-'.$buttontype.' '.$buttonblock.' '.$css.'">'.$buttontitle.' <i class="'.$fa.'"></i></a>';
+                $grdbtn = '<h5 style=\'display: inline-block;margin:0px;\' data-step=\'4\' data-intro=\'Click here to Delete\'><a data-method="post" title="Delete" aria-label="Delete" data-pjax="0" data-confirm="Are you sure you want to delete this item?" href="'.$BaseURL.$ModuleURL.'delete?id={{data.'.$datavalue.'}}" data-id="{{data.'.$datavalue.'}}" data-ok="Yes" data-cancel="No" data-title="Delete" id="'.$buttonid.'" class="btn btn-'.$buttontype.' '.$buttonblock.' '.$css.'">'.$buttontitle.' <i class="'.$fa.'"></i></a></h5>';
                 break;
             default:
-                $grdbtn = '<a type="button" title="'.$tooltips.'" data-target="#'.$btncase.'" data-toggle="modal" data-id="{{data.'.$datavalue.'}}"  class="'.$ModuleURL.' btn btn-'.$buttontype.' '.$buttonblock.' '.$css.'">'.$buttontitle.' <i class="'.$fa.'"></i></a>';
+                $grdbtn = '<h5 style=\'display: inline-block;margin:0px;\' data-step=\'2\' data-intro=\'Click here to View\'><a type="button" title="'.$tooltips.'" data-target="#'.$btncase.'" data-toggle="modal" data-id="{{data.'.$datavalue.'}}"  class="'.$ModuleURL.' btn btn-'.$buttontype.' '.$buttonblock.' '.$css.'">'.$buttontitle.' <i class="'.$fa.'"></i></a></h5>';
                 break;
         }
         return $grdbtn;
@@ -356,6 +358,99 @@ SCRIPT;
               ]);
         }
 
+    }
+    
+    /**
+     * 
+     * @return type
+     */
+    public function exportConfig($title,$filename,$Header){
+        $pdfHeader = [
+            'L' => [
+                'content' => "",
+                'font-size' => 0,
+                'color' => '#333333',
+            ],
+            'C' => [
+                'content' => $Header,
+                'font-size' => 20,
+                'margin-top'=>60,
+                'color' => '#333333',
+            ],
+            'R' => [
+                'content' =>'',
+                'font-size' => 0,
+                'color' => '#333333',
+            ],
+            'line'=>false
+        ];
+        $pdfFooter = [
+            'L' => [
+                'content' => '',
+                'font-size' => 0,
+                'font-style' => 'B',
+                'color' => '#999999',
+            ],
+            'C' => [
+                'content' => '{PAGENO}',
+                'font-size' => 10,
+                'font-style' => 'B',
+                'font-family' => 'serif',
+                'color' => '#333333',
+            ],
+            'R' => [
+                'content' => '',
+                'font-size' => 0,
+                'font-style' => 'B',
+                'font-family' => 'serif',
+                'color' => '#333333',
+            ],
+            'line' => false,
+        ];
+        return [GridView::PDF => [
+                'filename' => $filename,
+                'alertMsg'        => 'The PDF export file will be generated for download.',
+                'config' => [
+                    'methods' => [
+                        //'SetHeader' => [$pdfHeader,'line'=>0],
+                        //'SetFooter' => [$pdfFooter]
+                        'SetHeader' => [
+                            ['odd' => $pdfHeader, 'even' => $pdfHeader],
+                        ],
+                        'SetFooter' => [
+                            ['odd' => $pdfFooter, 'even' => $pdfFooter],
+                        ],
+                    ],
+                    'options' => [
+                        'title' => $title,
+                        'subject' => 'SOA',
+                        'keywords' => 'pdf, preceptors, export, other, keywords, here',
+                        'destination'=>'I'
+                    ],
+                ]
+            ],
+            GridView::EXCEL => [
+                'label'           => 'Excel',
+                //'icon'            => 'file-excel-o',
+                'methods' => [
+                    'SetHeader' => [$pdfHeader],
+                    'SetFooter' => [$pdfFooter]
+                ],
+                'iconOptions'     => ['class' => 'text-success'],
+                'showHeader'      => TRUE,
+                'showPageSummary' => TRUE,
+                'showFooter'      => TRUE,
+                'showCaption'     => TRUE,
+                'filename'        => $filename,
+                'alertMsg'        => 'The EXCEL export file will be generated for download.',
+                'options'         => ['title' => $title],
+                'mime'            => 'application/vnd.ms-excel',
+                'config'          => [
+                    'worksheet' =>$title,
+                    'cssFile'   => ''
+                ]
+            ],
+        ];
     }
 
 }

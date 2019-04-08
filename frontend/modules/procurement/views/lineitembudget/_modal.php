@@ -32,10 +32,21 @@ use common\models\procurement\Lineitembudgetobject;
     );
 
     ?>
-        
+    
     <div class="row">
-        <div class="col-lg-4">
-        <?php $model->division_id = 2;?>
+        <div class="col-lg-12">
+            <?= $form->field($model, 'title')->textarea(['rows' => '3']) ?>
+            <!--?= $form->field($model, 'title')->textInput() ?-->
+        </div>
+        
+    </div>
+    
+    <?php $model->division_id = Yii::$app->user->identity->profile->division_id;?>
+    <?php $model->section_id = Yii::$app->user->identity->profile->unit_id;?>
+    
+    <div class="row">
+        <div class="col-lg-6">
+        
         <?= $form->field($model, 'division_id')->widget(Select2::classname(), [
                 'data' => $listDivisions,
                 'language' => 'en',
@@ -46,7 +57,19 @@ use common\models\procurement\Lineitembudgetobject;
                 ],
             ]); ?>
         </div>
-        <div class="col-lg-4">
+        <div class="col-lg-6">
+        <?= $form->field($model, 'type_id')->widget(Select2::classname(), [
+                        'data' => $listTypes,
+                        'language' => 'en',
+                        'options' => ['placeholder' => 'Select LIB Type'],
+                        'pluginOptions' => [
+                            'allowClear' => true
+                        ],
+                    ]); ?>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6">
         <?= $form->field($model, 'section_id')->widget(Select2::classname(), [
                         'data' => $listSections,
 
@@ -57,9 +80,9 @@ use common\models\procurement\Lineitembudgetobject;
                         ],
                     ]); ?>            
         </div>
-        <div class="col-lg-4">
-        <?= $form->field($model, 'type')->widget(Select2::classname(), [
-                        'data' => $listTypes,
+        <div class="col-lg-6">
+        <?= $form->field($model, 'subtype_id')->widget(Select2::classname(), [
+                        'data' => $listSubTypes,
                         'language' => 'en',
                         'options' => ['placeholder' => 'Select LIB Type'],
                         'pluginOptions' => [
@@ -68,23 +91,22 @@ use common\models\procurement\Lineitembudgetobject;
                     ]); ?>
         </div>
     </div>
-    
     <div class="row">
-        <div class="col-lg-8">
-        <?= $form->field($model, 'title')->textInput() ?>
-        </div>
-        <div class="col-lg-4">
+        <div class="col-lg-6">
         <?= $form->field($model, 'period')->textInput() ?>
-        <!--?= DatePicker::widget([
-            'model' => $model, 
-            'attribute' => 'duration_start',
-            'options' => ['placeholder' => 'Enter start date ...'],
-            'pluginOptions' => [
-                'autoclose'=>true
-            ]
-        ]); ?-->
         </div>
+        
+        <div class="col-lg-12-block">
+                    <div class="col-lg-8-block">
+                    <h1></h1>
+                    <div id="removesubmit">
+                        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update' , ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+                    </div>
+                    </div>
+                </div>
     </div>
+    
+    
     
     <div class="row">
         <div class="col-lg-12">  
@@ -96,39 +118,10 @@ use common\models\procurement\Lineitembudgetobject;
                 ],
             ]);
         ?>
-        <?php /*echo GridView::widget([
-                'dataProvider'=> $dataProvider,
-                //'filterModel' => $searchModel,
-                'columns' => [
-                    'line_item_budget_object_id',
-                    'expenditure_object_id',
-                    'amount'
-                ],
-                'pjax'=>true,
-                'pjaxSettings'=>[
-                    'neverTimeout'=>true,
-                    //'beforeGrid'=>'My fancy content before.',
-                    //'afterGrid'=>'My fancy content after.',
-                ],
-                'responsive'=>true,
-                'hover'=>true
-            ]);*/ ?>
         </div>
     </div>
     
-    <!--?= $form->field($model, 'project_id')->textInput() ?-->
-
-    <!--?= $form->field($model, 'program_id')->textInput() ?-->
-
-
-                <div class="col-lg-12-block">
-                    <div class="col-lg-4-block">
-                    <h1></h1>
-                    <div id="removesubmit">
-                        <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update' , ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
-                    </div>
-                    </div>
-                </div>
+                
 
     <?php 
         //print_r(Yii::$app->authManager->getRolesByUser(1));

@@ -95,8 +95,8 @@ class ObligationrequestController extends Controller
         $request = Yii::$app->request;
         $id = $request->get('id');
         $model = $this->findModel($id);
-        //$obdetails = $this->getobDetails($model->os_no);
-        $content = $this->renderPartial('_report', ['model'=> $model]);
+        $obassig = $this->getobAssignatory($model->os_no);//  .date("F j, Y")
+        $content = $this->renderPartial('_report', ['model'=> $model,'assig' => $obassig]);
         $pdf = new Pdf();
         $pdf->format = pdf::FORMAT_A4;
         $pdf->orientation = Pdf::ORIENT_PORTRAIT;
@@ -104,7 +104,7 @@ class ObligationrequestController extends Controller
         $pdf->content  = $content;
         $pdf->cssFile = '@vendor/kartik-v/yii2-mpdf/assets/kv-mpdf-bootstrap.min.css';
         $pdf->cssInline = '.kv-heading-1{font-size:18px}.nospace-border{border:0px;}.no-padding{ padding:0px;}.print-container{font-size:11px;font-family:Arial,Helvetica Neue,Helvetica,sans-serif; }';
-        $LeftFooterContent = '<div style="text-align: left;font-weight: lighter">Monday, April 30, 2018</div>';
+        $LeftFooterContent = '<div style="text-align: left;font-weight: lighter">'.$model->os_no.'</div>';
         $RightFooterContent = '<div style="text-align: right;padding-top:-50px;">Page {PAGENO} of {nbpg}</div>';
         $oddEvenConfiguration =
             [
@@ -133,6 +133,22 @@ class ObligationrequestController extends Controller
 
         return $pdf->render();
     }
+
+    function getobAssignatory($id)
+    {
+        //Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        $con = Yii::$app->procurementdb;
+        $sql = "SELECT `fnGetAssignatoryName`(`tbl_obligationrequest`.`requested_by`) AS RequestedBy , 
+       `fnGetAssignatoryPosition`(`tbl_obligationrequest`.`requested_by`) AS RequestedPosition,
+       `fnGetAssignatoryName`(`tbl_obligationrequest`.`funds_available`) AS FundsAvailable,
+       `fnGetAssignatoryPosition`(`tbl_obligationrequest`.`funds_available`) AS FundsAvailablePosition
+FROM `tbl_obligationrequest`
+WHERE `tbl_obligationrequest`.`os_no` = '".$id."';";
+        $porequest = $con->createCommand($sql)->queryAll();
+        return $porequest;
+    }
+
+
 
     /**
      *

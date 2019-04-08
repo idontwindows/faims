@@ -10,7 +10,7 @@ use common\models\procurement\PurchaseRequestDetails;
 /**
  * PurchaserequestSearchDetails represents the model behind the search form about `common\models\procurement\PurchaseRequestDetails`.
  */
-class PurchaserequestSearchdetails extends PurchaseRequestDetails
+class Purchaserequestsearchdetails extends PurchaseRequestDetails
 {
     /**
      * @inheritdoc

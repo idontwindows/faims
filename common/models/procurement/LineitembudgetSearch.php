@@ -18,7 +18,7 @@ class LineitembudgetSearch extends Lineitembudget
     public function rules()
     {
         return [
-            [['line_item_budget_id', 'type', 'division_id', 'section_id', 'project_id', 'program_id'], 'integer'],
+            [['line_item_budget_id', 'type_id', 'subtype_id', 'division_id', 'section_id', 'project_id', 'program_id'], 'integer'],
             [['title', 'period', 'duration_start', 'duration_end'], 'safe'],
         ];
     }
@@ -60,7 +60,8 @@ class LineitembudgetSearch extends Lineitembudget
         // grid filtering conditions
         $query->andFilterWhere([
             'line_item_budget_id' => $this->line_item_budget_id,
-            'type' => $this->type,
+            'type_id' => $this->type_id,
+            'subtype_id' => $this->subtype_id,
             'duration_start' => $this->duration_start,
             'duration_end' => $this->duration_end,
             'division_id' => $this->division_id,

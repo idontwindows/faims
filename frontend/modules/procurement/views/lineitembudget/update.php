@@ -16,6 +16,7 @@ $this->params['breadcrumbs'][] = 'Update';
 
     <?= $this->render('_form', [
                 'listTypes'=>$listTypes,
+                'listSubTypes' => $listSubTypes,
                 'listDivisions'=>$listDivisions,
                 'listSections'=>$listSections,
                 'listProject'=>$listProject,

@@ -17,6 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= $this->renderAjax('_modal', [
         'model' => $model,
         'listTypes' => $listTypes,
+        'listSubTypes' => $listSubTypes,
         'listDivisions'=>$listDivisions,
         'listSections'=>$listSections,
     ]) ?>

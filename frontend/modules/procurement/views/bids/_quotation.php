@@ -7,14 +7,14 @@ use common\components\MyPrint;
 use yii\helpers\ArrayHelper;
 
 $con =  Yii::$app->db;
-$command = $con->createCommand("SELECT `tbl_employee`.`employee_id`,CONCAT(`tbl_employee`.`lastname`,', ',`tbl_employee`.`firstname`,' ',`tbl_employee`.`middlename`) AS employeename 
-    FROM `fais-procurement`.`tbl_employee`");
+$command = $con->createCommand("SELECT `tbl_profile`.`user_id`,CONCAT(`tbl_profile`.`lastname`,', ', `tbl_profile`.`firstname` ,' ', `tbl_profile`.`middleinitial`, '|' , `tbl_profile`.`designation`) AS employeename
+        FROM `tbl_profile`");
 $employees = $command->queryAll();
 $command2 = $con->createCommand("SELECT * FROM `fais-procurement`.`tbl_supplier`");
 $supplier = $command2->queryAll();
 
-$listSupplier = ArrayHelper::map($supplier,'supplier_id','supplier_name');
-$listEmployees = ArrayHelper::map($employees, 'employee_id', 'employeename');
+$listSupplier = ArrayHelper::map($supplier,'supplier_name','supplier_name');
+$listEmployees = ArrayHelper::map($employees, 'employeename', 'employeename');
 
 /* @var $this yii\web\View */
 /* @var $model common\models\procurement\Department */
@@ -24,8 +24,11 @@ $listEmployees = ArrayHelper::map($employees, 'employee_id', 'employeename');
 
 <div class="quotation-form">
 
-    <?php $form = ActiveForm::begin();
+    <?php //$form = ActiveForm::begin();
 
+    ?>
+    <?php $form = ActiveForm::begin(['action' => ['bids/report'],'options' => ['method' => 'post','target'=>'_blank']]);
+       echo $form->field($model,'purchase_request_id')->hiddenInput(['value'=>$model->purchase_request_id,'id'=>'id','name'=>'id'])->label(false);
     ?>
     <div class="form-group">
             <div class="row">
@@ -42,7 +45,7 @@ $listEmployees = ArrayHelper::map($employees, 'employee_id', 'employeename');
                     </div>
                     <div class="col-lg-6">
                         <label>PR Number </label>
-                        <?= Html::label($model->purchase_request_number,'',['placeholder'=>'Address','class'=>'form-control','readonly'=>true]);?>
+                        <?= Html::label($model->purchase_request_number,'',['placeholder'=>'PR Number','class'=>'form-control','readonly'=>true]);?>
                     </div>
                 </div>
             </div>
@@ -51,7 +54,7 @@ $listEmployees = ArrayHelper::map($employees, 'employee_id', 'employeename');
                 <div class="col-lg-12-block">
                     <div class="col-lg-6">
                         <label>Address </label>
-                        <?= Html::textarea('txtaddress','',['placeholder'=>'Address','class'=>'form-control']);?>
+                        <?= Html::textarea('txtaddress','',['placeholder'=>'Address','id'=>'txtaddress','class'=>'form-control']);?>
                     </div>
                     <div class="col-lg-6">
                         <label>Date </label>
@@ -64,7 +67,7 @@ $listEmployees = ArrayHelper::map($employees, 'employee_id', 'employeename');
                 <div class="col-lg-12-block">
                     <div class="col-lg-6">
                         <label>Submissions not Later than </label>
-                        <?= Html::textInput('txtsubmission','',['placeholder'=>'Address','class'=>'form-control','type'=>'date']);?>
+                        <?= Html::textInput('txtsubmission','',['placeholder'=>'Submission','class'=>'form-control','type'=>'date']);?>
                     </div>
                     <div class="col-lg-6">
                         <label>Supply Officer </label>
@@ -94,8 +97,6 @@ $listEmployees = ArrayHelper::map($employees, 'employee_id', 'employeename');
                                 <td>Units</td>
                                 <td>Item Description</td>
                                 <td>Quantity</td>
-                                <!--<td>Unit Cost</td>-->
-                                <!--<td>Total Cost</td>-->
                             </tr>
                             </thead>
                             <tbody>
@@ -129,17 +130,17 @@ $listEmployees = ArrayHelper::map($employees, 'employee_id', 'employeename');
         </div>
 
     </div>
-    <?php ActiveForm::end(); ?>
+
     <div class="row">
         <div class="col-lg-10">
         </div>
         <div class="col-lg-2">
-            <a href="report?id=<?=$model->purchase_request_id?>" class="btn-pdfprint btn btn-lg btn-primary btn-block">Print</a>
-            <?= pdfprint\Pdfprint::widget([
-                'elementClass' => '.btn-pdfprint'
-            ]);?>
+            <?= Html::submitButton( 'Print' , ['class' =>  'btn-pdfprint btn btn-primary btn-block','id'=> 'btnSubmit','name'=>'btnSubmit','data-pjax'=>'0']) ?>
+
         </div>
     </div>
+    <?php ActiveForm::end(); ?>
+    <?php //echo pdfprint\Pdfprint::widget(['elementClass' => '.btn-pdfprint']); ?>
 </div>
 
 

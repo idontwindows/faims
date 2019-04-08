@@ -43,9 +43,12 @@ echo GridView::widget([
                                     },
                                     'group'=>true,  // enable grouping,
                                     'groupedRow'=>true,                    // move grouped column to a single grouped row
+                                    //'groupOddCssClass'=>'kv-grouped-row',  // configure odd group cell css class
+                                    //'groupEvenCssClass'=>'kv-grouped-row', // configure even group cell css class
                                 ],
                                 'name', 
-                                'object_code'
+                                'object_code',
+                                //'account_code'
                             ],
                 'responsive'=>true,
                 'hover'=>true

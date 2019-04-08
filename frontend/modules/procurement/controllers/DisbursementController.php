@@ -9,6 +9,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use common\modules\pdfprint;
+use kartik\mpdf\Pdf;
 use yii\helpers\ArrayHelper;
 
 /**
@@ -110,11 +111,109 @@ class DisbursementController extends Controller
         return json_encode($checkxml);
     }
 
-
-
     /**
      *
      */
+
+
+    function getDetails($id)
+    {
+        //Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        $con = Yii::$app->procurementdb;
+        $sql = "SELECT *,`fais-procurement`.`fnGetAssignatoryName`(`tbl_disbursement`.`certified_a`) AS Assig1 , 
+	       `fais-procurement`.`fnGetAssignatoryPosition`(`tbl_disbursement`.`certified_a`) AS Assig1Position,
+	       `fais-procurement`.`fnGetAssignatoryName`(`tbl_disbursement`.`certified_b`) AS Assig2 , 
+	       `fais-procurement`.`fnGetAssignatoryPosition`(`tbl_disbursement`.`certified_b`) AS Assig2Position,
+	       `fais-procurement`.`fnGetAssignatoryName`(`tbl_disbursement`.`approved`) AS Assig3 , 
+	       `fais-procurement`.`fnGetAssignatoryPosition`(`tbl_disbursement`.`approved`) AS Assig3Position FROM tbl_disbursement WHERE dv_id ='".$id."'";
+        $porequest = $con->createCommand($sql)->queryAll();
+        return $porequest;
+    }
+
+    public function actionReportdv($id) {
+        $request = Yii::$app->request;
+        $id = $request->get('id');
+        $model = $this->findModel($id);
+        $prdetails = $this->getDetails($id);
+        $content = $this->renderPartial('_report', ['prdetails'=> $prdetails,'model'=>$model]);
+        $pdf = new Pdf();
+        $pdf->format = pdf::FORMAT_A4;
+        $pdf->orientation = Pdf::ORIENT_PORTRAIT;
+        $pdf->destination =  $pdf::DEST_BROWSER;
+        $pdf->content  = $content;
+        $pdf->cssFile = '@vendor/kartik-v/yii2-mpdf/assets/kv-mpdf-bootstrap.min.css';
+        $pdf->cssInline = '.kv-heading-1{font-size:18px}.nospace-border{border:0px;}.no-padding{ padding:0px;}.print-container{font-size:11px;font-family:Arial,Helvetica Neue,Helvetica,sans-serif;}h6 {  }';
+        $supplier='';
+        $ponum='';
+        $prno='';
+        $pdate='';
+        $prdate='';
+        foreach ($prdetails as $pr) {
+            $payee = $pr["payee"];
+            $dvno = $pr["dv_no"];
+            $pdate = $pr["dv_date"];
+            $prno = $pr["taxable"];
+            $dvamount = $pr["dv_amount"];
+        }
+        $pdf->marginTop = 45;
+        $pdf->marginFooter = 5;
+
+        $headers= '
+     ';
+        $footerss= '
+                    <table border="0" width="100%">
+                        <tr style="text-align: right;">
+                            <td>'.date("F j, Y").'</td>
+                            <td style="text-align: right;">Page {PAGENO} of {nbpg}</td>
+                        </tr>              
+                    </table>
+                    ';
+        $LeftFooterContent = '<div style="text-align: left;">'.date("F j, Y").'</div>';
+        $CenterFooterContent = '';
+        $RightFooterContent = '<div style="text-align: right;">Page {PAGENO} of {nbpg}</div>';
+        $oddEvenConfiguration =
+            [
+                'L' => [ // L for Left part of the header
+                    'content' => $LeftFooterContent,
+                    'font-size' => 7,
+                    'footer-style-left' => 300,
+                    'font-family' => 'Arial',
+                    'color'=>'#000000'
+                ],
+                'C' => [ // C for Center part of the header
+                    'content' => $CenterFooterContent,
+                    'font-size' => 6,
+                    'font-style' => 'B',
+                    'font-family' => 'arial',
+                    'color'=>'#000000',
+                ],
+                'R' => [
+                    'content' => $RightFooterContent,
+                    'font-size' => 6,
+                    'font-style' => 'B',
+                    'font-family' => 'arial',
+                    'color'=>'#000000'
+                ],
+                'line' =>0, // That's the relevant parameter
+            ];
+        $headerFooterConfiguration = [
+            'odd' => $oddEvenConfiguration,
+            'even' => $oddEvenConfiguration
+        ];
+        $pdf->options = [
+            'title' => 'Report Title',
+            'defaultheaderline' => 0,
+            'defaultfooterline' => 0,
+            'subject'=> 'Report Subject'];
+        $pdf->methods = [
+            'SetHeader'=>[$headers],
+            'SetFooter'=>[$footerss],
+        ];
+
+        return $pdf->render();
+    }
+
+
 
     public function actionCheckimportid()
     {
@@ -233,12 +332,6 @@ class DisbursementController extends Controller
                 ]);
             }
         }
-
-
-
-
-
-
     }
 
     /**

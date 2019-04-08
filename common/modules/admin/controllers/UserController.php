@@ -92,6 +92,8 @@ class UserController extends Controller
                 'dataProvider' => $dataProvider,
         ]);
     }
+    
+    
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
@@ -115,6 +117,7 @@ class UserController extends Controller
             ]);
         }
     }
+    
     /**
      * Displays a single User model.
      * @param integer $id
