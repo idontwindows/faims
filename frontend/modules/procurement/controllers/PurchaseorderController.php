@@ -189,7 +189,7 @@ class PurchaseorderController extends \yii\web\Controller
          $pdf->marginBottom = 75;
          $pdf->marginFooter = 5;
 
-         $headers= '<div style="height: 50px"></div>
+         $headers= '<div style="height: 150px"></div>
                     <table border="0" width="100%">
                         <tr style="text-align: left;">
                             <td>'.$supplier.'</td>

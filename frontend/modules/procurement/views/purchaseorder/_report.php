@@ -1,5 +1,5 @@
 <div class="print-container">
-<div style="height: 75px;"></div>
+<div style="height: 200px;"></div>
 <?php
     $fin="";
     $x=0;

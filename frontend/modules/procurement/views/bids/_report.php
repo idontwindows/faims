@@ -20,7 +20,7 @@
     }
     ?>
 
-    <div style="height: 500px;"></div>
+    <div style="height: 540px;"></div>
 
     <table border="0">
         <?php

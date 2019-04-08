@@ -326,7 +326,7 @@ class BidsController extends Controller
     $pdf->cssFile = '@vendor/kartik-v/yii2-mpdf/assets/kv-mpdf-bootstrap.min.css';
     $pdf->cssInline = '.kv-heading-1{font-size:18px}.nospace-border{border:0px;}.no-padding{ padding:0px;}.print-container{font-size:11px;font-family:Arial,Helvetica Neue,Helvetica,sans-serif; }';
 
-    $headers = '<div style="height: 68px;"></div>
+    $headers = '<div style="height: 118px;"></div>
    <table class="table table-responsive">
        <tbody>
         <tr class="nospace-border">
@@ -419,12 +419,13 @@ class BidsController extends Controller
         $assig = $this->getassig();
         $content = $this->renderPartial('_report_abstract', ['prdetails' => $prdetails, 'model' => $model , 'columns' => $columns]);
         $pdf = new Pdf();
-        $pdf->format = [215.9,330.2];
+        $pdf->format = [216,330];
         $pdf->orientation = Pdf::ORIENT_LANDSCAPE;
+        //$pdf->format = Pdf::FORMAT_LEGAL;
         $pdf->destination = Pdf::DEST_BROWSER;
-        $pdf->marginLeft=26;
+        $pdf->marginLeft=4;
         $pdf->marginRight=3;
-        $pdf->marginTop=50;
+        $pdf->marginTop=48;
         $pdf->marginBottom=5;
         $pdf->defaultFontSize=7;
         $pdf->content = $content;
