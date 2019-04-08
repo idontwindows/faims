@@ -88,17 +88,19 @@ class PurchaserequestController extends Controller
             }
 
 
-            $pdf->marginTop = 45;
+            $pdf->marginTop = 75;
+            //$pdf->marginBottom = 50;
 
-            $headers= '<div style="height: 75px;"></div>
+            $headers= '<div style="height: 135px;"></div>
                         <table width="100%">
                             <tr class="nospace-border">
                                 <td width="60%" style="padding-left: 55px;">Department of Science And Technology</td>
-                                <td width="30%" style="">'. $model->purchase_request_number.'</td>
+                                <td width="30%" style="padding-left: 65px;">'. $model->purchase_request_number.'</td>
                                 <td width="10%">'.$model->purchase_request_date.'</td>
                             </tr>
                         </table>';
-        $LeftFooterContent = '<table style="width: 50%;" border="0" cellpadding="1">
+        $LeftFooterContent = '
+<table style="width: 50%;" border="0" cellpadding="1">
                                 <tbody>
                                 <tr>
                                 <td><h6>'.$model->purchase_request_purpose.'</h6></td>
@@ -121,7 +123,7 @@ class PurchaserequestController extends Controller
                                 </table>';
         $s = "";
         $x = 0;
-        while ($x<20) {
+        while ($x<5) {
             $x++;
             $s = $s.'<tr class="nospace-border">
                       <td width="50%" style="text-align: right;padding-left: 50px;"></td>
@@ -133,11 +135,11 @@ class PurchaserequestController extends Controller
                                     '.$s.'
                                     <tr class="nospace-border">
                                         <td width="50%" style="text-align: right;padding-left: 50px;">'.$requested_by.'</td>
-                                        <td width="50%" style="text-align: right;padding-right: 100px;">'.$approved_by.'</td>
+                                        <td width="50%" style="text-align: right;padding-right: 80px    ;">'.$approved_by.'</td>
                                     </tr>
                                     <tr class="nospace-border">
                                         <td width="50%" style="text-align: right;">'.$requested_by_position.'</td>
-                                        <td width="50%" style="text-align: right;padding-right: 100px;">'.$approved_by_position.'</td>
+                                        <td width="50%" style="text-align: right;padding-right: 80px;">'.$approved_by_position.'</td>
                                     </tr>
                                     <tr><td></td><td></td></tr>
                                     <tr><td></td><td></td></tr>
@@ -389,6 +391,8 @@ class PurchaserequestController extends Controller
 FROM `tbl_purchase_request_details` 
 INNER JOIN `tbl_purchase_request` 
 ON `tbl_purchase_request`.`purchase_request_id` = `tbl_purchase_request_details`.`purchase_request_id`
+INNER JOIN `fais`.`tbl_unit_type`
+ON `tbl_unit_type`.`unit_type_id` = `tbl_purchase_request_details`.`unit_id`
 WHERE `tbl_purchase_request_details`.`purchase_request_id`=".$id;
         $porequest = $con->createCommand($sql)->queryAll();
         return $porequest;
