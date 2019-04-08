@@ -18,7 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
 Modal::begin([
     'header' => '<h4 id="modalHeader" style="color: #ffffff"></h4>',
     'id' => 'modalLib',
-    'size' => 'modal-lg',
+    'size' => 'modal-md',
 ]);
 
 echo "<div id='modalContent'><div style='text-align:center'><img src='/images/loading.gif'></div></div>";
@@ -73,3 +73,6 @@ Modal::end();
         ]);
     ?>
 </div>
+<pre>
+    <?php print_r(Yii::$app->user->identity->profile);?>
+</pre>

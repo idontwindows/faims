@@ -32,7 +32,7 @@ use kartik\select2\Select2;
                     ],
                 ]); ?>            
                 
-    <?= $form->field($model, 'type')->widget(Select2::classname(), [
+    <?= $form->field($model, 'type_id')->widget(Select2::classname(), [
                     'data' => $listTypes,
                     'language' => 'en',
                     'options' => ['placeholder' => 'Select LIB Type'],
@@ -40,7 +40,16 @@ use kartik\select2\Select2;
                         'allowClear' => true
                     ],
                 ]); ?>
-
+    
+    <?= $form->field($model, 'subtype_id')->widget(Select2::classname(), [
+                    'data' => $listSubTypes,
+                    'language' => 'en',
+                    'options' => ['placeholder' => 'Select Sub Type'],
+                    'pluginOptions' => [
+                        'allowClear' => true
+                    ],
+                ]); ?>
+    
     <?= $form->field($model, 'title')->textInput() ?>
 
     <?= $form->field($model, 'period')->textInput() ?>

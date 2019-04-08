@@ -8,7 +8,7 @@ use Yii;
  * This is the model class for table "tbl_object_detail".
  *
  * @property integer $object_detail_id
- * @property integer $object_category_id
+ * @property integer $object_detail_category_id
  * @property string $name
  * @property string $details
  *
@@ -39,11 +39,11 @@ class Objectdetail extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['object_category_id', 'name', 'details'], 'required'],
-            [['object_category_id'], 'integer'],
+            [['object_detail_category_id', 'name', 'details'], 'required'],
+            [['object_detail_category_id'], 'integer'],
             [['details'], 'string'],
             [['name'], 'string', 'max' => 200],
-            [['object_category_id'], 'exist', 'skipOnError' => true, 'targetClass' => ObjectCategory::className(), 'targetAttribute' => ['object_category_id' => 'object_category_id']],
+            [['object_detail_category_id'], 'exist', 'skipOnError' => true, 'targetClass' => ObjectCategory::className(), 'targetAttribute' => ['object_detail_category_id' => 'object_detail_category_id']],
         ];
     }
 
@@ -54,7 +54,7 @@ class Objectdetail extends \yii\db\ActiveRecord
     {
         return [
             'object_detail_id' => 'Object Detail ID',
-            'object_category_id' => 'Object Category ID',
+            'object_detail_category_id' => 'Object Detail Category ID',
             'name' => 'Name',
             'details' => 'Details',
         ];
@@ -73,6 +73,6 @@ class Objectdetail extends \yii\db\ActiveRecord
      */
     public function getObjectCategory()
     {
-        return $this->hasOne(Objectcategory::className(), ['object_category_id' => 'object_category_id']);
+        return $this->hasOne(Objectcategory::className(), ['object_detail_category_id' => 'object_detail_category_id']);
     }
 }

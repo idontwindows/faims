@@ -12,6 +12,8 @@ use yii\base\Component;
 use yii2mod\alert\Alert;
 use kartik\select2\Select2;
 use yii\web\JsExpression;
+
+use kartik\grid\GridView;
 /**
  * Description of Functions
  *
@@ -356,6 +358,99 @@ SCRIPT;
               ]);
         }
 
+    }
+    
+    /**
+     * 
+     * @return type
+     */
+    public function exportConfig($title,$filename,$Header){
+        $pdfHeader = [
+            'L' => [
+                'content' => "",
+                'font-size' => 0,
+                'color' => '#333333',
+            ],
+            'C' => [
+                'content' => $Header,
+                'font-size' => 20,
+                'margin-top'=>60,
+                'color' => '#333333',
+            ],
+            'R' => [
+                'content' =>'',
+                'font-size' => 0,
+                'color' => '#333333',
+            ],
+            'line'=>false
+        ];
+        $pdfFooter = [
+            'L' => [
+                'content' => '',
+                'font-size' => 0,
+                'font-style' => 'B',
+                'color' => '#999999',
+            ],
+            'C' => [
+                'content' => '{PAGENO}',
+                'font-size' => 10,
+                'font-style' => 'B',
+                'font-family' => 'serif',
+                'color' => '#333333',
+            ],
+            'R' => [
+                'content' => '',
+                'font-size' => 0,
+                'font-style' => 'B',
+                'font-family' => 'serif',
+                'color' => '#333333',
+            ],
+            'line' => false,
+        ];
+        return [GridView::PDF => [
+                'filename' => $filename,
+                'alertMsg'        => 'The PDF export file will be generated for download.',
+                'config' => [
+                    'methods' => [
+                        //'SetHeader' => [$pdfHeader,'line'=>0],
+                        //'SetFooter' => [$pdfFooter]
+                        'SetHeader' => [
+                            ['odd' => $pdfHeader, 'even' => $pdfHeader],
+                        ],
+                        'SetFooter' => [
+                            ['odd' => $pdfFooter, 'even' => $pdfFooter],
+                        ],
+                    ],
+                    'options' => [
+                        'title' => $title,
+                        'subject' => 'SOA',
+                        'keywords' => 'pdf, preceptors, export, other, keywords, here',
+                        'destination'=>'I'
+                    ],
+                ]
+            ],
+            GridView::EXCEL => [
+                'label'           => 'Excel',
+                //'icon'            => 'file-excel-o',
+                'methods' => [
+                    'SetHeader' => [$pdfHeader],
+                    'SetFooter' => [$pdfFooter]
+                ],
+                'iconOptions'     => ['class' => 'text-success'],
+                'showHeader'      => TRUE,
+                'showPageSummary' => TRUE,
+                'showFooter'      => TRUE,
+                'showCaption'     => TRUE,
+                'filename'        => $filename,
+                'alertMsg'        => 'The EXCEL export file will be generated for download.',
+                'options'         => ['title' => $title],
+                'mime'            => 'application/vnd.ms-excel',
+                'config'          => [
+                    'worksheet' =>$title,
+                    'cssFile'   => ''
+                ]
+            ],
+        ];
     }
 
 }

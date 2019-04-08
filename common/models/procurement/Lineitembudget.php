@@ -8,7 +8,8 @@ use Yii;
  * This is the model class for table "tbl_line_item_budget".
  *
  * @property integer $line_item_budget_id
- * @property integer $type
+ * @property integer $type_id
+ * @property integer $subtype_id
  * @property string $title
  * @property string $period
  * @property string $duration_start
@@ -44,8 +45,8 @@ class Lineitembudget extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['type', 'title', 'period'], 'required'],
-            [['type', 'division_id', 'section_id', 'project_id', 'program_id'], 'integer'],
+            [['type_id', 'title', 'period'], 'required'],
+            [['type_id', 'division_id', 'section_id', 'project_id', 'program_id'], 'integer'],
             [['duration_start', 'duration_end'], 'safe'],
             [['title'], 'string', 'max' => 255],
             [['period'], 'string', 'max' => 100],
@@ -59,7 +60,8 @@ class Lineitembudget extends \yii\db\ActiveRecord
     {
         return [
             'line_item_budget_id' => 'Line Item Budget ID',
-            'type' => 'Type',
+            'type_id' => 'Type',
+            'subtype_id' => 'SubType',
             'title' => 'Title',
             'period' => 'Period',
             'duration_start' => 'Duration Start',

@@ -1,10 +1,13 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\widgets\ActiveForm;
 use kartik\widgets\Select2;
+use kartik\widgets\DepDrop;
 
 use common\models\procurement\Objectdetail;
+use common\models\procurement\Objectdetailcategory;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\procurement\Lineitembudgetobjectdetails */
@@ -47,14 +50,8 @@ $this->registerJs(
                     
                });
     });');
-
-
-
 ?>
-
 <div class="lineitembudgetobjectdetails-form">
-
-
 
     <?php $form = ActiveForm::begin([
         'id' => 'objectdetails-form-'.$randomsss,
@@ -68,14 +65,36 @@ $this->registerJs(
     <!--?= $form->field($model, 'object_detail_id')->textInput() ?-->
     
     <?php     
-    echo $form->field($model, 'object_detail_id')->widget(Select2::classname(), [
+    echo $form->field($model, 'object_detail_category_id')->widget(Select2::classname(), [
+        'data' => $objectdetailscategory,
+        'language' => 'en',
+        'options' => ['placeholder' => 'Select Object ...', 'id'=>'object-detail-category-id'],
+        'pluginOptions' => [
+            'allowClear' => true
+        ],
+    ]);
+    ?>
+    
+    <?= $form->field($model, 'object_detail_id')->widget(DepDrop::classname(), [
+                    'type'=>DepDrop::TYPE_SELECT2,
+                    'options'=>['id'=>'object_detail_id'],
+                    'pluginOptions'=>[
+                        'depends'=>['object-detail-category-id'],
+                        'placeholder'=>'Select Object',
+                        'url'=>Url::to(['listobjectdetails'])
+                    ]
+                ]); 
+    ?>
+    
+    <?php
+    /*echo $form->field($model, 'object_detail_id')->widget(Select2::classname(), [
         'data' => $objectdetails,
         'language' => 'de',
         'options' => ['placeholder' => 'Select Object ...'],
         'pluginOptions' => [
             'allowClear' => true
         ],
-    ]);
+    ]);*/
     
     ?>
 
@@ -93,6 +112,4 @@ $this->registerJs(
 
     <?php ActiveForm::end();
     ?>
-
-
 </div>

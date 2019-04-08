@@ -3,6 +3,7 @@
 namespace frontend\modules\procurement\controllers;
 use common\models\procurement\Purchaserequestdetails;
 use Yii;
+use common\modules\admin\models\User;
 use common\models\procurement\Purchaserequest;
 use common\models\procurement\PurchaserequestSearch;
 
@@ -10,7 +11,7 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use kartik\mpdf\Pdf;
-
+use yii\helpers\Url;
 $session = Yii::$app->session;
 $model = new Purchaserequest();
 
@@ -396,6 +397,131 @@ ON `tbl_unit_type`.`unit_type_id` = `tbl_purchase_request_details`.`unit_id`
 WHERE `tbl_purchase_request_details`.`purchase_request_id`=".$id;
         $porequest = $con->createCommand($sql)->queryAll();
         return $porequest;
+    }
+    
+    public function actionImport()
+    {
+        $pr_objPHPExcel = \PHPExcel_IOFactory::load(Yii::getAlias('@data').'/tblPRID.xlsx');
+        $pr_sheetData = $pr_objPHPExcel->getActiveSheet()->toArray(null, true, true, true);
+        
+        $prDetails_objPHPExcel = \PHPExcel_IOFactory::load(Yii::getAlias('@data').'/tblPurchaseRequest.xlsx');
+        $prDetails_sheetData = $prDetails_objPHPExcel->getActiveSheet()->toArray(null, true, true, true);
+        
+        $purchase_requests = $this->buildPRArray($pr_sheetData);
+        $purchase_request_details = $this->buildPRDetailsArray($prDetails_sheetData);
+        $new_PRs = $this->mergeData($purchase_requests, $purchase_request_details);
+        
+        return $this->render('import', [
+            'purchase_requests' => $purchase_requests,
+            'purchase_request_details' => $purchase_request_details,
+            'prDetails_sheetData' => $prDetails_sheetData,
+            'new_PRs' => $new_PRs,
+        ]);
+    }
+    
+    function mergeData($purchase_requests, $purchase_request_details)
+    {
+        $new_PRs = [];
+        /*foreach($purchase_requests as $pr){
+            $key = array_search($pr['purchase_request_number'], array_column($purchase_request_details, 'purchase_request_number'));
+            array_push($pr['pr_details'], $purchase_request_details[$key]);
+            array_push($new_PRs, $pr);
+        }*/
+        
+        foreach($purchase_request_details as $pr_details){
+            $key = null;
+            $key = array_search($pr_details['purchase_request_number'], array_column($purchase_requests, 'purchase_request_number'));
+            array_push($new_PRs, $purchase_requests[$key]);
+            array_push($new_PRs[$key]['pr_details'], $pr_details);
+        }
+        return $new_PRs;
+    }
+    
+    function buildPRArray($sheetData)
+    {
+        $purchase_requests = [];
+        
+        foreach($sheetData as $pr){
+            $userDetails = $this->getUserDetails($pr['P'], $pr['I']);
+            $date_array = explode('-', $pr['C']);
+            
+            
+            if(isset($date_array[1])){
+                $pr_date = date('Y-m-d', strtotime('20'.$date_array[2].'-'.$date_array[0].'-'.$date_array[1]));
+                if(date('Y', strtotime($pr_date)) == 2019){
+                    $pr_array = [
+                      'purchase_request_id' => '',
+                      'purchase_request_number' => $pr['B'], //PR_No
+                      'purchase_request_sai_number' => $pr_date,
+                      'division_id' => $userDetails['division_id'], //Department
+                      'section_id' => $userDetails['section_id'], //Section
+                      'purchase_request_date' => $pr_date, //PR_Date
+                      'purchase_request_saidate' => '',
+                      'purchase_request_purpose' => $pr['H'], //PR_Purpose
+                      'purchase_request_referrence_no' => $pr['M'], //ProjRef_No
+                      'purchase_request_project_name' => $pr['N'], //ProjName
+                      'purchase_request_location_project' => $pr['O'], //
+                      'purchase_request_requestedby_id' => $pr['D'], //PR_REQ
+                      'purchase_request_approvedby_id' => $pr['F'], //PR_APPROV
+                      'user_id' => $userDetails['user_id'], //User
+                      'pr_details' => []
+                    ];
+
+                    array_push($purchase_requests, $pr_array);
+                }
+            }
+            
+        }
+        
+        return $purchase_requests;
+    }
+    
+    function buildPRDetailsArray($sheetData)
+    {
+        $purchase_request_details = [];
+        
+        foreach($sheetData as $pr_details){
+            /**(
+                [A] => PR_No
+                [B] => Item_No
+                [C] => Unit
+                [D] => Item_Description
+                [E] => Quantity
+                [F] => UnitCost
+                [G] => TotalCost
+            )**/
+            $pr_details_array = [
+              'purchase_request_details_id' => '',
+              'purchase_request_id' => $pr_details['A'],
+              'purchase_request_number' => $pr_details['A'],
+              'purchase_request_details_unit' => $pr_details['C'],
+              'unit_id' => $pr_details['C'],
+              'purchase_request_details_item_description' => $pr_details['D'],
+              'purchase_request_details_quantity' => $pr_details['E'],
+              'purchase_request_details_price' => $pr_details['F'],
+              'purchase_request_details_status' => 0
+            ];
+            
+            array_push($purchase_request_details, $pr_details_array);
+        }
+        
+        return $purchase_request_details;
+    }
+    
+    function getUserDetails($user, $division)
+    {
+        $userDetails = User::find()
+        ->where(['LIKE', 'username', substr($user, 0, 3)])
+        ->one();
+        
+        $details = [
+            'user_id' => $userDetails['user_id'],
+            'username' => $userDetails['username'],
+            'division_id' => '',
+            'section_id' => ''
+        ];
+        
+        return $details;
     }
 
 }

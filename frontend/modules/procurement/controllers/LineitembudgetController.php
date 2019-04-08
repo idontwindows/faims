@@ -9,12 +9,14 @@ use Yii;
 use common\models\procurement\Lineitembudget;
 use common\models\procurement\LineitembudgetSearch;
 use common\models\procurement\Type;
+use common\models\procurement\Subtype;
 use common\models\procurement\Division;
 use common\models\procurement\Section;
 use common\models\procurement\Expenditureobject;
 use common\models\procurement\Lineitembudgetobject;
 use common\models\procurement\LineitembudgetobjectSearch;
 use common\models\procurement\Lineitembudgetobjectdetails;
+
 use yii\data\ActiveDataProvider;
 use yii\data\ArrayDataProvider;
 use yii\web\Controller;
@@ -51,7 +53,7 @@ class LineitembudgetController extends Controller
    public function actions()
    {
        return ArrayHelper::merge(parent::actions(), [
-           'editLibObject' => [                                       // identifier for your editable action
+           /*'editLibObject' => [                                       // identifier for your editable action
                'class' => EditableColumnAction::className(),     // action class name
                'modelClass' => Lineitembudget::className(),                // the update model class
                'outputValue' => function ($model, $attribute, $key, $index) {
@@ -66,7 +68,7 @@ class LineitembudgetController extends Controller
                      return '';                                  // any custom error after model save
                },
            ]
-           ,
+           ,*/
 
            'editLibObjects' => [                                       // identifier for your editable action
                'class' => EditableColumnAction::className(),     // action class name
@@ -125,8 +127,8 @@ class LineitembudgetController extends Controller
         $model = $this->findModel($id);
         $dataProvider = new ActiveDataProvider([
             'query' => Lineitembudgetobject::find()
-                            ->where(['line_item_budget_id' => $model->line_item_budget_id])
-                            ->orderBy('expenditure_object_id'),
+                            ->where(['line_item_budget_id' => $model->line_item_budget_id]),
+                            //->orderBy('expenditure_object_id'),
             'pagination' => false,
         ]);
         
@@ -150,10 +152,12 @@ class LineitembudgetController extends Controller
         $session = Yii::$app->session;
         
         $types = Type::find()->all();
+        $subtypes = Subtype::find()->all();
         $divisions = Division::find()->all();
         $sections = Section::find()->all();
 
         $listTypes = ArrayHelper::map($types, 'type_id', 'name');
+        $listSubTypes = ArrayHelper::map($subtypes, 'subtype_id', 'name');
         $listDivisions = ArrayHelper::map($divisions,'division_id','name');
         $listSections = ArrayHelper::map($sections,'section_id','name');
         
@@ -165,6 +169,7 @@ class LineitembudgetController extends Controller
             return $this->renderAjax('create', [
                 'model' => $model,
                 'listTypes'=>$listTypes,
+                'listSubTypes' => $listSubTypes,
                 'listDivisions'=>$listDivisions,
                 'listSections'=>$listSections,
             ]) ;
@@ -182,11 +187,13 @@ class LineitembudgetController extends Controller
         $model = $this->findModel($id);
         $session = Yii::$app->session;
         $types = Type::find()->all();
+        $subtypes = Subtype::find()->all();
         $divisions = Division::find()->all();
         $sections = Section::find()->all();
         $project = Project::find()->all();
         $program = Program::find()->all();
         $listTypes = ArrayHelper::map($types, 'type_id', 'name');
+        $listSubTypes = ArrayHelper::map($subtypes, 'subtype_id', 'name');
         $listDivisions = ArrayHelper::map($divisions,'division_id','name');
         $listSections = ArrayHelper::map($sections,'section_id','name');
         $listProject = ArrayHelper::map($project,'project_id','name');
@@ -196,6 +203,7 @@ class LineitembudgetController extends Controller
         } else {
             return $this->render('update', [
                 'listTypes'=>$listTypes,
+                'listSubTypes' => $listSubTypes,
                 'listDivisions'=>$listDivisions,
                 'listSections'=>$listSections,
                 'listProject'=>$listProject,
@@ -273,7 +281,9 @@ class LineitembudgetController extends Controller
     public function actionUpdateobjects($id) 
     {
         $model = Lineitembudgetobject::findOne($id);
-        $query = Expenditureobject::find();
+        $query = Expenditureobject::find()
+            ->orderBy(['expenditure_sub_class_id' => SORT_ASC]);         
+        
         
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

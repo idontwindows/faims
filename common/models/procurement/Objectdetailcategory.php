@@ -12,14 +12,14 @@ use Yii;
  *
  * @property ObjectDetail[] $objectDetails
  */
-class Objectcategory extends \yii\db\ActiveRecord
+class Objectdetailcategory extends \yii\db\ActiveRecord
 {
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return 'tbl_object_category';
+        return 'tbl_object_detail_category';
     }
 
     /**
@@ -47,7 +47,7 @@ class Objectcategory extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'object_category_id' => 'Object Category ID',
+            'object_detail_category_id' => 'Object Category ID',
             'name' => 'Name',
         ];
     }
@@ -57,6 +57,6 @@ class Objectcategory extends \yii\db\ActiveRecord
      */
     public function getObjectDetails()
     {
-        return $this->hasMany(ObjectDetail::className(), ['object_category_id' => 'object_category_id']);
+        return $this->hasMany(ObjectDetail::className(), ['object_detail_category_id' => 'object_detail_category_id']);
     }
 }
