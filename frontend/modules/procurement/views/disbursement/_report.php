@@ -24,12 +24,12 @@
         $xxx = '
         <table border="0" width="100%">
         <tr style="text-align: left;">
-            <td>'.$payee.'</td>
-            <td style="text-align: right;">'.$dvno.'</td>
+            <td style="padding-bottom: 25px;padding-left: 50px;">'.$payee.'</td>
+            <td style="text-align: right;"></td>
         </tr>
         <tr style="text-align: right;">
-            <td>Zamboanga City</td>
-            <td style="text-align: right;">'.$dv_date.'</td>
+            <td style="padding-left: 50px;">Zamboanga City</td>
+            <td style="text-align: right;"></td>
         </tr>
         <tr style="text-align: right;">
             <td></td>
@@ -40,7 +40,7 @@
             <td style="text-align: right;"></td>
         </tr>
         </table>
-        <div style="height: 100px;"></div>';
+        <div style="height: 30px;"></div>';
         echo $xxx;
         $append = "<tr class=\"nospace-border\">";
         $append = $append . "<td width='75%' style='text-align: justify;   '>" . $itemdescription . "</td>";
@@ -57,19 +57,19 @@
 
     </table>
 
-    <div style="height: 25px;"></div>
+    <div style="height: 120px;"></div>
 <?php if($dv_type=='MDS') { ?>
 
     <table border="0" width="100%">
         <tr style="text-align: left;">
-            <td style="text-align: center;"><?= $assig2; ?></td>
+            <td style="text-align: center;padding-left: -50px;"><?= $assig2; ?></td>
             <td style="text-align: center;"></td>
-            <td style="text-align: center;"><?= $assig3; ?></td>
+            <td style="text-align: center;padding-right: -50px;"><?= $assig3; ?></td>
         </tr>
         <tr style="text-align: right;">
-            <td style="text-align: center;"><?= $Assig2Position; ?></td>
+            <td style="text-align: left;padding-left: 50px;"><?= $Assig2Position; ?></td>
             <td style="text-align: center;"></td>
-            <td style="text-align: center;"><?= $Assig3Position; ?></td>
+            <td style="text-align: right;padding-right: 50px;"><?= $Assig3Position; ?></td>
         </tr>
     </table>
     <div style="height: 35px;"></div>
