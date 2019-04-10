@@ -1,5 +1,5 @@
 <div class="print-container">
-<div style="height: 200px;"></div>
+<div style="height: 215px;"></div>
 <?php
     $fin="";
     $x=0;
@@ -10,11 +10,11 @@
         $price = $pr["bids_price"];
         $totalcost =  $quantity * $price;
         $append = "<tr class=\"nospace-border\">";
-        $append = $append . "<td width='10%' style='padding-left: 5px;'>units</td>";
-        $append = $append . "<td width='54%' style='text-align: justify;   '>" . $itemdescription . "</td>";
-        $append = $append . "<td width='12%' style='padding-left: 25px;'>" . $quantity . "</td>";
-        $append = $append . "<td width='12%' style='padding-left: 15px;'>" . $price . "</td>";
-        $append = $append . "<td width='12%' style=''>" . number_format($totalcost,2) . "</td>";
+        $append = $append . "<td width='20%' style='padding-left: 40px;'>units</td>";
+        $append = $append . "<td width='44%' style='text-align: justify;style='padding-left: 40px;'>" . $itemdescription . "</td>";
+        $append = $append . "<td width='12%' style='padding-left: 60px;'>" . $quantity . "</td>";
+        $append = $append . "<td width='12%' style='padding-left: 50px;'>" . $price . "</td>";
+        $append = $append . "<td width='12%' style='padding-left: 25px;'>" . number_format($totalcost,2) . "</td>";
         $append = $append . "</tr>";
         $fin = $fin . $append;
     }

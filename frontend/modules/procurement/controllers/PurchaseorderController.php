@@ -187,22 +187,30 @@ class PurchaseorderController extends \yii\web\Controller
          }
          $pdf->marginTop = 45;
          $pdf->marginBottom = 75;
-         $pdf->marginFooter = 5;
+         $pdf->marginFooter = 0;
 
          $headers= '<div style="height: 150px"></div>
                     <table border="0" width="100%">
                         <tr style="text-align: left;">
-                            <td>'.$supplier.'</td>
+                            <td style="padding-left: 50px;">'.$supplier.'</td>
                             <td style="text-align: right;">'.$ponum.'</td>
                         </tr>
                         <tr style="text-align: right;">
-                            <td>Zamboanga City</td>
+                            <td style="padding-left: 50px;">Zamboanga City</td>
                             <td style="text-align: right;">'.$pdate.'</td>
                         </tr>
                         <tr style="text-align: right;">
                             <td></td>
                             <td style="text-align: right;"></td>
                         </tr> 
+                            <tr style="text-align: right;">
+                            <td></td>
+                            <td style="text-align: right;"></td>
+                        </tr> 
+                            <tr style="text-align: right;">
+                            <td></td>
+                            <td style="text-align: right;"></td>
+                        </tr>      
                         <tr style="text-align: right;">
                             <td></td>
                             <td style="text-align: right;">'.$prno.'</td>
@@ -212,7 +220,7 @@ class PurchaseorderController extends \yii\web\Controller
                             <td style="text-align: right;">'.$prdate.'</td>
                         </tr>        
                         <tr style="text-align: right;">
-                            <td>Department of Science and Technology</td>
+                            <td style="padding-left: 85px;">Department of Science and Technology</td>
                             <td style="text-align: right;"></td>
                         </tr>                                          
                     </table>
@@ -220,22 +228,22 @@ class PurchaseorderController extends \yii\web\Controller
          $footerss= '<div style="height: 50px"></div>
                     <table border="0" width="100%">
                         <tr style="text-align: left;">
-                            <td>'.$supplier.'</td>
+                            <td style="padding-left: 80px;">'.$supplier.'</td>
                             <td style="text-align: center;">'.$assig2.'<br>'.$Assig2Position.'</td>
                         </tr>
+                       <tr><td></td><td></td></tr>
+                       <tr><td></td><td></td></tr>
+                       <tr><td></td><td></td></tr>
+                       <tr><td></td><td></td></tr>
+                         <tr><td></td><td></td></tr>
+                       <tr><td></td><td></td></tr>
                        <tr><td></td><td></td></tr>
                        <tr><td></td><td></td></tr>
                         <tr style="text-align: right;padding-left: 50px;">
                             <td style="text-align: center;">'.$assig1.'<br>'.$Assig1Position.'</td>
                             <td style="text-align: right;"></td>
                         </tr>  
-                        <tr><td></td><td></td></tr>
-                        <tr><td></td><td></td></tr>
-                        <tr><td></td><td></td></tr>                       
-                        <tr><td></td><td></td></tr>                       
-                        <tr><td></td><td></td></tr>                       
-                        <tr><td></td><td></td></tr>                       
-                        <tr><td></td><td></td></tr>                       
+                                 
                         <tr><td></td><td></td></tr>                       
                         <tr><td></td><td></td></tr>                       
                         <tr><td></td><td></td></tr>                       
