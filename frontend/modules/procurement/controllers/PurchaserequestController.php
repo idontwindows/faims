@@ -80,6 +80,10 @@ class PurchaserequestController extends Controller
             $pdf->cssInline = '.kv-heading-1{font-size:18px}.nospace-border{border:0px;}.no-padding{ padding:0px;}.print-container{font-size:11px;font-family:Arial,Helvetica Neue,Helvetica,sans-serif;}h6 {  }';
             $pdf->marginFooter=5;
 
+            $requested_by="";
+            $requested_by_position="";
+            $approved_by="";
+            $approved_by_position="";
 
             foreach ($prdetails as $pr) {
                 $requested_by = $pr["requested_by"];

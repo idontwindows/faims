@@ -29,7 +29,7 @@ class AjaxController extends \yii\web\Controller
 	    ON `tbl_division`.`division_id` = `tbl_purchase_request`.`division_id`
 	    INNER JOIN `fais`.`tbl_section`
 	    ON `tbl_section`.`section_id` = `tbl_purchase_request`.`section_id`
-	    ORDER BY purchase_request_number";
+	    ORDER BY purchase_request_number DESC";
         $porequest = $con->createCommand($sql)->queryAll();
         return $porequest;
     }
@@ -58,7 +58,8 @@ class AjaxController extends \yii\web\Controller
 	    INNER JOIN `fais`.`tbl_division`
 	    ON `tbl_division`.`division_id` = `tbl_purchase_request`.`division_id`
 	    INNER JOIN `fais`.`tbl_section`
-	    ON `tbl_section`.`section_id` = `tbl_purchase_request`.`section_id`";
+	    ON `tbl_section`.`section_id` = `tbl_purchase_request`.`section_id`
+	    ORDER BY purchase_request_number DESC";
         $porequest = $con->createCommand($sql)->queryAll();
         return $porequest;
     }
@@ -77,7 +78,8 @@ class AjaxController extends \yii\web\Controller
 	    INNER JOIN `tbl_division`
 	    ON `tbl_division`.`division_id` = `tbl_purchase_request`.`division_id`
 	    INNER JOIN `tbl_section`
-	    ON `tbl_section`.`section_id` = `tbl_purchase_request`.`section_id`";
+	    ON `tbl_section`.`section_id` = `tbl_purchase_request`.`section_id`
+	    ORDER BY purchase_request_number DESC";
         $porequest = $con->createCommand($sql)->queryAll();
         return $porequest;
     }

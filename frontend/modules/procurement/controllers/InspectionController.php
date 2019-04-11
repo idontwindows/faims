@@ -148,7 +148,8 @@ class InspectionController extends \yii\web\Controller
                  ON `tbl_bids`.`bids_id` = `tbl_bids_details`.`bids_id`
                  INNER JOIN `tbl_purchase_request`
                  ON `tbl_purchase_request`.`purchase_request_id` = `tbl_bids_details`.`purchase_request_id`
-                 WHERE `tbl_purchase_order`.`purchase_order_number` = '".$id."' and `tbl_purchase_order_details`.`delivered`=1";
+                 WHERE `tbl_purchase_order`.`purchase_order_number` = '".$id."' and `tbl_purchase_order_details`.`delivered`=1
+                 ORDER BY purchase_order_number";
         $porequest = $con->createCommand($sql)->queryAll();
         return $porequest;
     }
@@ -202,18 +203,18 @@ class InspectionController extends \yii\web\Controller
             $Assig4Position =  $sg["Assig4Position"];
         }
         $pdf->marginTop = 5;
-        $pdf->marginBottom = 75;
+        $pdf->marginBottom = 65;
         $pdf->marginFooter = 0;
 
-        $headers= '<div style="height: 150px"></div>
+        $headers= '<div style="height: 175px"></div>
                     <table border="0" width="100%">
                         <tr style="text-align: left;">
-                            <td>'.$supplier.'</td>
+                            <td style="padding-left: 50px;">'.$supplier.'</td>
                             <td style="text-align: right;">'.str_replace('PO','IAR',$ponum).'</td>
                         </tr>
                         <tr style="text-align: right;">
-                            <td>'.$ponum.'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$pdate.'</td>
-                            <td style="text-align: right;">'.$pdate.'</td>
+                            <td style="padding-left: 50px;">'.$ponum.'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$pdate.'</td>
+                            <td style="text-align: right;padding-left: 35px;">'.$pdate.'</td>
                         </tr>
                         <tr style="text-align: right;">
                             <td></td>
@@ -221,7 +222,7 @@ class InspectionController extends \yii\web\Controller
                         </tr>                                       
                     </table>
                     ';
-        $footerss= '<div style="height: 50px"></div>
+        $footerss= '<div style="height: 0px"></div>
                     <table border="0" width="100%">
                         <tr style="text-align: left;">
                             <td>'.$assig1.'</td>
@@ -247,8 +248,7 @@ class InspectionController extends \yii\web\Controller
                             <td style="padding-left: 40px;">Member</td>
                             <td style="text-align: right;"></td>
                         </tr>  
-                     
-                                                <tr style="text-align: right;">
+                        <tr style="text-align: right;">
                             <td style="padding-left: 40px;"></td>
                             <td style="text-align: right;"></td>
                         </tr>                          <tr style="text-align: right;">
@@ -331,6 +331,7 @@ class InspectionController extends \yii\web\Controller
         $pdf->options = [
             'title' => 'Report Title',
             'defaultheaderline' => 0,
+            'defaultfooterline' => 0,
             'subject'=> 'Report Subject'];
         $pdf->methods = [
             'SetHeader'=>[$headers],

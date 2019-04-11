@@ -137,6 +137,7 @@ class DisbursementController extends Controller
         $prdetails = $this->getDetails($id);
         $content = $this->renderPartial('_report', ['prdetails'=> $prdetails,'model'=>$model]);
         $pdf = new Pdf();
+        $pdf->mode = pdf::MODE_UTF8;
         $pdf->format = pdf::FORMAT_A4;
         $pdf->orientation = Pdf::ORIENT_PORTRAIT;
         $pdf->destination =  $pdf::DEST_BROWSER;
@@ -160,14 +161,12 @@ class DisbursementController extends Controller
 
         $headers= '
      ';
-        $footerss= '
-                    <table border="0" width="100%">
-                        <tr style="text-align: right;">
-                            <td>'.date("F j, Y").'</td>
-                            <td style="text-align: right;">Page {PAGENO} of {nbpg}</td>
-                        </tr>              
-                    </table>
-                    ';
+        $footerss= '<table width="100%">
+            <tr>
+                <td width="50%" style="text-align: left;font-size: 11px;font-weight: lighter;">'. $dvno .'</td>
+                <td width="50%" style="text-align: right;font-size: 11px;font-weight: lighter;">'.date("F j, Y").'</td>
+            </tr>
+        </table>';
         $LeftFooterContent = '<div style="text-align: left;">'.date("F j, Y").'</div>';
         $CenterFooterContent = '';
         $RightFooterContent = '<div style="text-align: right;">Page {PAGENO} of {nbpg}</div>';

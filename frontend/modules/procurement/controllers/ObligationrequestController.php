@@ -158,7 +158,7 @@ WHERE `tbl_obligationrequest`.`os_no` = '".$id."';";
     {
         //Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         $con = Yii::$app->procurementdb;
-        $sql = "SELECT * FROM `tbl_obligationrequest` WHERE `purchase_request_id`=".$id;
+        $sql = "SELECT * FROM `tbl_obligationrequest` WHERE `purchase_request_id`=".$id." ORDER BY obligation_request_id DESC";
         $porequest = $con->createCommand($sql)->queryAll();
         return $porequest;
     }
