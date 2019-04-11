@@ -27,26 +27,7 @@
         ?>
     </table>
 
-        <table  width="100%" border="0">
-            <?php
-             $x=0;
-             while($x<72) {
-                 $x++;
-             ?>
-            <tr class="nospace-border">
-                <td width='12%' style='padding-left: 25px;'></>
-                <td width='10%' style='padding-left: 5px;'></td>
-                <td width='54%' style='text-align: justify'>    </td>
-                <td width="12%" style="padding-left: 50px;"></td>
-            </tr>
-            <?php }?>
-            <tr class="nospace-border">
-                <td width='12%' style='padding-left: 25px;'></>
-                <td width='10%' style='padding-left: 5px;'></td>
-                <td width='48%' style='text-align: justify'>    </td>
-                <td width="18%" style="padding-left: 50px;text-align: right;"><?= number_format($tots,2); ?></td>
-            </tr>
-        </table>
+
     </div>
 
 </div>

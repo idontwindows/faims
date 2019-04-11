@@ -94,7 +94,7 @@ class PurchaserequestController extends Controller
 
 
             $pdf->marginTop = 75;
-            //$pdf->marginBottom = 50;
+            $pdf->marginBottom = 100;
 
             $headers= '<div style="height: 135px;"></div>
                         <table width="100%">
@@ -372,7 +372,8 @@ class PurchaserequestController extends Controller
         $yr = date('y');
         $mt = date('m');
         $con =  Yii::$app->db;
-        $command = $con->createCommand("SELECT COUNT(`tbl_purchase_request`.`purchase_request_id`) + 1 AS NextNumber FROM `fais-procurement`.`tbl_purchase_request`");
+        $command = $con->createCommand("SELECT MAX(SUBSTR(`tbl_purchase_request`.`purchase_request_number`,10)) + 1 AS NextNumber FROM `fais-procurement`.`tbl_purchase_request`
+WHERE MONTH(`tbl_purchase_request`.`purchase_request_date`) =" . $mt);
         $nextValue = $command->queryAll();
         foreach ($nextValue as $bbb) {
             $a = $bbb['NextNumber'];

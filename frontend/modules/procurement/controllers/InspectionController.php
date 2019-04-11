@@ -185,12 +185,17 @@ class InspectionController extends \yii\web\Controller
         $prno='';
         $pdate='';
         $prdate='';
+        $tots=0;
         foreach ($prdetails as $pr) {
             $supplier = $pr["supplier_name"];
             $ponum = $pr["purchase_order_number"];
             $pdate = $pr["purchase_order_date"];
             $prno = $pr["purchase_request_number"];
             $prdate = $pr["purchase_request_date"];
+            $quantity = $pr["bids_quantity"];
+            $price = $pr["bids_price"];
+            $totalcost =  $quantity * $price;
+            $tots = $tots + $totalcost;
         }
         foreach ($assig as $sg) {
             $assig1 =  $sg["Assig1"];
@@ -203,7 +208,7 @@ class InspectionController extends \yii\web\Controller
             $Assig4Position =  $sg["Assig4Position"];
         }
         $pdf->marginTop = 5;
-        $pdf->marginBottom = 65;
+        $pdf->marginBottom = 0;
         $pdf->marginFooter = 0;
 
         $headers= '<div style="height: 175px"></div>
@@ -222,8 +227,11 @@ class InspectionController extends \yii\web\Controller
                         </tr>                                       
                     </table>
                     ';
-        $footerss= '<div style="height: 0px"></div>
+
+        $footerss= '
+                    <div style="height: 0px"></div>
                     <table border="0" width="100%">
+          
                         <tr style="text-align: left;">
                             <td>'.$assig1.'</td>
                             <td style="text-align: right;"></td>
