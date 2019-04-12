@@ -462,15 +462,15 @@ class BidsController extends Controller
         $LeftFooterContent = '
 <table width="100%">
     <tr>
-        <td style="font-size: 11px;text-align: center; width=16.67">'.$assig1.'<br/>'.$Assig1Position.'</td>
+        <td style="font-size: 11px;text-align: center; width=16.67">'.$assig1.'<br/>Chairman</td>
         <td style="width: 50px;"></td>
-        <td style="font-size: 11px;text-align: center; width=16.67">'.$assig2.'<br/>'.$Assig2Position.'</td>
+        <td style="font-size: 11px;text-align: center; width=16.67">'.$assig2.'<br/>Members</td>
         <td style="width: 50px;"></td>
-        <td style="font-size: 11px;text-align: center; width=16.67">'.$assig3.'<br/>'.$Assig3Position.'</td>
+        <td style="font-size: 11px;text-align: center; width=16.67">'.$assig3.'<br/>Members</td>
         <td style="width: 50px;"></td>
-        <td style="font-size: 11px;text-align: center; width=16.67">'.$assig4.'<br/>'.$Assig4Position.'</td>
+        <td style="font-size: 11px;text-align: center; width=16.67">'.$assig4.'<br/>Members</td>
         <td style="height: 100px;"></td>
-        <td style="font-size: 11px;text-align: center; width=16.67">'.$assig5.'<br/>'.$Assig5Position.'</td>
+        <td style="font-size: 11px;text-align: center; width=16.67">'.$assig5.'<br/>Members</td>
         <td style="height: 100px;"></td>
         <td style="font-size: 11px;text-align: center; width=16.67">'.$assig6.'<br/>'.$Assig6Position.'</td>
         <td style="height: 100px;"></td>
