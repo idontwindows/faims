@@ -1,5 +1,3 @@
-
-
 var app = angular.module(HeaderController, ['ui.bootstrap']);
 app.filter('startFrom', function() {
     return function(input, start) {

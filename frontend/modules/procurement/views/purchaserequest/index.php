@@ -107,7 +107,7 @@ $this->registerJsFile($BaseURL.'js/custom.js');
     <!-- *********************************** Generate Footer Modal ************************************************ -->
 
     <!-- *********************************** Generate Header Modal for View ************************************************ -->
-    <?= $func->GenerateHeaderModal("myView","Request Module",'35',10) ?>
+    <?= $func->GenerateHeaderModal("myView","Request Module",'70',10) ?>
     <div class="request-view">
         <div class="loadpartial">
             <img src="<?= $BaseURL; ?>/images/loading.gif">

@@ -192,7 +192,6 @@ $BaseURL = $GLOBALS['frontend_base_uri'];
                     <h5>A. Certified</h5>
                     <h6>Charges to appropriation/allotment necessary, lawful and under my direct supervision</h6>
                     <h6>Supporting documents valid,proper and legal</h6>
-
                     <?= $form->field($model, 'requested_by')->widget(Select2::classname(), [
                         'data' => $listEmployee,
                         'id'=> 'cboEmployeeA',

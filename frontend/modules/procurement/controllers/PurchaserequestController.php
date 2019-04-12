@@ -59,8 +59,10 @@ class PurchaserequestController extends Controller
         if($request->get('id') && $request->get('view')) {
             $id = $request->get('id');
             $model = $this->findModel($id);
+            $prdetails = $this->getprDetails($model->purchase_request_id);
             return $this->renderAjax('_view', [
                 'model' => $model,
+                'prdetails' =>$prdetails,
             ]);
         }
     }
