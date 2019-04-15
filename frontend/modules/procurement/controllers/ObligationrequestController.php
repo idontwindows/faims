@@ -102,33 +102,73 @@ class ObligationrequestController extends Controller
         $pdf->orientation = Pdf::ORIENT_PORTRAIT;
         $pdf->destination =  $pdf::DEST_BROWSER;
         $pdf->content  = $content;
+        $pdf->marginFooter=100;
         $pdf->cssFile = '@vendor/kartik-v/yii2-mpdf/assets/kv-mpdf-bootstrap.min.css';
         $pdf->cssInline = '.kv-heading-1{font-size:18px}.nospace-border{border:0px;}.no-padding{ padding:0px;}.print-container{font-size:11px;font-family:Arial,Helvetica Neue,Helvetica,sans-serif; }';
-        $LeftFooterContent = '<div style="text-align: left;font-weight: lighter">'.$model->os_no.'</div>';
-        $RightFooterContent = '<div style="text-align: right;padding-top:-50px;">Page {PAGENO} of {nbpg}</div>';
-        $oddEvenConfiguration =
-            [
-                'L' => [ // L for Left part of the header
-                    'content' => $LeftFooterContent,
-                ],
-                'C' => [ // C for Center part of the header
-                    'content' => '',
-                ],
-                'R' => [
-                    'content' => $RightFooterContent,
-                ],
-                'line' => 0, // That's the relevant parameter
-            ];
-        $headerFooterConfiguration = [
-            'odd' => $oddEvenConfiguration,
-            'even' => $oddEvenConfiguration
-        ];
+        $fin="";
+        $x=0;
+        $loopss = "";
+        foreach ($obassig as $ob) {
+            $requestedby = $ob["RequestedBy"];
+            $requestedposition = $ob["RequestedPosition"];
+            $fundsavailable = $ob["FundsAvailable"];
+            $fundsposition = $ob["FundsAvailablePosition"];
+        }
+        while($x>20) {
+            $x++;
+            $loopss  = $loopss.'<tr class="nospace-border"> <td></td><td></td></tr>';
+        }
+        $footers = '
+        <div style="height:50px;"></div>
+            <table border="0" width="100%">
+               <tr class="nospace-border">
+                   <td></td>
+                    <td style="text-align: right;padding-right: 40px;">'.$model->amount.'</td>
+               </tr>
+               <tr class="nospace-border"> <td></td><td></td></tr>
+               <tr class="nospace-border"> <td></td><td></td></tr>
+               <tr class="nospace-border"> <td></td><td></td></tr>
+               <tr class="nospace-border"> <td></td><td></td></tr>
+               <tr class="nospace-border"> <td></td><td></td></tr>
+               <tr class="nospace-border"> <td></td><td></td></tr>
+               <tr class="nospace-border"> <td></td><td></td></tr>
+               <tr class="nospace-border"> <td></td><td></td></tr>
+               <tr class="nospace-border"> <td></td><td></td></tr>
+               <tr class="nospace-border"> <td></td><td></td></tr>
+               <tr class="nospace-border"> <td></td><td></td></tr>
+               <tr class="nospace-border"> <td></td><td></td></tr>
+               <tr class="nospace-border"> <td></td><td></td></tr>
+               <tr class="nospace-border"> <td></td><td></td></tr>
+               <tr class="nospace-border"> <td></td><td></td></tr>
+               <tr class="nospace-border"> <td></td><td></td></tr>
+               <tr class="nospace-border"> <td></td><td></td></tr>
+               <tr class="nospace-border"> <td></td><td></td></tr>
+               <tr class="nospace-border"> <td></td><td></td></tr>
+               <tr class="nospace-border"> <td></td><td></td></tr>
+               <tr class="nospace-border"> <td></td><td></td></tr>
+               <tr class="nospace-border"> <td></td><td></td></tr>
+               <tr class="nospace-border"> <td></td><td></td></tr>
+     
+               
+               
+                <tr class="nospace-border">
+                    <td width="50%" style="text-align: center;">'.$requestedby.'</td>
+                    <td width="50%" style="text-align: center;padding-left:20px;">'.$fundsavailable.'</td>
+                </tr>
+                <tr class="nospace-border">
+                    <td width="50%" style="text-align: center;">'.$requestedposition.'</td>
+                    <td width="50%" style="text-align: center;">'.$fundsposition.'</td>
+                </tr>
+            </table>';
+
+
         $pdf->options = [
             'title' => 'Report Title',
-            'subject'=> 'Report Subject'];
+            'subject'=> 'Report Subject',
+            'defaultfooterline'=> 0];
         $pdf->methods = [
             'SetHeader'=>[''],
-            'SetFooter'=>[$headerFooterConfiguration],
+            'SetFooter'=>[$footers],
         ];
 
         return $pdf->render();
