@@ -97,7 +97,7 @@ class PurchaserequestController extends Controller
 
 
             $pdf->marginTop = 75;
-            $pdf->marginBottom = 100;
+            $pdf->marginBottom = 90;
 
             $headers= '<div style="height: 135px;"></div>
                         <table width="100%">
@@ -131,7 +131,7 @@ class PurchaserequestController extends Controller
                                 </table>';
         $s = "";
         $x = 0;
-        while ($x<5) {
+        while ($x<10) {
             $x++;
             $s = $s.'<tr class="nospace-border">
                       <td width="50%" style="text-align: right;padding-left: 50px;"></td>
@@ -142,21 +142,14 @@ class PurchaserequestController extends Controller
             $LeftFooterContent.'<table width="100%">
                                     '.$s.'
                                     <tr class="nospace-border">
-                                        <td width="50%" style="text-align: center;padding-left: 120px;font-weight: bold;">'.$requested_by.'<br/>'.$requested_by_position.'</td>
-                                        <td width="50%" style="text-align: center;padding-left: 75px;font-weight: bold;">'.$approved_by.'<br/>'.$approved_by_position.'</td>
+                                        <td width="50%" style="text-align: center;padding-left: 120px;"><b>'.$requested_by.'</b><br/>'.$requested_by_position.'</td>
+                                        <td width="50%" style="text-align: center;padding-left: 75px;"><b>'.$approved_by.'</b><br/>'.$approved_by_position.'</td>
                                     </tr>
                                     <tr><td></td><td></td></tr>
                                     <tr><td></td><td></td></tr>
                                     <tr><td></td><td></td></tr> 
                                     <tr><td></td><td></td></tr>
-                                    <tr><td></td><td></td></tr>
-                                    <tr><td></td><td></td></tr> 
-                                    <tr><td></td><td></td></tr>
-                                    <tr><td></td><td></td></tr>
-                                    <tr><td></td><td></td></tr> 
-                                    <tr><td></td><td></td></tr>
-                                    <tr><td></td><td></td></tr>
-                                    <tr><td></td><td></td></tr>                                                                                                                                               
+                                                                                                                                                            
                                     <tr style="text-align: right;">
                                          <td>'.date("F j, Y").'</td>
                                          <td style="text-align: right;">Page {PAGENO} of {nbpg}</td>

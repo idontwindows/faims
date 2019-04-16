@@ -111,7 +111,7 @@ $this->params['breadcrumbs'][] = $this->title;
         [
             'class' => '\kartik\grid\ActionColumn',
             'width'=>'5%',
-            'template' => '{view}{update}{delete} {print}',
+            'template' => '{view}{update}{print}',
             'buttons'=>[
                 'update' => function($url,$model,$key){
                     $btn = Html::button('<span class=\'glyphicon glyphicon-pencil\'></span>', ['value' => Url::to(['update?id='.$model["dv_id"].'&view=edit']), 'title' => 'Edit Disbursement', 'tab-index'=>0 , 'class' => 'btn btn-success', 'style'=>'margin-right: 6px;', 'id'=>'buttonAddDisbursement']);

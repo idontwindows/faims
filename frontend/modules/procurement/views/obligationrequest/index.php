@@ -118,7 +118,7 @@ $this->params['breadcrumbs'][] = $this->title;
         [
             'class' => '\kartik\grid\ActionColumn',
             'width'=>'6%',
-            'template' => '{view}{update}{delete} {print}',
+            'template' => '{view}{update}{print}',
             'buttons'=>[
             'update' => function($url,$model,$key){
             $btn = "<h5 style='display: inline-block;margin:0px;' data-step='3' data-intro='Click here to update Obligation Request'><span>".Html::button('<span class=\'glyphicon glyphicon-pencil\'></span>', ['value' => Url::to(['update?id='.$model["obligation_request_id"].'&view=edit']), 'title' => 'Edit Obligation Request', 'tab-index'=>0 , 'class' => 'btn btn-success', 'style'=>'margin-right: 6px;', 'id'=>'buttonAddObligation'])."</span></h5>";
