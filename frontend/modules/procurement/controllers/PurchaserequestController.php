@@ -7,6 +7,7 @@ use common\modules\admin\models\User;
 use common\models\procurement\Purchaserequest;
 use common\models\procurement\PurchaserequestSearch;
 
+use yii\helpers\Html;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -79,7 +80,7 @@ class PurchaserequestController extends Controller
             $pdf->destination =  $pdf::DEST_BROWSER;
             $pdf->content  = $content;
             $pdf->cssFile = '@vendor/kartik-v/yii2-mpdf/assets/kv-mpdf-bootstrap.min.css';
-            $pdf->cssInline = '.kv-heading-1{font-size:18px}.nospace-border{border:0px;}.no-padding{ padding:0px;}.print-container{font-size:11px;font-family:Arial,Helvetica Neue,Helvetica,sans-serif;}h6 {  }';
+            $pdf->cssInline = 'body {font-size:}.kv-heading-1{font-size:18px}.nospace-border{border:0px;}.no-padding{ padding:0px;}.print-container{font-size:11px;font-family:Arial,Helvetica Neue,Helvetica,sans-serif;}h6 {  }';
             $pdf->marginFooter=5;
 
             $requested_by="";
@@ -141,12 +142,8 @@ class PurchaserequestController extends Controller
             $LeftFooterContent.'<table width="100%">
                                     '.$s.'
                                     <tr class="nospace-border">
-                                        <td width="50%" style="text-align: right;padding-left: 50px;">'.$requested_by.'</td>
-                                        <td width="50%" style="text-align: right;padding-right: 80px    ;">'.$approved_by.'</td>
-                                    </tr>
-                                    <tr class="nospace-border">
-                                        <td width="50%" style="text-align: right;">'.$requested_by_position.'</td>
-                                        <td width="50%" style="text-align: right;padding-right: 80px;">'.$approved_by_position.'</td>
+                                        <td width="50%" style="text-align: center;padding-left: 180px;">'.$requested_by.'<br/>'.$requested_by_position.'</td>
+                                        <td width="50%" style="text-align: center;padding-left: 75px;">'.$approved_by.'<br/>'.$approved_by_position.'</td>
                                     </tr>
                                     <tr><td></td><td></td></tr>
                                     <tr><td></td><td></td></tr>
@@ -204,7 +201,7 @@ class PurchaserequestController extends Controller
                     $data=array();
                     foreach ($arr as $budgets) {
                         $unit = $budgets["Unit"];
-                        $itemdescription = $budgets["Item Description"];
+                        $itemdescription = Html::encode($budgets["Item Description"]);
                         $quantity = $budgets["Quantity"];
                         $unitcost = $budgets["Unit Cost"];
                         $unit_type = $budgets["Unit"];
@@ -258,7 +255,7 @@ class PurchaserequestController extends Controller
                 foreach ($arr as $budgets) {
                     $details = $budgets["Detail#"];
                     $unit = $budgets["Unit"];
-                    $itemdescription = $budgets["Item Description"];
+                    $itemdescription = Html::encode($budgets["Item Description"]);
                     $quantity = $budgets["Quantity"];
                     $unitcost = $budgets["Unit Cost"];
                     $unit_type = $budgets["Unit"];
@@ -375,7 +372,7 @@ class PurchaserequestController extends Controller
         $mt = date('m');
         $con =  Yii::$app->db;
         $command = $con->createCommand("SELECT MAX(SUBSTR(`tbl_purchase_request`.`purchase_request_number`,10)) + 1 AS NextNumber FROM `fais-procurement`.`tbl_purchase_request`
-WHERE MONTH(`tbl_purchase_request`.`purchase_request_date`) =" . $mt);
+WHERE MONTH(`tbl_purchase_request`.`purchase_request_date`) =" . $mt . " AND YEAR(`tbl_purchase_request`.`purchase_request_date`) = ". $yr);
         $nextValue = $command->queryAll();
         foreach ($nextValue as $bbb) {
             $a = $bbb['NextNumber'];
