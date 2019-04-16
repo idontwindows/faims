@@ -142,8 +142,8 @@ class PurchaserequestController extends Controller
             $LeftFooterContent.'<table width="100%">
                                     '.$s.'
                                     <tr class="nospace-border">
-                                        <td width="50%" style="text-align: center;padding-left: 180px;">'.$requested_by.'<br/>'.$requested_by_position.'</td>
-                                        <td width="50%" style="text-align: center;padding-left: 75px;">'.$approved_by.'<br/>'.$approved_by_position.'</td>
+                                        <td width="50%" style="text-align: center;padding-left: 120px;font-weight: bold;">'.$requested_by.'<br/>'.$requested_by_position.'</td>
+                                        <td width="50%" style="text-align: center;padding-left: 75px;font-weight: bold;">'.$approved_by.'<br/>'.$approved_by_position.'</td>
                                     </tr>
                                     <tr><td></td><td></td></tr>
                                     <tr><td></td><td></td></tr>
