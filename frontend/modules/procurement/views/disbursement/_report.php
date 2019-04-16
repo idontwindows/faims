@@ -62,14 +62,14 @@
     <div style="height: 130px;"></div>
     <table border="0" width="100%">
         <tr style="text-align: left;">
-            <td style="text-align: center;padding-left: -60px;"><?= $assig2; ?></td>
+            <td style="text-align: center;padding-left: -60px;"><?= $assig2; ?><br><?= $Assig2Position; ?></td>
             <td style="text-align: center;"></td>
-            <td style="text-align: center;padding-right: -80px;"><?= $assig3; ?></td>
+            <td style="text-align: center;padding-right: -80px;"><?= $assig3; ?><br><?= $Assig3Position; ?></td>
         </tr>
         <tr style="text-align: right;">
-            <td style="text-align: left;padding-left: 50px;"><?= $Assig2Position; ?></td>
+            <td style="text-align: left;padding-left: 50px;"></td>
             <td style="text-align: center;"></td>
-            <td style="text-align: right;padding-right: 50px;"><?= $Assig3Position; ?></td>
+            <td style="text-align: right;padding-right: 50px;"></td>
         </tr>
     </table>
     <div style="height: 10px;"></div>
@@ -101,14 +101,14 @@
 
 <table border="0" width="100%">
     <tr style="text-align: left;">
-        <td style="text-align: center;"><?= $assig1; ?></td>
-        <td style="text-align: center;"><?= $assig2; ?></td>
-        <td style="text-align: center;"><?= $assig3; ?></td>
+        <td style="text-align: center;"><?= $assig1; ?><br><?= $Assig1Position; ?></td>
+        <td style="text-align: center;"><?= $assig2; ?><br><?= $Assig2Position; ?></td>
+        <td style="text-align: center;"><?= $assig3; ?><br><?= $Assig3Position; ?></td>
     </tr>
     <tr style="text-align: right;">
-        <td style="text-align: center;"><?= $Assig1Position; ?></td>
-        <td style="text-align: center;"><?= $Assig2Position; ?></td>
-        <td style="text-align: center;"><?= $Assig3Position; ?></td>
+        <td style="text-align: center;"></td>
+        <td style="text-align: center;"></td>
+        <td style="text-align: center;"></td>
     </tr>
 </table>
     <div style="height: 10px;"></div>
@@ -197,17 +197,17 @@
 
 
     <?php if($dv_type=='MDS') { ?>
-        <div style="height: 124px;"></div>
+        <div style="height: 130px;"></div>
         <table border="0" width="100%">
             <tr style="text-align: left;">
-                <td style="text-align: center;padding-left: -60px;"><?= $assig2; ?></td>
+                <td style="text-align: center;padding-left: -60px;"><?= $assig2; ?><br><?= $Assig2Position; ?></td>
                 <td style="text-align: center;"></td>
-                <td style="text-align: center;padding-right: -80px;"><?= $assig3; ?></td>
+                <td style="text-align: center;padding-right: -80px;"><?= $assig3; ?><br><?= $Assig3Position; ?></td>
             </tr>
             <tr style="text-align: right;">
-                <td style="text-align: left;padding-left: 50px;"><?= $Assig2Position; ?></td>
+                <td style="text-align: left;padding-left: 50px;"></td>
                 <td style="text-align: center;"></td>
-                <td style="text-align: right;padding-right: 50px;"><?= $Assig3Position; ?></td>
+                <td style="text-align: right;padding-right: 50px;"></td>
             </tr>
         </table>
         <div style="height: 10px;"></div>
@@ -224,20 +224,29 @@
             </tr>
         </table>
 
+        <div style="height: 14px;"></div>
+
+        <table width="100%">
+            <tr>
+                <td width="50%" style="text-align: left;font-size: 11px;font-weight: lighter;"><?= $dvno; ?></td>
+                <td width="50%" style="text-align: right;font-size: 11px;font-weight: lighter;"><?= date("F j, Y"); ?></td>
+            </tr>s
+        </table>
+
     <?php }else{ ?>
 
-        <div style="height: 128px;"></div>
+        <div style="height: 132px;"></div>
 
         <table border="0" width="100%">
             <tr style="text-align: left;">
-                <td style="text-align: center;"><?= $assig1; ?></td>
-                <td style="text-align: center;"><?= $assig2; ?></td>
-                <td style="text-align: center;"><?= $assig3; ?></td>
+                <td style="text-align: center;"><?= $assig1; ?><br><?= $Assig1Position; ?></td>
+                <td style="text-align: center;"><?= $assig2; ?><br><?= $Assig2Position; ?></td>
+                <td style="text-align: center;"><?= $assig3; ?><br><?= $Assig3Position; ?></td>
             </tr>
             <tr style="text-align: right;">
-                <td style="text-align: center;"><?= $Assig1Position; ?></td>
-                <td style="text-align: center;"><?= $Assig2Position; ?></td>
-                <td style="text-align: center;"><?= $Assig3Position; ?></td>
+                <td style="text-align: center;"></td>
+                <td style="text-align: center;"></td>
+                <td style="text-align: center;"></td>
             </tr>
         </table>
         <div style="height: 10px;"></div>
@@ -254,6 +263,13 @@
             </tr>
         </table>
 
+        <div style="height: 25px;"></div>
+        <table width="100%">
+            <tr>
+                <td width="50%" style="text-align: left;font-size: 11px;font-weight: lighter;"><?= $dvno; ?></td>
+                <td width="50%" style="text-align: right;font-size: 11px;font-weight: lighter;"><?= date("F j, Y"); ?></td>
+            </tr>
+        </table>
 
     <?php } ?>
 

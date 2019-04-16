@@ -143,7 +143,7 @@ class DisbursementController extends Controller
         $pdf->destination =  $pdf::DEST_BROWSER;
         $pdf->content  = $content;
         $pdf->cssFile = '@vendor/kartik-v/yii2-mpdf/assets/kv-mpdf-bootstrap.min.css';
-        $pdf->cssInline = '.kv-heading-1{font-size:18px}.nospace-border{border:0px;}.no-padding{ padding:0px;}.print-container{font-size:11px;font-family:Arial,Helvetica Neue,Helvetica,sans-serif;}h6 {  }';
+        $pdf->cssInline = 'body {font-size:11px}.kv-heading-1{font-size:18px}.nospace-border{border:0px;}.no-padding{ padding:0px;}.print-container{font-size:11px;font-family:Arial,Helvetica Neue,Helvetica,sans-serif;}h6 {  }';
         $supplier='';
         $ponum='';
         $prno='';
@@ -156,7 +156,7 @@ class DisbursementController extends Controller
             $prno = $pr["taxable"];
             $dvamount = $pr["dv_amount"];
         }
-        $pdf->marginTop = 35;
+        $pdf->marginTop = 41;
         $pdf->marginFooter = 5;
 
         $headers= '
