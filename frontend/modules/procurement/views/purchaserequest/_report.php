@@ -13,8 +13,8 @@
         $append = $append . "<td width='14%' style='padding-left: 60px;'>".$unit."</td>";
         $append = $append . "<td width='50%' style='text-align: justify;padding-left: 40px;'>" . $itemdescription . "</td>";
         $append = $append . "<td width='12%' style='padding-left: 35px;'>" . $quantity . "</td>";
-        $append = $append . "<td width='12%' style='padding-left: 30px;'>" . $price . "</td>";
-        $append = $append . "<td width='12%' style='padding-left: 35px;'>" . number_format($totalcost,2) . "</td>";
+        $append = $append . "<td width='12%' style='padding-left: 30px;'></td>";
+        $append = $append . "<td width='12%' style='padding-left: 35px;'></td>";
         $append = $append . "</tr>";
         $fin = $fin . $append;
     }
