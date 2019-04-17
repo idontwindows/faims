@@ -1,17 +1,10 @@
 <?php
 
-/* 
- * Project Name: eulims * 
- * Copyright(C)2018 Department of Science & Technology -IX * 
- * Developer: Eng'r Nolan F. Sunico  * 
- * 01 11, 18 , 11:32:20 AM * 
- * Module: sampleEmail-html * 
- */
 ?>
 <table border="0" width="100%">
     <thead>
         <tr>
-            <th colspan="4" style="background-color: blue;color: white">Enhanced EULIMS</th>
+            <th colspan="4" style="background-color: blue;color: white">Enhanced FAIMS</th>
         </tr>
     </thead>
     <tbody>

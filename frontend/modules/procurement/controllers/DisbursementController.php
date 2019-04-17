@@ -156,8 +156,8 @@ class DisbursementController extends Controller
             $prno = $pr["taxable"];
             $dvamount = $pr["dv_amount"];
         }
-        $pdf->marginTop = 41;
-        $pdf->marginFooter = 5;
+        $pdf->marginTop = 39;
+        $pdf->marginFooter = 0;
 
         $headers= '
      ';

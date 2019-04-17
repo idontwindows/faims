@@ -1,11 +1,5 @@
 <?php
-/* 
- * Project Name: eulims * 
- * Copyright(C)2017 Department of Science & Technology -IX * 
- * Developer: Eng'r Nolan F. Sunico  * 
- * 12 21, 17 , 10:31:38 AM * 
- * Module: main * 
- */
+
 use yii\helpers\Html;
 /* @var $this \yii\web\View */
 /* @var $content string */

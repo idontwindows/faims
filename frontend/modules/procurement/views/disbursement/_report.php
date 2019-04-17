@@ -24,7 +24,7 @@
         $xxx = '
         <table border="0" width="100%">
         <tr style="text-align: left;">
-            <td style="padding-bottom: 25px;padding-left: 50px;">'.$payee.'</td>
+            <td style="padding-bottom: 20px;padding-left: 50px;">'.$payee.'</td>
             <td style="text-align: right;"></td>
         </tr>
         <tr style="text-align: right;">
@@ -59,7 +59,7 @@
 
 
 <?php if($dv_type=='MDS') { ?>
-    <div style="height: 130px;"></div>
+    <div style="height: 157px;"></div>
     <table border="0" width="100%">
         <tr style="text-align: left;">
             <td style="text-align: center;padding-left: -60px;"><?= $assig2; ?><br><?= $Assig2Position; ?></td>
@@ -135,7 +135,7 @@
 
 <?php } ?>
 
-    <div style="height: 143px;"></div>
+    <div style="height: 155px;"></div>
 
     <?php
     $fin="";
@@ -197,7 +197,7 @@
 
 
     <?php if($dv_type=='MDS') { ?>
-        <div style="height: 130px;"></div>
+        <div style="height: 125px;"></div>
         <table border="0" width="100%">
             <tr style="text-align: left;">
                 <td style="text-align: center;padding-left: -60px;"><?= $assig2; ?><br><?= $Assig2Position; ?></td>
@@ -226,12 +226,7 @@
 
         <div style="height: 14px;"></div>
 
-        <table width="100%">
-            <tr>
-                <td width="50%" style="text-align: left;font-size: 11px;font-weight: lighter;"><?= $dvno; ?></td>
-                <td width="50%" style="text-align: right;font-size: 11px;font-weight: lighter;"><?= date("F j, Y"); ?></td>
-            </tr>s
-        </table>
+
 
     <?php }else{ ?>
 
@@ -263,13 +258,7 @@
             </tr>
         </table>
 
-        <div style="height: 25px;"></div>
-        <table width="100%">
-            <tr>
-                <td width="50%" style="text-align: left;font-size: 11px;font-weight: lighter;"><?= $dvno; ?></td>
-                <td width="50%" style="text-align: right;font-size: 11px;font-weight: lighter;"><?= date("F j, Y"); ?></td>
-            </tr>
-        </table>
+
 
     <?php } ?>
 
