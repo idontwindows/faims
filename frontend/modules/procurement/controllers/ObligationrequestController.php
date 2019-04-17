@@ -72,7 +72,8 @@ class ObligationrequestController extends Controller
         }else{
             $characters = "OS-300";
         }
-        $qry = "SELECT COUNT(`tbl_obligationrequest`.`os_no`) + 1 AS NextNumber  FROM `fais-procurement`.`tbl_obligationrequest` WHERE LEFT(`tbl_obligationrequest`.`os_no`,6) = '".$characters."'";
+        $qry = "SELECT MAX(SUBSTR(`tbl_obligationrequest`.`os_no`,14)) + 1 AS NextNumber FROM `fais-procurement`.`tbl_obligationrequest`
+WHERE LEFT(`tbl_obligationrequest`.`os_no`,6) = '".$characters."'";
         $yr = date('y');
         $mt = date('m');
         $con =  Yii::$app->db;
@@ -159,7 +160,23 @@ class ObligationrequestController extends Controller
                     <td width="50%" style="text-align: center;">'.$requestedposition.'</td>
                     <td width="50%" style="text-align: center;">'.$fundsposition.'</td>
                 </tr>
-            </table>';
+                <tr class="nospace-border">
+                              <tr class="nospace-border"> <td></td><td></td></tr>
+               <tr class="nospace-border"> <td></td><td></td></tr>
+               <tr class="nospace-border"> <td></td><td></td></tr>
+               <tr class="nospace-border"> <td></td><td></td></tr>
+               <tr class="nospace-border"> <td></td><td></td></tr>
+               <tr class="nospace-border"> <td></td><td></td></tr>
+               <tr class="nospace-border"> <td></td><td></td></tr>
+               <tr class="nospace-border"> <td></td><td></td></tr>
+               <tr class="nospace-border"> <td></td><td></td></tr>
+     
+                    <td width="50%" style="text-align: center;">'.$model->os_no.'</td>
+                    <td width="50%" style="text-align: center;"></td>
+                </tr>
+            </table>
+            
+            ';
 
 
         $pdf->options = [
