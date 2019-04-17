@@ -244,7 +244,7 @@
                 <td style="text-align: center;"></td>
             </tr>
         </table>
-        <div style="height: 10px;"></div>
+        <div style="height: 20px;"></div>
         <table border="0" width="100%">
             <tr style="text-align: left;">
                 <td style="text-align: center;"></td>

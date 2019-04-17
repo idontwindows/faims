@@ -3,7 +3,7 @@
 <?php //$model = new \common\models\procurement\Obligationrequest() ?>
 <table align="right">
         <tr class="nospace-border">
-            <td><?= $model->os_no ?></td>
+            <td></td>
         </tr>
         <tr class="nospace-border">
             <td><?= $model->os_date ?></td>
