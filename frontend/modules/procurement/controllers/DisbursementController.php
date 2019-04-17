@@ -73,7 +73,7 @@ class DisbursementController extends Controller
         }else{
             $characters = "BI";
         }
-        $qry = "SELECT COUNT(`tbl_disbursement`.`dv_no`) + 1 AS NextNumber  FROM `fais-procurement`.`tbl_disbursement` WHERE LEFT(`tbl_disbursement`.`dv_no`,2) = '".$characters."'";
+        $qry = "SELECT MAX(SUBSTR(`tbl_disbursement`.`dv_no`,12)) + 1 AS NextNumber  FROM `fais-procurement`.`tbl_disbursement` WHERE LEFT(`tbl_disbursement`.`dv_no`,2) =  '".$characters."'";
         $yr = date('Y');
         $mt = date('m');
         $con =  Yii::$app->db;
