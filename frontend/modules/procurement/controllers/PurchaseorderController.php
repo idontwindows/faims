@@ -161,7 +161,7 @@ class PurchaseorderController extends \yii\web\Controller
          $assig = $this->getassig();
          $content = $this->renderPartial('_report', ['prdetails'=> $prdetails,'model'=>$model]);
          $pdf = new Pdf();
-         $pdf->mode = pdf::MODE_UTF8;
+         //$pdf->mode = pdf::MODE_UTF8;
          $pdf->format = pdf::FORMAT_A4;
          $pdf->orientation = Pdf::ORIENT_PORTRAIT;
          $pdf->destination =  $pdf::DEST_BROWSER;

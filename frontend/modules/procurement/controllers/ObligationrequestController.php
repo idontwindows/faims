@@ -160,20 +160,6 @@ WHERE LEFT(`tbl_obligationrequest`.`os_no`,6) = '".$characters."'";
                     <td width="50%" style="text-align: center;">'.$requestedposition.'</td>
                     <td width="50%" style="text-align: center;">'.$fundsposition.'</td>
                 </tr>
-                <tr class="nospace-border">
-                              <tr class="nospace-border"> <td></td><td></td></tr>
-               <tr class="nospace-border"> <td></td><td></td></tr>
-               <tr class="nospace-border"> <td></td><td></td></tr>
-               <tr class="nospace-border"> <td></td><td></td></tr>
-               <tr class="nospace-border"> <td></td><td></td></tr>
-               <tr class="nospace-border"> <td></td><td></td></tr>
-               <tr class="nospace-border"> <td></td><td></td></tr>
-               <tr class="nospace-border"> <td></td><td></td></tr>
-               <tr class="nospace-border"> <td></td><td></td></tr>
-     
-                    <td width="50%" style="text-align: center;">'.$model->os_no.'</td>
-                    <td width="50%" style="text-align: center;"></td>
-                </tr>
             </table>
             
             ';
