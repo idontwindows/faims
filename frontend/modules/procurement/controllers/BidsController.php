@@ -364,7 +364,7 @@ class BidsController extends Controller
         </tr>
         <tr class="nospace-border">
             <td width="80%"></td>
-            <td style="padding: 0px; padding-left: -20px; text-align: center;" width="20%">'.$employee[1].'</td>
+            <td style="padding: 0px; padding-left: -20px; text-align: center;" width="20%">Supply Officer</td>
         </tr>
        </tbody>
     </table>

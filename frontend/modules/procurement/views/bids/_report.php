@@ -12,7 +12,7 @@
         $append = "<tr class=\"nospace-border\">";
         $append = $append . "<td width='50' style='text-align: center;'>".$x."</td>";
         $append = $append . "<td width='400' style='padding-left: 25px;'>" . $itemdescription . "</td>";
-        $append = $append . "<td width='150' style='text-align: center; padding-left: 55px;'>" . $quantity . " pack</td>";
+        $append = $append . "<td width='150' style='text-align: center; padding-left: 55px;'>" . $quantity . " </td>";
         //$append = $append . "<td>" . $price . "</td>";
         //$append = $append . "<td>" . $totalcost . "</td>";
         $append = $append . "</tr>";

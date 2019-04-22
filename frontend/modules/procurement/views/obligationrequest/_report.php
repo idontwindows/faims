@@ -9,7 +9,7 @@
             <td><?= $model->os_date ?></td>
         </tr>
 </table>
-<div style="height: 30px;"></div>
+<div style="height: 35px;"></div>
 <table>
         <tr class="nospace-border">
             <td style="padding-left: 125px;padding-bottom: 10px;"><?= $model->payee ?></td>
@@ -21,15 +21,79 @@
             <td style="padding-left: 125px;padding-bottom: 10px;"><?= $model->address ?></td>
         </tr>
 </table>
-<div style="height:30px;"></div>
+<div style="height:35px;"></div>
 <table width="100%">
         <tr class="nospace-border">
             <td style="padding-left: 135px;font-size: 13px; " width="55%"><?= $model->particulars ?></td>
             <td width="20%" style="text-align: center;"><?= $model->ppa ?></td>
             <td width="15%" style="text-align: center;"><?= $model->account_code ?></td>
-            <td width="20%" style="text-align: right;padding-right: 40px;"><?= $model->amount ?></td>
+            <td width="20%" style="text-align: right;padding-right: 40px;"><?= number_format($model->amount,2) ?></td>
         </tr>
 </table>
+
+    <?php
+    $fin="";
+    $x=0;
+    $loopss = "";
+    foreach ($assig as $ob) {
+        $requestedby = $ob["RequestedBy"];
+        $requestedposition = $ob["RequestedPosition"];
+        $fundsavailable = $ob["FundsAvailable"];
+        $fundsposition = $ob["FundsAvailablePosition"];
+    }
+    while($x>20) {
+        $x++;
+        $loopss  = $loopss.'<tr class="nospace-border"> <td></td><td></td></tr>';
+    }
+
+
+   $gg='<div style="height:190px;"></div>
+    <table border="0" width="100%">
+    '.$loopss.'
+        <tr class="nospace-border">
+            <td></td>
+            <td style="text-align: right;padding-right: 40px;">'.number_format($model->amount,2).'</td>
+        </tr>
+        <tr class="nospace-border"> <td></td><td></td></tr>
+        <tr class="nospace-border"> <td></td><td></td></tr>
+        <tr class="nospace-border"> <td></td><td></td></tr>
+        <tr class="nospace-border"> <td></td><td></td></tr>
+        <tr class="nospace-border"> <td></td><td></td></tr>
+        <tr class="nospace-border"> <td></td><td></td></tr>
+        <tr class="nospace-border"> <td></td><td></td></tr>
+        <tr class="nospace-border"> <td></td><td></td></tr>
+        <tr class="nospace-border"> <td></td><td></td></tr>
+        <tr class="nospace-border"> <td></td><td></td></tr>
+        <tr class="nospace-border"> <td></td><td></td></tr>
+        <tr class="nospace-border"> <td></td><td></td></tr>
+        <tr class="nospace-border"> <td></td><td></td></tr>
+        <tr class="nospace-border"> <td></td><td></td></tr>
+        <tr class="nospace-border"> <td></td><td></td></tr>
+        <tr class="nospace-border"> <td></td><td></td></tr>
+        <tr class="nospace-border"> <td></td><td></td></tr>
+        <tr class="nospace-border"> <td></td><td></td></tr>
+        <tr class="nospace-border"> <td></td><td></td></tr>
+        <tr class="nospace-border"> <td></td><td></td></tr>
+        <tr class="nospace-border"> <td></td><td></td></tr>
+        <tr class="nospace-border"> <td></td><td></td></tr>
+        <tr class="nospace-border"> <td></td><td></td></tr>
+
+
+
+        <tr class="nospace-border">
+            <td width="50%" style="text-align: center;">'.$requestedby.'</td>
+            <td width="50%" style="text-align: center;padding-left:30px;">'.$fundsavailable.'</td>
+        </tr>
+        <tr class="nospace-border">
+            <td width="50%" style="text-align: center;">'.$requestedposition.'</td>
+            <td width="50%" style="text-align: center;padding-left: 30px;">'.$fundsposition.'</td>
+        </tr>
+        </table>';
+
+
+    echo $gg;
+    ?>
+
 
 
 

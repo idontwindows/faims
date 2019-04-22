@@ -103,7 +103,7 @@ WHERE LEFT(`tbl_obligationrequest`.`os_no`,6) = '".$characters."'";
         $pdf->orientation = Pdf::ORIENT_PORTRAIT;
         $pdf->destination =  $pdf::DEST_BROWSER;
         $pdf->content  = $content;
-        $pdf->marginFooter=100;
+        $pdf->marginFooter=0;
         $pdf->cssFile = '@vendor/kartik-v/yii2-mpdf/assets/kv-mpdf-bootstrap.min.css';
         $pdf->cssInline = '.kv-heading-1{font-size:18px}.nospace-border{border:0px;}.no-padding{ padding:0px;}.print-container{font-size:11px;font-family:Arial,Helvetica Neue,Helvetica,sans-serif; }';
         $fin="";
@@ -120,48 +120,12 @@ WHERE LEFT(`tbl_obligationrequest`.`os_no`,6) = '".$characters."'";
             $loopss  = $loopss.'<tr class="nospace-border"> <td></td><td></td></tr>';
         }
         $footers = '
-        <div style="height:50px;"></div>
-            <table border="0" width="100%">
-               <tr class="nospace-border">
-                   <td></td>
-                    <td style="text-align: right;padding-right: 40px;">'.$model->amount.'</td>
-               </tr>
-               <tr class="nospace-border"> <td></td><td></td></tr>
-               <tr class="nospace-border"> <td></td><td></td></tr>
-               <tr class="nospace-border"> <td></td><td></td></tr>
-               <tr class="nospace-border"> <td></td><td></td></tr>
-               <tr class="nospace-border"> <td></td><td></td></tr>
-               <tr class="nospace-border"> <td></td><td></td></tr>
-               <tr class="nospace-border"> <td></td><td></td></tr>
-               <tr class="nospace-border"> <td></td><td></td></tr>
-               <tr class="nospace-border"> <td></td><td></td></tr>
-               <tr class="nospace-border"> <td></td><td></td></tr>
-               <tr class="nospace-border"> <td></td><td></td></tr>
-               <tr class="nospace-border"> <td></td><td></td></tr>
-               <tr class="nospace-border"> <td></td><td></td></tr>
-               <tr class="nospace-border"> <td></td><td></td></tr>
-               <tr class="nospace-border"> <td></td><td></td></tr>
-               <tr class="nospace-border"> <td></td><td></td></tr>
-               <tr class="nospace-border"> <td></td><td></td></tr>
-               <tr class="nospace-border"> <td></td><td></td></tr>
-               <tr class="nospace-border"> <td></td><td></td></tr>
-               <tr class="nospace-border"> <td></td><td></td></tr>
-               <tr class="nospace-border"> <td></td><td></td></tr>
-               <tr class="nospace-border"> <td></td><td></td></tr>
-               <tr class="nospace-border"> <td></td><td></td></tr>
-     
-               
-               
-                <tr class="nospace-border">
-                    <td width="50%" style="text-align: center;">'.$requestedby.'</td>
-                    <td width="50%" style="text-align: center;padding-left:20px;">'.$fundsavailable.'</td>
-                </tr>
-                <tr class="nospace-border">
-                    <td width="50%" style="text-align: center;">'.$requestedposition.'</td>
-                    <td width="50%" style="text-align: center;">'.$fundsposition.'</td>
+            <table>
+                   <tr class="nospace-border">
+                    <td width="50%" style="text-align: left;">'.$model->os_no.'</td>
+                    <td width="50%" style="text-align: center;">'.'</td>
                 </tr>
             </table>
-            
             ';
 
 
