@@ -132,9 +132,15 @@ $this->registerJsFile($BaseURL.'js/disbursement/function.js');
                                                         data = $.parseJSON(response);
                                                         $.each(data, function(i, item) {
                                                             var particular = item.particulars;
+                                                            var address = item.address;
                                                             var amount = item.amount;
+                                                            var payee = item.payee;
+                                                            var osdate = item.os_date;
                                                             $('#disbursement-particulars').text(particular);
+                                                            $('#disbursement-address').text(address);
                                                             $('#disbursement-dv_amount').val(amount);
+                                                            $('#disbursement-payee').val(payee);
+                                                            document.getElementById('disbursement-dv_date').valueAsDate = new Date(osdate);
                                                         });
                                                     },
                                                     error: function ( xhr, ajaxOptions, thrownError ) {
