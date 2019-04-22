@@ -103,7 +103,7 @@ WHERE LEFT(`tbl_obligationrequest`.`os_no`,6) = '".$characters."'";
         $pdf->orientation = Pdf::ORIENT_PORTRAIT;
         $pdf->destination =  $pdf::DEST_BROWSER;
         $pdf->content  = $content;
-        $pdf->marginFooter=0;
+        $pdf->marginFooter=20;
         $pdf->cssFile = '@vendor/kartik-v/yii2-mpdf/assets/kv-mpdf-bootstrap.min.css';
         $pdf->cssInline = '.kv-heading-1{font-size:18px}.nospace-border{border:0px;}.no-padding{ padding:0px;}.print-container{font-size:11px;font-family:Arial,Helvetica Neue,Helvetica,sans-serif; }';
         $fin="";
@@ -122,7 +122,7 @@ WHERE LEFT(`tbl_obligationrequest`.`os_no`,6) = '".$characters."'";
         $footers = '
             <table>
                    <tr class="nospace-border">
-                    <td width="50%" style="text-align: left;">'.$model->os_no.'</td>
+                    <td width="50%" style="text-align: left;font-size: 11px;">'.$model->os_no.'</td>
                     <td width="50%" style="text-align: center;">'.'</td>
                 </tr>
             </table>
