@@ -65,7 +65,13 @@
                     echo '<td style="font-size: 11px; width: 25%; text-align: left;">'.$item_decription.'</td>';
                     while($i<$max) {
                         $myval = $pr[$columns[$i]];
-                        if($myval=='') { $myval='No Bid';}
+                        if (is_numeric($myval)) {
+                            $myval = number_format($myval,2);
+                        }
+                        if($myval=='0.00<br/>') {
+                            $myval='No Bid';
+                        }
+
                         echo '<td style="font-size: 11px; width: 10%;">'.$myval.'</td>';
                         $i++;
                     }

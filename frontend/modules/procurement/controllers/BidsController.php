@@ -326,7 +326,7 @@ class BidsController extends Controller
     $pdf->cssFile = '@vendor/kartik-v/yii2-mpdf/assets/kv-mpdf-bootstrap.min.css';
     $pdf->cssInline = '.kv-heading-1{font-size:18px}.nospace-border{border:0px;}.no-padding{ padding:0px;}.print-container{font-size:11px;font-family:Arial,Helvetica Neue,Helvetica,sans-serif; }';
 
-    $headers = '<div style="height: 118px;"></div>
+    $headers = '<div style="height: 95px;"></div>
    <table class="table table-responsive">
        <tbody>
         <tr class="nospace-border">
@@ -462,7 +462,7 @@ class BidsController extends Controller
         $LeftFooterContent = '
 <table width="100%">
     <tr>
-        <td style="font-size: 11px;text-align: center; width=16.67">'.$assig1.'<br/>Chairman</td>
+        <td style="font-size: 11px;text-align: center; width=16.67">'.$assig1.'<br/>Chairperson</td>
         <td style="width: 50px;"></td>
         <td style="font-size: 11px;text-align: center; width=16.67">'.$assig2.'<br/>Members</td>
         <td style="width: 50px;"></td>
@@ -491,76 +491,6 @@ class BidsController extends Controller
     </tr>
 </table>
 ';
-       /* $RightFooterContent = '
-<table>
-    <tr>
-        <td style="font-size: 11px;text-align: center;">MARTIN A. WEE<br/>Regional Director</td>
-        <td style="width: 75px;"></td>
-        <td style="height: 100px;"></td>
-    </tr>
-</table>
-<div style="text-align: right;padding-top:-50px;font-size: 6px;">Page {PAGENO} of {nbpg}</div>
-<div style="height: 50px;"></div>';
-        $LeftHeaderContent='';
-        $RightHeaderContent='
-        
-        <table style="padding-left: 200px;"> 
-            <tr>
-                <td style="padding-top: 55px;"></td>
-            </tr>
-            <tr>
-                <td style="font-size: 9px;padding-left: 250px;">'.$model->purchase_request_referrence_no.'</td>
-            </tr>
-            <tr>
-                <td style="font-size: 9px;padding-left: 200px;">'.$model->purchase_request_project_name.'</td>
-            </tr>
-             <tr>
-                <td style="font-size: 9px;padding-left: 200px;">'.$model->purchase_request_location_project.'</td>
-            </tr>
-        </table>
-        ';
-
-       */
-
-        /*
-        $oddEvenHeaderConfiguration =
-            [
-                'L' => [ // L for Left part of the header
-                    'content' => $LeftHeaderContent,
-                ],
-                'C' => [ // C for Center part of the header
-                    'content' => '',
-                ],
-                'R' => [
-                    'content' => $RightHeaderContent,
-                ],
-                'line' => 0, // That's the relevant parameter
-            ];
-
-
-        $oddEvenConfiguration =
-            [
-                'L' => [ // L for Left part of the header
-                    'content' => $LeftFooterContent,
-                ],
-                'C' => [ // C for Center part of the header
-                    'content' => '',
-                ],
-                'R' => [
-                    'content' => $RightFooterContent,
-                ],
-                'line' => 0, // That's the relevant parameter
-            ];
-
-        $headerConfiguration = [
-            'odd' => $oddEvenHeaderConfiguration,
-            'even' => $oddEvenHeaderConfiguration
-        ];
-        $headerFooterConfiguration = [
-            'odd' => $oddEvenConfiguration,
-            'even' => $oddEvenConfiguration
-        ];
-        */
         $pdf->options = [
             'title' => 'ABSTRACT OF BIDS',
             'defaultheaderline' => 0,

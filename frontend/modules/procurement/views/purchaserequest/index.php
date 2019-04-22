@@ -33,8 +33,12 @@ $this->registerJsFile($BaseURL.'js/ui-bootstrap-tpls-0.10.0.min.js');
 $this->registerJsFile($BaseURL.'js/jquery.tabletojson.js');
 $this->registerJsFile($BaseURL.'js/app.js');
 $this->registerJsFile($BaseURL.'js/custom.js');
+
+
 ?>
 
+<script src="https://cloud.tinymce.com/5/tinymce.min.js"></script>
+<script>tinymce.init({ selector:'textarea' });</script>
 <div class="request-index">
     <h1 class="centered"><i class="fa fa-cart-plus"></i> <?= Html::encode($this->title) ?></h1><h5><a id="startButton"  href="javascript:void(0);"><img src="<?= $BaseURL;?>images\help.png" height="52" width="98" style="padding: 10px;"></a></h5>
     <?php

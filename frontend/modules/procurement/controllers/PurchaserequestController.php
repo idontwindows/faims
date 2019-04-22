@@ -188,6 +188,7 @@ class PurchaserequestController extends Controller
                 $arr = json_decode($lineitembudget,true);
                 try {
                     // all inputs are valid
+
                     $prnumber = $this->GeneratePRNumber();
                     $prequest->purchase_request_number = $prnumber; //'PR-13-01-0028';
                     $prequest->save();

@@ -59,6 +59,9 @@ if ($model->purchase_request_requestedby_id=='')
                             <div class="col-lg-12">
                                 <div class="col-lg-12">
                                     <textarea row="50" class="form-control" placeholder="Item Description" id="txtitemdesc" name="txtitemdesc" required></textarea><span class="two req">* description is required</span>
+
+
+
                                     <div class="space-20"></div>
                                 </div>
                                     <div class="col-lg-12">
