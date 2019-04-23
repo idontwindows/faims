@@ -423,9 +423,9 @@ class BidsController extends Controller
         $pdf->orientation = Pdf::ORIENT_LANDSCAPE;
         //$pdf->format = Pdf::FORMAT_LEGAL;
         $pdf->destination = Pdf::DEST_BROWSER;
-        $pdf->marginLeft=4;
-        $pdf->marginRight=3;
-        $pdf->marginTop=48;
+        $pdf->marginLeft=41;
+        $pdf->marginRight=0;
+        $pdf->marginTop=43;
         $pdf->marginBottom=5;
         $pdf->defaultFontSize=7;
         $pdf->content = $content;
