@@ -110,7 +110,6 @@ jQuery(document).ready(function ($) {
             $('table tbody.table-body').append($dataAppend);
             var table = $('#pr-table').tableToJSON({allowHTML:true});
             var jsonstring = JSON.stringify(table);
-            alert(jsonstring);
             $('.radio.tbl-tmt').each(function(){
                 $('.radio.tbl-tmt').length > 0 ? $('.delete-row').prop('disabled',false) : $('.delete-row').prop('disabled',true);
             });

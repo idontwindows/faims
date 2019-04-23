@@ -173,7 +173,12 @@ $BaseURL = $GLOBALS['frontend_base_uri'];
                     <?= $form->field($model, 'resp_center')->textInput(['maxlength' => true,'placeholder' => 'Responsibility Center '])->label('') ?>
                 </div>
                 <div class="col-lg-3">
-                    <?= $form->field($model, 'particulars')->textarea(['rows' => 5,'placeholder'=>'Particulars'])->label('') ?>
+
+                    <?= $form->field($model, 'particulars')->widget(CKEditor::className(), [
+                        'options' => ['rows' => 4],
+                        'preset' => 'basic'
+                    ]) ?>
+
                 </div>
                 <div class="col-lg-2">
                     <?= $form->field($model, 'ppa')->textInput(['maxlength' => true])->label('MFO/PAP') ?>
