@@ -53,7 +53,7 @@ class Purchaserequest extends \yii\db\ActiveRecord
             [['division_id','section_id','purchase_request_purpose','purchase_request_requestedby_id','purchase_request_approvedby_id','purchase_request_date'], 'required'],
             [['purchase_request_date', 'purchase_request_saidate'], 'safe'],
             [['purchase_request_number', 'purchase_request_referrence_no', 'purchase_request_project_name', 'purchase_request_location_project'], 'string', 'max' => 100],
-            [['purchase_request_sai_number', 'purchase_request_purpose','lineitembudgetlist'], 'string', 'max' => 5000],
+            [['purchase_request_sai_number', 'purchase_request_purpose','lineitembudgetlist'], 'string', 'max' => 900000000000],
 
         ];
     }
