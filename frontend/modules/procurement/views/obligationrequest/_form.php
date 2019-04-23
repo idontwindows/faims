@@ -178,7 +178,7 @@ $BaseURL = $GLOBALS['frontend_base_uri'];
 
                     <?= $form->field($model, 'particulars')->widget(CKEditor::className(), [
                         'options' => ['rows' => 5],
-                        'preset' => 'basic'
+                        'preset' => 'full'
                     ]) ?>
 
                 </div>
