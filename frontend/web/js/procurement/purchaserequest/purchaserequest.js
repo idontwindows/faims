@@ -108,8 +108,9 @@ jQuery(document).ready(function ($) {
             totalcost = "<td>" +  tt.toFixed(2) + "</td>";
             $dataAppend = opentr + checkbox + p_id + unit + itemdescription + qty + unitcost + totalcost + closetr;
             $('table tbody.table-body').append($dataAppend);
-            var table = $('#pr-table').tableToJSON();
+            var table = $('#pr-table').tableToJSON({allowHTML:true});
             var jsonstring = JSON.stringify(table);
+            alert(jsonstring);
             $('.radio.tbl-tmt').each(function(){
                 $('.radio.tbl-tmt').length > 0 ? $('.delete-row').prop('disabled',false) : $('.delete-row').prop('disabled',true);
             });

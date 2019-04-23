@@ -12,6 +12,8 @@ use yii\helpers\ArrayHelper;
 use yii\helpers\Html;
 use yii\db\Query;
 
+use dosamigos\ckeditor\CKEditor;
+
 $BaseURL = $GLOBALS['frontend_base_uri'];
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\procurement\PurchaserequestSearch */
@@ -58,8 +60,9 @@ if ($model->purchase_request_requestedby_id=='')
                             <h5 style="text-align: center">Add Item</h5>
                             <div class="col-lg-12">
                                 <div class="col-lg-12">
-                                    <textarea row="50" class="form-control" placeholder="Item Description" id="txtitemdesc" name="txtitemdesc" required></textarea><span class="two req">* description is required</span>
 
+
+                                  <?php  echo CKEditor::widget([ 'name' => "txtitemdesc", 'id' => 'txtitemdesc', 'preset' => 'full', 'value' => "", 'clientOptions' => ['height' => 200, 'width' => '100%'], ]); ?>
 
 
                                     <div class="space-20"></div>
