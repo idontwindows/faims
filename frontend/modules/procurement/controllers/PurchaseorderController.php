@@ -188,11 +188,13 @@ class PurchaseorderController extends \yii\web\Controller
              $Assig2Position =  $sg["Assig2Position"];
          }
          $pdf->marginTop = 45;
-         $pdf->marginBottom = 75;
+         $pdf->marginBottom = 50;
          $pdf->marginFooter = 0;
 
          $headers= '<div style="height: 150px"></div>
                     <table border="0" width="100%">
+                   
+                    
                         <tr style="text-align: left;">
                             <td style="padding-left: 50px;">'.$supplier.'</td>
                             <td style="text-align: right;">'.$ponum.'</td>
@@ -227,20 +229,56 @@ class PurchaseorderController extends \yii\web\Controller
                         </tr>                                          
                     </table>
                     ';
-         $footerss= '<div style="height: 50px"></div>
+         $summary = 0;
+         $totalcost = 0;
+         foreach ($prdetails as $pr) {
+             $quantity = $pr["bids_quantity"];
+             $price = $pr["bids_price"];
+             $totalcost =  $quantity * $price;
+             $summary = $summary + $totalcost;
+         }
+         $footerss= '<div style="height: 20px"></div>
+
                     <table border="0" width="100%">
+                     <tr class="nospace-border">
+                     <td width="85%" colspan="4">&nbsp;</td>
+                     <td width="15%" style="padding-left: 25px;">&nbsp;</td>
+                     </tr>
+                     
+                     <tr class="nospace-border">
+                     <td width="85%" colspan="4">'.strtoupper(Yii::$app->formatter->asSpellout($summary)).' PESOS ONLY</td>
+                     <td width="15%" style="padding-left: 25px;">'. number_format($summary,2).'</td>
+                     </tr>
+                  
+                     <tr class="nospace-border">
+                     <td width="85%" colspan="4">&nbsp;</td>
+                     <td width="15%" style="padding-left: 25px;">&nbsp;</td>
+                     </tr>
+                      <tr class="nospace-border">
+                     <td width="85%" colspan="4">&nbsp;</td>
+                     <td width="15%" style="padding-left: 25px;">&nbsp;</td>
+                     </tr>
+                      <tr class="nospace-border">
+                     <td width="85%" colspan="4">&nbsp;</td>
+                     <td width="15%" style="padding-left: 25px;">&nbsp;</td>
+                     </tr>      
+                             <tr class="nospace-border">
+                     <td width="85%" colspan="4">&nbsp;</td>
+                     <td width="15%" style="padding-left: 25px;">&nbsp;</td>
+                     </tr>      
                         <tr style="text-align: left;">
                             <td style="padding-left: 80px;">'.$supplier.'</td>
                             <td style="text-align: center;">'.$assig2.'<br>'.$Assig2Position.'</td>
-                        </tr>
+                       </tr>
                        <tr><td></td><td></td></tr>
                        <tr><td></td><td></td></tr>
                        <tr><td></td><td></td></tr>
                        <tr><td></td><td></td></tr>
-                         <tr><td></td><td></td></tr>
                        <tr><td></td><td></td></tr>
                        <tr><td></td><td></td></tr>
                        <tr><td></td><td></td></tr>
+                       <tr><td></td><td></td></tr>
+                       
                         <tr style="text-align: right;padding-left: 50px;">
                             <td style="text-align: center;">'.$assig1.'<br>'.$Assig1Position.'</td>
                             <td style="text-align: right;"></td>

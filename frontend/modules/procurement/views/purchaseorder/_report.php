@@ -41,56 +41,7 @@
     <table border="0" width="100%">
         <?php
             echo $fin;
-            echo    $cc.
-                    $cc.
-                    $cc.
-                    $cc.
-                    $cc.
-                    $cc.
-                $cc.
-                $cc.
-                $cc.
-                $cc.
-                $cc.
-                $cc.
-                $cc.
-                $cc.
-                $cc.
-                $cc.
-                $cc.
-                $cc.
-                $cc.
-                $cc.
-                $cc.
-                $cc.
-                $cc.
-                $cc.
-                $cc.
-                $cc.
-                $cc.
-                $cc.
-                $cc.
-                $cc.
-                $cc.
-                $cc.
-                $cc.
-                $cc.
-                $cc.
-                $cc.
-                $cc.
-                $cc.
-                $cc.
-                $cc.
-                $cc.
-                $cc.
-                $cc.
-                $cc.
-                $cc.
-                $cc.
-                $cc.
-                $cc.
-
-                 $yy;
+            //echo $yy;
         ?>
     </table>
 
