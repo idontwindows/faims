@@ -1,6 +1,7 @@
 <?php
 
 namespace frontend\modules\procurement\controllers;
+use common\models\procurement\Assignatory;
 use common\models\procurement\Purchaserequestdetails;
 use Yii;
 use common\modules\admin\models\User;
@@ -222,8 +223,10 @@ class PurchaserequestController extends Controller
                 $errors = $prequest->errors;
             }
         }else{
+            $assig =$this->findAssignatory(1);
             return $this->renderAjax('_modal', [
                 'model' => $prequest,
+                'assig' => $assig,
             ]) ;
         }
     }
@@ -354,6 +357,17 @@ class PurchaserequestController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+
+
+    protected function findAssignatory($id)
+    {
+        if (($model = Assignatory::findOne($id)) !== null) {
+            return $model;
+        } else {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
+    }
+
 
     /**
      * @return string

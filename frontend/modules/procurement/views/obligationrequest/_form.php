@@ -175,10 +175,6 @@ $BaseURL = $GLOBALS['frontend_base_uri'];
                 <div class="col-lg-3">
                     <?= $form->field($model, 'particulars')->textarea(['rows' => 5,'placeholder'=>'Particulars'])->label('') ?>
 
-                    <?php  echo CKEditor::widget([ 'name' => "txtitemdesc", 'id' => 'txtitemdesc', 'basic' => 'full', 'value' => "", 'clientOptions' => ['height' => 200, 'width' => '100%'], ]); ?>
-
-
-
                 </div>
                 <div class="col-lg-2">
                     <?= $form->field($model, 'ppa')->textInput(['maxlength' => true])->label('MFO/PAP') ?>

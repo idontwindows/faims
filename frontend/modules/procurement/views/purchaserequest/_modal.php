@@ -44,8 +44,9 @@ $listDivisions = ArrayHelper::map($divisions,'division_id','name');
 $lineItemBudget = ArrayHelper::map($section,'section_id','name');
 $listUnits = ArrayHelper::map($units,'unit_type_id','name_short');
 
-if ($model->purchase_request_requestedby_id=='')
+if ($model->purchase_request_requestedby_id=='') {
     $model->purchase_request_requestedby_id = $userid;
+}
 ?>
 
 

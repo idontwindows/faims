@@ -10,9 +10,9 @@
         $price = $pr["purchase_request_details_price"];
         $totalcost =  $quantity * $price;
         $append = "<tr class=\"nospace-border\">";
-        $append = $append . "<td width='14%' style='padding-left: 60px;'>".$unit."</td>";
-        $append = $append . "<td width='50%' style='text-align: justify;padding-left: 40px;'>" . $itemdescription . "</td>";
-        $append = $append . "<td width='12%' style='padding-left: 35px;'>" . $quantity . "</td>";
+        $append = $append . "<td width='14%' style='padding-left: 60px;vertical-align: top;'>".$unit."</td>";
+        $append = $append . "<td width='50%' style='text-align: justify;padding-left: 40px;vertical-align: top;'>" . $itemdescription . "</td>";
+        $append = $append . "<td width='12%' style='padding-left: 35px;vertical-align: top;'>" . $quantity . "</td>";
         $append = $append . "<td width='12%' style='padding-left: 30px;'></td>";
         $append = $append . "<td width='12%' style='padding-left: 35px;'></td>";
         $append = $append . "</tr>";
