@@ -15,6 +15,17 @@ $this->registerJsFile('https://code.jquery.com/ui/1.12.1/jquery-ui.js');
 $this->registerJsFile($BaseURL.'js/jquery.tabletojson.js');
 $this->registerJsFile($BaseURL.'js/disbursement/function.js');
 
+if ($model->certified_a=='') {
+    $model->certified_a =  $assig->assignatory_1;
+}
+if ($model->certified_b=='') {
+    $model->certified_b =  $assig->assignatory_2;
+}
+
+if ($model->approved=='') {
+    $model->approved =  $assig->assignatory_3;
+}
+
 ?>
 <div class="disbursement-form">
 

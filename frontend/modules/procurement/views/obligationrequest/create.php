@@ -17,6 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'listEmployee' => $listEmployee,
         'listPono'=>$listPono,
         'ostype_data'=>$ostype_data,
+        'assig' => $assig,
     ]) ?>
 
 </div>

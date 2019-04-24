@@ -18,6 +18,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'listEmployee'=>$listEmployee,
         'listSono'=>$listSono,
         'listPono'=>$listPono,
+        'assig' => $assig,
     ]) ?>
 
 </div>

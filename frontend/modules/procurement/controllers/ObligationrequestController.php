@@ -2,6 +2,7 @@
 
 namespace frontend\modules\procurement\controllers;
 
+use common\models\procurement\Assignatory;
 use Yii;
 use common\models\procurement\Obligationrequest;
 use common\models\procurement\ObligationrequestSearch;
@@ -209,12 +210,14 @@ WHERE `tbl_obligationrequest`.`os_no` = '".$id."';";
                 return $errors;
             }
         } else {
+            $assig =$this->findAssignatory(2);
             if (Yii::$app->request->isAjax) {
                 return $this->renderAjax('create', [
                     'model' => $obrequest,
                     'listEmployee'=>$listEmployee,
                     'listPono'=>$listPono,
                     'ostype_data'=>$ostype_data,
+                    'assig' => $assig,
                 ]);
             }else{
                 return $this->render('create', [
@@ -222,6 +225,7 @@ WHERE `tbl_obligationrequest`.`os_no` = '".$id."';";
                     'listEmployee'=>$listEmployee,
                     'listPono'=>$listPono,
                     'ostype_data'=>$ostype_data,
+                    'assig' => $assig,
                 ]);
             }
         }
@@ -284,11 +288,13 @@ WHERE `tbl_obligationrequest`.`os_no` = '".$id."';";
                 $listEmployee = ArrayHelper::map($employees, 'user_id', 'employeename');
                 $listPono = ArrayHelper::map($ponum, 'purchase_order_number', 'purchase_order_number');
                 //if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                $assig =$this->findAssignatory(2);
                 return $this->renderAjax('_form', [
                     'model' => $model,
                     'ostype_data'=>$ostype_data,
                     'listEmployee'=>$listEmployee,
                     'listPono'=>$listPono,
+                    'assig'=>$assig,
                 ]);
             }
         }
@@ -324,4 +330,14 @@ WHERE `tbl_obligationrequest`.`os_no` = '".$id."';";
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+
+    protected function findAssignatory($id)
+    {
+        if (($model = Assignatory::findOne($id)) !== null) {
+            return $model;
+        } else {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
+    }
+
 }

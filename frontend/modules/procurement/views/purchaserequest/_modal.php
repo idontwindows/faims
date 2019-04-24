@@ -47,6 +47,9 @@ $listUnits = ArrayHelper::map($units,'unit_type_id','name_short');
 if ($model->purchase_request_requestedby_id=='') {
     $model->purchase_request_requestedby_id = $userid;
 }
+if ($model->purchase_request_approvedby_id=='') {
+    $model->purchase_request_approvedby_id =  $assig->assignatory_2;
+}
 ?>
 
 

@@ -2,6 +2,7 @@
 
 namespace frontend\modules\procurement\controllers;
 
+use common\models\procurement\Assignatory;
 use Yii;
 use common\models\procurement\Disbursement;
 use common\models\procurement\DisbursementSearch;
@@ -264,6 +265,7 @@ class DisbursementController extends Controller
             }
 
         } else {
+            $assig =$this->findAssignatory(5);
             if (Yii::$app->request->isAjax) {
                 return $this->renderAjax('create', [
                     'model' => $dbursement,
@@ -271,6 +273,7 @@ class DisbursementController extends Controller
                     'listEmployee'=>$listEmployee,
                     'listSono'=>$listSono,
                     'listPono'=>$listPono,
+                    'assig' => $assig,
                 ]);
             }else{
                 return $this->render('create', [
@@ -279,6 +282,7 @@ class DisbursementController extends Controller
                     'listEmployee'=>$listEmployee,
                     'listSono'=>$listSono,
                     'listPono'=>$listPono,
+                    'assig' => $assig,
                 ]);
             }
         }
@@ -322,12 +326,14 @@ class DisbursementController extends Controller
                 $listEmployee = ArrayHelper::map($employees, 'user_id', 'employeename');
                 $listSono = ArrayHelper::map($sono, 'os_no', 'os_no');
                 $listPono = ArrayHelper::map($ponum, 'purchase_order_number', 'purchase_order_number');
+                $assig =$this->findAssignatory(2);
                 return $this->renderAjax('_form', [
                     'model' => $model,
                     'dvtype_data' => $dvtype_data,
                     'listEmployee'=>$listEmployee,
                     'listSono'=>$listSono,
                     'listPono'=>$listPono,
+                    'assig'=>$assig,
                 ]);
             }
         }
@@ -356,6 +362,15 @@ class DisbursementController extends Controller
     protected function findModel($id)
     {
         if (($model = Disbursement::findOne($id)) !== null) {
+            return $model;
+        } else {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
+    }
+
+    protected function findAssignatory($id)
+    {
+        if (($model = Assignatory::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

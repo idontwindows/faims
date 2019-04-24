@@ -4,13 +4,21 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use kartik\select2\Select2;
 use kartik\widgets\SwitchInput;
-use dosamigos\ckeditor\CKEditor;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\procurement\Obligationrequest */
 /* @var $form yii\widgets\ActiveForm */
 
 $BaseURL = $GLOBALS['frontend_base_uri'];
+
+
+if ($model->requested_by=='') {
+    $model->requested_by =  $assig->assignatory_1;
+}
+if ($model->funds_available=='') {
+    $model->funds_available =  $assig->assignatory_2;
+}
+
 ?>
 
 <div class="obligationrequest-form">
@@ -174,7 +182,6 @@ $BaseURL = $GLOBALS['frontend_base_uri'];
                 </div>
                 <div class="col-lg-3">
                     <?= $form->field($model, 'particulars')->textarea(['rows' => 5,'placeholder'=>'Particulars'])->label('') ?>
-
                 </div>
                 <div class="col-lg-2">
                     <?= $form->field($model, 'ppa')->textInput(['maxlength' => true])->label('MFO/PAP') ?>
