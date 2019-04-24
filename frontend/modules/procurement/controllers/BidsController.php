@@ -322,11 +322,13 @@ class BidsController extends Controller
     $pdf->format = pdf::FORMAT_A4;
     $pdf->orientation = Pdf::ORIENT_PORTRAIT;
     $pdf->destination = $pdf::DEST_BROWSER;
+
     $pdf->content = $content;
     $pdf->cssFile = '@vendor/kartik-v/yii2-mpdf/assets/kv-mpdf-bootstrap.min.css';
     $pdf->cssInline = '.kv-heading-1{font-size:18px}.nospace-border{border:0px;}.no-padding{ padding:0px;}.print-container{font-size:11px;font-family:Arial,Helvetica Neue,Helvetica,sans-serif; }';
-
-    $headers = '<div style="height: 95px;"></div>
+    $pdf->marginTop = 150;
+    $pdf->marginBottom = 50;
+    $headers = '<div style="height: 145px;"></div>
    <table class="table table-responsive">
        <tbody>
         <tr class="nospace-border">
@@ -351,7 +353,7 @@ class BidsController extends Controller
             <td style="height: 50px;"></td>
         </tr>
         <tr class="nospace-border">
-            <td style="padding: 0px; padding-top:4px; padding-left:50px;" width="">'.date_format($sub, "F j, Y").'</td>
+            <td style="padding: 0px; padding-top:30px; padding-left:50px;" width="">'.date_format($sub, "F j, Y").'</td>
         </tr>
 
         <tr class="nospace-border">
