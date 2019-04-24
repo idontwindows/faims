@@ -10,9 +10,9 @@
         $price = 5000; //$pr["purchase_request_details_price"];
         $totalcost = 5000;
         $append = "<tr class=\"nospace-border\">";
-        $append = $append . "<td width='50' style='text-align: center;'>".$x."</td>";
-        $append = $append . "<td width='400' style='padding-left: 25px;'>" . $itemdescription . "</td>";
-        $append = $append . "<td width='150' style='text-align: center; padding-left: 55px;'>" . $quantity . " </td>";
+        $append = $append . "<td width='50' style='text-align: center;vertical-align: top;'>".$x."</td>";
+        $append = $append . "<td width='400' style='padding-left: 25px;vertical-align: top;'>" . $itemdescription . "</td>";
+        $append = $append . "<td width='150' style='text-align: center; padding-left: 55px;vertical-align: top;'>" . $quantity . " </td>";
         //$append = $append . "<td>" . $price . "</td>";
         //$append = $append . "<td>" . $totalcost . "</td>";
         $append = $append . "</tr>";
