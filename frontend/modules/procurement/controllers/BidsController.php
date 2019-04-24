@@ -353,7 +353,7 @@ class BidsController extends Controller
             <td style="height: 50px;"></td>
         </tr>
         <tr class="nospace-border">
-            <td style="padding: 0px; padding-top:30px; padding-left:50px;" width="">'.date_format($sub, "F j, Y").'</td>
+            <td style="padding: 0px; padding-top:25px; padding-left:50px;" width="">'.date_format($sub, "F j, Y").'</td>
         </tr>
 
         <tr class="nospace-border">
