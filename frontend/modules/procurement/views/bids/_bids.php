@@ -714,6 +714,31 @@ $BaseURL = $GLOBALS['frontend_base_uri'];
                                             'headerOptions' => ['class' => 'kartik-sheet-style'],
                                         ],
 
+
+                                    /*    [
+                                            'class' => 'kartik\grid\EditableColumn',
+                                            'label'=> 'Remarks',
+                                            'attribute' => 'bids_item_description',
+                                            'value' => function($data) {
+                                                return $data["bids_item_description"];
+                                            },
+                                            'refreshGrid'=>true,
+                                            'editableOptions' =>function ($data) {
+                                                return [
+                                                    'header'=>'Remarks',
+                                                    'size'=>'sm',
+                                                    'inputType' => \kartik\editable\Editable::INPUT_TEXT,
+                                                    'options' => [
+                                                        'pluginEvents' => [
+                                                            "editableSuccess"=>"function(event, val, form, data) { alert('Successful submission of value ' + val); }",
+                                                        ]
+                                                    ],
+                                                    'formOptions'=>['action' => ['bids/editRemarks']], // point to the new action
+                                                ];
+                                            },
+                                        ],
+                                    */
+
                                         [
                                             'attribute'=>'bids_quantity',
                                             'label'=>'Quantity',

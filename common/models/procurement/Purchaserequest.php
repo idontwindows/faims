@@ -12,6 +12,7 @@ use Yii;
  * @property string $purchase_request_sai_number
  * @property integer $division_id
  * @property integer $section_id
+ * @property integer $user_id
  * @property string $purchase_request_date
  * @property string $purchase_request_saidate
  * @property string $purchase_request_purpose
@@ -49,7 +50,7 @@ class Purchaserequest extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['division_id', 'section_id', 'purchase_request_requestedby_id', 'purchase_request_approvedby_id'], 'integer'],
+            [['division_id', 'section_id', 'purchase_request_requestedby_id', 'purchase_request_approvedby_id','user_id'], 'integer'],
             [['division_id','section_id','purchase_request_purpose','purchase_request_requestedby_id','purchase_request_approvedby_id','purchase_request_date'], 'required'],
             [['purchase_request_date', 'purchase_request_saidate'], 'safe'],
             [['purchase_request_number', 'purchase_request_referrence_no', 'purchase_request_project_name', 'purchase_request_location_project'], 'string', 'max' => 100],
@@ -64,6 +65,7 @@ class Purchaserequest extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
+            'user_id'=> 'User ID',
             'purchase_request_id' => 'Request ID',
             'purchase_request_number' => 'Request Number',
             'purchase_request_sai_number' => 'Sai Number',

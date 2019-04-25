@@ -81,8 +81,8 @@
 
 
         <tr class="nospace-border">
-            <td width="50%" style="text-align: center;">'.$requestedby.'</td>
-            <td width="50%" style="text-align: center;padding-left:30px;">'.$fundsavailable.'</td>
+            <td width="50%" style="text-align: center;"><b>'.$requestedby.'</b></td>
+            <td width="50%" style="text-align: center;padding-left:30px;"><b>'.$fundsavailable.'</b><td>
         </tr>
         <tr class="nospace-border">
             <td width="50%" style="text-align: center;">'.$requestedposition.'</td>

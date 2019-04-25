@@ -192,7 +192,7 @@ class PurchaserequestController extends Controller
 
                     $prnumber = $this->GeneratePRNumber();
                     $prequest->purchase_request_number = $prnumber; //'PR-13-01-0028';
-                    $prequest->save();
+                    $prequest->user_id = yii::$app->user->getId();
                     $data=array();
                     foreach ($arr as $budgets) {
                         $unit = $budgets["Unit"];

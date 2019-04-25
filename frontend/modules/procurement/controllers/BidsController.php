@@ -86,6 +86,27 @@ class BidsController extends Controller
                 'outputMessage' => function ($model, $attribute, $key, $index) {
                     return ''; // any custom error after model save
                 },
+            ],
+
+
+              'editDescription' => [                                       // identifier for your editable action
+            'class' => EditableColumnAction::className(),     // action class name
+            'modelClass' => Bidsdetails::className(),                // the update model class
+            'outputValue' => function ($model, $attribute, $key, $index) {
+                $fmt = Yii::$app->formatter;
+                $value = $model->$attribute;
+                // your attribute value
+
+                //$model->save();
+                if ($attribute === 'bids_item_description') {           // selective validation by attribute
+                    return $fmt->asText($value);       // return formatted value if desired
+                }
+                return '';
+                // empty is same as $value
+            },
+            'outputMessage' => function ($model, $attribute, $key, $index) {
+                return ''; // any custom error after model save
+            },
             ]
 
 
@@ -464,17 +485,17 @@ class BidsController extends Controller
         $LeftFooterContent = '
 <table width="100%">
     <tr>
-        <td style="font-size: 11px;text-align: center; width=16.67">'.$assig1.'<br/>Chairperson</td>
+        <td style="font-size: 11px;text-align: center; width=16.67"><b>'.$assig1.'</b><br/>Chairperson</td>
         <td style="width: 50px;"></td>
-        <td style="font-size: 11px;text-align: center; width=16.67">'.$assig2.'<br/>Members</td>
+        <td style="font-size: 11px;text-align: center; width=16.67"><b>'.$assig2.'</b><br/>Members</td>
         <td style="width: 50px;"></td>
-        <td style="font-size: 11px;text-align: center; width=16.67">'.$assig3.'<br/>Members</td>
+        <td style="font-size: 11px;text-align: center; width=16.67"><b>'.$assig3.'</b><br/>Members</td>
         <td style="width: 50px;"></td>
-        <td style="font-size: 11px;text-align: center; width=16.67">'.$assig4.'<br/>Members</td>
+        <td style="font-size: 11px;text-align: center; width=16.67"><b>'.$assig4.'</b><br/>Members</td>
         <td style="height: 100px;"></td>
-        <td style="font-size: 11px;text-align: center; width=16.67">'.$assig5.'<br/>Members</td>
+        <td style="font-size: 11px;text-align: center; width=16.67"><b>'.$assig5.'</b><br/>Members</td>
         <td style="height: 100px;"></td>
-        <td style="font-size: 11px;text-align: center; width=16.67">'.$assig6.'<br/>'.$Assig6Position.'</td>
+        <td style="font-size: 11px;text-align: center; width=16.67"><b>'.$assig6.'</b><br/>'.$Assig6Position.'</td>
         <td style="height: 100px;"></td>
     </tr>
         <tr>

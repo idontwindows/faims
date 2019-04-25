@@ -198,6 +198,7 @@ WHERE `tbl_obligationrequest`.`os_no` = '".$id."';";
             if ($obrequest->validate()) {
                 $osnumber = $this->GenerateOSNumber($obrequest->os_type);
                 $obrequest->os_no = $osnumber;
+                $obrequest->user_id = yii::$app->user->getId();
                 $obrequest->save();
                 if(isset($_POST['btnSavePrint'])) {
                    return $this->redirect('reportob?id='.$obrequest->os_no);
@@ -272,6 +273,7 @@ WHERE `tbl_obligationrequest`.`os_no` = '".$id."';";
         if($request->get('id') && $request->get('view')) {
             $id = $request->get('id');
             $model = $this->findModel($id);
+            $model->user_id = yii::$app->user->getId();
             if ($model->load(Yii::$app->request->post()) && $model->save()) {
                 if(isset($_POST['btnUpdatePrint'])) {
                     return $this->redirect('reportob?id='.$id);

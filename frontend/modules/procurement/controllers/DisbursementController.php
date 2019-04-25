@@ -254,6 +254,7 @@ class DisbursementController extends Controller
             if ($dbursement->validate()) {
                 $dvnumber = $this->GenerateNumber($dbursement->dv_type);
                 $dbursement->dv_no = $dvnumber; //'PR-13-01-0028';
+                $dbursement->user_id = yii::$app->user->getId();
                // $dbursement->particulars = $_POST["particulars"];
                 $dbursement->save();
                 //return $osnumber;
