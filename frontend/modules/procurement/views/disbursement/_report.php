@@ -43,7 +43,7 @@
         <div style="height: 30px;"></div>';
         echo $xxx;
         $append = "<tr class=\"nospace-border\">";
-        $append = $append . "<td width='75%' style='text-align: justify;   '>" . $itemdescription . "</td>";
+        $append = $append . "<td width='75%' style='text-align: justify;'>" . $itemdescription . "</td>";
         $append = $append . "<td width='25%' style='text-align: center;'>" . number_format($totalcost,2) . "</td>";
         $append = $append . "</tr>";
         $fin = $fin . $append;
@@ -58,7 +58,7 @@
     </table>
 
 
-<?php if($dv_type=='MDS') { ?>ss
+<?php if($dv_type=='MDS') { ?>
     <div style="height: 157px;"></div>
     <table border="0" width="100%">
         <tr style="text-align: left;">
@@ -235,7 +235,7 @@
         <table border="0" width="100%">
             <tr style="text-align: left;">
                 <td style="text-align: center;"><b><?= $assig1; ?></b><br><?= $Assig1Position; ?></td>
-                <td style="text-align: center;"><b><?= $assig2; ?></b></br><?= $Assig2Position; ?></td>
+                <td style="text-align: center;"><b><?= $assig2; ?></b><br><?= $Assig2Position; ?></td>
                 <td style="text-align: center;"><b></b><?= $assig3; ?></b><br><?= $Assig3Position; ?></td>
             </tr>
             <tr style="text-align: right;">
