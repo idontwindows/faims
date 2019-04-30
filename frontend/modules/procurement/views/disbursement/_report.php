@@ -226,7 +226,7 @@
             <tr style="text-align: left;">
                 <td style="text-align: center;"><b><?= $assig1; ?></b><br><?= $Assig1Position; ?></td>
                 <td style="text-align: center;"><b><?= $assig2; ?></b><br><?= $Assig2Position; ?></td>
-                <td style="text-align: center;"><b></b><?= $assig3; ?></b><br><?= $Assig3Position; ?></td>
+                <td style="text-align: center;"><b><?= $assig3; ?></b><br><?= $Assig3Position; ?></td>
             </tr>
             <tr style="text-align: right;">
                 <td style="text-align: center;"></td>
