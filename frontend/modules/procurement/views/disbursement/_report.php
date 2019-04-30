@@ -40,7 +40,7 @@
             <td style="text-align: right;"></td>
         </tr>
         </table>
-        <div style="height: 30px;"></div>';
+        <div style="height: 5px;"></div>';
         echo $xxx;
         $append = "<tr class=\"nospace-border\">";
         $append = $append . "<td width='75%' style='text-align: justify;'>" . $itemdescription . "</td>";
@@ -76,12 +76,7 @@
     <table border="0" width="100%">
         <tr style="text-align: left;">
             <td style="text-align: center;"></td>
-            <td style="text-align: center;padding-left: 50px;">LAND BANK OF THE PHILIPPINES</td>
-            <td style="text-align: center;"></td>
-        </tr>
-        <tr style="text-align: right;">
-            <td style="text-align: center;"></td>
-            <td style="text-align: center;padding-left: 50px;"><?= $payee; ?></td>
+            <td style="text-align: center;padding-left: 50px;">LAND BANK OF THE PHILIPPINES<?= $payee; ?></td>
             <td style="text-align: center;"></td>
         </tr>
     </table>
@@ -115,12 +110,12 @@
     <table border="0" width="100%">
         <tr style="text-align: left;">
             <td style="text-align: center;"></td>
-            <td style="text-align: center;padding-left: 60px;">LAND BANK OF THE PHILIPPINES</td>
+            <td style="text-align: center;padding-left: 60px;">LAND BANK OF THE PHILIPPINES<br><?= $payee; ?></td>
             <td style="text-align: center;"></td>
         </tr>
         <tr style="text-align: right;">
             <td style="text-align: center;"></td>
-            <td style="text-align: center;"><?= $payee; ?></td>
+            <td style="text-align: center;"></td>
             <td style="text-align: center;"></td>
         </tr>
     </table>
@@ -225,7 +220,7 @@
 
     <?php }else{ ?>
 
-        <div style="height: 132px;"></div>
+        <div style="height:123px;"></div>
 
         <table border="0" width="100%">
             <tr style="text-align: left;">
