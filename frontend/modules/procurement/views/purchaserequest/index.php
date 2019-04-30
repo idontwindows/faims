@@ -52,7 +52,7 @@ $this->registerJsFile($BaseURL.'js/custom.js');
     $func->GridHeaderAngularJS($maincontroller,"myAdd","Create New Purchase Request");?>
     </h5>
     <?= $func->GridHeader('Request #','purchase_request_number'); ?>
-   <div style="text-transform: uppercase;"><?= $func->GridHeader('Request Purpose ','purchase_request_purpose'); ?></div>
+    <?= $func->GridHeader('Request Purpose ','purchase_request_purpose'); ?>
     <?= $func->GridHeader('Division ','division_name'); ?>
     <?= $func->GridHeader('Section ','section_name'); ?>
     <?= $func->GridHeader('Action ',''); ?>
