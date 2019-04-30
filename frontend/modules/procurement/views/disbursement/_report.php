@@ -59,7 +59,7 @@
 
 
 <?php if($dv_type=='MDS') { ?>
-    <div style="height: 157px;"></div>
+    <div style="height: 153px;"></div>
     <table border="0" width="100%">
         <tr style="text-align: left;">
             <td style="text-align: center;padding-left: -60px;"><b><?= $assig2; ?><b/><br><?= $Assig2Position; ?></td>
@@ -192,7 +192,7 @@
 
 
     <?php if($dv_type=='MDS') { ?>
-        <div style="height: 180px;"></div>
+        <div style="height: 170px;"></div>
         <table border="0" width="100%">
             <tr style="text-align: left;">
                 <td style="text-align: center;padding-left: -60px;"><b><?= $assig2; ?></b><br><?= $Assig2Position; ?></td>
