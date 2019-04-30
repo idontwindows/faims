@@ -214,12 +214,7 @@
         <table border="0" width="100%">
             <tr style="text-align: left;">
                 <td style="text-align: center;"></td>
-                <td style="text-align: center;padding-left: 50px;">LAND BANK OF THE PHILIPPINES</td>
-                <td style="text-align: center;"></td>
-            </tr>
-            <tr style="text-align: right;">
-                <td style="text-align: center;"></td>
-                <td style="text-align: center;padding-left: 50px;"><?= $payee; ?></td>
+                <td style="text-align: center;padding-left: 50px;">LAND BANK OF THE PHILIPPINES<br><?= $payee; ?></td>
                 <td style="text-align: center;"></td>
             </tr>
         </table>
@@ -248,12 +243,7 @@
         <table border="0" width="100%">
             <tr style="text-align: left;">
                 <td style="text-align: center;"></td>
-                <td style="text-align: center;padding-left: 60px;">LAND BANK OF THE PHILIPPINES</td>
-                <td style="text-align: center;"></td>
-            </tr>
-            <tr style="text-align: right;">
-                <td style="text-align: center;"></td>
-                <td style="text-align: center;"><?= $payee; ?></td>
+                <td style="text-align: center;padding-left: 60px;">LAND BANK OF THE PHILIPPINES<br><?= $payee; ?></td>
                 <td style="text-align: center;"></td>
             </tr>
         </table>
