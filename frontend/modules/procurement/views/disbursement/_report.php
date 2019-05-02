@@ -43,8 +43,8 @@
         <div style="height: 25px;"></div>';
         echo $xxx;
         $append = "<tr class=\"nospace-border\">";
-        $append = $append . "<td width='75%' style='text-align: justify;'>" . $itemdescription . "</td>";
-        $append = $append . "<td width='25%' style='text-align: center;'>" . number_format($totalcost,2) . "</td>";
+        $append = $append . "<td width='75%' height='125' style='text-align: justify;vertical-align: top;'>" . $itemdescription . "</td>";
+        $append = $append . "<td width='25%' style='text-align: center;vertical-align: top;'>" . number_format($totalcost,2) . "</td>";
         $append = $append . "</tr>";
         $fin = $fin . $append;
     }
@@ -59,10 +59,10 @@
 
 
 <?php if($dv_type=='MDS') { ?>
-    <div style="height: 153px;"></div>
+    <div style="height: 65px;"></div>
     <table border="0" width="100%">
         <tr style="text-align: left;">
-            <td style="text-align: center;padding-left: -60px;"><b><?= $assig2; ?><b/><br><?= $Assig2Position; ?></td>
+            <td style="text-align: center;padding-left: -60px;"><b><?= $assig2; ?></b><br><?= $Assig2Position; ?></td>
             <td style="text-align: center;"></td>
             <td style="text-align: center;padding-right: -80px;"><b><?= $assig3; ?></b><br><?= $Assig3Position; ?></td>
         </tr>
@@ -175,8 +175,8 @@
         <div style="height: 30px;"></div>';
         echo $xxx;
         $append = "<tr class=\"nospace-border\">";
-        $append = $append . "<td width='75%' style='text-align: justify;   '>" . $itemdescription . "</td>";
-        $append = $append . "<td width='25%' style='text-align: center;'>" . number_format($totalcost,2) . "</td>";
+        $append = $append . "<td width='75%' height='125' style='text-align: justify;vertical-align: top;'>" . $itemdescription . "</td>";
+        $append = $append . "<td width='25%' style='text-align: center;vertical-align: top;'>" . number_format($totalcost,2) . "</td>";
         $append = $append . "</tr>";
         $fin = $fin . $append;
     }
@@ -192,7 +192,7 @@
 
 
     <?php if($dv_type=='MDS') { ?>
-        <div style="height: 170px;"></div>
+        <div style="height: 35px;"></div>
         <table border="0" width="100%">
             <tr style="text-align: left;">
                 <td style="text-align: center;padding-left: -60px;"><b><?= $assig2; ?></b><br><?= $Assig2Position; ?></td>
