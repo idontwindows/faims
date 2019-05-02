@@ -92,7 +92,7 @@
 
 <?php }else{ ?>
 
-    <div style="height: 132px;"></div>
+    <div style="height: 65px;"></div>
 
 <table border="0" width="100%">
     <tr style="text-align: left;">
@@ -220,7 +220,7 @@
 
     <?php }else{ ?>
 
-        <div style="height:123px;"></div>
+        <div style="height:35px;"></div>
 
         <table border="0" width="100%">
             <tr style="text-align: left;">
