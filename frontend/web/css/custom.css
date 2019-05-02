@@ -401,4 +401,6 @@ table#myHead {
     width: 94%!important;
 }
 
-
+.cke_contents > iframe{
+    width: 100% !important;
+}

@@ -148,6 +148,7 @@ if ($model->approved=='') {
                                                             var amount = item.amount;
                                                             var payee = item.payee;
                                                             var osdate = item.os_date;
+                                                            //CKEDITOR.instances[ $('#disbursement-particulars') ].insertHTML(particular);
                                                             $('#disbursement-particulars').text(particular);
                                                             $('#disbursement-address').text(address);
                                                             $('#disbursement-dv_amount').val(amount);
@@ -190,11 +191,12 @@ if ($model->approved=='') {
 
     <div class="row" style="height: auto;background:ghostwhite;box-shadow: 0px 0px 0px 0.2px; padding: 25px;padding-left:0px;padding-right:0px;">
         <div class="col-lg-9">
-            <?php //$form->field($model, 'particulars')->textarea(['rows' => 5,'placeholder'=>'Particulars'])->label('Particulars') ?>
-            <?= $form->field($model, 'particulars')->widget(CKEditor::className(), [
+            <?=$form->field($model, 'particulars')->textarea(['rows' => 5,'placeholder'=>'Particulars'])->label('Particulars') ?>
+            <?php /*$form->field($model, 'particulars')->widget(CKEditor::className(), [
                 'options' => ['rows' => 5],
                 'preset' => 'basic',
-            ]) ?>
+
+            ])*/ ?>
         </div>
         <div class="col-lg-3">
             <?= $form->field($model, 'dv_amount')->textInput(['maxlength' => true,'placeholder'=>'0.00'])->label('Amount') ?>
