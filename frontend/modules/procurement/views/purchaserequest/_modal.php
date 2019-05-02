@@ -147,7 +147,7 @@ if ($model->purchase_request_approvedby_id=='') {
             <div class="col-lg-4">
                 <h5 data-step='2' data-intro='Click here to Select Request Date'>
                 <?= $form->field($model, 'purchase_request_date')
-                    ->input("date") ?>
+                    ->input("date",['value' =>  date("Y-m-d")]) ?>
                 </h5>
             </div>
         </div>
@@ -175,7 +175,7 @@ if ($model->purchase_request_approvedby_id=='') {
             <div class="col-lg-4">
                 <h5 data-step='5' data-intro='Click here to Select Request SAI Date'>
                 <?= $form->field($model, 'purchase_request_saidate')
-                    ->input("date") ?>
+                    ->input("date",['value' =>  date("Y-m-d")]) ?>
                 </h5>
             </div>
          </div>
@@ -234,11 +234,11 @@ if ($model->purchase_request_approvedby_id=='') {
                                 <tr class="table-header">
                                     <td><div class="radio-container"><div id="main-radio" class="radio"><input type="radio" name="test" class="radio-ui"></div></div></td>
                                     <td>Detail# </td>
-                                    <td>Unit</td>
-                                    <td>Item Description</td>
-                                    <td>Quantity</td>
-                                    <td>Unit Cost</td>
-                                    <td>Total Cost</td>
+                                    <td class="unit">Unit</td>
+                                    <td class="item">Item Description</td>
+                                    <td class="quantity">Quantity</td>
+                                    <td class="unit_cost">Unit Cost</td>
+                                    <td class="total_cost">Total Cost</td>
                                 </tr>
                                 </thead>
                                 <tbody class="table-body">
@@ -249,6 +249,7 @@ if ($model->purchase_request_approvedby_id=='') {
                         </div>
                         <div style="bottom:0;">
                             <button type="button" disabled class="delete-row btn btn-warning">Delete Row</button>
+                            <button type="button" disabled class="edit-row btn btn-primary">Edit Row</button>
                         </div>
                     </div>
                 </div>
