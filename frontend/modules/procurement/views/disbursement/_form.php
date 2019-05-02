@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use kartik\select2\Select2;
 use kartik\widgets\SwitchInput;
+use dosamigos\ckeditor\CKEditor;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\procurement\Disbursement */
@@ -189,7 +190,11 @@ if ($model->approved=='') {
 
     <div class="row" style="height: auto;background:ghostwhite;box-shadow: 0px 0px 0px 0.2px; padding: 25px;padding-left:0px;padding-right:0px;">
         <div class="col-lg-9">
-            <?= $form->field($model, 'particulars')->textarea(['rows' => 5,'placeholder'=>'Particulars'])->label('Particulars') ?>
+            <?php //$form->field($model, 'particulars')->textarea(['rows' => 5,'placeholder'=>'Particulars'])->label('Particulars') ?>
+            <?= $form->field($model, 'particulars')->widget(CKEditor::className(), [
+                'options' => ['rows' => 5],
+                'preset' => 'basic',
+            ]) ?>
         </div>
         <div class="col-lg-3">
             <?= $form->field($model, 'dv_amount')->textInput(['maxlength' => true,'placeholder'=>'0.00'])->label('Amount') ?>
