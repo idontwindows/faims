@@ -377,11 +377,11 @@ class PurchaserequestController extends Controller
 
     public function GeneratePRNumber() {
         $characters = "PR";
-        $yr = date('y');
+        $yr = date('yyyy');
         $mt = date('m');
         $con =  Yii::$app->db;
         $command = $con->createCommand("SELECT MAX(SUBSTR(`tbl_purchase_request`.`purchase_request_number`,10)) + 1 AS NextNumber FROM `fais-procurement`.`tbl_purchase_request`
-WHERE MONTH(`tbl_purchase_request`.`purchase_request_date`) =" . $mt);
+WHERE YEAR(`tbl_purchase_request`.`purchase_request_date`) =" . $yr);
         $nextValue = $command->queryAll();
         foreach ($nextValue as $bbb) {
             $a = $bbb['NextNumber'];
