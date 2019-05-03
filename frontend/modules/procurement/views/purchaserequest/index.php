@@ -54,7 +54,7 @@ $this->registerJsFile($BaseURL.'js/custom.js');
     <?= $func->GridHeader('Request #','purchase_request_number'); ?>
     <?= $func->GridHeader('Request Purpose ','purchase_request_purpose'); ?>
     <?= $func->GridHeader('Division ','division_name'); ?>
-    <?= $func->GridHeader('Section ','section_name'); ?>
+    <?= $func->GridHeader('Requested By ','requested_by'); ?>
     <?= $func->GridHeader('Action ',''); ?>
     <?= //Close The AngularJS Header
         $func->GridHeaderAngularJSClose();
@@ -67,7 +67,7 @@ $this->registerJsFile($BaseURL.'js/custom.js');
     <?= $func->GridDetails('purchase_request_number');  ?>
     <?= $func->GridDetails('purchase_request_purpose'); ?>
     <?= $func->GridDetails('division_name');  ?>
-    <?= $func->GridDetails('section_name');  ?>
+    <?= $func->GridDetails('requested_by');  ?>
 
     <!-- *********************************** Start Group for Buttons ************************************************ -->
 
