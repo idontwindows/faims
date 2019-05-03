@@ -22,12 +22,12 @@
         </tr>
 </table>
 <div style="height:35px;"></div>
-<table width="100%">
+<table border="0" width="100%">
         <tr class="nospace-border">
-            <td style="padding-left: 135px;font-size: 13px; " width="55%"><?= $model->particulars ?></td>
-            <td width="20%" style="text-align: center;"><?= $model->ppa ?></td>
-            <td width="15%" style="text-align: center;"><?= $model->account_code ?></td>
-            <td width="20%" style="text-align: right;padding-right: 40px;"><?= number_format($model->amount,2) ?></td>
+            <td style="padding-left: 135px;font-size: 13px;vertical-align: top;" width="55%" height="235"><?= $model->particulars ?></td>
+            <td width="20%" style="text-align: center;vertical-align: top;"><?= $model->ppa ?></td>
+            <td width="15%" style="text-align: center;vertical-align: top;"><?= $model->account_code ?></td>
+            <td width="20%" style="text-align: right;padding-right: 40px;vertical-align: top;"><?= number_format($model->amount,2) ?></td>
         </tr>
 </table>
 
@@ -47,7 +47,7 @@
     }
 
 
-   $gg='<div style="height:190px;"></div>
+   $gg='<div style="height:5px;"></div>
     <table border="0" width="100%">
     '.$loopss.'
         <tr class="nospace-border">
