@@ -29,7 +29,7 @@ $userid = yii::$app->user->getId();
 $con =  Yii::$app->db;
 $section = Section::find()->all();
 $divisions = Division::find()->all();
-$command = $con->createCommand("SELECT `tbl_profile`.`user_id`,CONCAT(`tbl_profile`.`lastname`,', ', `tbl_profile`.`firstname` ,' ', `tbl_profile`.`middleinitial`, ' - ' , `tbl_profile`.`designation`) AS employeename
+$command = $con->createCommand("SELECT `tbl_profile`.`user_id`,CONCAT(`tbl_profile`.`firstname`,', ', `tbl_profile`.`middlename` ,' ', `tbl_profile`.`middleinitial`, ' - ' , `tbl_profile`.`designation`) AS employeename
         FROM `tbl_profile`");
 $command2 = $con->createCommand("SELECT unit_type_id, name_short AS units FROM `tbl_unit_type`
 UNION ALL
@@ -323,7 +323,7 @@ if ($model->purchase_request_approvedby_id=='') {
                 <div class="col-lg-2">
                     <div class="space-10"></div>
                     <div id="removesubmit">
-                        <?= Html::submitButton($model->isNewRecord ? 'Create Request' : 'Update Request' , ['class' => $model->isNewRecord ? 'btn btn-success btn-block' : 'btn btn-primary','id'=> 'btnSubmit','name'=>'btnSubmit']) ?>
+                        <?= Html::submitButton($model->isNewRecord ? 'Save Request' : 'Update Request' , ['class' => $model->isNewRecord ? 'btn btn-success btn-block' : 'btn btn-primary','id'=> 'btnSubmit','name'=>'btnSubmit']) ?>
                     </div>
                 </div>
                 <div class="col-lg-10">
@@ -336,7 +336,7 @@ if ($model->purchase_request_approvedby_id=='') {
             <div class="col-lg-10">
             </div>
             <div class="col-lg-2">
-                <a href="reportpr?id=<?=$model->purchase_request_id?>" class="btn-pdfprint btn btn-lg btn-primary btn-block">Print</a>
+                <!--<a href="reportpr?id=<?=$model->purchase_request_id?>" class="btn-pdfprint btn btn-lg btn-primary btn-block">Print</a>-->
                 <?= pdfprint\Pdfprint::widget([
                     'elementClass' => '.btn-pdfprint'
                 ]); ?>
