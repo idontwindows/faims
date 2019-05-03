@@ -31,7 +31,7 @@ class AjaxController extends \yii\web\Controller
 	    ON `tbl_division`.`division_id` = `tbl_purchase_request`.`division_id`
 	    INNER JOIN `fais`.`tbl_section`
 	    ON `tbl_section`.`section_id` = `tbl_purchase_request`.`section_id`
-	    WHERE `tbl_purchase_request`.`user_id` = ".$id."
+	    WHERE `tbl_purchase_request`.`user_id` = ".$id." OR `purchase_request_requestedby_id` = ".$id."
 	    ORDER BY purchase_request_number DESC";
         }else{
             $sql = "SELECT `tbl_purchase_request`.`purchase_request_id`,
