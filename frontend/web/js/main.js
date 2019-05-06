@@ -108,15 +108,15 @@ jQuery(document).ready(function ($) {
         } );
     });
     $('#myAdd').on('hidden.bs.modal', function () {
-        //location.reload();
+        location.reload();
     });
     $('#Update').on('hidden.bs.modal', function () {
         //alert('tst');
-        //location.reload();
+        location.reload();
     });
     $('#myView').on('hidden.bs.modal', function () {
         //alert('tst');
-        //location.reload();
+        location.reload();
     });
     // Closing of Custom Function for CRUD Method
 });
