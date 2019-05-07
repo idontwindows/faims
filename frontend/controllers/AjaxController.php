@@ -25,7 +25,10 @@ class AjaxController extends \yii\web\Controller
 	    `tbl_division`.`name` AS division_name,
 	    `tbl_section`.`name` AS section_name,
 	    `tbl_purchase_request`.`purchase_request_purpose`,
-	    fnGetAssignatoryName(`purchase_request_requestedby_id`) AS requested_by
+	    fnGetAssignatoryName(`purchase_request_requestedby_id`) AS requested_by,
+	    `fnGetPurchaseNo`(`tbl_purchase_request`.`purchase_request_id`) AS PONum
+	
+	    
 	    FROM `tbl_purchase_request`
 	    INNER JOIN `fais`.`tbl_division`
 	    ON `tbl_division`.`division_id` = `tbl_purchase_request`.`division_id`
@@ -40,7 +43,8 @@ class AjaxController extends \yii\web\Controller
 	    `tbl_division`.`name` AS division_name,
 	    `tbl_section`.`name` AS section_name,
 	    `tbl_purchase_request`.`purchase_request_purpose`,
-	    fnGetAssignatoryName(`purchase_request_requestedby_id`) AS requested_by
+	    fnGetAssignatoryName(`purchase_request_requestedby_id`) AS requested_by,
+	    `fnGetPurchaseNo`(`tbl_purchase_request`.`purchase_request_id`) AS PONum
 	    FROM `tbl_purchase_request`
 	    INNER JOIN `fais`.`tbl_division`
 	    ON `tbl_division`.`division_id` = `tbl_purchase_request`.`division_id`
