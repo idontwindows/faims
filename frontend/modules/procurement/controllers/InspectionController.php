@@ -208,7 +208,7 @@ class InspectionController extends \yii\web\Controller
             $Assig4Position =  $sg["Assig4Position"];
         }
         $pdf->marginTop = 5;
-        $pdf->marginBottom = 0;
+        $pdf->marginBottom = 60;
         $pdf->marginFooter = 0;
 
         $headers= '<div style="height: 175px"></div>
@@ -227,33 +227,154 @@ class InspectionController extends \yii\web\Controller
                         </tr>                                       
                     </table>
                     ';
-
+        $fin=0;
+        foreach ($prdetails as $pr) {
+            $quantity = $pr["bids_quantity"];
+            $price = $pr["bids_price"];
+            $totalcost = $quantity * $price;
+            $fin = $fin + $totalcost;
+        }
         $footerss= '
                     <div style="height: 0px"></div>
                     <table border="0" width="100%">
-          
                         <tr style="text-align: left;">
-                            <td>'.$assig1.'</td>
+                            <td></td>
+                            <td style="text-align: right;">' . number_format($fin,2) . '</td>
+                               <tr style="text-align: left;">
+                            <td></td>
                             <td style="text-align: right;"></td>
                         </tr>
-                        <tr style="text-align: left;">
-                            <td style="padding-left: 40px;">Chairman</td>
+                           <tr style="text-align: left;">
+                            <td></td>
                             <td style="text-align: right;"></td>
                         </tr>
-                        <tr style="text-align: left;">
-                            <td>'.$assig2.'</td>
-                            <td style="text-align: right;">'.$assig3.'</td>
+                                    <tr style="text-align: left;">
+                            <td></td>
+                            <td style="text-align: right;"></td>
                         </tr>
+                                    <tr style="text-align: left;">
+                            <td></td>
+                            <td style="text-align: right;"></td>
+                        </tr>
+                                    <tr style="text-align: left;">
+                            <td></td>
+                            <td style="text-align: right;"></td>
+                        </tr>
+                                    <tr style="text-align: left;">
+                            <td></td>
+                            <td style="text-align: right;"></td>
+                        </tr>
+                                    <tr style="text-align: left;">
+                            <td></td>
+                            <td style="text-align: right;"></td>
+                        </tr>
+                                    <tr style="text-align: left;">
+                            <td></td>
+                            <td style="text-align: right;"></td>
+                        </tr>
+                                    <tr style="text-align: left;">
+                            <td></td>
+                            <td style="text-align: right;"></td>
+                        </tr>
+                                    <tr style="text-align: left;">
+                            <td></td>
+                            <td style="text-align: right;"></td>
+                        </tr>
+                                    <tr style="text-align: left;">
+                            <td></td>
+                            <td style="text-align: right;"></td>
+                        </tr>
+                                    <tr style="text-align: left;">
+                            <td></td>
+                            <td style="text-align: right;"></td>
+                        </tr>
+                                    <tr style="text-align: left;">
+                            <td></td>
+                            <td style="text-align: right;"></td>
+                        </tr>
+                                    <tr style="text-align: left;">
+                            <td></td>
+                            <td style="text-align: right;"></td>
+                        </tr>
+                                    <tr style="text-align: left;">
+                            <td></td>
+                            <td style="text-align: right;"></td>
+                        </tr>
+                                    <tr style="text-align: left;">
+                            <td></td>
+                            <td style="text-align: right;"></td>
+                        </tr>
+                                    <tr style="text-align: left;">
+                            <td></td>
+                            <td style="text-align: right;"></td>
+                        </tr>
+                                    <tr style="text-align: left;">
+                            <td></td>
+                            <td style="text-align: right;"></td>
+                        </tr>
+                                    <tr style="text-align: left;">
+                            <td></td>
+                            <td style="text-align: right;"></td>
+                        </tr>
+                                    <tr style="text-align: left;">
+                            <td></td>
+                            <td style="text-align: right;"></td>
+                        </tr>
+                                    <tr style="text-align: left;">
+                            <td></td>
+                            <td style="text-align: right;"></td>
+                        </tr>
+                                    <tr style="text-align: left;">
+                            <td></td>
+                            <td style="text-align: right;"></td>
+                        </tr>
+                                        <tr style="text-align: left;">
+                            <td></td>
+                            <td style="text-align: right;"></td>
+                        </tr>
+                                        <tr style="text-align: left;">
+                            <td></td>
+                            <td style="text-align: right;"></td>
+                        </tr>                <tr style="text-align: left;">
+                            <td></td>
+                            <td style="text-align: right;"></td>
+                        </tr>                <tr style="text-align: left;">
+                            <td></td>
+                            <td style="text-align: right;"></td>
+                        </tr>
+                                 <tr style="text-align: left;">
+                            <td></td>
+                            <td style="text-align: right;"></td>
+                        </tr>
+                                 <tr style="text-align: left;">
+                            <td></td>
+                            <td style="text-align: right;"></td>
+                        </tr>
+                                 <tr style="text-align: left;">
+                            <td></td>
+                            <td style="text-align: right;"></td>
+                        </tr>
+                           <tr style="text-align: left;">
+                            <td></td>
+                            <td style="text-align: right;"></td>
+                        </tr>
+                           <tr style="text-align: left;">
+                            <td></td>
+                            <td style="text-align: right;"></td>
+                        </tr>
+                        </tr>
+                        
                         <tr style="text-align: left;">
-                            <td style="padding-left: 40px">Member</td>
-                            <td style="text-align: right;">Supply Officer</td>
+                            <td style="text-align: center;padding-left: -125px;"><b>'.$assig1.'</b><br>Chairman<br></td>
+                            <td style="text-align: right;"></td>
+                        </tr>
+                 
+                        <tr style="text-align: left;">
+                            <td style="text-align: center;padding-left: -125px;"><b>'.$assig2.'</b><br>Member<br></td>
+                            <td style="text-align: right;text-align: center;"><b>'.$assig3.'</b><br>Supply Officer</td>
                         </tr>
                         <tr style="text-align: right;">
-                            <td>'.$assig4.'</td>
-                            <td style="text-align: right;"></td>
-                        </tr>  
-                        <tr style="text-align: right;">
-                            <td style="padding-left: 40px;">Member</td>
+                            <td style="text-align: center;padding-left: -125px;"><b>'.$assig4.'</b><br>Member</td>
                             <td style="text-align: right;"></td>
                         </tr>  
                         <tr style="text-align: right;">
@@ -312,7 +433,7 @@ class InspectionController extends \yii\web\Controller
                 'L' => [ // L for Left part of the header
                     'content' => $LeftFooterContent,
                     'font-size' => 7,
-                    'footer-style-left' => 300,
+                    'footer-style-left' => 200,
                     'font-family' => 'Arial',
                     'color'=>'#000000'
                 ],
