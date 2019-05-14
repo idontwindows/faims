@@ -1,5 +1,4 @@
 <?php
-
 namespace Mpdf;
 
 use fpdi_pdf_parser;

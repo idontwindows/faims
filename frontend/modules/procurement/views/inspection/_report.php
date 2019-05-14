@@ -14,7 +14,7 @@
         $append = $append . "<td width='12%' style='padding-left: 25px;vertical-align: top;'>" . $quantity . "</td>";
         $append = $append . "<td width='10%' style='padding-left: 5px;vertical-align: top;'>units</td>";
         $append = $append . "<td width='48%' style='text-align: justify;vertical-align: top'>" . $itemdescription . "</td>";
-        $append = $append . "<td width='18%' style='padding-left: 50px;text-align: right;'>" . number_format($totalcost,2) . "</td>";
+        $append = $append . "<td width='18%' style='padding-left: 50px;text-align: right;vertical-align: top;'>" . number_format($totalcost,2) . "</td>";
         $append = $append . "</tr>";
         $fin = $fin . $append;
         $tots = $tots + $totalcost;
