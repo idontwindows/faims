@@ -442,10 +442,9 @@ class BidsController extends Controller
         $assig = $this->getassig();
         $content = $this->renderPartial('_report_abstract', ['prdetails' => $prdetails, 'model' => $model , 'columns' => $columns]);
         $pdf = new Pdf();
-
         $pdf->format = [216,330];
         $pdf->orientation = Pdf::ORIENT_LANDSCAPE;
-        $pdf->format = Pdf::FORMAT_LEGAL;
+        //$pdf->format = Pdf::FORMAT_LEGAL;
         $pdf->destination = Pdf::DEST_BROWSER;
         $pdf->marginLeft=41;
         $pdf->marginRight=0;
@@ -515,27 +514,6 @@ class BidsController extends Controller
     </tr>
 </table>
 ';
-
-
-        $oddEvenConfiguration =
-            [
-                'L' => [ // L for Left part of the header
-                    'content' => '',
-                ],
-                'C' => [ // C for Center part of the header
-                    'content' => '',
-                ],
-                'R' => [
-                    'content' => '',
-                ],
-                'line' => 0, // That's the relevant parameter
-            ];
-
-        $headerFooterConfiguration = [
-            'odd' => $oddEvenConfiguration,
-            'even' => $oddEvenConfiguration
-        ];
-
         $pdf->options = [
             'title' => 'ABSTRACT OF BIDS',
             'defaultheaderline' => 0,
@@ -545,8 +523,6 @@ class BidsController extends Controller
             'SetHeader' => [$headers],
             'SetFooter' => [$LeftFooterContent],
         ];
-
-
 
         return $pdf->render();
     }
