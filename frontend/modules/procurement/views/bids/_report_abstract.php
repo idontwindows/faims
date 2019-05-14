@@ -26,10 +26,10 @@
                         echo '<th></th>';
                     }else{
                         if ($i>$count - 1) {
-                                echo '<th style="font-size: 9px;">N/A</th>';
+                                echo '<th style="font-size: 7px;">N/A</th>';
                         }else{
                             if ($i>6) {
-                                echo '<th style="font-size: 9px;">'.$columns[$i].'</th>';
+                                echo '<th style="font-size: 7px;">'.$columns[$i].'</th>';
                             }else{
                                 echo '<th>'.$columns[$i].'</th>';
                             }
@@ -72,7 +72,7 @@
                             $myval='No Bid';
                         }
 
-                        echo '<td style="font-size: 7px; width: 10%;">'.$myval.'</td>';
+                        echo '<td style="font-size: 7px; width: 10%;text-align: center;">'.$myval.'</td>';
                         $i++;
                     }
                     $i=7;
