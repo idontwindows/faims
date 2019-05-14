@@ -59,10 +59,10 @@
                     echo '<tr class="nospace-border">';
                     //echo '<td>'.$tempid.'</td>';
                     //echo '<td>'.$headrid.'</td>';
-                    echo '<td style="font-size: 11px; width: 3%; text-align: left;vertical-align: top;">'.$itemno.'</td>';
-                    echo '<td style="font-size: 11px; width: 4%; text-align: left;vertical-align: top;">'.$qty.'</td>';
-                    echo '<td style="font-size: 11px; width: 4%; text-align: left;vertical-align: top;">'.$unit.'</td>';
-                    echo '<td style="font-size: 11px; width: 25%; text-align: left;vertical-align: top;">'.$item_decription.'</td>';
+                    echo '<td style="font-size: 7px; width: 3%; text-align: left;vertical-align: top;">'.$itemno.'</td>';
+                    echo '<td style="font-size: 7px; width: 4%; text-align: left;vertical-align: top;">'.$qty.'</td>';
+                    echo '<td style="font-size: 7px; width: 4%; text-align: left;vertical-align: top;">'.$unit.'</td>';
+                    echo '<td style="font-size: 7px; width: 25%; text-align: left;vertical-align: top;">'.$item_decription.'</td>';
                     while($i<$max) {
                         $myval = $pr[$columns[$i]];
                         if (is_numeric($myval)) {
@@ -72,7 +72,7 @@
                             $myval='No Bid';
                         }
 
-                        echo '<td style="font-size: 11px; width: 10%;">'.$myval.'</td>';
+                        echo '<td style="font-size: 7px; width: 10%;">'.$myval.'</td>';
                         $i++;
                     }
                     $i=7;
