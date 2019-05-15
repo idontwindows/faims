@@ -260,17 +260,23 @@ class PurchaserequestController extends Controller
                     $totalCost = $budgets["Total Cost"];
                     if ($details=="-1") {
                         $data[] =  [$model->purchase_request_id,$itemdescription,$quantity,$unitcost,$unit_type];
+                        $connection->createCommand()->batchInsert
+                        ('fais-procurement.tbl_purchase_request_details', ['purchase_request_id', 'purchase_request_details_item_description', 'purchase_request_details_quantity','purchase_request_details_price','unit_id'],$data)
+                            ->execute();
+                    }else{
+                        Purchaserequestdetails::updateAll( ['purchase_request_details_item_description' => $itemdescription,'purchase_request_details_quantity'=>$quantity,'purchase_request_details_price'=>$unitcost,'unit_id'=>$unit_type],'purchase_request_details_id = ' . $details);
                     }
+
                 }
-                $connection->createCommand()->batchInsert
-                ('fais-procurement.tbl_purchase_request_details', ['purchase_request_id', 'purchase_request_details_item_description', 'purchase_request_details_quantity','purchase_request_details_price','unit_id'],$data)
-                    ->execute();
+
                 $session->set('updatepopup', "executed");
                 //return $this->redirect(['index']);
                 $this->redirect('index');
             } else {
+                $assig =$this->findAssignatory(1);
                 return $this->renderAjax('_modal', [
                     'model' => $model,
+                    'assig' => $assig,
                 ]);
             }
         }
