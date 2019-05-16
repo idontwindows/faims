@@ -44,6 +44,7 @@ jQuery(document).ready(function ($) {
                     $('.radio.tbl-tmt').each(function(){
                         $('.radio.tbl-tmt').length > 0 ? $('.delete-row').prop('disabled',false) : $('.delete-row').prop('disabled',true);
                         $('.radio.tbl-tmt').length > 0 ? $('.edit-row').prop('disabled',false) : $('.edit-row').prop('disabled',true);
+                        $('.radio.tbl-tmt').length > 2 ? $('.edit-row').prop('disabled',false) : $('.edit-row').prop('disabled',true);
                     });
                     $('#purchaserequest-lineitembudgetlist').val(jsonstring);
 
@@ -87,7 +88,11 @@ jQuery(document).ready(function ($) {
         opentr  = "<tr class='table-data'>";
         checkbox = "<td><div class=\"radio-container\"><div class=\"radio tbl-tmt\" data-id='" + rowCount + "' data-radio=\"test\"><input type=\"radio\" name=\"test\" class=\"radio-ui\"></div></div></td>";
         closetr = "</tr>";
-        p_id = "<td id='data-details"+rowCount+"' data-details=-1>" + -1 + "</td>";
+        if($("#btnAdd").text()=='Add') {
+            p_id = "<td id='data-details"+rowCount+"' data-details='-1'>"+ - 1+ "</td>";
+        }else{
+            p_id = "<td id='data-details"+rowCount+"' data-details='"+localStorage["mDetails"]+"'>"+localStorage["mDetails"]+ "</td>";
+        }
         unit = "<td id ='data-unit"+rowCount+"' data-unit='" + $("#txtunits").val() + "'>" + $("#txtunits").val() + "</td>";
         itemdescription = "<td id ='data-description"+rowCount+"' data-description='" + $("#txtitemdesc").val() + "'>" + $("#txtitemdesc").val() + "</td>";
         qty ="<td id ='data-qty"+rowCount+"' data-qty='" + $("#txtqty").val() + "'>"  + $("#txtqty").val() + "</td>";
@@ -125,18 +130,28 @@ jQuery(document).ready(function ($) {
             }else{
                 //Update Query will execute here
                 console.log('Update Execute');
+                $('table tbody.table-body').append($dataAppend);
+                var table = $('#pr-table').tableToJSON({allowHTML:true});
+                var jsonstring = JSON.stringify(table);
                 $("table tbody").find('.radio.tbl-tmt').each(function() {
                     if ($(this).hasClass('check')) {
                         var id = $(this).attr('data-id');
                         if(id==-1) {
-                            $("td#data-details"+id).html(id);
+                            $("td#data-details"+id).html(localStorage["mDetails"]);
                         }
                         $("td#data-unit"+id).html($("#txtunits").val());
                         $("td#data-description"+id).html(CKEDITOR.instances.txtitemdesc.getData());
                         $("td#data-qty"+id).html($("#txtqty").val());
                         $("td#data-cost"+id).html($("#txtcost").val());
                         $("td#data-total"+id).html($("#txtcost").val() * $("#txtqty").val());
+
+                        $(this).parents("tr").remove();
+                        $('#tbl-item-selected').html($('.radio.tbl-tmt.check').length+ " selected").show('fast');
+                        var table = $('#pr-table').tableToJSON();
+                        var jsonstring = JSON.stringify(table);
+                        $('.radio.tbl-tmt').length > 0 ? $('.delete-row').prop('disabled',false) : $('.delete-row').prop('disabled',true);
                         $('#purchaserequest-lineitembudgetlist').val(jsonstring);
+
                         $("#btnClose").click();
 
                     }
@@ -185,7 +200,7 @@ jQuery(document).ready(function ($) {
                 var description = $('#data-description'+id).data('description');
                 var qty = $('#data-qty'+id).data('qty');
                 var cost = $('#data-cost'+id).data('cost');
-
+                localStorage["mDetails"]=details;
                 $("#txtunits").selectedIndex = unit;
                 $("#txtitemdesc").html(description);
                 CKEDITOR.instances.txtitemdesc.setData(description);
