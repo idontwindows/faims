@@ -109,6 +109,28 @@ class BidsController extends Controller
             },
             ]
 
+            ,
+
+
+            'editPrice2' => [                                       // identifier for your editable action
+                'class' => EditableColumnAction::className(),     // action class name
+                'modelClass' => Bidsdetails::className(),                // the update model class
+                'outputValue' => function ($model, $attribute, $key, $index) {
+                    $fmt = Yii::$app->formatter;
+                    $value = $model->$attribute;
+                        //$model->purchase_request_details_status = 1;
+                        $model->save();
+                        if ($attribute === 'bids_price') {           // selective validation by attribute
+                            return $fmt->asDecimal($value, 2);       // return formatted value if desired
+                        }
+                        return '';
+                    // empty is same as $value
+                },
+                'outputMessage' => function ($model, $attribute, $key, $index) {
+                    return ''; // any custom error after model save
+                },
+            ]
+
 
 
         ]);

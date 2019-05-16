@@ -515,7 +515,7 @@ $BaseURL = $GLOBALS['frontend_base_uri'];
 
 
 
-                                    [
+                             /*       [
                                         'attribute'=>'bids_price',
                                         'label'=>'Price',
                                         'enableSorting'=> 'false',
@@ -524,7 +524,34 @@ $BaseURL = $GLOBALS['frontend_base_uri'];
                                             return $data->bids_price;
                                         },
                                         'headerOptions' => ['class' => 'kartik-sheet-style'],
+                                    ],*/
+
+
+
+                                    [
+                                        'class' => 'kartik\grid\EditableColumn',
+                                        'label'=> 'Price',
+                                        'attribute' => 'bids_price',
+                                        'pageSummary'=> true,
+                                        'format' => ['decimal', 2],
+                                        'refreshGrid'=>true,
+                                        'readonly' => function($model, $key, $index, $widget) {
+                                            //return ($model->purchase_request_details_status==1); // do not allow editing of inactive records
+                                        },
+                                        'editableOptions' =>function ($model, $key, $index) {
+                                            return [
+                                                'header'=>'Price',
+                                                'format' => ['decimal', 2],
+                                                'convertFormat'=>true,
+                                                'size'=>'sm',
+                                                'inputType' => \kartik\editable\Editable::INPUT_TEXT,
+                                                'formOptions'=>['action' => ['bids/editPrice2']], // point to the new action
+                                                'options'=>['pluginOptions'=>['min'=>0, 'max'=>50000000000,'step'=>100,'decimal'=>2 ,'prefix'=>'PHP']]
+                                            ];
+                                        },
+
                                     ],
+
 
                                     [
                                         'class' => '\kartik\grid\CheckboxColumn',
