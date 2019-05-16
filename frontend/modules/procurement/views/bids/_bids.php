@@ -580,6 +580,30 @@ $BaseURL = $GLOBALS['frontend_base_uri'];
                                                     },
                                     ],
 
+
+
+
+                                    [
+                                        'class' => '\kartik\grid\ActionColumn',
+                                        'width'=>'6%',
+                                        'template' => '{cancel}',                   // move grouped column to a single grouped row
+                                        'buttons'=>[
+                                            'cancel' => function($url,$model,$key){
+                                                return Html::a('<span class="glyphicon glyphicon-remove-circle"></span>', ['cancelbids?id='.$model["bids_id"].'&pid='.$model["purchase_request_id"]], [
+                                                        'class'=>'btn btn-warning',
+                                                        'data-pjax'=>"1",
+                                                        'pjax'=>"1",
+                                                        'title'=>'Cancel Bids'
+                                                    ]);
+                                            },
+                                        ],
+                                        'headerOptions' => ['class' => 'kartik-sheet-style'],
+                                        'deleteOptions' => ['label' => '<span class="glyphicon glyphicon-remove"></span>']
+                                    ],
+
+
+
+
                                 ];
 
                                 echo GridView::widget([
