@@ -105,7 +105,7 @@ class PurchaserequestController extends Controller
                             <tr class="nospace-border">
                                 <td width="60%" style="padding-left: 55px;">Department of Science And Technology</td>
                                 <td width="30%" style="padding-left: 65px;">'. $model->purchase_request_number.'</td>
-                                <td width="10%">'.$model->purchase_request_date.'</td>
+                                <td width="10%">'.date("mm-dd-yyyy",strtotime($model->purchase_request_date).'</td>
                             </tr>
                         </table>';
         $LeftFooterContent = '
