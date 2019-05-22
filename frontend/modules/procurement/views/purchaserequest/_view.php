@@ -32,7 +32,7 @@ use common\modules\pdfprint;
             //'purchase_request_date',
             [
                 'label'  => 'subject_type',
-                'value'  => date("m-d-Y",strtotime($model->purchase_request_date),
+                'value'  => date("m-d-Y",strtotime($model->purchase_request_date)),
             ],
             'purchase_request_purpose',
            /* 'purchase_request_referrence_no',
