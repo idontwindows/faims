@@ -8,7 +8,7 @@
         $itemdescription = $pr["purchase_request_details_item_description"];
         $quantity = $pr["purchase_request_details_quantity"];
         $price = $pr["purchase_request_details_price"];
-        $totalcost =  number_format($quantity * $price, 2);
+        $totalcost =  $quantity * $price;
         $totalcost = number_format($totalcost,2) ;
         if ($price=='0.00' || $price == null) {
             $price = "";
@@ -18,7 +18,7 @@
         $append = $append . "<td width='12%' style='padding-left: 60px;vertical-align: top;'>".$unit."</td>";
         $append = $append . "<td width='50%' style='text-align: justify;padding-left: 40px;vertical-align: top;'>" . $itemdescription . "</td>";
         $append = $append . "<td width='10%' style='padding-left: 35px;vertical-align: top;'>" . $quantity . "</td>";
-        $append = $append . "<td width='14%' style='padding-left: 30px;'>" . $price . "</td>";
+        $append = $append . "<td width='14%' style='padding-left: 30px;'>" . number_format($price, 2) . "</td>";
         $append = $append . "<td width='14%' style='padding-left: 35px;'>" . $totalcost . "</td>";
         $append = $append . "</tr>";
         $fin = $fin . $append;
