@@ -11,8 +11,8 @@
         $totalcost =  $quantity * $price;
         $totalcost = number_format($totalcost,2) ;
         if ($price=='0.00' || $price == null) {
-            $price = "";
-            $totalcost = "";
+            $price = "0.00";
+            $totalcost = "0.00";
         }
         $price =number_format($price, 2);
         $append = "<tr class=\"nospace-border\">";
