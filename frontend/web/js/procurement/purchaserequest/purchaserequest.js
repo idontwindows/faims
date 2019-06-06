@@ -44,7 +44,7 @@ jQuery(document).ready(function ($) {
                     $('.radio.tbl-tmt').each(function(){
                         $('.radio.tbl-tmt').length > 0 ? $('.delete-row').prop('disabled',false) : $('.delete-row').prop('disabled',true);
                         $('.radio.tbl-tmt').length > 0 ? $('.edit-row').prop('disabled',false) : $('.edit-row').prop('disabled',true);
-                        $('.radio.tbl-tmt').length > 2 ? $('.edit-row').prop('disabled',false) : $('.edit-row').prop('disabled',true);
+                        //$('.radio.tbl-tmt').length > 2 ? $('.edit-row').prop('disabled',true) : $('.edit-row').prop('disabled',false);
                     });
                     $('#purchaserequest-lineitembudgetlist').val(jsonstring);
 

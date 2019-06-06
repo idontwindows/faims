@@ -208,11 +208,11 @@ $BaseURL = $GLOBALS['frontend_base_uri'];
                                                         return [
                                                             'header'=>'Price',
                                                             'format' => ['decimal', 2],
-                                                            'convertFormat'=>true,
+                                                            'convertFormat'=>false,
                                                             'size'=>'sm',
-                                                            'inputType' => \kartik\editable\Editable::INPUT_SPIN,
+                                                            'inputType' => \kartik\editable\Editable::INPUT_TEXT,
                                                             'options' => [
-                                                                'pluginOptions' => ['min' => 0, 'max' => 999999999],
+                                                                'pluginOptions' => ['min' => 0, 'max' => 999999999,['decimal', 2]],
                                                                 'pluginEvents' => [
                                                                     "editableSuccess"=>"function(event, val, form, data) { alert('Successful submission of value ' + val); }",
                                                                 ]
@@ -220,7 +220,7 @@ $BaseURL = $GLOBALS['frontend_base_uri'];
                                                             'formOptions'=>['action' => ['bids/editPrice']], // point to the new action
                                                         ];
                                                     },
-                                                ],
+                                                    ],
 
 
                                                 [
@@ -799,7 +799,7 @@ $BaseURL = $GLOBALS['frontend_base_uri'];
 
                                         [
                                             'attribute'=>'bids_price',
-                                            'label'=>'Price',
+                                            'label'=>'Pricess',
                                             'width'=>'10%',
                                             'headerOptions' => ['class' => 'kartik-sheet-style'],
                                         ],
