@@ -502,8 +502,8 @@ class BidsController extends Controller
         $pdf->marginLeft=41;
         $pdf->marginRight=0;
         $pdf->marginTop=43;
-        $pdf->marginBottom=5;
-        $pdf->defaultFontSize=7;
+        $pdf->marginBottom=40;
+        $pdf->defaultFontSize=11;
         $pdf->content = $content;
         $pdf->cssFile = '@vendor/kartik-v/yii2-mpdf/assets/kv-mpdf-bootstrap.min.css';
         $pdf->cssInline = '.kv-heading-1{font-size:18px}.nospace-border{border:0px;}.no-padding{ padding:0px;}.print-container{font-size:11px;font-family:Arial,Helvetica Neue,Helvetica,sans-serif; }';

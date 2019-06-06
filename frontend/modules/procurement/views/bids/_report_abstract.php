@@ -26,10 +26,10 @@
                         echo '<th></th>';
                     }else{
                         if ($i>$count - 1) {
-                                echo '<th style="font-size: 7px;">N/A</th>';
+                                echo '<th style="font-size: 9px;">N/A</th>';
                         }else{
                             if ($i>6) {
-                                echo '<th style="font-size: 7px;">'.$columns[$i].'</th>';
+                                echo '<th style="font-size: 9px;">'.$columns[$i].'</th>';
                             }else{
                                 echo '<th>'.$columns[$i].'</th>';
                             }
@@ -59,9 +59,9 @@
                     echo '<tr class="nospace-border">';
                     //echo '<td>'.$tempid.'</td>';
                     //echo '<td>'.$headrid.'</td>';
-                    echo '<td style="font-size: 7px; width: 3%; text-align: left;vertical-align: top;">'.$itemno.'</td>';
-                    echo '<td style="font-size: 7px; width: 4%; text-align: left;vertical-align: top;">'.$qty.'</td>';
-                    echo '<td style="font-size: 7px; width: 4%; text-align: left;vertical-align: top;">'.$unit.'</td>';
+                    echo '<td style="font-size: 9px; width: 3%; text-align: left;vertical-align: top;">'.$itemno.'</td>';
+                    echo '<td style="font-size: 9px; width: 4%; text-align: left;vertical-align: top;">'.$qty.'</td>';
+                    echo '<td style="font-size: 9px; width: 4%; text-align: left;vertical-align: top;">'.$unit.'</td>';
                     echo '<td style="font-size: 8px; width: 25%; text-align: left;vertical-align: top;">'.$item_decription.'</td>';
                     while($i<$max) {
                         $myval = $pr[$columns[$i]];
@@ -72,7 +72,7 @@
                             $myval='No Bid';
                         }
 
-                        echo '<td style="font-size: 7px; width: 10%;text-align: center;">'.$myval.'</td>';
+                        echo '<td style="font-size: 9px; width: 10%;text-align: center;">'.$myval.'</td>';
                         $i++;
                     }
                     $i=7;

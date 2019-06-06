@@ -188,7 +188,7 @@ class PurchaseorderController extends \yii\web\Controller
              $Assig2Position =  $sg["Assig2Position"];
          }
          $pdf->marginTop = 45;
-         $pdf->marginBottom = 50;
+         $pdf->marginBottom = 85;
          $pdf->marginFooter = 0;
 
          $headers= '<div style="height: 150px"></div>
