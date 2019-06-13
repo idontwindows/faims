@@ -22,6 +22,14 @@ $BaseURL = $GLOBALS['frontend_base_uri'];
 /* @var $model common\models\procurement\Department */
 /* @var $form yii\widgets\ActiveForm */
 
+
+
+//$this->registerJsFile($BaseURL.'js/angular.min.js');
+//$this->registerJsFile($BaseURL.'js/ui-bootstrap-tpls-0.10.0.min.js');
+//$this->registerJsFile($BaseURL.'js/app.js');
+$this->registerJsFile($BaseURL.'js/jquery.tabletojson.js');
+$this->registerJsFile($BaseURL.'js/procurement/bids/bids.js');
+//$this->registerJsFile($BaseURL.'js/custom.js');
 ?>
 
 <div class="bids-form">
@@ -799,7 +807,7 @@ $BaseURL = $GLOBALS['frontend_base_uri'];
 
                                         [
                                             'attribute'=>'bids_price',
-                                            'label'=>'Pricess',
+                                            'label'=>'Price',
                                             'width'=>'10%',
                                             'headerOptions' => ['class' => 'kartik-sheet-style'],
                                         ],

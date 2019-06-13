@@ -1,5 +1,7 @@
 <?php
 use kartik\grid\GridView;
+
+
 ?>
 <div id="bidsummary">
 
@@ -193,3 +195,6 @@ use kartik\grid\GridView;
     </div>
 
 </div>
+
+
+
