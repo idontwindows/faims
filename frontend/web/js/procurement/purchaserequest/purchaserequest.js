@@ -129,10 +129,14 @@ jQuery(document).ready(function ($) {
                 $('#purchaserequest-lineitembudgetlist').val(jsonstring);
             }else{
                 //Update Query will execute here
-                console.log('Update Execute');
+                console.log('Update Execute')
+                var tt = parseFloat($("#txtqty").val()) * parseFloat($("#txtcost").val());
+                totalcost = "<td>" +  tt.toFixed(2) + "</td>";
+
                 $('table tbody.table-body').append($dataAppend);
                 var table = $('#pr-table').tableToJSON({allowHTML:true});
                 var jsonstring = JSON.stringify(table);
+
                 $("table tbody").find('.radio.tbl-tmt').each(function() {
                     if ($(this).hasClass('check')) {
                         var id = $(this).attr('data-id');
@@ -147,14 +151,13 @@ jQuery(document).ready(function ($) {
 
                         $(this).parents("tr").remove();
                         $('#tbl-item-selected').html($('.radio.tbl-tmt.check').length+ " selected").show('fast');
-                        var table = $('#pr-table').tableToJSON();
-                        var jsonstring = JSON.stringify(table);
                         $('.radio.tbl-tmt').length > 0 ? $('.delete-row').prop('disabled',false) : $('.delete-row').prop('disabled',true);
                         $('#purchaserequest-lineitembudgetlist').val(jsonstring);
 
                         $("#btnClose").click();
 
                     }
+                    $('#purchaserequest-lineitembudgetlist').val(jsonstring);
                 });
             }
             $("#txtitemdesc").val('');
