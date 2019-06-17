@@ -9,10 +9,15 @@
         $quantity = $pr["purchase_request_details_quantity"];
         $price = 5000; //$pr["purchase_request_details_price"];
         $totalcost = 5000;
+        if ($quantity>1) {
+            $unit = $pr["name_short"];
+        } else {
+            $unit = $pr["name_long"];
+        }
         $append = "<tr class=\"nospace-border\">";
         $append = $append . "<td width='50' style='text-align: center;vertical-align: top;'>".$x."</td>";
         $append = $append . "<td width='400' style='padding-left: 25px;vertical-align: top;'>" . $itemdescription . "</td>";
-        $append = $append . "<td width='150' style='text-align: center; padding-left: 55px;vertical-align: top;'>" . $quantity . " </td>";
+        $append = $append . "<td width='150' style='text-align: center; padding-left: 55px;vertical-align: top;'>" . $quantity . " " . $unit . "</td>";
         //$append = $append . "<td>" . $price . "</td>";
         //$append = $append . "<td>" . $totalcost . "</td>";
         $append = $append . "</tr>";
@@ -22,7 +27,7 @@
 
     <div></div>
 
-    <table border="0">
+    <table style="height: 200px;" border="0">
         <?php
             echo $fin;
         ?>
