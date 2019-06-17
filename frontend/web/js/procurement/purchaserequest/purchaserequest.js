@@ -235,7 +235,6 @@ jQuery(document).ready(function ($) {
                     $('.radio.tbl-tmt').length > 0 ? $('.delete-row').prop('disabled',false) : $('.delete-row').prop('disabled',true);
                     $('#purchaserequest-lineitembudgetlist').val(jsonstring);
                 }else{
-                    alert(xd);
                     var s  = DelDetails(xd);
                 }
 

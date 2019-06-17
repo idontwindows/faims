@@ -681,7 +681,10 @@ class BidsController extends Controller
     function getprDetails($id)
     {
         $con = Yii::$app->procurementdb;
-        $sql = "SELECT * FROM `tbl_purchase_request_details` WHERE `purchase_request_id`=" . $id;
+        $sql = "SELECT * FROM `fais-procurement`.`tbl_purchase_request_details`
+INNER JOIN `fais`.`tbl_unit_type` 
+ON `tbl_purchase_request_details`.`unit_id` = `tbl_unit_type`.`unit_type_id`
+ WHERE `purchase_request_id`=" . $id;
         $porequest = $con->createCommand($sql)->queryAll();
         return $porequest;
     }

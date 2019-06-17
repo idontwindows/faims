@@ -108,10 +108,14 @@ $listEmployees = ArrayHelper::map($employees, 'employeename', 'employeename');
                                 $quantity = $pr["purchase_request_details_quantity"];
                                 $price = $pr["purchase_request_details_price"];
                                 $totalcost =  $quantity * $price;
-
+                                if ($quantity>1) {
+                                    $unit = $pr["name_short"];
+                                } else {
+                                    $unit = $pr["name_long"];
+                                }
                                 $append = "<tr>";
                                 //$append = $append . "<td><div class=\"radio-container\"><div class=\"radio tbl-tmt\" id=\"myitems\" data-id=\"\" data-radio=\"\"><input type=\"radio\" name=\"test\" class=\"radio-ui\"></div></div></td>";
-                                $append = $append . "<td>Unit</td>";
+                                $append = $append . "<td>". $unit ."</td>";
                                 $append = $append . "<td>" . $itemdescription . "</td>";
                                 $append = $append . "<td>" . $quantity . "</td>";
                                 //$append = $append . "<td>" . $price . "</td>";
