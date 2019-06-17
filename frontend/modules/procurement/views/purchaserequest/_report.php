@@ -15,8 +15,8 @@
         }else{
             $totalcost =  $quantity * $price;
             $totalcost = number_format($totalcost,2) ;
+       	    $price = number_format($price, 2);
         }
-        $price = number_format($price, 2);
         $append = "<tr class=\"nospace-border\">";
         $append = $append . "<td width='12%' style='padding-left: 60px;vertical-align: top;'>".$unit."</td>";
         $append = $append . "<td width='50%' style='text-align: justify;padding-left: 40px;vertical-align: top;'>" . $itemdescription . "</td>";
