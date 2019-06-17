@@ -223,7 +223,8 @@ jQuery(document).ready(function ($) {
         $("table tbody").find('.radio.tbl-tmt').each(function(){
             if($(this).hasClass('check')) {
                 var id = $(this).attr('data-id');
-                if (id==2) {
+                var xd = $('#data-details'+id).data('details');
+                if (xd==-1) {
                     $(this).parents("tr").remove();
                     $('#tbl-item-selected').html($('.radio.tbl-tmt.check').length+ " selected").show('fast');
                     var table = $('#pr-table').tableToJSON();
@@ -231,8 +232,10 @@ jQuery(document).ready(function ($) {
                     $('.radio.tbl-tmt').length > 0 ? $('.delete-row').prop('disabled',false) : $('.delete-row').prop('disabled',true);
                     $('#purchaserequest-lineitembudgetlist').val(jsonstring);
                 }else{
-                    var s  = DelDetails(id);
+                    alert(xd);
+                    var s  = DelDetails(xd);
                 }
+
                 if (s=='success') {
                     $(this).parents("tr").remove();
                     $('#tbl-item-selected').html($('.radio.tbl-tmt.check').length+ " selected").show('fast');
