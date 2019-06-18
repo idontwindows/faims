@@ -26,10 +26,10 @@
                         echo '<th></th>';
                     }else{
                         if ($i>$count - 1) {
-                                echo '<th style="font-size: 11px;">N/A</th>';
+                                echo '<th style="font-size: 9px;">N/A</th>';
                         }else{
                             if ($i>6) {
-                                echo '<th style="font-size: 11px;">'.$columns[$i].'</th>';
+                                echo '<th style="font-size: 9px;">'.$columns[$i].'</th>';
                             }else{
                                 echo '<th>'.$columns[$i].'</th>';
                             }
