@@ -30,7 +30,7 @@
 
     ?>
 
-    <table border="0" width="100%">
+    <table border="0"  width="100%">
         <tbody>
         <?php
         echo $fin;

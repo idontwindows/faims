@@ -187,11 +187,11 @@ class PurchaseorderController extends \yii\web\Controller
              $Assig1Position =  $sg["Assig1Position"];
              $Assig2Position =  $sg["Assig2Position"];
          }
-         $pdf->marginTop = 45;
-         $pdf->marginBottom = 85;
-         $pdf->marginFooter = 0;
+         $pdf->marginTop = 80;
+         $pdf->marginHeader = 40;
+         $pdf->marginBottom =60;
 
-         $headers= '<div style="height: 150px"></div>
+         $headers= '
                     <table border="0" width="100%">
                    
                     
@@ -240,16 +240,7 @@ class PurchaseorderController extends \yii\web\Controller
          $footerss= '<div style="height: 20px"></div>
 
                     <table border="0" width="100%">
-                     <tr class="nospace-border">
-                     <td width="85%" colspan="4">&nbsp;</td>
-                     <td width="15%" style="padding-left: 25px;">&nbsp;</td>
-                     </tr>
-                     
-                     <tr class="nospace-border">
-                     <td width="85%" colspan="4">'.strtoupper(Yii::$app->formatter->asSpellout($summary)).' PESOS ONLY</td>
-                     <td width="15%" style="padding-left: 25px;">'. number_format($summary,2).'</td>
-                     </tr>
-                  
+ 
                      <tr class="nospace-border">
                      <td width="85%" colspan="4">&nbsp;</td>
                      <td width="15%" style="padding-left: 25px;">&nbsp;</td>
@@ -304,41 +295,10 @@ class PurchaseorderController extends \yii\web\Controller
                         </tr>              
                     </table>
                     ';
-         $LeftFooterContent = '<div style="text-align: left;">'.date("F j, Y").'</div>';
-         $CenterFooterContent = '';
-         $RightFooterContent = '<div style="text-align: right;">Page {PAGENO} of {nbpg}</div>';
-         $oddEvenConfiguration =
-             [
-                 'L' => [ // L for Left part of the header
-                     'content' => $LeftFooterContent,
-                     'font-size' => 7,
-                     'footer-style-left' => 300,
-                     'font-family' => 'Arial',
-                     'color'=>'#000000'
-                 ],
-                 'C' => [ // C for Center part of the header
-                     'content' => $CenterFooterContent,
-                     'font-size' => 6,
-                     'font-style' => 'B',
-                     'font-family' => 'arial',
-                     'color'=>'#000000',
-                 ],
-                 'R' => [
-                     'content' => $RightFooterContent,
-                     'font-size' => 6,
-                     'font-style' => 'B',
-                     'font-family' => 'arial',
-                     'color'=>'#000000'
-                 ],
-                 'line' =>0, // That's the relevant parameter
-             ];
-         $headerFooterConfiguration = [
-             'odd' => $oddEvenConfiguration,
-             'even' => $oddEvenConfiguration
-         ];
          $pdf->options = [
              'title' => 'Report Title',
              'defaultheaderline' => 0,
+             'defaultfooterline' => 0,
              'subject'=> 'Report Subject'];
          $pdf->methods = [
              'SetHeader'=>[$headers],
