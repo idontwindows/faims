@@ -108,7 +108,7 @@ return [
         ],
         'urlManagerBackend'=>[
             'class' => 'yii\web\UrlManager',
-            'baseUrl' => '//localhost/fais/backend/web',
+            'baseUrl' => '//localhost/faims/backend/web',
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
