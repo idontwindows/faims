@@ -382,7 +382,7 @@ $this->registerJsFile($BaseURL.'js/procurement/bids/bids.js');
                                 <div>
                                     <span class="badge" style="background: green;">Available for Award <i class="fa fa-toggle-on"></i></span>
                                     <span class="badge" style="background: black;">Pending for Award <i class="fa fa-pencil"></i></span>
-                                    <span class="badge" style="background: red;">Not Awarded <i class="fa fa-recycle"></i></span>
+                                    <span class="badge" style="background: red;">Not Avaible for Award <i class="fa fa-recycle"></i></span>
                                     <span class="badge" style="background: blue;">Awarded <i class="fa fa-check-circle"></i></span>
                                 </div>
                             </div>
@@ -482,7 +482,7 @@ $this->registerJsFile($BaseURL.'js/procurement/bids/bids.js');
                                                     return '<span class="badge btn-block" style="background: black;">Pending for Award <i class="fa fa-pencil"></i></span>';
                                                     break;
                                                 case 4:
-                                                    return '<span class="badge btn-block" style="background: red;">Not Awarded <i class="fa fa-recycle"></i></span>';
+                                                    return '<span class="badge btn-block" style="background: red;">Not Available for Award <i class="fa fa-recycle"></i></span>';
                                                     break;
                                             }
                                         },
