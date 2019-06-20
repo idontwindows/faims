@@ -186,7 +186,7 @@ use kartik\grid\GridView;
                     'heading' => '',
                 ],
                 'persistResize' => false,
-                'toggleDataOptions' => ['minCount' => 10],
+                'toggleDataOptions' => ['minCount' => 5000],
                 'exportConfig' => true,
             ]);
             ?>

@@ -306,7 +306,7 @@ $this->registerJsFile($BaseURL.'js/procurement/bids/bids.js');
                                                     'heading' => 'Data Details',
                                                 ],
                                                 'persistResize' => false,
-                                                'toggleDataOptions' => ['minCount' => 10],
+                                                'toggleDataOptions' => ['minCount' => 3000000],
                                                 'exportConfig' => true,
                                             ]);
                                             ?>
@@ -621,10 +621,10 @@ $this->registerJsFile($BaseURL.'js/procurement/bids/bids.js');
                                     'pjax' => true,
                                     'columns' => $gridColumns,
                                     'pjaxSettings' => [
-                                        'neverTimeout'=>false,
+                                        'neverTimeout'=>true,
                                         'options' => [
                                             'id'=>'mycontainersss',
-                                            'enablePushState' => false,
+                                            'enablePushState' => true,
                                         ],
                                     ],
 
@@ -655,7 +655,7 @@ $this->registerJsFile($BaseURL.'js/procurement/bids/bids.js');
 
                                     ],
                                     'persistResize' => false,
-                                    //'toggleDataOptions' => ['minCount' => 10],
+                                    'toggleDataOptions' => ['minCount' => 5000],
                                     'exportConfig' => true,
                                 ]);
 
@@ -870,7 +870,7 @@ $this->registerJsFile($BaseURL.'js/procurement/bids/bids.js');
                                             'heading' => 'Awards Details',
                                         ],
                                         'persistResize' => false,
-                                        'toggleDataOptions' => ['minCount' => 10],
+                                        'toggleDataOptions' => ['minCount' => 3000000],
                                         'exportConfig' => true,
                                     ]);
                                     ?>
