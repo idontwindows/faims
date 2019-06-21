@@ -187,7 +187,7 @@ class PurchaseorderController extends \yii\web\Controller
              $Assig1Position =  $sg["Assig1Position"];
              $Assig2Position =  $sg["Assig2Position"];
          }
-         $pdf->marginTop = 80;
+         $pdf->marginTop = 45;
          //$pdf->marginHeader = 40;
          $pdf->marginBottom =60;
 
