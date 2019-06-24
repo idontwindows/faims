@@ -189,7 +189,7 @@ class PurchaseorderController extends \yii\web\Controller
          }
          $pdf->marginTop = 45;
          //$pdf->marginHeader = 40;
-         $pdf->marginBottom =60;
+         $pdf->marginBottom =50;
 
          $headers= '<div style="height: 150px"></div>
                     <table border="0" width="100%">
@@ -237,7 +237,7 @@ class PurchaseorderController extends \yii\web\Controller
              $totalcost =  $quantity * $price;
              $summary = $summary + $totalcost;
          }
-         $footerss= '<div style="height: 20px"></div>
+         $footerss= '<div style="height: 10px"></div>
 
                     <table border="0" width="100%">
  

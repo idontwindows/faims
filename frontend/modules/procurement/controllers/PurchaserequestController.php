@@ -147,9 +147,6 @@ class PurchaserequestController extends Controller
                                         <td width="50%" style="text-align: center;padding-left: 75px;"><b>'.$approved_by.'</b><br/>'.$approved_by_position.'</td>
                                     </tr>
                                     <tr><td></td><td></td></tr>
-                                    <tr><td></td><td></td></tr>
-                                    <tr><td></td><td></td></tr> 
-                                    <tr><td></td><td></td></tr>
                                                                                                                                                             
                                     <tr style="text-align: right;">
                                          <td>'.date("F j, Y").'</td>
@@ -181,12 +178,13 @@ class PurchaserequestController extends Controller
         $prdetails = $this->getprDetails($model->purchase_request_id);
         $content = $this->renderPartial('_report2', ['prdetails'=> $prdetails,'model'=>$model]);
         $pdf = new Pdf();
+        $pdf->mode = Pdf::MODE_UTF8;
         $pdf->format = pdf::FORMAT_A4;
         $pdf->orientation = Pdf::ORIENT_PORTRAIT;
         $pdf->destination =  $pdf::DEST_BROWSER;
         $pdf->content  = $content;
         $pdf->cssFile = '@vendor/kartik-v/yii2-mpdf/assets/kv-mpdf-bootstrap.min.css';
-        $pdf->cssInline = 'body {} .kv-heading-1{font-size:18px}.nospace-border{border:0px;}.no-padding{ padding:0px;}.print-container{font-size:11px;font-family:Arial,Helvetica Neue,Helvetica,sans-serif;}h6 {  }';
+        $pdf->cssInline = 'body {} .kv-heading-1{font-size:18px}.nospace-border{border:0px;}.no-padding{ padding:0px;}.print-container{font-size:9px;font-family:Arial;color:red;}';
         $pdf->marginFooter=5;
 
         $requested_by="";
@@ -202,10 +200,10 @@ class PurchaserequestController extends Controller
         }
 
 
-        $pdf->marginTop = 90;
-        $pdf->marginBottom = 120;
+        $pdf->marginTop = 70;
+        $pdf->marginBottom =60;
 
-        $headers= '<table width="100%">
+        $headers= '<table width="100%" autosize="0">
 <tbody>
 <tr style="height: 43.6667px;">
 <td style="width: 82.4103%; height: 43.6667px;">
@@ -225,18 +223,39 @@ class PurchaserequestController extends Controller
 </tr>
 </tbody>
 </table>
-<p style="text-align: center;">Republic of the Philippines<br /><strong>DEPARTMENT OF SCIENCE AND TECHNOLOGY<br /></strong>Regional Office No. IX<br />Zamboanga City</p>
-<p style="text-align: center; font-family;cooper black;font-size: 1.5em; font-weight: bold;"><strong>PURCHASE REQUEST</strong></p>
 
-<table style="width: 100%;" cellspacing="2">
+<table style="width: 100%;" class="print-container" autosize="">
 <tbody>
-<tr style="height: 12.6667px;">
-<td style="width: 60%; height: 12.6667px;">Department&nbsp; &nbsp; &nbsp;: <span style="text-decoration: underline;">Department of Sciences and Technology</span></td>
-<td style="width: 25%; height: 12.6667px;">PR No. <span style="text-decoration: underline;">'.$model->purchase_request_number.'</span></td>
-<td style="width: 15%; height: 12.6667px;">Date : '.date("m-d-Y",strtotime($model->purchase_request_date)).'</td>
+<tr>
+<td style="text-align: center;">Republic of the Philippines</td>
 </tr>
-<tr style="height: 12px;">
-<td style="width: 60%; height: 12px;">Section&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;: <span style="text-decoration: underline;">FASS</span></td>
+<tr>        
+<td style="text-align: center;"><strong>DEPARTMENT OF SCIENCE AND TECHNOLOGY</strong></td>
+</tr>
+<tr>
+<td style="text-align: center;">Regional Office No. IX</td>
+</tr>
+<tr>
+<td style="text-align: center;">Zamboanga City</td>
+</tr>
+<tr>
+<td style="text-align: center;">&nbsp;</td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>PURCHASE REQUEST</strong></td>
+</tr>
+</tbody>
+</table>
+
+<table style="width: 100%;" class="print-container">
+<tbody>
+<tr>
+<td style="width: 60%; height: 12.6667px;">Department: <span style="text-decoration: underline;">Department of Sciences and Technology</span></td>
+<td style="width: 20%; ">PR No. <span style="text-decoration: underline;">'.$model->purchase_request_number.'</span></td>
+<td style="width: 20%; height: 12.6667px;">Date : '.date("m-d-Y",strtotime($model->purchase_request_date)).'</td>
+</tr>
+<tr>
+<td style="width: 60%; height: 12px;">Section: <span style="text-decoration: underline;"></span></td>
 <td style="width: 25%; height: 12px;">SAI No.</td>
 <td style="width: 15%; height: 12px;">Date :&nbsp;</td>
 </tr>
@@ -244,7 +263,7 @@ class PurchaserequestController extends Controller
 </table>
 
 <table border="1">
-        <tr style="height: 12px;">
+        <tr>
             <td style="width: 10%; height: 12px; text-align: center;">
                 <p>Stock No.</p>
             </td>
@@ -255,15 +274,14 @@ class PurchaserequestController extends Controller
             <td style="width: 10%; height: 12px; text-align: center;">Total Cost</td>
         </tr>
         <tr>
-            <td style="height: 590px;"></td>
-            <td style="height: 590px;"></td>
-            <td style="height: 590px;"></td>
-            <td style="height: 590px;"></td>
-            <td style="height: 590px;"></td>
-            <td style="height: 590px;"></td>
+            <td style="height: 640px;"></td>
+            <td style="height: 640px;"></td>
+            <td style="height: 640px;"></td>    
+            <td style="height: 640px;"></td>
+            <td style="height: 640px;"></td>
         </tr>
         <tr>
-            <td colspan="6" style="height: 125px;"></td>
+            <td colspan="6" style="height:110px;"></td>
         </tr>
 		<tr>
 			<td colspan="2" style="border: none;"></td>
@@ -287,30 +305,30 @@ class PurchaserequestController extends Controller
 		</tr>
 </table>';
         $LeftFooterContent = '
-<table style="width: 50%;" border="0" cellpadding="0">
+<table style="width: 50%;" class="print-contain">
                                 <tbody>
                                 <tr>
-                                <td><h6>'.$model->purchase_request_purpose.'</h6></td>
+                                <td style="padding-left:10px;"><h6>'.$model->purchase_request_purpose.'</h6></td>
                                 <td>&nbsp;</td>
                                 </tr>
                                 <tr>
-                                <td><h6>Project Reference No. : '.$model->purchase_request_referrence_no.'</h6>
+                                <td style="padding-left:10px;"><h6>Project Reference No. : '.$model->purchase_request_referrence_no.'</h6>
                                 </td>
                                 <td>&nbsp;</td>
                                 </tr>
-                                <tr>
-                                <td><h6>Project Name : '.$model->purchase_request_project_name .'</h6></td>
+                                <tr>5
+                                <td style="padding-left:10px;"><h6>Project Name : '.$model->purchase_request_project_name .'</h6></td>
                                 <td>&nbsp;</td>
                                 </tr>
                                 <tr>
-                                <td><h6>Project Location : '.$model->purchase_request_location_project.'</h6></td>
+                                <td style="padding-left:10px;"><h6>Project Location : '.$model->purchase_request_location_project.'</h6></td>
                                 <td>&nbsp;</td>
                                 </tr>
-                                </tbody>
+                                </tbody>    
                                 </table>';
         $s = "";
         $x = 0;
-        while ($x<10) {
+        while ($x<12) {
             $x++;
             $s = $s.'<tr class="nospace-border">
                       <td width="50%" style="text-align: right;padding-left: 50px;"></td>
@@ -324,14 +342,13 @@ class PurchaserequestController extends Controller
                                         <td width="50%" style="text-align: center;padding-left: 120px;"><b>'.$requested_by.'</b><br/>'.$requested_by_position.'</td>
                                         <td width="50%" style="text-align: center;padding-left: 75px;"><b>'.$approved_by.'</b><br/>'.$approved_by_position.'</td>
                                     </tr>
-                                    <tr><td></td><td></td></tr>
-                                    <tr><td></td><td></td></tr>
-                                    <tr><td></td><td></td></tr> 
-                                    <tr><td></td><td></td></tr>
-                                                                                                                                                            
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>                                                                                                         
                                     <tr style="text-align: right;">
                                          <td>'.date("F j, Y").'</td>
-                                         <td style="text-align: right;">Page {PAGENO} of {PAGENO} {nbpg}</td>
+                                         <td style="text-align: right;">Page {PAGENO} of {nbpg}</td>
                                     </tr>    
                                   </table>';
 
