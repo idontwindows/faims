@@ -1,4 +1,4 @@
-<div class="print-container">
+<div class="print-container" autosize="0">
     <?php
     $fin="";
     $x=0;
@@ -18,21 +18,21 @@
             $price = number_format($price, 2);
         }
         $append = "<tr style='vertical-align: middle;'>";
-        $append = $append . "<td width='10%' style='vertical-align: top;'></td>";
-        $append = $append . "<td width='10%' style='vertical-align: top;padding-left: 60px;text-align: center;'>".$unit."</td>";
-        $append = $append . "<td width='50%' style='text-align: left;padding-left: 50px;'>" . $itemdescription . "</td>";
-        $append = $append . "<td width='10%' style='vertical-align: top;text-align: center;padding-left: 200px;'>" . $quantity . "</td>";
-        $append = $append . "<td width='10%' style='vertical-align: top;padding-left: 80px;text-align: left'>" . $price . "</td>";
-        $append = $append . "<td width='10%' style='vertical-align: top;padding-left: 80px;text-align: left'>" . $totalcost . "</td>";
+        $append = $append . "<td width='10%' style='vertical-align: top;padding:15px;font-size:11px;padding-left:0px;'></td>";
+        $append = $append . "<td width='10%' style='vertical-align: top;padding:15px;font-size:11px;padding-left:5px;'>".$unit."</td>";
+        $append = $append . "<td width='50%' style='vertical-align: top;padding:15px;font-size:11px;padding-left:5px;padding-right:5px;overflow:none;'>" . $itemdescription . "</td>";
+        $append = $append . "<td width='10%' style='vertical-align: top;padding:15px;font-size:11px;padding-left:0px;padding-right:0px;text-align:center;'>" . $quantity . "</td>";
+        $append = $append . "<td width='10%' style='vertical-align: top;padding:15px;font-size:11px;padding-left:0px;padding-right:0px;'>" . $price . "</td>";
+        $append = $append . "<td width='10%' style='vertical-align: top;padding:15px;font-size:11px;padding-left:0px;'>" . $totalcost . "</td>";
         $append = $append . "</tr>";
         $fin = $fin . $append;
-    }
+    }   
 
     ?>
 
-    <table border="0"  width="100%">
+    <table width="100%">
         <tbody>
-        <?php
+        <?php   
         echo $fin;
         ?>
         </tbody>

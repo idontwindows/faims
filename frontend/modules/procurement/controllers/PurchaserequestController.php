@@ -200,10 +200,10 @@ class PurchaserequestController extends Controller
         }
 
 
-        $pdf->marginTop = 70;
-        $pdf->marginBottom =60;
+        $pdf->marginTop = 85;
+        $pdf->marginBottom =65;
 
-        $headers= '<table width="100%" autosize="0">
+        $headers= '<table width="100%">
 <tbody>
 <tr style="height: 43.6667px;">
 <td style="width: 82.4103%; height: 43.6667px;">
@@ -242,12 +242,12 @@ class PurchaserequestController extends Controller
 <td style="text-align: center;">&nbsp;</td>
 </tr>
 <tr>
-<td style="text-align: center;"><strong>PURCHASE REQUEST</strong></td>
+<td style="text-align: center;font-family:Cooper Black;"><b>PURCHASE REQUEST</b></td>
 </tr>
 </tbody>
 </table>
-
-<table style="width: 100%;" class="print-container">
+<div style="height:20px"></div>
+<table style="width: 100%;">
 <tbody>
 <tr>
 <td style="width: 60%; height: 12.6667px;">Department: <span style="text-decoration: underline;">Department of Sciences and Technology</span></td>
@@ -274,14 +274,15 @@ class PurchaserequestController extends Controller
             <td style="width: 10%; height: 12px; text-align: center;">Total Cost</td>
         </tr>
         <tr>
-            <td style="height: 640px;"></td>
-            <td style="height: 640px;"></td>
-            <td style="height: 640px;"></td>    
-            <td style="height: 640px;"></td>
-            <td style="height: 640px;"></td>
+            <td style="height: 560px;"></td>
+            <td style="height: 560px;"></td>
+            <td style="height: 560px;"></td>    
+            <td style="height: 560px;"></td>
+            <td style="height: 560px;"></td>
+            <td style="height: 560px;"></td>
         </tr>
         <tr>
-            <td colspan="6" style="height:110px;"></td>
+            <td colspan="6" style="height: 105px;"></td>
         </tr>
 		<tr>
 			<td colspan="2" style="border: none;"></td>
@@ -305,7 +306,7 @@ class PurchaserequestController extends Controller
 		</tr>
 </table>';
         $LeftFooterContent = '
-<table style="width: 50%;" class="print-contain">
+<table style="width: 50%;">
                                 <tbody>
                                 <tr>
                                 <td style="padding-left:10px;"><h6>'.$model->purchase_request_purpose.'</h6></td>

@@ -2,11 +2,10 @@
 use common\models\system\User;
 
 $Request_URI=$_SERVER['REQUEST_URI'];
-//$_SERVER['SERVER_NAME']
-if($Request_URI=='/'){//alias ex: http://admin.eulims.local
+if($Request_URI=='/'){
     $Backend_URI=Yii::$app->urlManagerBackend->createUrl('/');
     $Backend_URI=$Backend_URI."/uploads/user/photo/";
-}else{//http://localhost/eulims/backend/web
+}else{
     $Backend_URI='//localhost/faims/backend/web/uploads/user/photo/';
 }
 Yii::$app->params['uploadUrl']=$Backend_URI;
@@ -28,9 +27,7 @@ if(Yii::$app->user->isGuest){
 }
 ?>
 <aside class="main-sidebar">
-
     <section class="sidebar">
-
         <!-- Sidebar user panel -->
         <div class="user-panel">
             <div class="pull-left image">
@@ -42,7 +39,6 @@ if(Yii::$app->user->isGuest){
                 <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
             </div>
         </div>
-
         <!-- search form -->
         <form action="#" method="get" class="sidebar-form">
             <div class="input-group">
@@ -141,21 +137,6 @@ if(Yii::$app->user->isGuest){
                             ['label' => 'Sign Out', 'icon' => 'user-times'  , 'url' => Yii::$app->urlManager->createUrl(['/site/logout']), 'visible' => !Yii::$app->user->isGuest, 'template' => '<a href="{url}" data-method="post">{icon}{label}</a>'],
                         ]
                     ],
-                    /*
-                    [
-                        'label' => 'PAAI',
-                        'icon' => 'user-secret',
-                        //'url' => ['/settings'],
-                        //'visible'=> Yii::$app->user->can('access-settings'),
-                        'items' => [
-                            ['label' => 'Registration', 'icon' => 'user', 'url' => ['/procurement/registration/summary'],'visible'=> Yii::$app->user->can('access-settings')],
-                            ['label' => 'Check In', 'icon' => 'user', 'url' => ['/procurement/registration/checkin'],'visible'=> Yii::$app->user->can('access-settings')],
-                            ['label' => 'Raffle', 'icon' => 'user', 'url' => ['/procurement/registration/raffle'],'visible'=> Yii::$app->user->can('access-settings')],
-                            //['label' => 'Login', 'icon' => 'user', 'url' => ['/site/login'],'visible'=>  Yii::$app->user->isGuest],
-                            //['label' => 'Sign Out', 'icon' => 'user-times'  , 'url' => Yii::$app->urlManager->createUrl(['/site/logout']), 'visible' => !Yii::$app->user->isGuest, 'template' => '<a href="{url}" data-method="post">{icon}{label}</a>'],
-                        ]
-                    ],
-                    */
                 ],
             ]
         ) ?>
