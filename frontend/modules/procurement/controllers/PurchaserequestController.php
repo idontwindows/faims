@@ -184,7 +184,7 @@ class PurchaserequestController extends Controller
         $pdf->destination =  $pdf::DEST_BROWSER;
         $pdf->content  = $content;
         $pdf->cssFile = '@vendor/kartik-v/yii2-mpdf/assets/kv-mpdf-bootstrap.min.css';
-        $pdf->cssInline = 'body {} .kv-heading-1{font-size:18px}.nospace-border{border:0px;}.no-padding{ padding:0px;}.print-container{font-size:9px;font-family:Arial;color:red;}';
+        $pdf->cssInline = 'body {} .kv-heading-1{font-size:18px}.nospace-border{border:0px;}.no-padding{ padding:0px;}.print-container{font-family:Arial;}';
         $pdf->marginFooter=5;
 
         $requested_by="";
@@ -224,7 +224,7 @@ class PurchaserequestController extends Controller
 </tbody>
 </table>
 
-<table style="width: 100%;" class="print-container" autosize="">
+<table style="width: 100%;">
 <tbody>
 <tr>
 <td style="text-align: center;">Republic of the Philippines</td>

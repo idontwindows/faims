@@ -114,7 +114,7 @@ if ($model->approved=='') {
 
             <div class="col-lg-1" id="taxable">
                 <?php $model->isNewRecord==1 ? $model->taxable=0:$model->taxable;?>
-                <?= $form->field($model, 'taxable')->radioList(array('1'=>'Yes','0'=>'No'),['itemOptions' => ['disabled' => $model->isNewRecord ? false : true]]); ?>
+                <?= $form->field($model, 'taxable')->radioList(array('1'=>'Yes','0'=>'No'),['itemOptions' => []]); ?>
             </div>
 
             <div class="col-lg-2" id="sono">
