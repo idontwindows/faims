@@ -15,16 +15,16 @@ $whitelist = array(
 );
 if (isset($_SERVER['SERVER_NAME'])) {
     if (!in_array($_SERVER['SERVER_NAME'], $whitelist)) {
-        $Backend_URI = 'http://' . $_SERVER['SERVER_NAME'] . '/';
+        $Backend_URI = 'https://' . $_SERVER['SERVER_NAME'] . '/';
         $BaseURI = $Backend_URI.'/';
         $Backend_URI = $Backend_URI . "/uploads/user/photo/";
         #$FrontendBaseURI = 'http://' . $_SERVER['SERVER_NAME'] . ':8082/';
-        $FrontendBaseURI = 'http://' . $_SERVER['SERVER_NAME'] . '/';
+        $FrontendBaseURI = 'https://' . $_SERVER['SERVER_NAME'] . '/';
     } else {
-        $Backend_URI = 'http://localhost/faims/backend/web/uploads/user/photo/';
-        $BaseURI = "http://localhost/faims/backend/web/";
-        $BaseURI2 = "http://localhost/faims/frontend/web/";
-        $FrontendBaseURI = "http://localhost/faims/frontend/web/";
+        $Backend_URI = 'https://localhost/faims/backend/web/uploads/user/photo/';
+        $BaseURI = "https://localhost/faims/backend/web/";
+        $BaseURI2 = "https://localhost/faims/frontend/web/";
+        $FrontendBaseURI = "https://localhost/faims/frontend/web/";
     }
     $GLOBALS['upload_url'] = $Backend_URI;
     $GLOBALS['base_uri'] = $BaseURI;
