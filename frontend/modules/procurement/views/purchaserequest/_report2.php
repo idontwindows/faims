@@ -18,12 +18,12 @@
             $price = number_format($price, 2);
         }
         $append = "<tr style='vertical-align: middle;'>";
-        $append = $append . "<td width='10%' style='vertical-align: top;padding:15px;font-size:11px;padding-left:0px;'></td>";
-        $append = $append . "<td width='10%' style='vertical-align: top;padding:15px;font-size:11px;padding-left:5px;'>".$unit."</td>";
-        $append = $append . "<td width='50%' style='vertical-align: top;padding:15px;font-size:11px;padding-left:5px;padding-right:5px;overflow:none;'>" . $itemdescription . "</td>";
-        $append = $append . "<td width='10%' style='vertical-align: top;padding:15px;font-size:11px;padding-left:0px;padding-right:0px;text-align:center;'>" . $quantity . "</td>";
-        $append = $append . "<td width='10%' style='vertical-align: top;padding:15px;font-size:11px;padding-left:0px;padding-right:0px;'>" . $price . "</td>";
-        $append = $append . "<td width='10%' style='vertical-align: top;padding:15px;font-size:11px;padding-left:0px;'>" . $totalcost . "</td>";
+        $append = $append . "<td width='10%' style='vertical-align: top;padding:10px;font-size:11px;padding-left:0px;'></td>";
+        $append = $append . "<td width='10%' style='vertical-align: top;padding:10px;font-size:11px;padding-left:5px;'>".$unit."</td>";
+        $append = $append . "<td width='50%' style='vertical-align: top;padding:10px;font-size:11px;padding-left:5px;padding-right:5px;overflow:none;'>" . $itemdescription . "</td>";
+        $append = $append . "<td width='10%' style='vertical-align: top;padding:10px;font-size:11px;padding-left:0px;padding-right:0px;text-align:center;'>" . $quantity . "</td>";
+        $append = $append . "<td width='10%' style='vertical-align: top;padding:10px;font-size:11px;padding-left:0px;padding-right:0px;'>" . $price . "</td>";
+        $append = $append . "<td width='10%' style='vertical-align: top;padding:10px;font-size:11px;padding-left:0px;'>" . $totalcost . "</td>";
         $append = $append . "</tr>";
         $fin = $fin . $append;
     }   

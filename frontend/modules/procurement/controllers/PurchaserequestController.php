@@ -81,7 +81,7 @@ class PurchaserequestController extends Controller
             $pdf->destination =  $pdf::DEST_BROWSER;
             $pdf->content  = $content;
             $pdf->cssFile = '@vendor/kartik-v/yii2-mpdf/assets/kv-mpdf-bootstrap.min.css';
-            $pdf->cssInline = 'body {font-size:}.kv-heading-1{font-size:18px}.nospace-border{border:0px;}.no-padding{ padding:0px;}.print-container{font-size:11px;font-family:Arial,Helvetica Neue,Helvetica,sans-serif;}h6 {  }';
+            $pdf->cssInline = 'body {}.kv-heading-1{font-size:18px}.nospace-border{border:0px;}.no-padding{ padding:0px;}.print-container{font-size:11px;font-family:Arial,Helvetica Neue,Helvetica,sans-serif;}h6 {  }';
             $pdf->marginFooter=5;
 
             $requested_by="";
@@ -200,7 +200,7 @@ class PurchaserequestController extends Controller
         }
 
 
-        $pdf->marginTop = 85;
+        $pdf->marginTop = 80;
         $pdf->marginBottom =65;
 
         $headers= '<table width="100%">
@@ -210,7 +210,7 @@ class PurchaserequestController extends Controller
 <p>&nbsp;</p>
 </td>
 <td style="width: 12.5897%; height: 43.6667px;">
-<table border="1" width="100%">
+<table border="1" width="100%" style="border-collapse: collapse;">
 <tbody>
 <tr>
 <td>
@@ -242,7 +242,7 @@ class PurchaserequestController extends Controller
 <td style="text-align: center;">&nbsp;</td>
 </tr>
 <tr>
-<td style="text-align: center;font-family:Cooper Black;"><b>PURCHASE REQUEST</b></td>
+<td style="text-align: center;font-family:Arial;font-size:15px"><b>PURCHASE REQUEST</b></td>
 </tr>
 </tbody>
 </table>
@@ -262,51 +262,51 @@ class PurchaserequestController extends Controller
 </tbody>
 </table>
 
-<table border="1">
+<table border="1" style="border-collapse: collapse;font-size:12px;width:100%;">
         <tr>
             <td style="width: 10%; height: 12px; text-align: center;">
                 <p>Stock No.</p>
             </td>
             <td style="width: 10%; height: 12px; text-align: center;">Unit</td>
-            <td style="text-align: center; width: 49.0234%;">Item Desription</td>
+            <td style="text-align: center; width: 50%;">Item Desription</td>
             <td style="width: 10%; height: 12px; text-align: center;">Quantity</td>
             <td style="width: 10%; height: 12px; text-align: center;">Unit Cost</td>
             <td style="width: 10%; height: 12px; text-align: center;">Total Cost</td>
         </tr>
         <tr>
-            <td style="height: 560px;"></td>
-            <td style="height: 560px;"></td>
-            <td style="height: 560px;"></td>    
-            <td style="height: 560px;"></td>
-            <td style="height: 560px;"></td>
-            <td style="height: 560px;"></td>
+            <td style="height: 590px;"></td>
+            <td style="height: 590px;"></td>
+            <td style="height: 590px;"></td>    
+            <td style="height: 590px;"></td>
+            <td style="height: 590px;"></td>
+            <td style="height: 590px;"></td>
         </tr>
         <tr>
             <td colspan="6" style="height: 105px;"></td>
         </tr>
 		<tr>
-			<td colspan="2" style="border: none;"></td>
+			<td colspan="2" style="border-top:none;border-bottom:none;"></td>
 			<td>Requested By:</td>
 			<td colspan="3">Approved By:</td>
 		</tr>
 		<tr>
-			<td colspan="2" style="border: none;">Signature</td>
-			<td style="border: none;">&nbsp;</td>
-			<td colspan="3" style="border: none;">&nbsp;</td>
+			<td colspan="2" style="border-top:none;">Signature</td>
+			<td style="border-top:none;border-bottom:none;"></td>
+			<td colspan="3" style="border-top:none;border-bottom:none;"></td>
 		</tr>
 		<tr>
-			<td colspan="2" style="border: none;">Printed Name</td>
-			<td style="border: none;">&nbsp;</td>
-			<td colspan="3" style="border: none;">&nbsp;</td>
+			<td colspan="2" style="">Printed Name</td>
+			<td style="border-top:none;border-bottom:none;"></td>
+			<td colspan="3" style="border-top:none;border-bottom:none;"></td>
 		</tr>
 		<tr>
-			<td colspan="2" style="border: none;">Designation</td>
-			<td style="border: none;">&nbsp;</td>
-			<td colspan="3" style="border: none;">&nbsp;</td>
-		</tr>
+			<td colspan="2" style="">Designation</td>
+			<td style="border-top:none;"></td>
+			<td colspan="3" style="border-top:none;"></td>
+		</tr>   
 </table>';
         $LeftFooterContent = '
-<table style="width: 50%;">
+<table style="width: 50%;font-size:9px; ">
                                 <tbody>
                                 <tr>
                                 <td style="padding-left:10px;"><h6>'.$model->purchase_request_purpose.'</h6></td>
@@ -346,7 +346,23 @@ class PurchaserequestController extends Controller
                                     <tr>
                                         <td></td>
                                         <td></td>
-                                    </tr>                                                                                                         
+                                    </tr>   
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>     
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>  
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>  
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                                                                                                             
                                     <tr style="text-align: right;">
                                          <td>'.date("F j, Y").'</td>
                                          <td style="text-align: right;">Page {PAGENO} of {nbpg}</td>
