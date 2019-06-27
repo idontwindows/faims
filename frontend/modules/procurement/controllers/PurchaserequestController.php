@@ -250,7 +250,7 @@ class PurchaserequestController extends Controller
 <table style="width: 100%;">
 <tbody>
 <tr>
-<td style="width: 60%; height: 12.6667px;">Department: <span style="text-decoration: underline;">Department of Sciences and Technology</span></td>
+<td style="width: 60%; height: 12.6667px;">Department: <span style="text-decoration: underline;">Department of Science and Technology</span></td>
 <td style="width: 20%; ">PR No. <span style="text-decoration: underline;">'.$model->purchase_request_number.'</span></td>
 <td style="width: 20%; height: 12.6667px;">Date : '.date("m-d-Y",strtotime($model->purchase_request_date)).'</td>
 </tr>
