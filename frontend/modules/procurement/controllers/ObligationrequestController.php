@@ -142,6 +142,117 @@ WHERE LEFT(`tbl_obligationrequest`.`os_no`,6) = '".$characters."'";
         return $pdf->render();
     }
 
+
+
+
+    public function actionReportobfull($id) {
+        $request = Yii::$app->request;
+        $id = $request->get('id');
+        $model = $this->findModel($id);
+        $obassig = $this->getobAssignatory($model->os_no);//  .date("F j, Y")
+        $content = $this->renderPartial('_report2', ['model'=> $model,'assig' => $obassig]);
+        $pdf = new Pdf();
+        $pdf->format = pdf::FORMAT_A4;
+        $pdf->orientation = Pdf::ORIENT_PORTRAIT;
+        $pdf->destination =  $pdf::DEST_BROWSER;
+        $pdf->content  = $content;
+        $pdf->marginFooter=20;
+        $pdf->cssFile = '@vendor/kartik-v/yii2-mpdf/assets/kv-mpdf-bootstrap.min.css';
+        $pdf->cssInline = '.kv-heading-1{font-size:18px}.nospace-border{border:0px;}.no-padding{ padding:0px;}.print-container{font-size:11px;font-family:Arial,Helvetica Neue,Helvetica,sans-serif; }';
+        $fin="";
+        $x=0;
+        $loopss = "";
+        foreach ($obassig as $ob) {
+            $requestedby = $ob["RequestedBy"];
+            $requestedposition = $ob["RequestedPosition"];
+            $fundsavailable = $ob["FundsAvailable"];
+            $fundsposition = $ob["FundsAvailablePosition"];
+        }
+        while($x>20) {
+            $x++;
+            $loopss  = $loopss.'<tr class="nospace-border"> <td></td><td></td></tr>';
+        }
+
+        $headers = '
+        <table width="100%">
+<tbody>
+<tr style="height: 43.6667px;">
+<td style="width: 82.4103%; height: 43.6667px;">
+<p>&nbsp;</p>
+</td>
+<td style="width: 12.5897%; height: 43.6667px;">
+<table border="1" width="100%" style="border-collapse: collapse;">
+<tbody>
+<tr>
+<td>
+<p><h6><strong>FASS-PUR F10</strong>&nbsp; Rev. 3/02-01-16</h6></p>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+        <table style="width: 100%;border-collapse: collapse;" border="1">
+        <tbody>
+        <tr style="height: 16.6px;">
+        <td style="width: 70.0192%; text-align: center; height: 16.6px;border-bottom:none;">
+        <h2 style="font-size:16;font-family:Arial;font-weight:bold;">&nbsp;OBLIGATION REQUEST AND STATUS</h2>
+        </td>
+        <td style="width: 28.9808%; height: 16.6px;">Serial No. :</td>
+        </tr>
+        <tr style="height: 13px;">  
+        <td style="width: 70.0192%; text-align: center; height: 13px;border-top:none;border-bottom:none;"><span style="text-decoration: underline;"><strong>DEPARTMENT OF SCIENCE AND TECHNOLOGY - IX</strong></span></td>
+        <td style="width: 28.9808%; height: 13px;">Date : '.$model->os_date.' </td>
+        </tr>
+        <tr style="height: 13px;">
+        <td style="width: 70.0192%; text-align: center; height: 13px;border-top:none;border-bottom:none;">Entity Name</td>
+        <td style="width: 28.9808%; height: 13px;">Fund Cluster</td>
+        </tr>
+        </tbody>
+        </table>
+        <table style="width: 100%;border-collapse: collapse;" border="1">
+        <tbody>
+        <tr style="height: 13px;">
+        <td style="width: 14%; text-align: center; height: 13px;">&nbsp;Payee</td>
+        <td style="width: 84%; height: 13px;">'.$model->payee.'</td>
+        </tr>
+        <tr style="height: 13px;">
+        <td style="width: 14%; text-align: center; height: 13px;">&nbsp;Office</td>
+        <td style="width: 84%; height: 13px;">'.$model->office.'</td>
+        </tr>
+        <tr style="height: 13px;">
+        <td style="width: 14%; text-align: center; height: 13px;">&nbsp;Address</td>
+        <td style="width: 84%; height: 13px;">&nbsp;</td>
+        </tr>
+        </tbody>
+        </table>
+        ';
+
+        $footers = '
+            <table>
+                   <tr class="nospace-border">
+                    <td width="50%" style="text-align: left;font-size: 11px;">'.$model->os_no.'</td>
+                    <td width="50%" style="text-align: center;">'.'</td>
+                </tr>
+            </table>
+            ';
+
+
+        $pdf->options = [
+            'title' => 'Report Title',
+            'subject'=> 'Report Subject',
+            'defaultfooterline'=> 0];
+        $pdf->methods = [
+            'SetHeader'=>[$headers],
+            'SetFooter'=>[$footers],
+        ];
+
+        return $pdf->render();
+    }
+
+
     function getobAssignatory($id)
     {
         //Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;

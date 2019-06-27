@@ -274,15 +274,15 @@ class PurchaserequestController extends Controller
             <td style="width: 10%; height: 12px; text-align: center;">Total Cost</td>
         </tr>
         <tr>
-            <td style="height: 590px;"></td>
-            <td style="height: 590px;"></td>
-            <td style="height: 590px;"></td>    
-            <td style="height: 590px;"></td>
-            <td style="height: 590px;"></td>
-            <td style="height: 590px;"></td>
+            <td style="height: 570px;"></td>
+            <td style="height: 570px;"></td>
+            <td style="height: 570px;"></td>    
+            <td style="height: 570px;"></td>
+            <td style="height: 570px;"></td>
+            <td style="height: 570px;"></td>
         </tr>
         <tr>
-            <td colspan="6" style="height: 105px;"></td>
+            <td colspan="6" style="height: 110px;"></td>
         </tr>
 		<tr>
 			<td colspan="2" style="border-top:none;border-bottom:none;"></td>
@@ -306,6 +306,7 @@ class PurchaserequestController extends Controller
 		</tr>   
 </table>';
         $LeftFooterContent = '
+        <div style="height:0px;"></div>
 <table style="width: 50%;font-size:9px; ">
                                 <tbody>
                                 <tr>
@@ -362,7 +363,16 @@ class PurchaserequestController extends Controller
                                     <tr>
                                         <td></td>
                                         <td></td>
-                                                                                                                             
+                                    </tr>   
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>  
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>        
+                                                                                                                                                     
                                     <tr style="text-align: right;">
                                          <td>'.date("F j, Y").'</td>
                                          <td style="text-align: right;">Page {PAGENO} of {nbpg}</td>

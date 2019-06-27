@@ -117,7 +117,7 @@ $this->params['breadcrumbs'][] = $this->title;
         [
             'class' => '\kartik\grid\ActionColumn',
             'width'=>'6%',
-            'template' => '{view}{update}{print}',
+            'template' => '{view}{update}{print} {print2}',
             'buttons'=>[
             'update' => function($url,$model,$key){
             $btn = "<h5 style='display: inline-block;margin:0px;' data-step='3' data-intro='Click here to update Obligation Request'><span>".Html::button('<span class=\'glyphicon glyphicon-pencil\'></span>', ['value' => Url::to(['update?id='.$model["obligation_request_id"].'&view=edit']), 'title' => 'Edit Obligation Request', 'tab-index'=>0 , 'class' => 'btn btn-success', 'style'=>'margin-right: 6px;', 'id'=>'buttonAddObligation'])."</span></h5>";
@@ -140,6 +140,16 @@ $this->params['breadcrumbs'][] = $this->title;
              'print' => function($url,$model,$key){
                 return "<h5 style='display: inline-block;margin:0px;' data-step='5' data-intro='Click here to print Obligation Request'><span>".Html::a('<span class="glyphicon glyphicon-print"></span>', ['reportob?id='.$model["obligation_request_id"]], [
                      'class'=>'btn-pdfprint btn btn-warning',
+                     'data-pjax'=>"0",
+                     'pjax'=>"0",
+                     'title'=>'Will open the generated PDF file in a new window'
+                 ])."</span></h5>";
+                    //$btn = Html::submitButton('<span class=\'glyphicon glyphicon-print\'></span>', ['value' => Url::to(['reportob?id='.$model["obligation_request_id"]]), 'title' => 'Print Obligation Request', 'tab-index'=>0 , 'class' => 'btn btn-info', 'style'=>'margin-right: 6px;']);
+                    //return $btn;
+             },
+             'print2' => function($url,$model,$key){
+                return "<h5 style='display: inline-block;margin:0px;' data-step='6' data-intro='Click here to print Obligation Request'><span>".Html::a('<span class="glyphicon glyphicon-print"></span>', ['reportobfull?id='.$model["obligation_request_id"]], [
+                     'class'=>'btn-pdfprint btn btn-primary',
                      'data-pjax'=>"0",
                      'pjax'=>"0",
                      'title'=>'Will open the generated PDF file in a new window'
