@@ -31,7 +31,7 @@
 <table style="width: 100%; border-collapse: collapse;" border="1">
 <tbody>
 <tr style="height: 5px;">
-<td style="width: 80%; height: 5px; text-align: center;border-bottom:none;" colspan="5"><br />_______________________________________<br />Entity Name</td>
+<td style="width: 80%; height: 5px; text-align: center;border-bottom:none;" colspan="5"><br /><b>DEPARTMENT OF SCIENCE AND TECHNOLOGY</p><br />Entity Name</td>
 <td style="width: 20%; height: 5px;" colspan="2">Fund Cluster :<br /><br /></td>
 </tr>
 <tr style="height: 13px;">
