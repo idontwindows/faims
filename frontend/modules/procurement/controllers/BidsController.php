@@ -501,7 +501,7 @@ class BidsController extends Controller
         $pdf->destination = Pdf::DEST_BROWSER;
         $pdf->marginLeft=41;
         $pdf->marginRight=0;
-        $pdf->marginTop=60;
+        $pdf->marginTop=55;
         $pdf->marginBottom=40;
         $pdf->defaultFontSize=11;
         $pdf->content = $content;
@@ -535,7 +535,7 @@ class BidsController extends Controller
            $Assig5Position =  $sg["Assig5Position"];
            $Assig6Position =  $sg["Assig6Position"];
         }
-        $LeftFooterContent = '
+        $LeftFooterContent = '<div style="height:25px"></div>
 <table width="100%">
     <tr>
         <td style="font-size: 11px;text-align: center; width=16.67"><b>'.$assig1.'</b><br/>Chairperson</td>
