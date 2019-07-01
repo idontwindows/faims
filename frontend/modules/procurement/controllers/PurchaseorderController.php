@@ -345,11 +345,11 @@ class PurchaseorderController extends \yii\web\Controller
             $Assig1Position =  $sg["Assig1Position"];
             $Assig2Position =  $sg["Assig2Position"];
         }
-        $pdf->marginTop = 45;
-        //$pdf->marginHeader = 40;
-        $pdf->marginBottom =50;
 
-        $headers= '<div style="position:absolute;left:0;"><table width="100%">
+        $pdf->marginTop =0;
+        //$pdf->marginHeader = 40;
+        $pdf->marginBottom =30;
+        $headers= '<div style=""><table width="100%">
         <tbody>
         <tr style="height: 43.6667px;">
         <td style="width: 82.4103%; height: 43.6667px;">
@@ -358,8 +358,8 @@ class PurchaseorderController extends \yii\web\Controller
         <td style="width: 12.5897%; height: 43.6667px;">
         <table border="1" width="100%" style="border-collapse: collapse;">
         <tbody>
-        <tr>
-        <td>
+            <tr>
+            <td>
         <p><h6><strong>FASS-PUR F08</strong>&nbsp; Rev. 1/ 12-24-07</h6></p>
         </td>
         </tr>
@@ -386,7 +386,7 @@ class PurchaseorderController extends \yii\web\Controller
         <tr>
         <td style="text-align: center;font-family:Arial;font-size:15px;border-top:none;"><b>PURCHASE ORDER</b></td>
         </tr>
-        </tbody>
+        </tbody>                                                                                                                                                                                                                                                                                                                                                             
         </table>
         <div style="height:20px"></div>
        ';
