@@ -502,7 +502,7 @@ class BidsController extends Controller
         $pdf->marginLeft=41;
         $pdf->marginRight=0;
         $pdf->marginTop=55;
-        $pdf->marginBottom=33;
+        $pdf->marginBottom=45;
         $pdf->defaultFontSize=11;
         $pdf->content = $content;
         $pdf->cssFile = '@vendor/kartik-v/yii2-mpdf/assets/kv-mpdf-bootstrap.min.css';
