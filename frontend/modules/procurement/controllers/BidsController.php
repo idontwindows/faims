@@ -501,7 +501,7 @@ class BidsController extends Controller
         $pdf->destination = Pdf::DEST_BROWSER;
         $pdf->marginLeft=41;
         $pdf->marginRight=0;
-        $pdf->marginTop=50;
+        $pdf->marginTop=60;
         $pdf->marginBottom=40;
         $pdf->defaultFontSize=11;
         $pdf->content = $content;
