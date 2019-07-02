@@ -14,9 +14,9 @@
     $tablecount=count($columns);
     ?>
 
-    <table border="1" width=100% style="border-collapse:collapse">
+    <table border="0" class="table">
         <thead>
-            <tr class="">
+            <tr class="nospace-border">
                 <?php
                 $max = 13;//$tablecount;
                 $count = $tablecount;
