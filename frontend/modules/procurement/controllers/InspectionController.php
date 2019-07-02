@@ -83,7 +83,8 @@ class InspectionController extends \yii\web\Controller
                  INNER JOIN `fais-procurement`.`tbl_bids` 
                  ON `tbl_bids`.`bids_id` = `tbl_bids_details`.`bids_id`
                  INNER JOIN `tbl_purchase_request`
-                 ON `tbl_purchase_request`.`purchase_request_id` = `tbl_bids_details`.`purchase_request_id`";
+                 ON `tbl_purchase_request`.`purchase_request_id` = `tbl_bids_details`.`purchase_request_id`
+                 ORDER BY purchase_order_number DESC";
         $pordetails = $con->createCommand($sql)->queryAll();
 
         $x = 0;
