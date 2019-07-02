@@ -16,8 +16,11 @@ $this->registerJsFile('https://code.jquery.com/ui/1.12.1/jquery-ui.js');
 $this->registerJsFile($BaseURL.'js/jquery.tabletojson.js');
 $this->registerJsFile($BaseURL.'js/disbursement/function.js');
 
+echo $model->certified_a;
 if ($model->certified_a=='') {
     $model->certified_a =  $assig->assignatory_1;
+}else{
+    $model->certified_a = $assig->assignatory_1;
 }
 if ($model->certified_b=='') {
     $model->certified_b =  $assig->assignatory_2;
@@ -41,7 +44,7 @@ if ($model->approved=='') {
                 'name' => 'cbodvType',
                 'id'=> 'cbodvType',
                 'hideSearch' => true,
-                'disabled'=> $model->isNewRecord ? false : true,
+                'disabled'=> $model->isNewRecord ? false : false,
                 'data' => $dvtype_data,
                 'options' => [
                     'multiple' => false
@@ -49,6 +52,7 @@ if ($model->approved=='') {
                 'pluginEvents' => [
                     "change" => "function() {
                                              var data=$(this).val();
+                                             
                                              if (data=='MDS') {
                                                     $('#sono').show(500);
                                                     $('#specify').hide(500);
@@ -59,8 +63,8 @@ if ($model->approved=='') {
                                                         dropdownParent: $('#modalDisbursement'),
                                                         theme : \"krajee\"
                                                     });
-                                                      $(\"#disbursement-certified_a\").val('').trigger('change');
-                                                        
+                                                      //$(\"#disbursement-certified_a\").val('').trigger('change');
+                   
                                              }
                                              if (data=='TF') {
                                                     $('#sono').hide(500);
