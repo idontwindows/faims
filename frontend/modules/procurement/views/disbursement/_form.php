@@ -55,12 +55,12 @@ if ($model->approved=='') {
                                                     $('#pono').hide(500);
                                                     $('#taxable').show(500);
                                                     $(\".cboEmployeeA\").select2({
-                                                        disabled : true,
+                                                        disabled : false,
                                                         dropdownParent: $('#modalDisbursement'),
                                                         theme : \"krajee\"
                                                     });
                                                       $(\"#disbursement-certified_a\").val('').trigger('change');
-                                                            alert('test');
+                                                        
                                              }
                                              if (data=='TF') {
                                                     $('#sono').hide(500);
