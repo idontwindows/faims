@@ -522,14 +522,14 @@ class BidsController extends Controller
        <tr style="height: 12px;">
        <td style="width: 27%; height: 12px;">&nbsp;</td>
        <td style="text-align: center; width: 40.5332%; height: 12px;"><strong>DEPARTMENT OF SCIENCE AND TECHNOLOGY</strong></td>
-       <td style="text-align: center; width: 10%; height: 12px;">&nbsp;</td>
-       <td style="width: 17%; height: 12px;">&nbsp;</td>
+       <td style="text-align: right; width: 10%; height: 12px;">&nbsp;</td>
+       <td style="width: 17%;font-size:11px;padding:2px; height: 12px;text-align:right;" rowspan="2"></td>
        </tr>
        <tr style="height: 12px;">
        <td style="width: 27%; height: 12px;">&nbsp;</td>
        <td style="text-align: center; width: 40.5332%; height: 12px;">Regional Office No. IX</td>
        <td style="text-align: center; width: 10%; height: 12px;">&nbsp;</td>
-       <td style="width: 17%; height: 12px;">&nbsp;</td>
+     
        </tr>
        <tr style="height: 12px;">
        <td style="width: 27%;font-size:11px; height: 12px;">&nbsp;Standard Form Number : SF-GOOD-40</td>
