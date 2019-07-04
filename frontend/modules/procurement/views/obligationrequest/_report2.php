@@ -43,8 +43,7 @@
         <tr>
             <td style="border-right:1px solid black;width:50%;padding:5px;"><span style="border:1px solid black; padding:25px;">A. </span>&nbsp;&nbsp;Certified : Charges to appropriation/allotment necessary, lawful and under my direct 
             supervision; and supporting documents valid, proper and legal</td>
-            <td style="width:50%;padding:5px;"><span style="border:1px solid black; padding:25px;">B. </span>&nbsp;&nbsp;Certified : Charges to appropriation/allotment necessary, lawful and under my direct 
-            supervision; and supporting documents valid, proper and legal</td>
+            <td style="width:50%;padding:5px;"><span style="border:1px solid black; padding:25px;">B. </span>&nbsp;&nbsp;Certified: Allotment available and obligated for the purpose/adjustment necessary as indicated above</td>
         </tr>
         <tr>
            <td style="height:15px;border-right:1px solid black;padding:5px;"></td>
