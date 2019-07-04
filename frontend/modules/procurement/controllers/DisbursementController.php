@@ -246,8 +246,7 @@ class DisbursementController extends Controller
         $pdf->marginTop = 15;
         $pdf->marginFooter = 0;
 
-        $headers= '
-     ';
+        $headers= '';
         $footerss= '<table width="100%">
             <tr>
                 <td width="50%" style="text-align: left;font-size: 11px;font-weight: lighter;">'. $dvno .'</td>

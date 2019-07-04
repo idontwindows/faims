@@ -82,7 +82,7 @@
 <td style="width: 100%; height: 0px; text-align: left;border-bottom:none;" colspan="7"><span style="vertical-align:top;"><span style="border:1px solid black;">A.</span> Certified: Expenses/Cash Advance necessary, lawful and incurred under my direct supervision.</span></td>
 </tr>
 <tr style="height: 14px;">
-<td style="width: 100%; height: 0px; text-align: center;border-top:none;height:75px;" colspan="7"><span style="vertical-align:top;"> <?php if($assig1=='') { echo'<span style="text-decoration:underline;">'.$assig2.', '.$Assig2Position.'</span>'; }else{echo'<span style="text-decoration:underline;">'.$assig1.', '.$Assig1Position.'</span>';} ?><br>Printed Name, Designation and Signature of Supervisor</span></td>
+<td style="width: 100%; height: 0px; text-align: center;border-top:none;height:75px;" colspan="7"><span style="vertical-align:top;"> <?php if($assig1=='') { echo'<span style="text-decoration:underline;font-weight:bold;">'.$assig2.', '.$Assig2Position.'</span>'; }else{echo'<span style="text-decoration:underline;font-weight:bold;">'.$assig1.', '.$Assig1Position.'</span>';} ?><br>Printed Name, Designation and Signature of Supervisor</span></td>
 </tr>
 <tr style="height: 14px;">
 <td style="width: 100%; height: 0px; text-align: left;" colspan="7"><span style="vertical-align:top;"><span style="border:1px solid black;">B.</span> Accounting Entry</span></td>
