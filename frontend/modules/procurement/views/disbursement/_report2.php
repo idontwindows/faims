@@ -23,7 +23,7 @@
         $Assig3Position =  $pr["Assig3Position"];
         $append = "<tr class=\"nospace-border\">";
         $append = $append . "<td width='75%' height='125' style='text-align: justify;vertical-align: top;'>" . $itemdescription . "</td>";
-        $append = $append . "<td width='25%' style='text-align: center;vertical-align: top;'>" . number_format($totalcost,2) . "</td>";
+        $append = $append . "<td width='25%' style='text-align: right;vertical-align: top;'>" . number_format($totalcost,2) . "</td>";
         $append = $append . "</tr>";
         $fin = $fin . $append;
     }
@@ -31,12 +31,12 @@
 <table style="width: 100%; border-collapse: collapse;" border="1">
 <tbody>
 <tr style="height: 5px;">
-<td style="width: 80%; height: 5px; text-align: center;border-bottom:none;" colspan="5"><br /><b>DEPARTMENT OF SCIENCE AND TECHNOLOGY</p><br />Entity Name</td>
+<td style="width: 80%; height: 5px; text-align: center;border-bottom:none;" colspan="5"><br /><b>DEPARTMENT OF SCIENCE AND TECHNOLOGY</p></td>
 <td style="width: 20%; height: 5px;" colspan="2">Fund Cluster :<br /><br /></td>
 </tr>
 <tr style="height: 13px;">
 <td style="width: 80%; height: 21px; text-align: center;font-size:16px;font-family:Arial;border-top:none;" colspan="5" rowspan="2"><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DISBURSEMENT VOUCHER</strong></td>
-<td style="width: 20%; height: 13px;" colspan="2">Date : <?= date("F j, Y"); ?></td>
+<td style="width: 20%; height: 13px;" colspan="2">Date : <?= date("m/d/Y"); ?></td>
 </tr>
 <tr style="height: 8px;">
 <td style="width: 80%; height: 8px;" colspan="2">DV No. :</td>
@@ -47,7 +47,7 @@
 <span style="border:1px solid black;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> MDS Check</td>
 <td style="width: 20%; height: 25px;text-align:center;border:none;border-bottom:1px solid black;"><span style="border:1px solid black;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Commercial Clerk</td>
 <td style="width: 20%; height: 25px;text-align:center;border:none;border-bottom:1px solid black;border-right:none;"><span style="border:1px solid black;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> ADA</td>
-<td style="width: 30%; height: 25px;vertical-align:middle;border-left:none;padding-top:10px;padding-bottom:10px;" colspan="3"><span style="border:1px solid black;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Others (Please Speficy)<br /> &nbsp; ________________________</td>
+<td style="width: 30%; height: 25px;vertical-align:middle;border-left:none;padding-top:10px;padding-bottom:10px;" colspan="3"><span style="border:1px solid black;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Others (Please Specify)<br/> &nbsp; ________________________</td>
 </tr>
 <tr style="height: 13px;">
 <td style="width: 10%; height: 4px;">
@@ -71,12 +71,12 @@
 <td style="width: 50%; height: 175px; text-align: left;padding:5px;vertical-align:top;" colspan="3"><?=  $itemdescription ?></td>
 <td style="width: 15%; height: 175px; text-align: center;padding:5px;vertical-align:top;"></td>
 <td style="width: 15%; height: 175px; text-align: center;padding:5px;vertical-align:top;"></td>
-<td style="width: 20%; height: 175px; text-align: center;padding:5px;vertical-align:top;" colspan="2"><?= number_format($totalcost,2) ?></td>
+<td style="width: 20%; height: 175px; text-align: right;padding:5px;vertical-align:top;" colspan="2"><?= number_format($totalcost,2) ?></td>
 </tr>
 <tr style="height: 14px;">
 <td style="width: 50%; height: 14px; text-align: center;" colspan="3">Amount Due&nbsp;&nbsp;&nbsp;</td>
 <td style="width: 25%; height: 14px;" colspan="2">&nbsp;&nbsp;</td>
-<td style="width: 25%; height: 14px;text-align:center" colspan="2"><?=number_format($totalcost,2)?></td>
+<td style="width: 25%; height: 14px;text-align:right;" colspan="2"><?=number_format($totalcost,2)?></td>
 </tr>
 <tr style="height: 14px;">
 <td style="width: 100%; height: 0px; text-align: left;border-bottom:none;" colspan="7"><span style="vertical-align:top;"><span style="border:1px solid black;">A.</span> Certified: Expenses/Cash Advance necessary, lawful and incurred under my direct supervision.</span></td>
@@ -131,8 +131,8 @@
     <td style="width: 40%; height: 16px;font-size:13px;text-align:center;"><?= $Assig3Position ?> </td>
     </tr>
     <tr style="height: 16px;">
-<td style="width: 50%; height: 16px; text-align: center;">Head, Accounting Unit/Authorized Representative</td>
-<td style="width: 50%; height: 16px; text-align: center;">Agency Head/Authorized Representative</td>
+<td style="width: 50%; height: 16px; text-align: center;"></td>
+<td style="width: 50%; height: 16px; text-align: center;"></td>
 </tr>
 <tr style="height: 12.4546px;">
 <td style="width: 10%; height: 25px; text-align: center; padding:10px;">Date</td>  
