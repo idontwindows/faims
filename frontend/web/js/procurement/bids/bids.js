@@ -267,8 +267,8 @@ jQuery(document).ready(function ($) {
 
 
     $('#bids').on('hidden.bs.modal', function () {
-        location.reload();
-
+        //location.reload();
+        window.history.back();
     });
 
     $('body').on('click','#btnAddBids',function () {

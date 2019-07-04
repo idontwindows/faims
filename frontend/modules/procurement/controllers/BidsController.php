@@ -500,27 +500,102 @@ class BidsController extends Controller
         //$pdf->format = Pdf::FORMAT_LEGAL;
         $pdf->destination = Pdf::DEST_BROWSER;
         $pdf->marginLeft=10;
-        $pdf->marginRight=10;
+        $pdf->marginHeader=5;
         $pdf->marginTop=55;
         $pdf->marginBottom=45;
         $pdf->defaultFontSize=11;
         $pdf->content = $content;
         $pdf->cssFile = '@vendor/kartik-v/yii2-mpdf/assets/kv-mpdf-bootstrap.min.css';
         $pdf->cssInline = '.kv-heading-1{font-size:18px}.nospace-border{border:0px;}.no-padding{ padding:0px;}.print-container{font-size:11px;font-family:Arial,Helvetica Neue,Helvetica,sans-serif; }';
-        $headers='<table style="padding-right: 150px;text-align: right;" width="100%"> 
-            <tr>
-                <td style="padding-top: 55px;"></td>
-            </tr>
-            <tr>
-                <td style="font-size: 9px;padding-left: 250px;">'.$model->purchase_request_referrence_no.'</td>
-            </tr>
-            <tr>
-                <td style="font-size: 9px;padding-left: 200px;">'.$model->purchase_request_project_name.'</td>
-            </tr>
-             <tr>
-                <td style="font-size: 9px;padding-left: 200px;">'.$model->purchase_request_location_project.'</td>
-            </tr>
+       if($model->purchase_request_referrence_no==''){$ref='__________________';}else{$ref=$model->purchase_request_referrence_no;}
+       if($model->purchase_request_project_name==''){$pname='__________________';}else{$pname=$model->purchase_request_project_name;}
+       if($model->purchase_request_location_project==''){$pproject='__________________';}else{$pproject=$model->purchase_request_location_project;}
+
+       $headers='<table style="width: 100%; height: 5px; table-collapsed: collapsed;">
+       <tbody>
+       <tr style="height: 12px;">
+       <td style="width: 27%; height: 12px;">&nbsp;</td>
+       <td style="text-align: center; width: 40.5332%; height: 12px;">Republic of The Philippines</td>
+       <td style="text-align: center; width: 10%; height: 12px;">&nbsp;</td>
+       <td style="width: 17%; height: 12px;">&nbsp;</td>
+       </tr>
+       <tr style="height: 12px;">
+       <td style="width: 27%; height: 12px;">&nbsp;</td>
+       <td style="text-align: center; width: 40.5332%; height: 12px;"><strong>DEPARTMENT OF SCIENCE AND TECHNOLOGY</strong></td>
+       <td style="text-align: center; width: 10%; height: 12px;">&nbsp;</td>
+       <td style="width: 17%; height: 12px;">&nbsp;</td>
+       </tr>
+       <tr style="height: 12px;">
+       <td style="width: 27%; height: 12px;">&nbsp;</td>
+       <td style="text-align: center; width: 40.5332%; height: 12px;">Regional Office No. IX</td>
+       <td style="text-align: center; width: 10%; height: 12px;">&nbsp;</td>
+       <td style="width: 17%; height: 12px;">&nbsp;</td>
+       </tr>
+       <tr style="height: 12px;">
+       <td style="width: 27%;font-size:11px; height: 12px;">&nbsp;Standard Form Number : SF-GOOD-40</td>
+       <td style="text-align: center; width: 40.5332%; height: 12px;">&nbsp;</td>
+       <td style="width: 27%;font-size:11px;  height: 12px; text-align: right;" colspan="2">Project Reference No. : '.$ref.'</td>
+       </tr>
+       <tr style="height: 12px;">
+       <td style="width: 27%;font-size:11px; height: 12px;">&nbsp;Revised&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; : May 24, 2004</td>
+       <td style="text-align: center;font-size:16px; width: 40.5332%; height: 12px;"><strong>ABSTRACT OF BIDS</strong></td>
+       <td style="width: 10%;font-size:11px;  height: 12px; text-align: right;" colspan="2">Name of the Project.&nbsp; : '.$pname.'</td>
+       </tr>
+       <tr style="height: 12.2727px;">
+       <td style="width: 27%; height: 12.2727px;">&nbsp;</td>
+       <td style="text-align: center; width: 40.5332%; height: 12.2727px;">&nbsp;</td>
+       <td style="width: 10%;font-size:11px; height: 12.2727px; text-align: right;" colspan="2">Location of The Project : '.$pproject.'</td>
+       </tr>
+       </tbody>
+       </table>
+       <div style="height:25px;"></div>';
+        $fin="";
+        $x=0;
+        $munit="";
+        $tempid ="";
+        $headerd = "";
+        $itemno = "";
+        $qty = "";
+        $unit = "";
+        $item_decription = "";
+        $tablecount=count($columns);
+        $headers = $headers.'<table border="1" width=100% style="border-collapse:collapse;"><thead><tr class="">';
+            $max = 13;//$tablecount;
+                $count = $tablecount;
+                $i=3;
+                while($i<$max) {
+     
+                    if($i<7) {
+                         $headers = $headers.'<th></th>';
+                    }else{
+                        if ($i>$count - 1) {
+                            $headers = $headers.'<th style="font-size: 9px;text-align:center">N/A</th>';
+                        }else{
+                            if ($i>6) {
+                                $headers = $headers.'<th style="font-size: 9px;text-align:center;">'.$columns[$i].'</th>';
+                            }else{
+                                $headers = $headers.'<th>'.$columns[$i].'</th>';
+                            }
+                        }
+                    }
+                    $i++;
+                }
+                $headers = $headers.'</tr>';
+        $headers = $headers.'</thead>
+        <tr>
+        <td style="height:450px;font-size: 9px; width: 5%; text-align: center;vertical-align: top;"></td>
+        <td style="height:450px;font-size: 9px; width: 5%; text-align: center;vertical-align: top;"></td>
+        <td style="height:450px;font-size: 9px; width: 5%; text-align: center;vertical-align: top;"></td>
+        <td style="height:450px;font-size: 9px; width: 25%; text-align: center;vertical-align: top;"></td>
+        <td style="height:450px;font-size: 9px; width: 10%; text-align: center;vertical-align: top;"></td>
+        <td style="height:450px;font-size: 9px; width: 10%; text-align: center;vertical-align: top;"></td>
+        <td style="height:450px;font-size: 9px; width: 10%; text-align: center;vertical-align: top;"></td>
+        <td style="height:450px;font-size: 9px; width: 10%; text-align: center;vertical-align: top;"></td>
+        <td style="height:450px;font-size: 9px; width: 10%; text-align: center;vertical-align: top;"></td>
+        <td style="height:450px;font-size: 9px; width: 10%; text-align: center;vertical-align: top;"></td>
+        </tr>
         </table>';
+
         foreach ($assig as $sg) {
            $assig1 =  $sg["Assig1"];
            $assig2 =  $sg["Assig2"];
