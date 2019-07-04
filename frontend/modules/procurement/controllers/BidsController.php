@@ -563,10 +563,25 @@ class BidsController extends Controller
             $max = 13;//$tablecount;
                 $count = $tablecount;
                 $i=3;
+                $h=1;
                 while($i<$max) {
      
                     if($i<7) {
-                         $headers = $headers.'<th></th>';
+                         //$headers = $headers.'<th></th>';
+                         if ($h==1) {
+                            $headers = $headers.'<th style="font-size:7px;text-align:center;">Item No.</th>';
+                         }
+                         elseif($h==2) {
+                            $headers = $headers.'<th style="font-size:7px;text-align:center;">QTY</th>';
+                         }
+                         elseif($h==3) {
+                            $headers = $headers.'<th style="font-size:7px;text-align:center;">UNIT</th>';
+                         }
+                         elseif($h==4) {
+                            $headers = $headers.'<th style="font-size:7px;text-align:center;">DESCRIPTIONS</th>';
+                         }else{
+                            $headers = $headers.'<th></th>';
+                         }
                     }else{
                         if ($i>$count - 1) {
                             $headers = $headers.'<th style="font-size: 9px;text-align:center">N/A</th>';
@@ -579,6 +594,7 @@ class BidsController extends Controller
                         }
                     }
                     $i++;
+                    $h++;
                 }
                 $headers = $headers.'</tr>';
         $headers = $headers.'</thead>
