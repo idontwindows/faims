@@ -224,7 +224,7 @@ WHERE LEFT(`tbl_obligationrequest`.`os_no`,6) = '".$characters."'";
         </tr>
         <tr style="height: 13px;">
         <td style="width: 14%; text-align: center; height: 13px;">&nbsp;Address</td>
-        <td style="width: 84%; height: 13px;">&nbsp;</td>
+        <td style="width: 84%; height: 13px;">'.$model->address.'</td>
         </tr>
         </tbody>
         </table>
