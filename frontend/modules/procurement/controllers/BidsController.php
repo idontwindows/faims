@@ -502,7 +502,7 @@ class BidsController extends Controller
         $pdf->marginLeft=10;
         $pdf->marginHeader=5;
         $pdf->marginTop=55;
-        $pdf->marginBottom=45;
+        $pdf->marginBottom=60;
         $pdf->defaultFontSize=11;
         $pdf->content = $content;
         $pdf->cssFile = '@vendor/kartik-v/yii2-mpdf/assets/kv-mpdf-bootstrap.min.css';
@@ -601,16 +601,16 @@ class BidsController extends Controller
                 $headers = $headers.'</tr>';
         $headers = $headers.'</thead>
         <tr>
-        <td style="height:450px;font-size: 9px; width: 5%; text-align: center;vertical-align: top;"></td>
-        <td style="height:450px;font-size: 9px; width: 5%; text-align: center;vertical-align: top;"></td>
-        <td style="height:450px;font-size: 9px; width: 5%; text-align: center;vertical-align: top;"></td>
-        <td style="height:450px;font-size: 9px; width: 25%; text-align: center;vertical-align: top;"></td>
-        <td style="height:450px;font-size: 9px; width: 10%; text-align: center;vertical-align: top;"></td>
-        <td style="height:450px;font-size: 9px; width: 10%; text-align: center;vertical-align: top;"></td>
-        <td style="height:450px;font-size: 9px; width: 10%; text-align: center;vertical-align: top;"></td>
-        <td style="height:450px;font-size: 9px; width: 10%; text-align: center;vertical-align: top;"></td>
-        <td style="height:450px;font-size: 9px; width: 10%; text-align: center;vertical-align: top;"></td>
-        <td style="height:450px;font-size: 9px; width: 10%; text-align: center;vertical-align: top;"></td>
+        <td style="height:430px;font-size: 9px; width: 5%; text-align: center;vertical-align: top;"></td>
+        <td style="height:430px;font-size: 9px; width: 5%; text-align: center;vertical-align: top;"></td>
+        <td style="height:430px;font-size: 9px; width: 5%; text-align: center;vertical-align: top;"></td>
+        <td style="height:430px;font-size: 9px; width: 25%; text-align: center;vertical-align: top;"></td>
+        <td style="height:430px;font-size: 9px; width: 10%; text-align: center;vertical-align: top;"></td>
+        <td style="height:430px;font-size: 9px; width: 10%; text-align: center;vertical-align: top;"></td>
+        <td style="height:430px;font-size: 9px; width: 10%; text-align: center;vertical-align: top;"></td>
+        <td style="height:430px;font-size: 9px; width: 10%; text-align: center;vertical-align: top;"></td>
+        <td style="height:430px;font-size: 9px; width: 10%; text-align: center;vertical-align: top;"></td>
+        <td style="height:430px;font-size: 9px; width: 10%; text-align: center;vertical-align: top;"></td>
         </tr>
         </table>';
 
@@ -630,6 +630,9 @@ class BidsController extends Controller
         }
         $LeftFooterContent = '
 <table width="100%">
+<tr>
+<td style="font-size: 11px;text-align: left; width=100%" colspan="12"><b>Awarding Comitee</b></td>
+</tr>
     <tr>
         <td style="font-size: 11px;text-align: center; width=16.67"><b>'.$assig1.'</b><br/>Chairperson</td>
         <td style="width: 50px;"></td>
@@ -644,6 +647,9 @@ class BidsController extends Controller
         <td style="font-size: 11px;text-align: center; width=16.67"><b>'.$assig6.'</b><br/>'.$Assig6Position.'</td>
         <td style="height: 100px;"></td>
     </tr>
+    <tr>
+<td style="font-size: 11px;text-align: left; width=100%" colspan="12">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$model->purchase_request_number .'</td>
+</tr>
         <tr>
         <td style="font-size: 11px;text-align: center; width=16.67">'.date("F j, Y").'</td>
         <td style="width: 50px;"></td>
