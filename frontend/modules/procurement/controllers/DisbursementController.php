@@ -243,10 +243,29 @@ class DisbursementController extends Controller
             $prno = $pr["taxable"];
             $dvamount = $pr["dv_amount"];
         }
-        $pdf->marginTop = 15;
+        $pdf->marginTop = 20;
         $pdf->marginFooter = 0;
 
-        $headers= '';
+        $headers= '<table width="100%">
+        <tbody>
+        <tr style="height: 43.6667px;">
+        <td style="width: 82.4103%; height: 43.6667px;">
+        <p>&nbsp;</p>
+        </td>
+        <td style="width: 12.5897%; height: 43.6667px;">
+        <table border="1" width="100%" style="border-collapse: collapse;">
+        <tbody>
+        <tr>
+        <td>
+        <p><h6 style-P><strong>FASS-PUR F14</strong>&nbsp; Rev. 1/10-09</h6></p>
+        </td>
+        </tr>
+        </tbody>
+        </table>
+        </td>
+        </tr>
+        </tbody>
+        </table>';
         $footerss= '<table width="100%">
             <tr>
                 <td width="50%" style="text-align: left;font-size: 11px;font-weight: lighter;">'. $dvno .'</td>

@@ -26,6 +26,7 @@
         $append = $append . "<td width='10%' style='vertical-align: top;padding:10px;font-size:11px;padding-left:0px;'>" . $totalcost . "</td>";
         $append = $append . "</tr>";
         $fin = $fin . $append;
+        
     }   
 
     ?>

@@ -47,7 +47,7 @@
 <span style="border:1px solid black;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> MDS Check</td>
 <td style="width: 20%; height: 25px;text-align:center;border:none;border-bottom:1px solid black;"><span style="border:1px solid black;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Commercial Clerk</td>
 <td style="width: 20%; height: 25px;text-align:center;border:none;border-bottom:1px solid black;border-right:none;"><span style="border:1px solid black;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> ADA</td>
-<td style="width: 30%; height: 25px;vertical-align:middle;border-left:none;padding-top:10px;padding-bottom:10px;" colspan="3"><span style="border:1px solid black;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Others (Please Specify)<br/> &nbsp; ________________________</td>
+<td style="width: 30%; height: 25px;vertical-align:middle;border-left:none;padding-top:10px;padding-bottom:10px;" colspan="3"><span style="border:1px solid black;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span> Others (Please Specify)</td>
 </tr>
 <tr style="height: 13px;">
 <td style="width: 10%; height: 4px;">
@@ -76,13 +76,13 @@
 <tr style="height: 14px;">
 <td style="width: 50%; height: 14px; text-align: center;" colspan="3">Amount Due&nbsp;&nbsp;&nbsp;</td>
 <td style="width: 25%; height: 14px;" colspan="2">&nbsp;&nbsp;</td>
-<td style="width: 25%; height: 14px;text-align:right;" colspan="2"><?=number_format($totalcost,2)?></td>
+<td style="width: 25%; height: 14px;text-align:right;padding:5px;" colspan="2"><?=number_format($totalcost,2)?></td>
 </tr>
 <tr style="height: 14px;">
 <td style="width: 100%; height: 0px; text-align: left;border-bottom:none;" colspan="7"><span style="vertical-align:top;"><span style="border:1px solid black;">A.</span> Certified: Expenses/Cash Advance necessary, lawful and incurred under my direct supervision.</span></td>
 </tr>
 <tr style="height: 14px;">
-<td style="width: 100%; height: 0px; text-align: center;border-top:none;height:75px;" colspan="7"><span style="vertical-align:top;"> <?php if($assig1=='') { echo'<span style="text-decoration:underline;">'.$assig2.', '.$Assig2Position.'</span>'; }else{echo'<span style="text-decoration:underline;font-weight:bold;">'.$assig1.', '.$Assig1Position.'</span>';} ?><br>Printed Name, Designation and Signature of Supervisor</span></td>
+<td style="width: 100%; height: 0px; text-align: center;border-top:none;height:75px;" colspan="7"><span style="vertical-align:top;"> <?php if($assig1=='') { echo'<span style="text-decoration:underline;">'.$assig2.'<br></span>'.$Assig2Position.''; }else{echo'<span style="text-decoration:underline;font-weight:bold;">'.$assig1.'<br></span>'.$Assig1Position.'';} ?></span></td>
 </tr>
 <tr style="height: 14px;">
 <td style="width: 100%; height: 0px; text-align: left;" colspan="7"><span style="vertical-align:top;"><span style="border:1px solid black;">B.</span> Accounting Entry</span></td>
@@ -125,15 +125,12 @@
     <td style="width: 40%; height: 12px;text-align:center;font-size:14px;font-weight:bold;"><?= $assig3; ?></td>
     </tr>
     <tr style="height: 16px;">
-    <td style="width: 1%; height: 32px; text-align: center;padding:10px;" rowspan="2">Position</td>
+    <td style="width: 1%; height: 32px; text-align: center;padding:10px;">Position</td>
     <td style="width: 49%; height: 25px;font-size:13px;text-align:center;"><?= $Assig2Position ?></td>
-    <td style="width: 10%; text-align: center; height: 32px;padding:10px;" rowspan="2"><br />Position<br /><br /></td>
+    <td style="width: 10%; text-align: center; height: 32px;padding:10px;"><br />Position<br /><br /></td>
     <td style="width: 40%; height: 16px;font-size:13px;text-align:center;"><?= $Assig3Position ?> </td>
     </tr>
-    <tr style="height: 16px;">
-<td style="width: 50%; height: 16px; text-align: center;"></td>
-<td style="width: 50%; height: 16px; text-align: center;"></td>
-</tr>
+
 <tr style="height: 12.4546px;">
 <td style="width: 10%; height: 25px; text-align: center; padding:10px;">Date</td>  
 <td style="width: 40%; height: 25px;">&nbsp;</td>
