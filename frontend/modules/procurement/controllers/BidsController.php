@@ -511,26 +511,28 @@ class BidsController extends Controller
        if($model->purchase_request_project_name==''){$pname='__________________';}else{$pname=$model->purchase_request_project_name;}
        if($model->purchase_request_location_project==''){$pproject='__________________';}else{$pproject=$model->purchase_request_location_project;}
 
-       $headers='<table style="width: 100%; height: 5px; table-collapsed: collapsed;">
+       $headers='
+       <div style="width: 100px;border: 1px solid black;margin:10px;font-weight:bold;text-align:center;float:right;padding:0px;">FASS-PUR F07 <br> <span style="font-weight:lighter;">Rev. 0/ 08-16-07</span></div>
+       <table border="0" style="width: 100%; table-collapsed: collapsed;">
        <tbody>
-       <tr style="height: 12px;">
+       <tr style="height: 12px;">   
        <td style="width: 27%; height: 12px;">&nbsp;</td>
-       <td style="text-align: center; width: 40.5332%; height: 12px;">Republic of The Philippines</td>
+       <td style="text-align: center; width: 50%; height: 12px;">Republic of The Philippines</td>
        <td style="text-align: center; width: 10%; height: 12px;">&nbsp;</td>
        <td style="width: 17%; height: 12px;">&nbsp;</td>
        </tr>
        <tr style="height: 12px;">
        <td style="width: 27%; height: 12px;">&nbsp;</td>
-       <td style="text-align: center; width: 40.5332%; height: 12px;"><strong>DEPARTMENT OF SCIENCE AND TECHNOLOGY</strong></td>
+       <td style="text-align: center; width: 50%; height: 12px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>DEPARTMENT OF SCIENCE AND TECHNOLOGY</strong></td>
        <td style="text-align: right; width: 10%; height: 12px;">&nbsp;</td>
-       <td style="width: 17%;font-size:11px;padding:2px; height: 12px;text-align:right;" rowspan="2"></td>
+       <td style="text-align:right;width: 17%;font-size:11px;padding:2px;padding-right:10px; height: 50px;vertical-align:top;border:none;" rowspan="2"></td>
        </tr>
        <tr style="height: 12px;">
        <td style="width: 27%; height: 12px;">&nbsp;</td>
-       <td style="text-align: center; width: 40.5332%; height: 12px;">Regional Office No. IX</td>
+       <td style="text-align: left; width: 45%; height: 12px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Regional Office No. IX</td>
        <td style="text-align: center; width: 10%; height: 12px;">&nbsp;</td>
      
-       </tr>
+       </tr>            
        <tr style="height: 12px;">
        <td style="width: 27%;font-size:11px; height: 12px;">&nbsp;Standard Form Number : SF-GOOD-40</td>
        <td style="text-align: center; width: 40.5332%; height: 12px;">&nbsp;</td>
@@ -538,7 +540,7 @@ class BidsController extends Controller
        </tr>
        <tr style="height: 12px;">
        <td style="width: 27%;font-size:11px; height: 12px;">&nbsp;Revised&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; : May 24, 2004</td>
-       <td style="text-align: center;font-size:16px; width: 40.5332%; height: 12px;"><strong>ABSTRACT OF BIDS</strong></td>
+       <td style="text-align: left;font-size:16px; width: 40.5332%; height: 12px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>ABSTRACT OF BIDS</strong></td>
        <td style="width: 10%;font-size:11px;  height: 12px; text-align: right;" colspan="2">Name of the Project.&nbsp; : '.$pname.'</td>
        </tr>
        <tr style="height: 12.2727px;">
@@ -548,7 +550,7 @@ class BidsController extends Controller
        </tr>
        </tbody>
        </table>
-       <div style="height:25px;"></div>';
+       <div style="height:0px;"></div>';
         $fin="";
         $x=0;
         $munit="";

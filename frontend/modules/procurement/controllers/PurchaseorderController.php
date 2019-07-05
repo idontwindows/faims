@@ -325,7 +325,9 @@ class PurchaseorderController extends \yii\web\Controller
         $pdf->destination =  $pdf::DEST_BROWSER;
         $pdf->content  = $content;
         $pdf->cssFile = '@vendor/kartik-v/yii2-mpdf/assets/kv-mpdf-bootstrap.min.css';
-        $pdf->cssInline = '.kv-heading-1{font-size:18px}.nospace-border{border:0px;}.no-padding{ padding:0px;}.print-container{font-size:11px;font-family:Arial,Helvetica Neue,Helvetica,sans-serif;}h6 {  }';
+        $pdf->cssInline = 'body {} .kv-heading-1{font-size:18px}.nospace-border{border:0px;}.no-padding{ padding:0px;}.print-container{font-family:Arial;}';
+        $pdf->marginFooter=5;
+
         $supplier='';
         $ponum='';
         $prno='';
@@ -345,14 +347,13 @@ class PurchaseorderController extends \yii\web\Controller
             $Assig1Position =  $sg["Assig1Position"];
             $Assig2Position =  $sg["Assig2Position"];
         }
-
-        $pdf->marginTop =45;
+       $pdf->marginTop = 80;
         //$pdf->marginHeader = 40;
         $pdf->marginBottom =30;
         $headers= '<div style=""><table width="100%">
         <tbody>
         <tr style="height: 43.6667px;">
-        <td style="width: 82.4103%; height: 43.6667px;">
+        <td style="width: 82103%; height: 43.6667px;">
         <p>&nbsp;</p>
         </td>
         <td style="width: 12.5897%; height: 43.6667px;">
@@ -388,7 +389,63 @@ class PurchaseorderController extends \yii\web\Controller
         </tr>
         </tbody>                                                                                                                                                                                                                                                                                                                                                             
         </table>
-        <div style="height:20px"></div>
+
+        <table style="width: 100%; border-collapse: collapse;" border="1">
+<tbody>
+<tr style="height: 12px;">
+<td style="width: 70%; height: 20px;">&nbsp;Supplier :</td>
+<td style="width: 30%; height: 20px;">P.O No. :</td>a
+</tr>
+<tr style="height: 12px;">
+<td style="width: 70%; height: 20px;">&nbsp;Address :</td>
+<td style="width: 30%; height: 20px;">Date</td>
+</tr>
+<tr style="height: 12px;">
+<td style="width: 70%; height: 34px; vertical-align: top;" rowspan="3">
+<h5>Gentlemen:</h5>
+<p>Please furnish this office the following articles subject to the terms and conditions contained them</p>
+</td>
+<td style="width: 30%; height: 12px;">Mode of Procurement :</td>
+</tr>
+<tr style="height: 10px;">
+<td style="width: 30%; height: 10px;">P.R. No. :&nbsp; &nbsp; &nbsp;&nbsp;</td>
+</tr>
+<tr style="height: 12px;">
+<td style="width: 30%; height: 12px;">P.R Date :</td>
+</tr>
+<tr style="height: 12px;">
+<td style="width: 70%; height: 15px;">Place of Delivery :&nbsp;</td>
+<td style="width: 30%; height: 15px;">Delivery Term&nbsp;:&nbsp;</td>
+</tr>
+<tr style="height: 12px;">
+<td style="width: 70%; height: 15px;">Date of Delivery :&nbsp;</td>
+<td style="width: 30%; height: 15px;">Payment Term :&nbsp;</td>
+</tr>
+</tbody>
+</table>
+<table style="width: 100%; border-collapse: collapse;" border="1">
+<tbody>
+<tr style="height: 20px;">
+<td style="width: 5%; height: 20px; text-align: center;">Stock No.</td>
+<td style="width: 5%; height: 20px; text-align: center;">Unit</td>
+<td style="width: 60%; height: 20px; text-align: center;">Description</td>
+<td style="width: 10%; height: 20px; text-align: center;">Quantity</td>
+<td style="width: 10%; height: 20px; text-align: center;">Unit Cost</td>
+<td style="width: 10%; height: 20px; text-align: center;">Amount</td>
+</tr>
+<tr style="height: 20px;">
+<td style="width: 5%; height: 400px; text-align: center;">&nbsp;</td>
+<td style="width: 5%; height: 400px; text-align: center;">&nbsp;</td>
+<td style="width: 60%; height: 400px; text-align: center;">&nbsp;</td>
+<td style="width: 10%; height: 400px; text-align: center;">&nbsp;</td>
+<td style="width: 10%; height: 400px; text-align: center;">&nbsp;</td>
+<td style="width: 10%; height: 400px; text-align: center;">&nbsp;</td>
+</tr>
+<tr style="height: 20px;">
+<td style="width: 5%; height: 20px; text-align: center;" colspan="6">&nbsp;</td>
+</tr>
+</tbody>
+</table>
        ';
         $summary = 0;
         $totalcost = 0;
