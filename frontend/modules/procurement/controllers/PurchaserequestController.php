@@ -252,12 +252,12 @@ class PurchaserequestController extends Controller
 <tr>
 <td style="width: 60%; height: 12.6667px;">Department: <span style="text-decoration: underline;">Department of Science and Technology</span></td>
 <td style="width: 20%; ">PR No. <span style="text-decoration: underline;">'.$model->purchase_request_number.'</span></td>
-<td style="width: 20%; height: 12.6667px;">Date : '.date("m-d-Y",strtotime($model->purchase_request_date)).'</td>
+<td style="width: 20%; height: 12.6667px;">Date : <span style="text-decoration:underline;">'.date("m-d-Y",strtotime($model->purchase_request_date)).'</span></td>
 </tr>
 <tr>
-<td style="width: 60%; height: 12px;">Section: <span style="text-decoration: underline;"></span></td>
-<td style="width: 25%; height: 12px;">SAI No.</td>
-<td style="width: 15%; height: 12px;">Date :&nbsp;</td>
+<td style="width: 60%; height: 12px;">Section: ____________________________________________</td>
+<td style="width: 25%; height: 12px;">SAI No. ______________</td>
+<td style="width: 15%; height: 12px;">Date : ____________</td>
 </tr>
 </tbody>
 </table>
@@ -307,10 +307,10 @@ class PurchaserequestController extends Controller
 </table>';
         $LeftFooterContent = '
         <div style="height:0px;"></div>
-<table style="width: 50%;font-size:9px; ">
+<table style="width: 100%;font-size:9px; ">
                                 <tbody>
                                 <tr>
-                                <td style="padding-left:10px;"><h6>'.$model->purchase_request_purpose.'</h6></td>
+                                <td style="padding-left:10px;"><h6>Purpose : '.$model->purchase_request_purpose.'</h6></td>
                                 <td>&nbsp;</td>
                                 </tr>
                                 <tr>

@@ -14,14 +14,14 @@
 <td style="width: 43%; height: 290px;vertical-align:top;padding:3px;border-bottom:none;"><?= $model->particulars ?></td>
 <td style="width: 12%; height: 290px;vertical-align:top;border-bottom:none;"><?= $model->ppa ?></td>
 <td style="width: 10%; height: 290px;vertical-align:top;border-bottom:none;"><?= $model->account_code ?></td>
-<td style="width: 20%; height: 290px;vertical-align:top;padding-left:15px;padding-top:25px;"><?= number_format($model->amount,2) ?></td>
+<td style="width: 20%; height: 290px;vertical-align:top;padding-left:15px;padding-top:25px;text-align:right;padding:5px;"><?= number_format($model->amount,2) ?></td>
 </tr>
 <tr style="height: 3px;">
 <td style="width: 0%;border-top:none;">&nbsp;</td>
 <td style="width: 43%;text-align:right;padding-right:50px;border-top:none;">Total</td>
 <td style="width: 12%;border-top:none;"></td>
 <td style="width: 10%;border-top:none;"></td>
-<td style="width: 20%;border-top:none;padding-left:15px;"><?= number_format($model->amount,2) ?></td>
+<td style="width: 20%;border-top:none;padding-left:15px;text-align:right;padding:5px;"><?= number_format($model->amount,2) ?></td>
 </tr>
 </tbody>
 </table>

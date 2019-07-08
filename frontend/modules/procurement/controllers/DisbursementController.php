@@ -269,10 +269,10 @@ class DisbursementController extends Controller
         $footerss= '<table width="100%">
             <tr>
                 <td width="50%" style="text-align: left;font-size: 11px;font-weight: lighter;">'. $dvno .'</td>
-                <td width="50%" style="text-align: right;font-size: 11px;font-weight: lighter;">'.date("F j, Y").'</td>
+                <td width="50%" style="text-align: right;font-size: 11px;font-weight: lighter;">'.date("m-d-Y").'</td>
             </tr>
         </table>';
-        $LeftFooterContent = '<div style="text-align: left;">'.date("F j, Y").'</div>';
+        $LeftFooterContent = '<div style="text-align: left;">'.date("m-d-Y").'</div>';
         $CenterFooterContent = '';
         $RightFooterContent = '<div style="text-align: right;">Page {PAGENO} of {nbpg}</div>';
         $oddEvenConfiguration =
