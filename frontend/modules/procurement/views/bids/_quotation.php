@@ -7,7 +7,7 @@ use common\components\MyPrint;
 use yii\helpers\ArrayHelper;
 
 $con =  Yii::$app->db;
-$command = $con->createCommand("SELECT `tbl_profile`.`user_id`,CONCAT(`tbl_profile`.`lastname`,', ', `tbl_profile`.`firstname` ,' ', `tbl_profile`.`middleinitial`, '|' , `tbl_profile`.`designation`) AS employeename
+$command = $con->createCommand("SELECT `tbl_profile`.`user_id`,CONCAT(`tbl_profile`.`firstname`,' ', SUBSTR(`tbl_profile`.`middleinitial`,1,1),'. ', `tbl_profile`.`lastname`, '|' , `tbl_profile`.`designation`) AS employeename
         FROM `tbl_profile`");
 $employees = $command->queryAll();
 $command2 = $con->createCommand("SELECT * FROM `fais-procurement`.`tbl_supplier`");
@@ -39,7 +39,31 @@ $listEmployees = ArrayHelper::map($employees, 'employeename', 'employeename');
                         Select2::widget([
                             'data'=> $listSupplier,
                             'id' => 'cbosupplier',
-                            'name' => 'cbosupplier'
+                            'name' => 'cbosupplier',
+                            'pluginEvents' => [
+                                "change" => "function() {
+                                                         var sup_id=$(this).val();
+                                                
+                                                        jQuery.ajax( {
+                                                            type: \"POST\",
+                                                            data: {
+                                                                sup_id: sup_id,
+                                                            },
+                                                            url: \"/procurement/bids/checkimportid\",
+                                                            dataType: \"text\",
+                                                            success: function ( response ) {                              
+                                                                data = $.parseJSON(response);
+                                                                $.each(data, function(i, item) {
+                                                                    var address = item.supplier_address;
+                                                                    $('#txtaddress').val(address);
+                                                                });
+                                                            },
+                                                            error: function ( xhr, ajaxOptions, thrownError ) {
+                                                                alert( thrownError );
+                                                            }
+                                                        });
+                                                     }",
+                            ],
                         ])
                         ?>
                     </div>

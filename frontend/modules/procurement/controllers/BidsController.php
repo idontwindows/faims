@@ -418,7 +418,7 @@ class BidsController extends Controller
             <td width="30%" style="padding: 0px;padding-left: 15px;">'.$model->purchase_request_location_project.'</td>
         </tr>
         <tr class="nospace-border">
-            <td style="padding: 0px; padding-top: 34px" width="">'.$supplier.'</td>
+            <td style="padding: 0px; padding-top: 34px" width="">'.strtoupper($supplier).'</td>
         </tr>
         <tr class="nospace-border">
             <td style="padding: 0px;" width="">'.$address.'</td>
@@ -687,6 +687,17 @@ class BidsController extends Controller
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
+    }
+
+
+    public function actionCheckimportid()
+    {
+        $request = Yii::$app->request;
+        $sup_id = $request->post('sup_id');
+        $con = Yii::$app->procurementdb;
+        $sql = "SELECT * FROM `tbl_supplier` WHERE supplier_name= '".$sup_id."';";
+        $checkxml = $con->createCommand($sql)->queryAll();
+        return json_encode($checkxml);
     }
 
     public function actionView()
