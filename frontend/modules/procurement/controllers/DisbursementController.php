@@ -257,7 +257,7 @@ class DisbursementController extends Controller
         <tbody>
         <tr>
         <td>
-        <p><h6 style-P><strong>FASS-PUR F14</strong>&nbsp; Rev. 2/07-01-19</h6></p>
+        <p><h6 style-P><strong>FASS-PUR F13</strong>&nbsp; Rev. 2/07-01-19</h6></p>
         </td>
         </tr>
         </tbody>
