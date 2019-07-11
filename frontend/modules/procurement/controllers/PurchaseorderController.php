@@ -320,7 +320,7 @@ class PurchaseorderController extends \yii\web\Controller
         $content = $this->renderPartial('_report2', ['prdetails'=> $prdetails,'model'=>$model]);
         $pdf = new Pdf();
         $pdf->mode = pdf::MODE_UTF8;
-        $pdf->format = pdf::FORMAT_A4;
+       // $pdf->format = pdf::FORMAT_A4;
         $pdf->orientation = Pdf::ORIENT_PORTRAIT;
         $pdf->destination =  $pdf::DEST_BROWSER;
         $pdf->content  = $content;
@@ -333,12 +333,19 @@ class PurchaseorderController extends \yii\web\Controller
         $prno='';
         $pdate='';
         $prdate='';
+        $summary = 0;
+        $totalcost = 0;
         foreach ($prdetails as $pr) {
             $supplier = $pr["supplier_name"];
             $ponum = $pr["purchase_order_number"];
             $pdate = $pr["purchase_order_date"];
             $prno = $pr["purchase_request_number"];
             $prdate = $pr["purchase_request_date"];
+            $quantity = $pr["bids_quantity"];
+            $price = $pr["bids_price"];
+            $units = $pr["bids_unit"];
+            $totalcost = $totalcost + $quantity * $price;
+            $summary = $summary + $totalcost;
         }
 
         foreach ($assig as $sg) {
@@ -347,9 +354,10 @@ class PurchaseorderController extends \yii\web\Controller
             $Assig1Position =  $sg["Assig1Position"];
             $Assig2Position =  $sg["Assig2Position"];
         }
-       $pdf->marginTop = 80;
+
+        $pdf->marginTop = 85;
         //$pdf->marginHeader = 40;
-        $pdf->marginBottom =30;
+        $pdf->marginBottom=110;
         $headers= '<div style=""><table width="100%">
         <tbody>
         <tr style="height: 43.6667px;">
@@ -426,93 +434,73 @@ class PurchaseorderController extends \yii\web\Controller
 <table style="width: 100%; border-collapse: collapse;" border="1">
 <tbody>
 <tr style="height: 20px;">
-<td style="width: 5%; height: 20px; text-align: center;">Stock No.</td>
-<td style="width: 5%; height: 20px; text-align: center;">Unit</td>
-<td style="width: 60%; height: 20px; text-align: center;">Description</td>
-<td style="width: 10%; height: 20px; text-align: center;">Quantity</td>
-<td style="width: 10%; height: 20px; text-align: center;">Unit Cost</td>
-<td style="width: 10%; height: 20px; text-align: center;">Amount</td>
+<td style="width: 10%; height: 20px; text-align: center;">Stock No.</td>
+<td style="width: 10%; height: 20px; text-align: center;">Unit</td>
+<td style="width: 40%; height: 20px; text-align: center;">Description</td>
+<td style="width: 13%; height: 20px; text-align: center;">Quantity</td>
+<td style="width: 13%; height: 20px; text-align: center;">Unit Cost</td>
+<td style="width: 13%; height: 20px; text-align: center;">Amount</td>
 </tr>
 <tr style="height: 20px;">
-<td style="width: 5%; height: 400px; text-align: center;">&nbsp;</td>
-<td style="width: 5%; height: 400px; text-align: center;">&nbsp;</td>
-<td style="width: 60%; height: 400px; text-align: center;">&nbsp;</td>
-<td style="width: 10%; height: 400px; text-align: center;">&nbsp;</td>
-<td style="width: 10%; height: 400px; text-align: center;">&nbsp;</td>
-<td style="width: 10%; height: 400px; text-align: center;">&nbsp;</td>
-</tr>
-<tr style="height: 20px;">
-<td style="width: 5%; height: 20px; text-align: center;" colspan="6">&nbsp;</td>
+<td style="width: 10%; height: 450px; text-align: center;">&nbsp;</td>
+<td style="width: 10%; height: 450px; text-align: center;">&nbsp;</td>
+<td style="width: 40%; height: 450px; text-align: center;">&nbsp;</td>
+<td style="width: 13%; height: 450px; text-align: center;">&nbsp;</td>
+<td style="width: 13%; height: 450px; text-align: center;">&nbsp;</td>
+<td style="width: 13%; height: 450px; text-align: center;">&nbsp;</td>
 </tr>
 </tbody>
+<tfoot>
+<tr>
+    <td style="width: 86%; text-align: left; padding:10px;" colspan="5">'.strtoupper(Yii::$app->formatter->asSpellout($totalcost))." PESOS ONLY".'</td>
+    <td style="width: 13%; text-align: center;">'.number_format($totalcost,2).'</td>      
+</tr>
+</tfoot> 
 </table>
-       ';
-        $summary = 0;
-        $totalcost = 0;
-        foreach ($prdetails as $pr) {
-            $quantity = $pr["bids_quantity"];
-            $price = $pr["bids_price"];
-            $totalcost =  $quantity * $price;
-            $summary = $summary + $totalcost;
-        }
-        $footerss= '<div style="height: 10px"></div>
+<table  style="width: 100%; border-collapse: collapse;" border="1"> 
+<tr>
+<td style="width: 100%; text-align: left;padding:35px;padding-top:0px;" colspan="6">&nbsp;In case of failure to make the full delivery within the time specified above, 
+a penalty of one-tenth (1/10) of one percent for every day of delay shall be imposed.
+</td>
+</tr>
+<tr>
+<td style=" text-align: left;" colspan="4">&nbsp;Conforme:</td>
+<td style=" text-align: left;" colspan="2">&nbsp;Very truly yours,</td>
+</tr>
+</table>
 
-                   <table border="0" width="100%">
+<table border="0" width="100%">
+ 
+   <tr style="text-align: left;">
+       <td style="padding-left: 80px;">'.$supplier.'</td>
+       <td style="text-align: center;">'.$assig2.'<br>'.$Assig2Position.'</td>
+  </tr>
+  <tr><td></td><td></td></tr>
+  <tr><td></td><td></td></tr>
+  <tr><td></td><td></td></tr>
+  <tr><td></td><td></td></tr>
+  <tr><td></td><td></td></tr>
+  <tr><td></td><td></td></tr>
+  <tr><td></td><td></td></tr>
+  <tr><td></td><td></td></tr>
+  
+   <tr style="text-align: right;padding-left: 50px;">
+       <td style="text-align: center;">'.$assig1.'<br>'.$Assig1Position.'</td>
+       <td style="text-align: right;"></td>
+   </tr>    
+   </table>
 
-                    <tr class="nospace-border">
-                    <td width="85%" colspan="4">&nbsp;</td>
-                    <td width="15%" style="padding-left: 25px;">&nbsp;</td>
-                    </tr>
-                     <tr class="nospace-border">
-                    <td width="85%" colspan="4">&nbsp;</td>
-                    <td width="15%" style="padding-left: 25px;">&nbsp;</td>
-                    </tr>
-                     <tr class="nospace-border">
-                    <td width="85%" colspan="4">&nbsp;</td>
-                    <td width="15%" style="padding-left: 25px;">&nbsp;</td>
-                    </tr>      
-                            <tr class="nospace-border">
-                    <td width="85%" colspan="4">&nbsp;</td>
-                    <td width="15%" style="padding-left: 25px;">&nbsp;</td>
-                    </tr>      
-                       <tr style="text-align: left;">
-                           <td style="padding-left: 80px;">'.$supplier.'</td>
-                           <td style="text-align: center;">'.$assig2.'<br>'.$Assig2Position.'</td>
-                      </tr>
-                      <tr><td></td><td></td></tr>
-                      <tr><td></td><td></td></tr>
-                      <tr><td></td><td></td></tr>
-                      <tr><td></td><td></td></tr>
-                      <tr><td></td><td></td></tr>
-                      <tr><td></td><td></td></tr>
-                      <tr><td></td><td></td></tr>
-                      <tr><td></td><td></td></tr>
-                      
-                       <tr style="text-align: right;padding-left: 50px;">
-                           <td style="text-align: center;">'.$assig1.'<br>'.$Assig1Position.'</td>
-                           <td style="text-align: right;"></td>
-                       </tr>  
-                                
-                       <tr><td></td><td></td></tr>                       
-                       <tr><td></td><td></td></tr>                       
-                       <tr><td></td><td></td></tr>                       
-                       <tr><td></td><td></td></tr>                       
-                       <tr><td></td><td></td></tr>                       
-                       <tr><td></td><td></td></tr>                       
-                       <tr><td></td><td></td></tr>                       
-                       <tr><td></td><td></td></tr>                       
-                       <tr><td></td><td></td></tr>                       
-                       <tr><td></td><td></td></tr>                       
-                       <tr><td></td><td></td></tr>                       
-                       <tr><td></td><td></td></tr>                       
-                       <tr><td></td><td></td></tr>                       
-                   
-                       <tr style="text-align: right;">
-                           <td>'.date("F j, Y").'</td>
-                           <td style="text-align: right;">Page {PAGENO} of {nbpg}</td>
-                       </tr>              
-                   </table>
-                   ';
+
+';
+
+        
+        $footerss= '                      
+        <table>
+        <tr>
+            <td style="text-align: left;"width:50%;">'.date("F j, Y").'</td>
+            <td style="text-align: right;width:50%;">Page {PAGENO} of {nbpg}</td>
+        </tr>              
+        </table>';
         $pdf->options = [
             'title' => 'Report Title',
             'defaultheaderline' => 0,
@@ -520,7 +508,7 @@ class PurchaseorderController extends \yii\web\Controller
             'subject'=> 'Report Subject'];
         $pdf->methods = [
             'SetHeader'=>[$headers],
-            'SetFooter'=>[$footerss],
+            'SetFooter'=>[''],
         ];
 
         return $pdf->render();

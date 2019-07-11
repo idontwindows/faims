@@ -10,39 +10,51 @@
         $itemdescription = $pr["bids_item_description"];
         $quantity = $pr["bids_quantity"];
         $price = $pr["bids_price"];
+        $units = $pr["bids_unit"];
         $totalcost =  $quantity * $price;
-        $append = "<tr class=\"nospace-border\">";
-        $append = $append . "<td width='20%' style='padding-left: 40px;vertical-align: top;'>units</td>";
-        $append = $append . "<td width='44%' style='text-align: justify;padding-left: 40px;vertical-align: top;'>" . $itemdescription . "</td>";
-        $append = $append . "<td width='12%' style='padding-left: 60px; vertical-align: top;'>" . $quantity . "</td>";
-        $append = $append . "<td width='12%' style='font-size:12px;padding-left: 50px;vertical-align: top'>" . $price . "</td>";
-        $append = $append . "<td width='12%' style='padding-left: 25px;font-size:12px;vertical-align: top'>" . number_format($totalcost,2) . "</td>";
+        $append = "
+        <tr class=\"nospace-border\">";
+        $append = $append . "<td width='10%' style='vertical-align: top;padding-left:10px;text-align:center;'></td>";
+        $append = $append . "<td width='10%' style='vertical-align: top;padding-left:10px;text-align:center;'>".$units."</td>";
+        $append = $append . "<td width='40%' style='vertical-align: top;padding-left:10px;'>" . $itemdescription . "</td>";
+        $append = $append . "<td width='13%' style='vertical-align: top;padding-left:10px;text-align:center;'>" . $quantity . "</td>";
+        $append = $append . "<td width='13%' style='font-size:12px;vertical-align: top;padding-left:10px;text-align:right;padding-right:10px;'>" . $price . "</td>";
+        $append = $append . "<td width='13%' style='font-size:12px;vertical-align: top;padding-left:10px;text-align:right;padding-right:10px;'>" . number_format($totalcost,2) . "</td>";
         $append = $append . "</tr>";
         $fin = $fin . $append;
         $summary = $summary + $totalcost;
 
-        $yy = "<tr class=\"nospace-border\">";
-        $yy = $yy . "<td width='88%' colspan='4'>".strtoupper(Yii::$app->formatter->asSpellout($summary))." PESOS ONLY</td>";
-        $yy = $yy . "<td width='12%' style='padding-left: 25px;'>" . number_format($summary,2) . "</td>";
-        $yy = $yy . "</tr>";
-
-        $cc = "<tr class=\"nospace-border\">";
-        $cc = $cc . "<td width='20%' style='padding-left:40px;visibility: false;'></td>";
-        $cc = $cc . "<td width='44%' style='text-align: justify;padding-left: 40px;display: hidden;'></td>";
-        $cc = $cc . "<td width='12%' style='padding-left: 60px;visibility: false;'></td>";
-        $cc = $cc . "<td width='12%' style='padding-left: 50px;visibility: false;'></td>";
-        $cc = $cc . "<td width='12%' style='padding-left: 25px;'></td>";
+        $yy = '<tfoot>
+        <tr style="height: 20px;">
+            <td style="width: 86%; height: 20px; text-align: left; padding:10px;" colspan="5"></td>
+            <td style="width: 13%; height: 20px; text-align: center;">{colsum2}</td>      
+        </tr>
+        </tfoot>';
+        $cc = "<tr>";
+        $cc = $cc . '<td style="width: 10%;  text-align: center;">&nbsp;</td>';
+        $cc = $cc . '<td style="width: 10%;  text-align: center;">&nbsp;</td>';
+        $cc = $cc . '<td style="width: 10%;  text-align: center;">&nbsp;</td>';
+        $cc = $cc . '<td style="width: 10%;  text-align: center;">&nbsp;</td>';
+        $cc = $cc . '<td style="width: 10%;  text-align: center;">&nbsp;</td>';
+        $cc = $cc . '<td style="width: 10%;  text-align: center;">&nbsp;</td>';
         $cc = $cc . "</tr>";
     }
 
-    ?>
+    $yy = "<tr>";
+    $yy = $yy . "<td width='86%' colspan='5'>".strtoupper(Yii::$app->formatter->asSpellout($summary))." PESOS ONLY</td>";
+    $yy = $yy . "<td width='13%' style='padding-left: 25px;'>{colsum2}</td>";
+    $yy = $yy . "</tr>";
 
-    <table border="0" width="100%">
-        <tbody>
+    ?>  
+
+    
+
+    <table border="0" width="100%" style="border-collapse: collapse;">
+    <tbody>
             <?php
-                echo $fin;
+                echo $fin;   
             ?>
-        </tbody>
-    </table>
-
+            
+    </tbody>
+    </table>   
 </div>
