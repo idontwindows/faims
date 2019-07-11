@@ -25,9 +25,9 @@
         $summary = $summary + $totalcost;
 
         $yy = '<tfoot>
-        <tr style="height: 20px;">
-            <td style="width: 86%; height: 20px; text-align: left; padding:10px;" colspan="5"></td>
-            <td style="width: 13%; height: 20px; text-align: center;">{colsum2}</td>      
+        <tr>
+            <td style="width: 87%; text-align: left;border:none;border:1px solid black;background:white;" colspan="5">'.strtoupper(Yii::$app->formatter->asSpellout($summary))." PESOS ONLY".'</td>
+            <td style="width: 13%; text-align: center;border:1px solid black;">'.number_format($summary,2).'</td>      
         </tr>
         </tfoot>';
         $cc = "<tr>";
@@ -40,21 +40,23 @@
         $cc = $cc . "</tr>";
     }
 
-    $yy = "<tr>";
+    /*$yy = "<tr>";
     $yy = $yy . "<td width='86%' colspan='5'>".strtoupper(Yii::$app->formatter->asSpellout($summary))." PESOS ONLY</td>";
     $yy = $yy . "<td width='13%' style='padding-left: 25px;'>{colsum2}</td>";
     $yy = $yy . "</tr>";
+    */
 
     ?>  
 
     
 
     <table border="0" width="100%" style="border-collapse: collapse;">
-    <tbody>
+    <tbody style="">
             <?php
                 echo $fin;   
             ?>
             
     </tbody>
+    <?= $yy; ?>
     </table>   
 </div>

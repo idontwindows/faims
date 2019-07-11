@@ -450,12 +450,7 @@ class PurchaseorderController extends \yii\web\Controller
 <td style="width: 13%; height: 450px; text-align: center;">&nbsp;</td>
 </tr>
 </tbody>
-<tfoot>
-<tr>
-    <td style="width: 86%; text-align: left; padding:10px;" colspan="5">'.strtoupper(Yii::$app->formatter->asSpellout($totalcost))." PESOS ONLY".'</td>
-    <td style="width: 13%; text-align: center;">'.number_format($totalcost,2).'</td>      
-</tr>
-</tfoot> 
+
 </table>
 <table  style="width: 100%; border-collapse: collapse;" border="1"> 
 <tr>
@@ -474,7 +469,7 @@ a penalty of one-tenth (1/10) of one percent for every day of delay shall be imp
    <tr style="text-align: left;">
        <td style="padding-left: 80px;">'.$supplier.'</td>
        <td style="text-align: center;">'.$assig2.'<br>'.$Assig2Position.'</td>
-  </tr>
+  </tr>e
   <tr><td></td><td></td></tr>
   <tr><td></td><td></td></tr>
   <tr><td></td><td></td></tr>
