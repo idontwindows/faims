@@ -355,21 +355,22 @@ class PurchaseorderController extends \yii\web\Controller
             $Assig2Position =  $sg["Assig2Position"];
         }
 
-        $pdf->marginTop = 85;
+        $pdf->marginTop = 100;
         //$pdf->marginHeader = 40;
         $pdf->marginBottom=110;
-        $headers= '<div style=""><table width="100%">
+        $headers= '
+        <table width="100%">
         <tbody>
         <tr style="height: 43.6667px;">
-        <td style="width: 82103%; height: 43.6667px;">
+        <td style="width: 82.4103%; height: 43.6667px;">
         <p>&nbsp;</p>
         </td>
         <td style="width: 12.5897%; height: 43.6667px;">
         <table border="1" width="100%" style="border-collapse: collapse;">
         <tbody>
-            <tr>
-            <td>
-        <p><h6><strong>FASS-PUR F08</strong>&nbsp; Rev. 1/ 12-24-07</h6></p>
+        <tr>
+        <td>
+        <p><h6 style-P><strong>FASS-PUR F08</strong>&nbsp; Rev. 1/12-24-07</h6></p>
         </td>
         </tr>
         </tbody>
@@ -378,7 +379,7 @@ class PurchaseorderController extends \yii\web\Controller
         </tr>
         </tbody>
         </table>
-        </div>
+        
         <table width="100%" style="border-collapse: collapse;" border="1">
         <tbody>
         <tr>
@@ -397,8 +398,7 @@ class PurchaseorderController extends \yii\web\Controller
         </tr>
         </tbody>                                                                                                                                                                                                                                                                                                                                                             
         </table>
-
-        <table style="width: 100%; border-collapse: collapse;" border="1">
+<table style="width: 100%; border-collapse: collapse;" border="1">
 <tbody>
 <tr style="height: 12px;">
 <td style="width: 70%; height: 20px;">&nbsp;Supplier : <span style="text-decoration:underline;">'.$supplier.'</span></td>
@@ -443,12 +443,12 @@ class PurchaseorderController extends \yii\web\Controller
 <td style="width: 13%; height: 20px; text-align: center;">Amount</td>
 </tr>
 <tr style="height: 20px;">
-<td style="width: 10%; height: 450px; text-align: center;">&nbsp;</td>
-<td style="width: 10%; height: 450px; text-align: center;">&nbsp;</td>
-<td style="width: 40%; height: 450px; text-align: center;">&nbsp;</td>
-<td style="width: 13%; height: 450px; text-align: center;">&nbsp;</td>
-<td style="width: 13%; height: 450px; text-align: center;">&nbsp;</td>
-<td style="width: 13%; height: 450px; text-align: center;">&nbsp;</td>
+<td style="width: 10%; height: 400px; text-align: center;">&nbsp;</td>
+<td style="width: 10%; height: 400px; text-align: center;">&nbsp;</td>
+<td style="width: 40%; height: 400px; text-align: center;">&nbsp;</td>
+<td style="width: 13%; height: 400px; text-align: center;">&nbsp;</td>
+<td style="width: 13%; height: 400px; text-align: center;">&nbsp;</td>
+<td style="width: 13%; height: 400px; text-align: center;">&nbsp;</td>
 </tr>
 </tbody>
 <tfoot>
@@ -469,9 +469,9 @@ a penalty of one-tenth (1/10) of one percent for every day of delay shall be imp
 <td style=" text-align: left;border-top:none;border-bottom:none;border-left:none;" colspan="2">&nbsp;Very truly yours,</td>
 </tr>
 <tr>
-<td style="border-top:none;padding:5px;border-bottom:none;border-right:none;height:40px; text-align: center;padding-left: 30px;" colspan="2">&nbsp;<span style="text-decoration:underline;text-align:center;">'.$supplier.'</span><br>Signature over printed name</td>
+<td style="border-top:none;padding:5px;border-bottom:none;border-right:none;height:40px; text-align: center;padding-left: 30px;font-weight:6px;" colspan="2">&nbsp;<span style="text-decoration:underline;text-align:center;"><b>'.$supplier.'</b></span><br>Signature over printed name</td>
 <td style="border-top:none;padding:5px;border-bottom:none;border-right:none;border-left:none; text-align: left;" colspan="2">&nbsp;<span style="text-decoration:underline;text-align:center;">'.date("m-d-Y").'</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Date</td>
-<td style="border-top:none;padding:5px;border-bottom:none;border-left:none; text-align: center;" colspan="2">&nbsp;'.$assig2.'<br>'.$Assig2Position.'</td>
+<td style="border-top:none;padding:5px;border-bottom:none;border-left:none; text-align: center;" colspan="2">&nbsp;<span style="text-decoration:underline;text-align:center;"><b>'.$assig2.'</b></span><br>'.$Assig2Position.'</td>
 </tr>
 <tr>
 <td style="border-top:none;padding:5px;border-top:none;border-bottom:none;border-right:none; text-align: center;padding-left: 30px;" colspan="2">&nbsp;</td>
@@ -483,7 +483,7 @@ a penalty of one-tenth (1/10) of one percent for every day of delay shall be imp
 <td style=" text-align: left;padding:20px;border-bottom:none;" colspan="2">&nbsp;O.S. No.&nbsp; __________________</td>
 </tr>
 <tr>
-<td style=" text-align: center;padding:0px;border-top:none;" colspan="4">'.$assig1.'<br>'.$Assig1Position.'</td>
+<td style=" text-align: center;padding:0px;border-top:none;" colspan="4"><span style="text-decoration:underline;text-align:center;"><b>'.$assig1.'</b></span><br>'.$Assig1Position.'</td>
 <td style=" text-align: left;padding:20px;border-top:none;" colspan="2">&nbsp;Amount&nbsp; __________________</td>
 </tr>
 </table>
@@ -491,9 +491,9 @@ a penalty of one-tenth (1/10) of one percent for every day of delay shall be imp
 
         
         $footerss= '                      
-        <table>
+        <table style="width:100%;">
         <tr>
-            <td style="text-align: left;"width:50%;">'.date("F j, Y").'</td>
+            <td style="text-align: left;width:50%;">'.date("F j, Y").'</td>
             <td style="text-align: right;width:50%;">Page {PAGENO} of {nbpg}</td>
         </tr>              
         </table>';
@@ -504,7 +504,7 @@ a penalty of one-tenth (1/10) of one percent for every day of delay shall be imp
             'subject'=> 'Report Subject'];
         $pdf->methods = [
             'SetHeader'=>[$headers],
-            'SetFooter'=>[''],
+            'SetFooter'=>[$footerss],
         ];
 
         return $pdf->render();
