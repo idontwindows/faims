@@ -344,7 +344,7 @@ class PurchaseorderController extends \yii\web\Controller
             $quantity = $pr["bids_quantity"];
             $price = $pr["bids_price"];
             $units = $pr["bids_unit"];
-            $totalcost = $totalcost + $quantity * $price;
+            $totalcost =$quantity * $price;
             $summary = $summary + $totalcost;
         }
 
@@ -401,11 +401,11 @@ class PurchaseorderController extends \yii\web\Controller
         <table style="width: 100%; border-collapse: collapse;" border="1">
 <tbody>
 <tr style="height: 12px;">
-<td style="width: 70%; height: 20px;">&nbsp;Supplier :</td>
-<td style="width: 30%; height: 20px;">P.O No. :</td>a
+<td style="width: 70%; height: 20px;">&nbsp;Supplier : <span style="text-decoration:underline;">'.$supplier.'</span></td>
+<td style="width: 30%; height: 20px;">P.O No. : <span style="text-decoration:underline;">'.$ponum.'</span></td>
 </tr>
-<tr style="height: 12px;">
-<td style="width: 70%; height: 20px;">&nbsp;Address :</td>
+<tr style="height: 12px;">  
+<td style="width: 70%; height: 20px;">&nbsp;Address : <span style="text-decoration:underline;">Zamboanga City</span></td>
 <td style="width: 30%; height: 20px;">Date</td>
 </tr>
 <tr style="height: 12px;">
@@ -416,10 +416,10 @@ class PurchaseorderController extends \yii\web\Controller
 <td style="width: 30%; height: 12px;">Mode of Procurement :</td>
 </tr>
 <tr style="height: 10px;">
-<td style="width: 30%; height: 10px;">P.R. No. :&nbsp; &nbsp; &nbsp;&nbsp;</td>
+<td style="width: 30%; height: 10px;">P.R. No. : <span style="text-decoration:underline;">'.$prno.'</span></td>
 </tr>
 <tr style="height: 12px;">
-<td style="width: 30%; height: 12px;">P.R Date :</td>
+<td style="width: 30%; height: 12px;">P.R Date : <span style="text-decoration:underline;">'.$pdate.'</span> </td>
 </tr>
 <tr style="height: 12px;">
 <td style="width: 70%; height: 15px;">Place of Delivery :&nbsp;</td>
@@ -431,6 +431,7 @@ class PurchaseorderController extends \yii\web\Controller
 </tr>
 </tbody>
 </table>
+
 <table style="width: 100%; border-collapse: collapse;" border="1">
 <tbody>
 <tr style="height: 20px;">
@@ -450,42 +451,42 @@ class PurchaseorderController extends \yii\web\Controller
 <td style="width: 13%; height: 450px; text-align: center;">&nbsp;</td>
 </tr>
 </tbody>
-
+<tfoot>
+    <tr>
+        <td style="width: 87%; text-align: left;border:none;border:1px solid black;background:white;" colspan="5">'.strtoupper(Yii::$app->formatter->asSpellout($summary))." PESOS ONLY".'</td>
+        <td style="width: 13%; text-align: center;border:1px solid black;">'.number_format($summary,2).'</td>      
+    </tr>
+    </tfoot>
 </table>
 <table  style="width: 100%; border-collapse: collapse;" border="1"> 
 <tr>
-<td style="width: 100%; text-align: left;padding:35px;padding-top:0px;" colspan="6">&nbsp;In case of failure to make the full delivery within the time specified above, 
+<td style="border-bottom:none;width: 100%; text-align: left;padding:15px;padding-top:0px;" colspan="6">&nbsp;In case of failure to make the full delivery within the time specified above, 
 a penalty of one-tenth (1/10) of one percent for every day of delay shall be imposed.
 </td>
 </tr>
 <tr>
-<td style=" text-align: left;" colspan="4">&nbsp;Conforme:</td>
-<td style=" text-align: left;" colspan="2">&nbsp;Very truly yours,</td>
+<td style=" text-align: left;border-top:none;border-bottom:none;border-right:none;padding:25px;" colspan="4">&nbsp;Conforme:</td>
+<td style=" text-align: left;border-top:none;border-bottom:none;border-left:none;" colspan="2">&nbsp;Very truly yours,</td>
+</tr>
+<tr>
+<td style="border-top:none;padding:5px;border-bottom:none;border-right:none;height:40px; text-align: center;padding-left: 30px;" colspan="2">&nbsp;<span style="text-decoration:underline;text-align:center;">'.$supplier.'</span><br>Signature over printed name</td>
+<td style="border-top:none;padding:5px;border-bottom:none;border-right:none;border-left:none; text-align: left;" colspan="2">&nbsp;<span style="text-decoration:underline;text-align:center;">'.date("m-d-Y").'</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Date</td>
+<td style="border-top:none;padding:5px;border-bottom:none;border-left:none; text-align: center;" colspan="2">&nbsp;'.$assig2.'<br>'.$Assig2Position.'</td>
+</tr>
+<tr>
+<td style="border-top:none;padding:5px;border-top:none;border-bottom:none;border-right:none; text-align: center;padding-left: 30px;" colspan="2">&nbsp;</td>
+<td style="border-top:none;padding:5px;border-top:none;border-bottom:none;border-right:none;border-left:none; text-align: left;" colspan="2">&nbsp;</td>
+<td style="border-top:none;padding:5px;border-top:none;border-bottom:none;border-left:none; text-align: center;" colspan="2">&nbsp;</td>
+</tr>
+<tr>
+<td style=" text-align: left;padding:0px;border-bottom:none;" colspan="4">&nbsp;Funds Available:</td>
+<td style=" text-align: left;padding:20px;border-bottom:none;" colspan="2">&nbsp;O.S. No.&nbsp; __________________</td>
+</tr>
+<tr>
+<td style=" text-align: center;padding:0px;border-top:none;" colspan="4">'.$assig1.'<br>'.$Assig1Position.'</td>
+<td style=" text-align: left;padding:20px;border-top:none;" colspan="2">&nbsp;Amount&nbsp; __________________</td>
 </tr>
 </table>
-
-<table border="0" width="100%">
- 
-   <tr style="text-align: left;">
-       <td style="padding-left: 80px;">'.$supplier.'</td>
-       <td style="text-align: center;">'.$assig2.'<br>'.$Assig2Position.'</td>
-  </tr>e
-  <tr><td></td><td></td></tr>
-  <tr><td></td><td></td></tr>
-  <tr><td></td><td></td></tr>
-  <tr><td></td><td></td></tr>
-  <tr><td></td><td></td></tr>
-  <tr><td></td><td></td></tr>
-  <tr><td></td><td></td></tr>
-  <tr><td></td><td></td></tr>
-  
-   <tr style="text-align: right;padding-left: 50px;">
-       <td style="text-align: center;">'.$assig1.'<br>'.$Assig1Position.'</td>
-       <td style="text-align: right;"></td>
-   </tr>    
-   </table>
-
-
 ';
 
         

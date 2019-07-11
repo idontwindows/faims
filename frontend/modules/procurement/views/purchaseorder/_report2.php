@@ -2,7 +2,7 @@
 <?php
     $fin="";
     $x=0;
-    $summary=0;
+   // $summary=0;
     $yy="";
 
     foreach ($prdetails as $pr) {
@@ -22,14 +22,14 @@
         $append = $append . "<td width='13%' style='font-size:12px;vertical-align: top;padding-left:10px;text-align:right;padding-right:10px;'>" . number_format($totalcost,2) . "</td>";
         $append = $append . "</tr>";
         $fin = $fin . $append;
-        $summary = $summary + $totalcost;
+        /*$summary = $summary + $totalcost;
 
         $yy = '<tfoot>
         <tr>
             <td style="width: 87%; text-align: left;border:none;border:1px solid black;background:white;" colspan="5">'.strtoupper(Yii::$app->formatter->asSpellout($summary))." PESOS ONLY".'</td>
             <td style="width: 13%; text-align: center;border:1px solid black;">'.number_format($summary,2).'</td>      
         </tr>
-        </tfoot>';
+        </tfoot>';*/
         $cc = "<tr>";
         $cc = $cc . '<td style="width: 10%;  text-align: center;">&nbsp;</td>';
         $cc = $cc . '<td style="width: 10%;  text-align: center;">&nbsp;</td>';
@@ -51,12 +51,12 @@
     
 
     <table border="0" width="100%" style="border-collapse: collapse;">
+    
     <tbody style="">
             <?php
                 echo $fin;   
             ?>
-            
+
     </tbody>
-    <?= $yy; ?>
     </table>   
 </div>
