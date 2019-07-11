@@ -14,7 +14,7 @@
         $totalcost =  $quantity * $price;
         $append = "
         <tr class=\"nospace-border\">";
-        $append = $append . "<td width='10%' style='vertical-align: top;padding-left:10px;text-align:center;'></td>";
+        $append = $append . "<td width='10%' style='vertical-align: top;padding-left:10px;text-align:center;'>".$x.".</td>";
         $append = $append . "<td width='10%' style='vertical-align: top;padding-left:10px;text-align:center;'>".$units."</td>";
         $append = $append . "<td width='40%' style='vertical-align: top;padding-left:10px;'>" . $itemdescription . "</td>";
         $append = $append . "<td width='13%' style='vertical-align: top;padding-left:10px;text-align:center;'>" . $quantity . "</td>";
