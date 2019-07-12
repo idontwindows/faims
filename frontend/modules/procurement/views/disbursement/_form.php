@@ -125,7 +125,7 @@ if ($model->approved=='') {
                     'id'=> 'cboSono',
                     'name'=> 'cboSono',
                     'language' => 'en',
-                    'options' => ['placeholder' => 'Select S.O','style'=> 'padding-top:0px;','disabled'=> false,
+                    'options' => ['placeholder' => 'Select O.R.S','style'=> 'padding-top:0px;','disabled'=> false,
                         'class'=> 'cboSono','tabindex'=>-1],
                     'pluginOptions' => [
                         'allowClear' => true,
