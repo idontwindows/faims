@@ -13,6 +13,7 @@
         $dv_date = $pr["dv_date"];
         $prno = $pr["taxable"];
         $dvamount = $pr["dv_amount"];
+        $adddress=$pr["address"];
         $totalcost = $price;
         $dv_type = $pr["dv_type"];
         $assig1 =  $pr["Assig1"];
@@ -59,7 +60,7 @@
 </tr>
 <tr style="height: 14px;">
 <td style="width: 10%; height: 25px;">Address</td>
-<td style="width: 90%; height: 25px;" colspan="6"><?= 'Zamboanga City'; ?></td>
+<td style="width: 90%; height: 25px;" colspan="6"><?= $adddress; ?></td>
 </tr> 
 <tr style="height: 14px;">
 <td style="width: 50%; height: 14px; text-align: center;padding:10px;" colspan="3">Particulars</td>
