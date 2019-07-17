@@ -502,7 +502,7 @@ class BidsController extends Controller
         $pdf->marginLeft=10;
         $pdf->marginHeader=5;
         $pdf->marginTop=55;
-        $pdf->marginBottom=60;
+        $pdf->marginBottom=65;
         $pdf->defaultFontSize=11;
         $pdf->content = $content;
         $pdf->cssFile = '@vendor/kartik-v/yii2-mpdf/assets/kv-mpdf-bootstrap.min.css';
@@ -601,16 +601,16 @@ class BidsController extends Controller
                 $headers = $headers.'</tr>';
         $headers = $headers.'</thead>
         <tr>
-        <td style="height:430px;font-size: 9px; width: 5%; text-align: center;vertical-align: top;"></td>
-        <td style="height:430px;font-size: 9px; width: 5%; text-align: center;vertical-align: top;"></td>
-        <td style="height:430px;font-size: 9px; width: 5%; text-align: center;vertical-align: top;"></td>
-        <td style="height:430px;font-size: 9px; width: 25%; text-align: center;vertical-align: top;"></td>
-        <td style="height:430px;font-size: 9px; width: 10%; text-align: center;vertical-align: top;"></td>
-        <td style="height:430px;font-size: 9px; width: 10%; text-align: center;vertical-align: top;"></td>
-        <td style="height:430px;font-size: 9px; width: 10%; text-align: center;vertical-align: top;"></td>
-        <td style="height:430px;font-size: 9px; width: 10%; text-align: center;vertical-align: top;"></td>
-        <td style="height:430px;font-size: 9px; width: 10%; text-align: center;vertical-align: top;"></td>
-        <td style="height:430px;font-size: 9px; width: 10%; text-align: center;vertical-align: top;"></td>
+        <td style="height:380px;font-size: 9px; width: 5%; text-align: center;vertical-align: top;"></td>
+        <td style="height:380px;font-size: 9px; width: 5%; text-align: center;vertical-align: top;"></td>
+        <td style="height:380px;font-size: 9px; width: 5%; text-align: center;vertical-align: top;"></td>
+        <td style="height:380px;font-size: 9px; width: 25%; text-align: center;vertical-align: top;"></td>
+        <td style="height:380px;font-size: 9px; width: 10%; text-align: center;vertical-align: top;"></td>
+        <td style="height:380px;font-size: 9px; width: 10%; text-align: center;vertical-align: top;"></td>
+        <td style="height:380px;font-size: 9px; width: 10%; text-align: center;vertical-align: top;"></td>
+        <td style="height:380px;font-size: 9px; width: 10%; text-align: center;vertical-align: top;"></td>
+        <td style="height:380px;font-size: 9px; width: 10%; text-align: center;vertical-align: top;"></td>
+        <td style="height:380px;font-size: 9px; width: 10%; text-align: center;vertical-align: top;"></td>
         </tr>
         </table>';
 

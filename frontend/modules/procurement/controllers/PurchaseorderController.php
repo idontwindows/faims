@@ -51,6 +51,23 @@ class PurchaseorderController extends \yii\web\Controller
         }
     }
 
+        /**
+     * Displays a single PurchaseRequest model.
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionViewPO($id)
+    {
+        $request = Yii::$app->request;
+        if($request->get('id') && $request->get('view')) {
+            $id = $request->get('id');
+            $model = $this->getgetprDetailsPOList($id);
+            return $this->renderAjax('_forms', [
+                'model' => $model,
+            ]);
+        }
+    }
+
 
     /*  public  function actionPurchaseOrder() {
 
