@@ -197,6 +197,8 @@ class PurchaserequestController extends Controller
             $requested_by_position = $pr["requested_by_position"];
             $approved_by = $pr["approved_by"];
             $approved_by_position = $pr["approved_by_position"];
+            $section = $pr["section"];
+            $division = $pr["division"];
         }
 
 
@@ -250,12 +252,12 @@ class PurchaserequestController extends Controller
 <table style="width: 100%;">
 <tbody>
 <tr>
-<td style="width: 60%; height: 12.6667px;">Department: <span style="text-decoration: underline;">Department of Science and Technology</span></td>
+<td style="width: 60%; height: 12.6667px;">Department: <span style="text-decoration: underline;">'. $division.'</span></td>
 <td style="width: 20%; ">PR No. <span style="text-decoration: underline;">'.$model->purchase_request_number.'</span></td>
 <td style="width: 20%; height: 12.6667px;">Date : <span style="text-decoration:underline;">'.date("m-d-Y",strtotime($model->purchase_request_date)).'</span></td>
 </tr>
 <tr>
-<td style="width: 60%; height: 12px;">Section: ____________________________________________</td>
+<td style="width: 60%; height: 12px;">Section: <span style="text-decoration: underline;">'. $section.'</span></td>
 <td style="width: 25%; height: 12px;">SAI No. ______________</td>
 <td style="width: 15%; height: 12px;">Date : ____________</td>
 </tr>
@@ -630,16 +632,18 @@ WHERE YEAR(`tbl_purchase_request`.`purchase_request_date`) =" . $gg);
     {
         //Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         $con = Yii::$app->procurementdb;
-        $sql = "SELECT *,
-`fnGetAssignatoryName`(`tbl_purchase_request`.`purchase_request_requestedby_id`) AS requested_by,
-`fnGetAssignatoryPosition`(`tbl_purchase_request`.`purchase_request_requestedby_id`) AS requested_by_position,
-`fnGetAssignatoryName`(`tbl_purchase_request`.`purchase_request_approvedby_id`) AS approved_by,
-`fnGetAssignatoryPosition`(`tbl_purchase_request`.`purchase_request_approvedby_id`) AS approved_by_position
-FROM `tbl_purchase_request_details` 
-INNER JOIN `tbl_purchase_request` 
-ON `tbl_purchase_request`.`purchase_request_id` = `tbl_purchase_request_details`.`purchase_request_id`
-INNER JOIN `fais`.`tbl_unit_type`
-ON `tbl_unit_type`.`unit_type_id` = `tbl_purchase_request_details`.`unit_id`
+            $sql = "SELECT *,
+            `fnGetAssignatoryName`(`tbl_purchase_request`.`purchase_request_requestedby_id`) AS requested_by,
+            `fnGetAssignatoryPosition`(`tbl_purchase_request`.`purchase_request_requestedby_id`) AS requested_by_position,
+            `fnGetAssignatoryName`(`tbl_purchase_request`.`purchase_request_approvedby_id`) AS approved_by,
+            `fnGetAssignatoryPosition`(`tbl_purchase_request`.`purchase_request_approvedby_id`) AS approved_by_position,
+            `fnGetSection`(`tbl_purchase_request`.`section_id`) AS section,
+            `fnGetDivision`(`tbl_purchase_request`.`division_id`) AS division
+            FROM `tbl_purchase_request_details` 
+            INNER JOIN `tbl_purchase_request` 
+            ON `tbl_purchase_request`.`purchase_request_id` = `tbl_purchase_request_details`.`purchase_request_id`
+            INNER JOIN `fais`.`tbl_unit_type`
+            ON `tbl_unit_type`.`unit_type_id` = `tbl_purchase_request_details`.`unit_id`
 WHERE `tbl_purchase_request_details`.`purchase_request_id`=".$id;
         $porequest = $con->createCommand($sql)->queryAll();
         return $porequest;
