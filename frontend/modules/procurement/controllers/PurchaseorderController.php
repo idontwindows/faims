@@ -423,7 +423,7 @@ class PurchaseorderController extends \yii\web\Controller
 </tr>
 <tr style="height: 12px;">  
 <td style="width: 70%; height: 20px;">&nbsp;Address : <span style="text-decoration:underline;">Zamboanga City</span></td>
-<td style="width: 30%; height: 20px;">Date</td>
+<td style="width: 30%; height: 20px;">Date : '.date("m-d-Y").'</td>
 </tr>
 <tr style="height: 12px;">
 <td style="width: 70%; height: 34px; vertical-align: top;" rowspan="3">
@@ -487,7 +487,7 @@ a penalty of one-tenth (1/10) of one percent for every day of delay shall be imp
 </tr>
 <tr>
 <td style="border-top:none;padding:5px;border-bottom:none;border-right:none;text-align: center;padding-left: 10px;font-weight:6px;" colspan="2">&nbsp;<span style="text-decoration:underline;text-align:center;"><b>'.$supplier.'</b></span><br>Signature over printed name</td>
-<td style="border-top:none;padding:5px;border-bottom:none;border-right:none;border-left:none; text-align: left;" colspan="2">&nbsp;<span style="text-decoration:underline;text-align:center;">'.date("m-d-Y").'</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Date</td>
+<td style="border-top:none;padding:5px;border-bottom:none;border-right:none;border-left:none; text-align: left;" colspan="2">&nbsp;<span style="text-decoration:underline;text-align:center;">____________</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Date</td>
 <td style="border-top:none;padding:5px;border-bottom:none;border-left:none; text-align: center;" colspan="2">&nbsp;<span style="text-decoration:underline;text-align:center;"><b>'.$assig2.'</b></span><br>'.$Assig2Position.'</td>
 </tr>
 <tr>
