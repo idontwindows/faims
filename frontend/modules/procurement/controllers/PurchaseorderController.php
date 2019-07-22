@@ -374,7 +374,7 @@ class PurchaseorderController extends \yii\web\Controller
 
         $pdf->marginTop = 100;
         //$pdf->marginHeader = 40;
-        $pdf->marginBottom=110;
+        $pdf->marginBottom=90   ;
         $headers= '
         <table width="100%">
         <tbody>
@@ -482,11 +482,11 @@ a penalty of one-tenth (1/10) of one percent for every day of delay shall be imp
 </td>
 </tr>
 <tr>
-<td style=" text-align: left;border-top:none;border-bottom:none;border-right:none;padding:25px;" colspan="4">&nbsp;Conforme:</td>
+<td style=" text-align: left;border-top:none;border-bottom:none;border-right:none;padding:20px;" colspan="4">&nbsp;Conforme:</td>
 <td style=" text-align: left;border-top:none;border-bottom:none;border-left:none;" colspan="2">&nbsp;Very truly yours,</td>
 </tr>
 <tr>
-<td style="border-top:none;padding:5px;border-bottom:none;border-right:none;text-align: center;padding-left: 10px;font-weight:6px;" colspan="2">&nbsp;<span style="text-decoration:underline;text-align:center;"><b>'.$supplier.'</b></span><br>Signature over printed name</td>
+<td style="border-top:none;padding:5px;border-bottom:none;border-right:none;text-align: center;padding-left: 0px;font-size:11px;" colspan="2">&nbsp;<span style="text-decoration:underline;text-align:center;padding-left:10px;"><b>'.$supplier.'</b></span><br>Signature over printed name</td>
 <td style="border-top:none;padding:5px;border-bottom:none;border-right:none;border-left:none; text-align: left;" colspan="2">&nbsp;<span style="text-decoration:underline;text-align:center;">____________</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Date</td>
 <td style="border-top:none;padding:5px;border-bottom:none;border-left:none; text-align: center;" colspan="2">&nbsp;<span style="text-decoration:underline;text-align:center;"><b>'.$assig2.'</b></span><br>'.$Assig2Position.'</td>
 </tr>
