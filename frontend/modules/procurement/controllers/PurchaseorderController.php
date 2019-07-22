@@ -486,7 +486,7 @@ a penalty of one-tenth (1/10) of one percent for every day of delay shall be imp
 <td style=" text-align: left;border-top:none;border-bottom:none;border-left:none;" colspan="2">&nbsp;Very truly yours,</td>
 </tr>
 <tr>
-<td style="border-top:none;padding:3px;border-bottom:none;border-right:none;text-align: center;padding-left: 0px;font-size:11px;" colspan="2">&nbsp;<span style="text-decoration:underline;text-align:center;padding-left:10px;"><b>'.$supplier.'</b></span><br>Signature over printed name</td>
+<td style="border-top:none;padding:3px;border-bottom:none;border-right:none;text-align: center;padding-left: 0px;font-size:11px;" colspan="2">&nbsp;<span style="text-decoration:underline;text-align:center;padding-left:0px;"><b>'.$supplier.'</b></span><br>Signature over printed name</td>
 <td style="border-top:none;padding:5px;border-bottom:none;border-right:none;border-left:none; text-align: left;" colspan="2">&nbsp;<span style="text-decoration:underline;text-align:center;">____________</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Date</td>
 <td style="border-top:none;padding:5px;border-bottom:none;border-left:none; text-align: center;" colspan="2">&nbsp;<span style="text-decoration:underline;text-align:center;"><b>'.$assig2.'</b></span><br>'.$Assig2Position.'</td>
 </tr>
