@@ -41,7 +41,7 @@ if ($model->approved=='') {
                 'name' => 'cbodvType',
                 'id'=> 'cbodvType',
                 'hideSearch' => true,
-                'disabled'=> $model->isNewRecord ? false : true,
+                'disabled'=> $model->isNewRecord ? false : false,
                 'data' => $dvtype_data,
                 'options' => [
                     'multiple' => false
@@ -49,18 +49,19 @@ if ($model->approved=='') {
                 'pluginEvents' => [
                     "change" => "function() {
                                              var data=$(this).val();
+                                             
                                              if (data=='MDS') {
                                                     $('#sono').show(500);
                                                     $('#specify').hide(500);
                                                     $('#pono').hide(500);
                                                     $('#taxable').show(500);
                                                     $(\".cboEmployeeA\").select2({
-                                                        disabled : true,
+                                                        disabled : false,
                                                         dropdownParent: $('#modalDisbursement'),
                                                         theme : \"krajee\"
                                                     });
-                                                      $(\"#disbursement-certified_a\").val('').trigger('change');
-                                                            alert('test');
+                                                      //$(\"#disbursement-certified_a\").val('').trigger('change');
+                   
                                              }
                                              if (data=='TF') {
                                                     $('#sono').hide(500);
@@ -114,7 +115,7 @@ if ($model->approved=='') {
 
             <div class="col-lg-1" id="taxable">
                 <?php $model->isNewRecord==1 ? $model->taxable=0:$model->taxable;?>
-                <?= $form->field($model, 'taxable')->radioList(array('1'=>'Yes','0'=>'No'),['itemOptions' => ['disabled' => $model->isNewRecord ? false : true]]); ?>
+                <?= $form->field($model, 'taxable')->radioList(array('1'=>'Yes','0'=>'No'),['itemOptions' => []]); ?>
             </div>
 
             <div class="col-lg-2" id="sono">
@@ -124,7 +125,7 @@ if ($model->approved=='') {
                     'id'=> 'cboSono',
                     'name'=> 'cboSono',
                     'language' => 'en',
-                    'options' => ['placeholder' => 'Select S.O','style'=> 'padding-top:0px;','disabled'=> false,
+                    'options' => ['placeholder' => 'Select O.R.S','style'=> 'padding-top:0px;','disabled'=> false,
                         'class'=> 'cboSono','tabindex'=>-1],
                     'pluginOptions' => [
                         'allowClear' => true,

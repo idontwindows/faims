@@ -51,6 +51,23 @@ class PurchaseorderController extends \yii\web\Controller
         }
     }
 
+        /**
+     * Displays a single PurchaseRequest model.
+     * @param integer $id
+     * @return mixed
+     */
+    public function actionViewPO($id)
+    {
+        $request = Yii::$app->request;
+        if($request->get('id') && $request->get('view')) {
+            $id = $request->get('id');
+            $model = $this->getgetprDetailsPOList($id);
+            return $this->renderAjax('_forms', [
+                'model' => $model,
+            ]);
+        }
+    }
+
 
     /*  public  function actionPurchaseOrder() {
 
@@ -188,8 +205,8 @@ class PurchaseorderController extends \yii\web\Controller
              $Assig2Position =  $sg["Assig2Position"];
          }
          $pdf->marginTop = 45;
-         $pdf->marginBottom = 50;
-         $pdf->marginFooter = 0;
+         //$pdf->marginHeader = 40;
+         $pdf->marginBottom =50;
 
          $headers= '<div style="height: 150px"></div>
                     <table border="0" width="100%">
@@ -237,19 +254,10 @@ class PurchaseorderController extends \yii\web\Controller
              $totalcost =  $quantity * $price;
              $summary = $summary + $totalcost;
          }
-         $footerss= '<div style="height: 20px"></div>
+         $footerss= '<div style="height: 10px"></div>
 
                     <table border="0" width="100%">
-                     <tr class="nospace-border">
-                     <td width="85%" colspan="4">&nbsp;</td>
-                     <td width="15%" style="padding-left: 25px;">&nbsp;</td>
-                     </tr>
-                     
-                     <tr class="nospace-border">
-                     <td width="85%" colspan="4">'.strtoupper(Yii::$app->formatter->asSpellout($summary)).' PESOS ONLY</td>
-                     <td width="15%" style="padding-left: 25px;">'. number_format($summary,2).'</td>
-                     </tr>
-                  
+ 
                      <tr class="nospace-border">
                      <td width="85%" colspan="4">&nbsp;</td>
                      <td width="15%" style="padding-left: 25px;">&nbsp;</td>
@@ -304,41 +312,10 @@ class PurchaseorderController extends \yii\web\Controller
                         </tr>              
                     </table>
                     ';
-         $LeftFooterContent = '<div style="text-align: left;">'.date("F j, Y").'</div>';
-         $CenterFooterContent = '';
-         $RightFooterContent = '<div style="text-align: right;">Page {PAGENO} of {nbpg}</div>';
-         $oddEvenConfiguration =
-             [
-                 'L' => [ // L for Left part of the header
-                     'content' => $LeftFooterContent,
-                     'font-size' => 7,
-                     'footer-style-left' => 300,
-                     'font-family' => 'Arial',
-                     'color'=>'#000000'
-                 ],
-                 'C' => [ // C for Center part of the header
-                     'content' => $CenterFooterContent,
-                     'font-size' => 6,
-                     'font-style' => 'B',
-                     'font-family' => 'arial',
-                     'color'=>'#000000',
-                 ],
-                 'R' => [
-                     'content' => $RightFooterContent,
-                     'font-size' => 6,
-                     'font-style' => 'B',
-                     'font-family' => 'arial',
-                     'color'=>'#000000'
-                 ],
-                 'line' =>0, // That's the relevant parameter
-             ];
-         $headerFooterConfiguration = [
-             'odd' => $oddEvenConfiguration,
-             'even' => $oddEvenConfiguration
-         ];
          $pdf->options = [
              'title' => 'Report Title',
              'defaultheaderline' => 0,
+             'defaultfooterline' => 0,
              'subject'=> 'Report Subject'];
          $pdf->methods = [
              'SetHeader'=>[$headers],
@@ -347,6 +324,209 @@ class PurchaseorderController extends \yii\web\Controller
 
          return $pdf->render();
      }
+
+
+
+
+     public function actionReportpofull($id) {
+        $request = Yii::$app->request;
+        $id = $request->get('id');
+        $model = $this->findModelDetails($id);
+        $prdetails = $this->getprDetails($id);
+        $assig = $this->getassig();
+        $content = $this->renderPartial('_report2', ['prdetails'=> $prdetails,'model'=>$model]);
+        $pdf = new Pdf();
+        $pdf->mode = pdf::MODE_UTF8;
+       // $pdf->format = pdf::FORMAT_A4;
+        $pdf->orientation = Pdf::ORIENT_PORTRAIT;
+        $pdf->destination =  $pdf::DEST_BROWSER;
+        $pdf->content  = $content;
+        $pdf->cssFile = '@vendor/kartik-v/yii2-mpdf/assets/kv-mpdf-bootstrap.min.css';
+        $pdf->cssInline = 'body {} .kv-heading-1{font-size:18px}.nospace-border{border:0px;}.no-padding{ padding:0px;}.print-container{font-family:Arial;}';
+        $pdf->marginFooter=5;
+
+        $supplier='';
+        $ponum='';
+        $prno='';
+        $pdate='';
+        $prdate='';
+        $summary = 0;
+        $totalcost = 0;
+        foreach ($prdetails as $pr) {
+            $supplier = $pr["supplier_name"];
+            $ponum = $pr["purchase_order_number"];
+            $pdate = $pr["purchase_order_date"];
+            $prno = $pr["purchase_request_number"];
+            $prdate = $pr["purchase_request_date"];
+            $quantity = $pr["bids_quantity"];
+            $price = $pr["bids_price"];
+            $units = $pr["bids_unit"];
+            $totalcost =$quantity * $price;
+            $summary = $summary + $totalcost;
+        }
+
+        foreach ($assig as $sg) {
+            $assig1 =  $sg["Assig1"];
+            $assig2 =  $sg["Assig2"];
+            $Assig1Position =  $sg["Assig1Position"];
+            $Assig2Position =  $sg["Assig2Position"];
+        }
+
+        $pdf->marginTop = 100;
+        //$pdf->marginHeader = 40;
+        $pdf->marginBottom=90   ;
+        $headers= '
+        <table width="100%">
+        <tbody>
+        <tr style="height: 43.6667px;">
+        <td style="width: 82.4103%; height: 43.6667px;">
+        <p>&nbsp;</p>
+        </td>
+        <td style="width: 12.5897%; height: 43.6667px;">
+        <table border="1" width="100%" style="border-collapse: collapse;">
+        <tbody>
+        <tr>
+        <td>
+        <p><h6 style-P><strong>FASS-PUR F08</strong>&nbsp; Rev. 1/12-24-07</h6></p>
+        </td>
+        </tr>
+        </tbody>
+        </table>
+        </td>
+        </tr>
+        </tbody>
+        </table>
+        
+        <table width="100%" style="border-collapse: collapse;" border="1">
+        <tbody>
+        <tr>
+        <td style="text-align: center;border-bottom:none;">Republic of the Philippines</td>
+        </tr>
+        <tr>        
+        <td style="text-align: center;border-bottom:none;border-top:none;"><strong>DEPARTMENT OF SCIENCE AND TECHNOLOGY</strong></td>
+        </tr>
+        <tr>
+        <td style="text-align: center;border-bottom:none;border-top:none;">Regional Office No. IX</td>
+        </tr>
+        <tr>
+        <td style="text-align: center;border-bottom:none;border-top:none;">Zamboanga City</td></tr>
+        <tr>
+        <td style="text-align: center;font-family:Arial;font-size:15px;border-top:none;"><b>PURCHASE ORDER</b></td>
+        </tr>
+        </tbody>                                                                                                                                                                                                                                                                                                                                                             
+        </table>
+<table style="width: 100%; border-collapse: collapse;" border="1">
+<tbody>
+<tr style="height: 12px;">
+<td style="width: 70%; height: 20px;">&nbsp;Supplier : <span style="text-decoration:underline;">'.$supplier.'</span></td>
+<td style="width: 30%; height: 20px;">P.O No. : <span style="text-decoration:underline;">'.$ponum.'</span></td>
+</tr>
+<tr style="height: 12px;">  
+<td style="width: 70%; height: 20px;">&nbsp;Address : <span style="text-decoration:underline;">Zamboanga City</span></td>
+<td style="width: 30%; height: 20px;">Date : '.date("m-d-Y").'</td>
+</tr>
+<tr style="height: 12px;">
+<td style="width: 70%; height: 34px; vertical-align: top;" rowspan="3">
+<h5>Gentlemen:</h5>
+<p>Please furnish this office the following articles subject to the terms and conditions contained them</p>
+</td>
+<td style="width: 30%; height: 12px;">Mode of Procurement :</td>
+</tr>
+<tr style="height: 10px;">
+<td style="width: 30%; height: 10px;">P.R. No. : <span style="text-decoration:underline;">'.$prno.'</span></td>
+</tr>
+<tr style="height: 12px;">
+<td style="width: 30%; height: 12px;">P.R Date : <span style="text-decoration:underline;">'.$pdate.'</span> </td>
+</tr>
+<tr style="height: 12px;">
+<td style="width: 70%; height: 15px;">Place of Delivery :&nbsp;</td>
+<td style="width: 30%; height: 15px;">Delivery Term&nbsp;:&nbsp;</td>
+</tr>
+<tr style="height: 12px;">
+<td style="width: 70%; height: 15px;">Date of Delivery :&nbsp;</td>
+<td style="width: 30%; height: 15px;">Payment Term :&nbsp;</td>
+</tr>
+</tbody>
+</table>
+
+<table style="width: 100%; border-collapse: collapse;" border="1">
+<tbody>
+<tr style="height: 20px;">
+<td style="width: 10%; height: 20px; text-align: center;">Stock No.</td>
+<td style="width: 10%; height: 20px; text-align: center;">Unit</td>
+<td style="width: 40%; height: 20px; text-align: center;">Description</td>
+<td style="width: 13%; height: 20px; text-align: center;">Quantity</td>
+<td style="width: 13%; height: 20px; text-align: center;">Unit Cost</td>
+<td style="width: 13%; height: 20px; text-align: center;">Amount</td>
+</tr>
+<tr style="height: 20px;">
+<td style="width: 10%; height: 400px; text-align: center;">&nbsp;</td>
+<td style="width: 10%; height: 400px; text-align: center;">&nbsp;</td>
+<td style="width: 40%; height: 400px; text-align: center;">&nbsp;</td>
+<td style="width: 13%; height: 400px; text-align: center;">&nbsp;</td>
+<td style="width: 13%; height: 400px; text-align: center;">&nbsp;</td>
+<td style="width: 13%; height: 400px; text-align: center;">&nbsp;</td>
+</tr>
+</tbody>
+<tfoot>
+    <tr>
+        <td style="width: 87%; text-align: left;border:none;border:1px solid black;background:white;" colspan="5">'.strtoupper(Yii::$app->formatter->asSpellout($summary))." PESOS ONLY".'</td>
+        <td style="width: 13%; text-align: center;border:1px solid black;">'.number_format($summary,2).'</td>      
+    </tr>
+    </tfoot>
+</table>
+<table  style="width: 100%; border-collapse: collapse;" border="1"> 
+<tr>
+<td style="border-bottom:none;width: 100%; text-align: left;padding:15px;padding-top:0px;" colspan="6">&nbsp;In case of failure to make the full delivery within the time specified above, 
+a penalty of one-tenth (1/10) of one percent for every day of delay shall be imposed.
+</td>
+</tr>
+<tr>
+<td style=" text-align: left;border-top:none;border-bottom:none;border-right:none;padding:20px;" colspan="4">&nbsp;Conforme:</td>
+<td style=" text-align: left;border-top:none;border-bottom:none;border-left:none;" colspan="2">&nbsp;Very truly yours,</td>
+</tr>
+<tr>
+<td style="border-top:none;padding:3px;border-bottom:none;border-right:none;text-align: center;padding-left: 0px;font-size:11px;" colspan="2">&nbsp;<span style="text-decoration:underline;text-align:center;padding-left:0px;"><b>'.$supplier.'</b></span><br>Signature over printed name</td>
+<td style="border-top:none;padding:5px;border-bottom:none;border-right:none;border-left:none; text-align: left;" colspan="2">&nbsp;<span style="text-decoration:underline;text-align:center;">____________</span><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Date</td>
+<td style="border-top:none;padding:5px;border-bottom:none;border-left:none; text-align: center;" colspan="2">&nbsp;<span style="text-decoration:underline;text-align:center;"><b>'.$assig2.'</b></span><br>'.$Assig2Position.'</td>
+</tr>
+<tr>
+<td style="border-top:none;padding:5px;border-top:none;border-bottom:none;border-right:none; text-align: center;padding-left: 30px;" colspan="2">&nbsp;</td>
+<td style="border-top:none;padding:5px;border-top:none;border-bottom:none;border-right:none;border-left:none; text-align: left;" colspan="2">&nbsp;</td>
+<td style="border-top:none;padding:5px;border-top:none;border-bottom:none;border-left:none; text-align: center;" colspan="2">&nbsp;</td>
+</tr>
+<tr>
+<td style=" text-align: left;padding:0px;border-bottom:none;" colspan="4">&nbsp;Funds Available:</td>
+<td style=" text-align: left;padding:20px;border-bottom:none;" colspan="2">&nbsp;O.S. No.&nbsp; __________________</td>
+</tr>
+<tr>
+<td style=" text-align: center;padding:0px;border-top:none;" colspan="4"><span style="text-decoration:underline;text-align:center;"><b>'.$assig1.'</b></span><br>'.$Assig1Position.'</td>
+<td style=" text-align: left;padding:20px;border-top:none;" colspan="2">&nbsp;Amount&nbsp; __________________</td>
+</tr>
+</table>
+';
+
+        
+        $footerss= '                      
+        <table style="width:100%;">
+        <tr>
+            <td style="text-align: left;width:50%;">'.date("F j, Y").'</td>
+            <td style="text-align: right;width:50%;">Page {PAGENO} of {nbpg}</td>
+        </tr>              
+        </table>';
+        $pdf->options = [
+            'title' => 'Report Title',
+            'defaultheaderline' => 0,
+            'defaultfooterline' => 0,
+            'subject'=> 'Report Subject'];
+        $pdf->methods = [
+            'SetHeader'=>[$headers],
+            'SetFooter'=>[$footerss],
+        ];
+
+        return $pdf->render();
+    }
+
 
 
     function getassig()

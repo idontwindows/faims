@@ -2,12 +2,11 @@
 <project version="4">
   <component name="BookmarkManager">
     <bookmark url="file://$PROJECT_DIR$/common/themes/sb-admin2/layouts/main.php" line="1" />
-    <bookmark url="file://$PROJECT_DIR$/frontend/modules/procurement/views/purchaseorder/_report.php" description="        $summary = $summary + $totalcost;&#10;" line="22" />
+    <bookmark url="file://$PROJECT_DIR$/frontend/modules/procurement/views/purchaseorder/_report.php" description="        $summary = $summary + $totalcost;&#10;" line="21" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="628bc833-b3b4-48ae-81df-e3b2ffd631e4" name="Default" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
-    <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -15,29 +14,33 @@
   </component>
   <component name="ComposerSettings" doNotAsk="true">
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
+    <execution>
+      <executable />
+    </execution>
+  </component>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_DATA_SOURCES" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+    <option name="HIDDEN_KINDS">
+      <set />
+    </option>
+    <expand />
+    <select />
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="_modal.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/frontend/modules/procurement/views/purchaserequest/_modal.php">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/frontend/modules/procurement/views/purchaserequest/_report.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="5066">
-              <caret line="311" column="25" selection-start-line="309" selection-end-line="311" selection-end-column="25" />
+            <state relative-caret-position="272">
+              <caret line="16" column="54" selection-start-line="16" selection-start-column="54" selection-end-line="16" selection-end-column="54" />
               <folding>
-                <element signature="e#6#33#0#PHP" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="_report_abstract.php" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/frontend/modules/procurement/views/bids/_report_abstract.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="527">
-              <caret line="64" column="49" selection-start-line="64" selection-start-column="49" selection-end-line="64" selection-end-column="49" />
-              <folding>
-                <element signature="n#style#0;n#th#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#th#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#td#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#td#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#td#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#td#0;n#!!top" expanded="true" />
@@ -47,50 +50,152 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="BidsController.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/frontend/modules/procurement/controllers/BidsController.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="414">
-              <caret line="224" column="138" selection-start-line="224" selection-start-column="19" selection-end-line="224" selection-end-column="138" />
-              <folding>
-                <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#1;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#table#0;n#!!top" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="purchaserequest.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/frontend/web/js/procurement/purchaserequest/purchaserequest.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="413">
-              <caret line="126" column="46" selection-start-line="126" selection-start-column="46" selection-end-line="126" selection-end-column="46" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PurchaserequestController.php" pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/frontend/modules/procurement/controllers/PurchaserequestController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="397">
-              <caret line="271" column="37" selection-start-line="271" selection-start-column="31" selection-end-line="271" selection-end-column="37" />
+            <state relative-caret-position="-468">
+              <caret line="204" column="28" selection-start-line="204" selection-start-column="28" selection-end-line="204" selection-end-column="28" />
               <folding>
                 <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#td#0;n#tr#0;n#table#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#td#1;n#tr#0;n#table#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#table#0;n#!!top" expanded="true" />
-                <element signature="e#237#243#1" expanded="true" />
-                <element signature="e#485#491#1" expanded="true" />
-                <element signature="e#691#697#1" expanded="true" />
-                <element signature="e#901#907#1" expanded="true" />
+                <element signature="e#225#231#1" expanded="true" />
+                <element signature="e#461#467#1" expanded="true" />
+                <element signature="e#655#661#1" expanded="true" />
+                <element signature="e#853#859#1" expanded="true" />
                 <element signature="n#style#0;n#td#0;n#tr#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#td#1;n#tr#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#td#0;n#tr#0;n#table#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#td#1;n#tr#0;n#table#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#tr#5;n#table#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#td#1;n#tr#5;n#table#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#tr#0;n#tbody#0;n#table#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#td#0;n#tr#0;n#tbody#0;n#table#0;n#!!top" expanded="true" />
+                <element signature="e#113#119#1" expanded="true" />
+                <element signature="n#style#0;n#td#1;n#tr#0;n#tbody#0;n#table#0;n#!!top" expanded="true" />
+                <element signature="e#265#271#0" expanded="true" />
+                <element signature="n#style#0;n#p#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#p#1;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#table#1;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#tr#0;n#tbody#0;n#table#1;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#td#0;n#tr#0;n#tbody#0;n#table#1;n#!!top" expanded="true" />
+                <element signature="e#798#804#0" expanded="true" />
+                <element signature="e#805#811#0" expanded="true" />
+                <element signature="e#812#818#0" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#td#0;n#tr#0;n#tbody#0;n#table#1;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#td#1;n#tr#0;n#tbody#0;n#table#1;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#td#1;n#tr#0;n#tbody#0;n#table#1;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#td#2;n#tr#0;n#tbody#0;n#table#1;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#tr#1;n#tbody#0;n#table#1;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#td#0;n#tr#1;n#tbody#0;n#table#1;n#!!top" expanded="true" />
+                <element signature="e#1161#1167#0" expanded="true" />
+                <element signature="e#1168#1174#0" expanded="true" />
+                <element signature="e#1175#1181#0" expanded="true" />
+                <element signature="e#1182#1188#0" expanded="true" />
+                <element signature="e#1189#1195#0" expanded="true" />
+                <element signature="e#1196#1202#0" expanded="true" />
+                <element signature="n#style#0;n#span#0;n#td#0;n#tr#1;n#tbody#0;n#table#1;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#td#1;n#tr#1;n#tbody#0;n#table#1;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#td#2;n#tr#1;n#tbody#0;n#table#1;n#!!top" expanded="true" />
+                <element signature="e#1358#1364#0" expanded="true" />
+                <element signature="n#style#0;n#tr#0;n#table#2;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#td#0;n#tr#0;n#table#2;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#td#1;n#tr#0;n#table#2;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#td#2;n#tr#0;n#table#2;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#td#3;n#tr#0;n#table#2;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#td#4;n#tr#0;n#table#2;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#td#5;n#tr#0;n#table#2;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#td#0;n#tr#1;n#table#2;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#td#1;n#tr#1;n#table#2;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#td#2;n#tr#1;n#table#2;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#td#3;n#tr#1;n#table#2;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#td#4;n#tr#1;n#table#2;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#td#5;n#tr#1;n#table#2;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#td#0;n#tr#2;n#table#2;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#td#0;n#tr#3;n#table#2;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#td#0;n#tr#4;n#table#2;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#td#1;n#tr#4;n#table#2;n#!!top" expanded="true" />
+                <element signature="e#2600#2606#1" expanded="true" />
+                <element signature="n#style#0;n#td#2;n#tr#4;n#table#2;n#!!top" expanded="true" />
+                <element signature="e#2653#2659#1" expanded="true" />
+                <element signature="n#style#0;n#td#0;n#tr#5;n#table#2;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#td#1;n#tr#5;n#table#2;n#!!top" expanded="true" />
+                <element signature="e#2768#2774#1" expanded="true" />
+                <element signature="n#style#0;n#td#2;n#tr#5;n#table#2;n#!!top" expanded="true" />
+                <element signature="e#2821#2827#1" expanded="true" />
+                <element signature="n#style#0;n#td#0;n#tr#6;n#table#2;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#td#1;n#tr#6;n#table#2;n#!!top" expanded="true" />
+                <element signature="e#2935#2941#1" expanded="true" />
+                <element signature="n#style#0;n#td#2;n#tr#6;n#table#2;n#!!top" expanded="true" />
+                <element signature="e#2988#2994#1" expanded="true" />
+                <element signature="n#style#0;n#table#0;n#!!top" expanded="true" />
+                <element signature="e#225#231#1" expanded="true" />
+                <element signature="e#461#467#1" expanded="true" />
+                <element signature="e#655#661#1" expanded="true" />
+                <element signature="e#853#859#1" expanded="true" />
+                <element signature="n#style#0;n#td#0;n#tr#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#td#1;n#tr#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#tr#5;n#table#0;n#!!top" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/frontend/modules/procurement/views/purchaserequest/_report2.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="379">
+              <caret line="35" column="18" selection-start-line="35" selection-start-column="18" selection-end-line="35" selection-end-column="18" />
+              <folding>
+                <element signature="n#style#0;n#tr#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#td#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#td#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#td#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#td#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#td#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#td#0;n#!!top" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/frontend/modules/procurement/controllers/PurchaseorderController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="3094">
+              <caret line="189" column="28" selection-start-line="189" selection-start-column="28" selection-end-line="189" selection-end-column="28" />
+              <folding>
+                <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#tr#0;n#table#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#td#0;n#tr#7;n#table#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#td#1;n#tr#7;n#table#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#td#1;n#tr#0;n#table#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/frontend/modules/procurement/views/purchaseorder/_report.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-357">
+              <caret column="29" selection-start-column="29" selection-end-column="29" />
+              <folding>
+                <element signature="n#style#0;n#td#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#td#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#td#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#td#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#td#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#td#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#td#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#td#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#td#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#td#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#td#0;n#!!top" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -100,16 +205,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>land bank</find>
-      <find>mds</find>
-      <find>font</find>
-      <find>genera</find>
-      <find>date</find>
-      <find>editor</find>
-      <find>particulars</find>
-      <find>remarks</find>
-      <find>bidsdetails</find>
-      <find>print</find>
       <find>reporta</find>
       <find>report</find>
       <find>purchase</find>
@@ -125,11 +220,21 @@
       <find>alert</find>
       <find>mpdf</find>
       <find>mpdf.php</find>
-      <find>abstract</find>
       <find>$assig</find>
       <find>var tt</find>
       <find>update</find>
       <find>data-total</find>
+      <find>input_text</find>
+      <find>tbl_bids</find>
+      <find>t</find>
+      <find>action</find>
+      <find>bids</find>
+      <find>check</find>
+      <find>abstract</find>
+      <find>award</find>
+      <find>awards</find>
+      <find>getpoDetails</find>
+      <find>cellpad</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -138,9 +243,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/frontend/modules/procurement/views/bids/_bidsummary.php" />
-        <option value="$PROJECT_DIR$/frontend/web/js/procurement/bids/bids.js" />
-        <option value="$PROJECT_DIR$/common/config/params.php" />
         <option value="$PROJECT_DIR$/frontend/controllers/SiteController.php" />
         <option value="$PROJECT_DIR$/common/mail/sampleEmail-html.php" />
         <option value="$PROJECT_DIR$/common/mail/message.php" />
@@ -156,7 +258,6 @@
         <option value="$PROJECT_DIR$/frontend/modules/procurement/views/disbursement/index.php" />
         <option value="$PROJECT_DIR$/common/models/inventory/ProductsSearch.php" />
         <option value="$PROJECT_DIR$/frontend/modules/procurement/views/supplier/index.php" />
-        <option value="$PROJECT_DIR$/common/config/bootstrap.php" />
         <option value="$PROJECT_DIR$/frontend/modules/procurement/views/obligationrequest/index.php" />
         <option value="$PROJECT_DIR$/frontend/modules/procurement/views/bids/_report.php" />
         <option value="$PROJECT_DIR$/frontend/modules/procurement/views/disbursement/create.php" />
@@ -165,91 +266,36 @@
         <option value="$PROJECT_DIR$/common/models/procurement/Purchaserequest.php" />
         <option value="$PROJECT_DIR$/frontend/modules/procurement/controllers/ObligationrequestController.php" />
         <option value="$PROJECT_DIR$/frontend/modules/procurement/controllers/DisbursementController.php" />
-        <option value="$PROJECT_DIR$/frontend/modules/procurement/views/purchaseorder/_report.php" />
-        <option value="$PROJECT_DIR$/frontend/modules/procurement/views/purchaserequest/_report.php" />
         <option value="$PROJECT_DIR$/frontend/modules/procurement/views/obligationrequest/_form.php" />
-        <option value="$PROJECT_DIR$/frontend/modules/procurement/controllers/PurchaseorderController.php" />
         <option value="$PROJECT_DIR$/frontend/modules/procurement/views/disbursement/_report.php" />
         <option value="$PROJECT_DIR$/frontend/web/css/custom.css" />
         <option value="$PROJECT_DIR$/frontend/modules/procurement/views/disbursement/_form.php" />
         <option value="$PROJECT_DIR$/frontend/modules/procurement/views/obligationrequest/_report.php" />
-        <option value="$PROJECT_DIR$/frontend/modules/procurement/views/bids/_bids.php" />
         <option value="$PROJECT_DIR$/frontend/web/css/site.css" />
-        <option value="$PROJECT_DIR$/frontend/modules/procurement/views/purchaserequest/_modal.php" />
         <option value="$PROJECT_DIR$/frontend/web/js/main.js" />
         <option value="$PROJECT_DIR$/frontend/controllers/AjaxController.php" />
-        <option value="$PROJECT_DIR$/frontend/modules/procurement/views/purchaserequest/index.php" />
         <option value="$PROJECT_DIR$/frontend/modules/procurement/controllers/InspectionController.php" />
         <option value="$PROJECT_DIR$/frontend/modules/procurement/views/inspection/_report.php" />
         <option value="$PROJECT_DIR$/composer.lock" />
         <option value="$PROJECT_DIR$/vendor/mpdf/mpdf/src/Mpdf.php" />
-        <option value="$PROJECT_DIR$/frontend/modules/procurement/controllers/BidsController.php" />
-        <option value="$PROJECT_DIR$/frontend/modules/procurement/controllers/PurchaserequestController.php" />
+        <option value="$PROJECT_DIR$/frontend/models/SignupForm.php" />
         <option value="$PROJECT_DIR$/frontend/web/js/procurement/purchaserequest/purchaserequest.js" />
+        <option value="$PROJECT_DIR$/frontend/modules/procurement/views/purchaserequest/_modal.php" />
         <option value="$PROJECT_DIR$/frontend/modules/procurement/views/bids/_report_abstract.php" />
+        <option value="$PROJECT_DIR$/common/config/bootstrap.php" />
+        <option value="$PROJECT_DIR$/frontend/modules/procurement/views/bids/_bidsummary.php" />
+        <option value="$PROJECT_DIR$/frontend/web/js/procurement/bids/bids.js" />
+        <option value="$PROJECT_DIR$/frontend/modules/procurement/views/bids/_bids.php" />
+        <option value="$PROJECT_DIR$/frontend/modules/procurement/controllers/BidsController.php" />
+        <option value="$PROJECT_DIR$/common/config/aliases.php" />
+        <option value="$PROJECT_DIR$/frontend/modules/procurement/views/purchaserequest/index.php" />
+        <option value="$PROJECT_DIR$/frontend/modules/procurement/views/purchaserequest/_report2.php" />
+        <option value="$PROJECT_DIR$/frontend/modules/procurement/views/purchaseorder/_report.php" />
+        <option value="$PROJECT_DIR$/frontend/modules/procurement/controllers/PurchaserequestController.php" />
+        <option value="$PROJECT_DIR$/frontend/modules/procurement/controllers/PurchaseorderController.php" />
+        <option value="$PROJECT_DIR$/frontend/modules/procurement/views/purchaserequest/_report.php" />
       </list>
     </option>
-  </component>
-  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
-  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
-  <component name="JsGulpfileManager">
-    <detection-done>true</detection-done>
-    <sorting>DEFINITION_ORDER</sorting>
-  </component>
-  <component name="NodePackageJsonFileManager">
-    <packageJsonPaths>
-      <path value="$PROJECT_DIR$/frontend/web/assets/2cb4dabb/package.json" />
-      <path value="$PROJECT_DIR$/frontend/web/assets/32df6323/package.json" />
-      <path value="$PROJECT_DIR$/frontend/web/assets/3edba272/package.json" />
-      <path value="$PROJECT_DIR$/frontend/web/assets/783d6692/package.json" />
-      <path value="$PROJECT_DIR$/frontend/web/assets/a6c0d642/package.json" />
-      <path value="$PROJECT_DIR$/frontend/web/assets/a944c021/package.json" />
-      <path value="$PROJECT_DIR$/vendor/almasaeed2010/adminlte/bower_components/Flot/package.json" />
-      <path value="$PROJECT_DIR$/vendor/almasaeed2010/adminlte/bower_components/bootstrap-datepicker/package.json" />
-      <path value="$PROJECT_DIR$/vendor/almasaeed2010/adminlte/bower_components/bootstrap-daterangepicker/package.json" />
-      <path value="$PROJECT_DIR$/vendor/almasaeed2010/adminlte/bower_components/bootstrap/package.json" />
-      <path value="$PROJECT_DIR$/vendor/almasaeed2010/adminlte/bower_components/chart.js/package.json" />
-      <path value="$PROJECT_DIR$/vendor/almasaeed2010/adminlte/bower_components/ckeditor/package.json" />
-      <path value="$PROJECT_DIR$/vendor/almasaeed2010/adminlte/bower_components/eve-raphael/package.json" />
-      <path value="$PROJECT_DIR$/vendor/almasaeed2010/adminlte/bower_components/ion.rangeSlider/package.json" />
-      <path value="$PROJECT_DIR$/vendor/almasaeed2010/adminlte/bower_components/jquery-knob/package.json" />
-      <path value="$PROJECT_DIR$/vendor/almasaeed2010/adminlte/bower_components/jquery-slimscroll/package.json" />
-      <path value="$PROJECT_DIR$/vendor/almasaeed2010/adminlte/bower_components/jquery-ui/package.json" />
-      <path value="$PROJECT_DIR$/vendor/almasaeed2010/adminlte/bower_components/morris.js/package.json" />
-      <path value="$PROJECT_DIR$/vendor/almasaeed2010/adminlte/bower_components/select2/package.json" />
-      <path value="$PROJECT_DIR$/vendor/almasaeed2010/adminlte/package.json" />
-      <path value="$PROJECT_DIR$/vendor/bower-asset/blueimp-canvas-to-blob/package.json" />
-      <path value="$PROJECT_DIR$/vendor/bower-asset/blueimp-file-upload/package.json" />
-      <path value="$PROJECT_DIR$/vendor/bower-asset/blueimp-gallery/package.json" />
-      <path value="$PROJECT_DIR$/vendor/bower-asset/blueimp-load-image/package.json" />
-      <path value="$PROJECT_DIR$/vendor/bower-asset/blueimp-tmpl/package.json" />
-      <path value="$PROJECT_DIR$/vendor/bower-asset/bootstrap-datepicker/package.json" />
-      <path value="$PROJECT_DIR$/vendor/bower-asset/bootstrap/package.json" />
-      <path value="$PROJECT_DIR$/vendor/bower-asset/bootstrap3-dialog/package.json" />
-      <path value="$PROJECT_DIR$/vendor/bower-asset/highcharts-release/package.json" />
-      <path value="$PROJECT_DIR$/vendor/bower-asset/highcharts/package.json" />
-      <path value="$PROJECT_DIR$/vendor/bower-asset/inputmask/package.json" />
-      <path value="$PROJECT_DIR$/vendor/bower-asset/jquery-ui/package.json" />
-      <path value="$PROJECT_DIR$/vendor/bower-asset/jquery/package.json" />
-      <path value="$PROJECT_DIR$/vendor/bower-asset/nprogress/package.json" />
-      <path value="$PROJECT_DIR$/vendor/bower-asset/punycode/package.json" />
-      <path value="$PROJECT_DIR$/vendor/bower-asset/simple-ajax-uploader/package.json" />
-      <path value="$PROJECT_DIR$/vendor/bower-asset/sweetalert/package.json" />
-      <path value="$PROJECT_DIR$/vendor/bower-asset/typeahead.js/package.json" />
-      <path value="$PROJECT_DIR$/vendor/bower-asset/yii2-pjax/package.json" />
-      <path value="$PROJECT_DIR$/vendor/ckeditor/ckeditor/package.json" />
-      <path value="$PROJECT_DIR$/vendor/components/flag-icon-css/package.json" />
-      <path value="$PROJECT_DIR$/vendor/fortawesome/font-awesome/package.json" />
-      <path value="$PROJECT_DIR$/vendor/kartik-v/bootstrap-checkbox-x/package.json" />
-      <path value="$PROJECT_DIR$/vendor/kartik-v/bootstrap-fileinput/package.json" />
-      <path value="$PROJECT_DIR$/vendor/kartik-v/bootstrap-popover-x/package.json" />
-      <path value="$PROJECT_DIR$/vendor/kartik-v/bootstrap-star-rating/package.json" />
-      <path value="$PROJECT_DIR$/vendor/kartik-v/dependent-dropdown/package.json" />
-      <path value="$PROJECT_DIR$/vendor/kartik-v/php-date-formatter/package.json" />
-      <path value="$PROJECT_DIR$/vendor/npm-asset/fullcalendar/package.json" />
-      <path value="$PROJECT_DIR$/vendor/npm-asset/jquery/package.json" />
-      <path value="$PROJECT_DIR$/vendor/npm-asset/moment/package.json" />
-    </packageJsonPaths>
   </component>
   <component name="PhpWorkspaceProjectConfiguration">
     <include_path>
@@ -437,16 +483,17 @@
     </include_path>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="1405" />
-    <option name="width" value="1940" />
-    <option name="height" value="1060" />
+    <option name="x" value="240" />
+    <option name="y" value="126" />
+    <option name="width" value="1440" />
+    <option name="height" value="765" />
   </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -462,6 +509,17 @@
             <path>
               <item name="faims" type="b2602c69:ProjectViewProjectNode" />
               <item name="faims" type="462c0819:PsiDirectoryNode" />
+              <item name="common" type="462c0819:PsiDirectoryNode" />
+              <item name="config" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="faims" type="b2602c69:ProjectViewProjectNode" />
+              <item name="faims" type="462c0819:PsiDirectoryNode" />
+              <item name="environments" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="faims" type="b2602c69:ProjectViewProjectNode" />
+              <item name="faims" type="462c0819:PsiDirectoryNode" />
               <item name="frontend" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -469,6 +527,12 @@
               <item name="faims" type="462c0819:PsiDirectoryNode" />
               <item name="frontend" type="462c0819:PsiDirectoryNode" />
               <item name="controllers" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="faims" type="b2602c69:ProjectViewProjectNode" />
+              <item name="faims" type="462c0819:PsiDirectoryNode" />
+              <item name="frontend" type="462c0819:PsiDirectoryNode" />
+              <item name="models" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="faims" type="b2602c69:ProjectViewProjectNode" />
@@ -515,16 +579,7 @@
               <item name="modules" type="462c0819:PsiDirectoryNode" />
               <item name="procurement" type="462c0819:PsiDirectoryNode" />
               <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="inspection" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="faims" type="b2602c69:ProjectViewProjectNode" />
-              <item name="faims" type="462c0819:PsiDirectoryNode" />
-              <item name="frontend" type="462c0819:PsiDirectoryNode" />
-              <item name="modules" type="462c0819:PsiDirectoryNode" />
-              <item name="procurement" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="obligationrequest" type="462c0819:PsiDirectoryNode" />
+              <item name="purchaseorder" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="faims" type="b2602c69:ProjectViewProjectNode" />
@@ -563,47 +618,27 @@
               <item name="web" type="462c0819:PsiDirectoryNode" />
               <item name="js" type="462c0819:PsiDirectoryNode" />
               <item name="procurement" type="462c0819:PsiDirectoryNode" />
-              <item name="purchaserequest" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="faims" type="b2602c69:ProjectViewProjectNode" />
-              <item name="faims" type="462c0819:PsiDirectoryNode" />
-              <item name="vendor" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="faims" type="b2602c69:ProjectViewProjectNode" />
-              <item name="faims" type="462c0819:PsiDirectoryNode" />
-              <item name="vendor" type="462c0819:PsiDirectoryNode" />
-              <item name="mpdf" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="faims" type="b2602c69:ProjectViewProjectNode" />
-              <item name="faims" type="462c0819:PsiDirectoryNode" />
-              <item name="vendor" type="462c0819:PsiDirectoryNode" />
-              <item name="mpdf" type="462c0819:PsiDirectoryNode" />
-              <item name="mpdf" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="faims" type="b2602c69:ProjectViewProjectNode" />
-              <item name="faims" type="462c0819:PsiDirectoryNode" />
-              <item name="vendor" type="462c0819:PsiDirectoryNode" />
-              <item name="mpdf" type="462c0819:PsiDirectoryNode" />
-              <item name="mpdf" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="bids" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../HRIS-DTR" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/frontend/modules/procurement/views/purchaserequest" />
+    <property name="nodejs_package_manager_path" value="npm" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\UwAmp\www\faims\frontend\modules\procurement\views" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\UwAmp\www\faims\frontend\modules\procurement\views\purchaserequest" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -652,135 +687,47 @@
       <workItem from="1557796354253" duration="1620000" />
       <workItem from="1557799220138" duration="7802000" />
       <workItem from="1557877764792" duration="10058000" />
+      <workItem from="1559777957972" duration="4246000" />
+      <workItem from="1559789020196" duration="1024000" />
+      <workItem from="1559804484472" duration="3465000" />
+      <workItem from="1560133819883" duration="10208000" />
+      <workItem from="1560213520293" duration="14873000" />
+      <workItem from="1560384562392" duration="22470000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="289138000" />
+    <option name="totallyTimeSpent" value="349718000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-6" y="-6" width="1549" height="837" extended-state="6" />
+    <frame x="-7" y="-7" width="1295" height="695" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.18087183" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.33522266" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" visible="true" weight="0.09779614" />
-      <window_info anchor="right" id="Database" order="3" />
-      <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" order="7" />
-      <window_info anchor="bottom" id="Run" order="2" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Terminal" order="7" />
-      <window_info id="Favorites" order="2" side_tool="true" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="Database Changes" order="8" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Terminal" order="9" />
+      <window_info anchor="bottom" id="Version Control" order="10" />
+      <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" weight="0.09769094" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Database" order="3" weight="0.32955465" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
-  <component name="VcsContentAnnotationSettings">
-    <option name="myLimit" value="2678400000" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <option name="time" value="1" />
-    </breakpoint-manager>
-  </component>
   <component name="editorHistoryManager">
-    <entry file="jar://$APPLICATION_HOME_DIR$/lib/phpstorm.jar!/resources/html5-schema/html5/core-scripting.rnc">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="12" column="16" selection-start-line="12" selection-start-column="16" selection-end-line="12" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/common/config/db.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="15" column="23" selection-start-line="15" selection-start-column="23" selection-end-line="15" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/modules/procurement/views/purchaseorder/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3587">
-          <caret line="222" column="28" selection-start-line="222" selection-start-column="28" selection-end-line="222" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/modules/procurement/views/purchaseorder/_purchaseorder.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="36" column="24" lean-forward="true" selection-start-line="36" selection-start-column="24" selection-end-line="36" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/common/models/procurement/Bids.php">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/common/models/procurement/Assignatory.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-340" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/models/Department.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-408" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/common/models/procurement/Ppmp.php">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/modules/procurement/views/disbursement/create.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="340">
-          <caret line="20" column="26" selection-start-line="20" selection-start-column="26" selection-end-line="20" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/modules/procurement/views/obligationrequest/create.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="19" column="8" selection-start-line="19" selection-start-column="8" selection-end-line="19" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/modules/procurement/views/obligationrequest/update.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="18" column="26" selection-start-line="18" selection-start-column="26" selection-end-line="18" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/modules/procurement/views/bids/_bidsummary.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1199">
-          <caret line="43" column="51" selection-start-line="43" selection-start-column="51" selection-end-line="43" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/common/models/procurement/Purchaserequest.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="14" column="29" selection-start-line="14" selection-start-column="29" selection-end-line="14" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/common/models/procurement/Obligationrequest.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="279">
-          <caret line="51" column="5" lean-forward="true" selection-start-line="51" selection-start-column="5" selection-end-line="51" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/frontend/controllers/SiteController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1639">
@@ -800,13 +747,6 @@
         <state relative-caret-position="-444" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/modules/procurement/views/purchaseorder/_report.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="26" column="98" selection-start-line="26" selection-start-column="65" selection-end-line="26" selection-end-column="98" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/common/components/Functions.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1241">
@@ -821,24 +761,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/modules/procurement/controllers/PurchaseorderController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-85">
-          <caret line="255" column="26" selection-start-line="255" selection-start-column="26" selection-end-line="255" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/frontend/modules/procurement/controllers/DisbursementController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-3415">
           <caret line="147" column="21" selection-start-line="147" selection-start-column="21" selection-end-line="147" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/modules/procurement/views/purchaserequest/_report.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="21" column="88" selection-start-line="21" selection-start-column="88" selection-end-line="21" selection-end-column="88" />
         </state>
       </provider>
     </entry>
@@ -909,13 +835,6 @@
     <entry file="file://$PROJECT_DIR$/frontend/web/js/procurement/disbursement/ajax-modal-popup.js">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/modules/procurement/views/bids/_bids.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-507">
-          <caret line="704" column="39" selection-start-line="704" selection-start-column="39" selection-end-line="704" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/frontend/web/js/main.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1394">
@@ -925,13 +844,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/frontend/modules/procurement/views/purchaserequest/_winners.php">
       <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/modules/procurement/views/bids/_quotation.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="793">
-          <caret line="107" column="44" selection-start-line="107" selection-start-column="44" selection-end-line="107" selection-end-column="44" />
-        </state>
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/frontend/controllers/AjaxController.php">
       <provider selected="true" editor-type-id="text-editor">
@@ -944,13 +856,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="369">
           <caret line="331" column="37" lean-forward="true" selection-start-line="331" selection-start-column="37" selection-end-line="331" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/modules/procurement/views/purchaserequest/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="596">
-          <caret line="84" column="17" selection-start-line="84" selection-start-column="17" selection-end-line="84" selection-end-column="17" />
         </state>
       </provider>
     </entry>
@@ -978,13 +883,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/composer.lock">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="202">
-          <caret line="2280" column="35" selection-start-line="2280" selection-start-column="35" selection-end-line="2280" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/composer.lock" />
     <entry file="file://$PROJECT_DIR$/vendor/mpdf/mpdf/src/Mpdf.php">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -992,66 +891,292 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/models/SignupForm.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="246">
+          <caret line="54" column="33" lean-forward="true" selection-start-line="54" selection-start-column="33" selection-end-line="54" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common/models/procurement/Department.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="561">
+          <caret line="33" column="7" lean-forward="true" selection-start-line="33" selection-start-column="7" selection-end-line="33" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common/config/db.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="18" column="6" selection-start-line="18" selection-start-column="6" selection-end-line="18" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/modules/procurement/views/purchaseorder/_purchaseorder.php">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/modules/procurement/views/bids/_report_abstract.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1292">
+          <caret line="76" column="21" selection-start-line="76" selection-start-column="21" selection-end-line="76" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/web/js/procurement/purchaserequest/purchaserequest.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="481">
+          <caret line="47" column="23" selection-start-line="47" selection-start-column="23" selection-end-line="47" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/modules/procurement/views/bids/_quotation.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1955">
+          <caret line="120" column="29" selection-start-line="120" selection-start-column="29" selection-end-line="120" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common/config/bootstrap.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="527">
+          <caret line="31" column="1" selection-start-line="31" selection-start-column="1" selection-end-line="31" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/modules/procurement/views/bids/_bidsummary.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" selection-start-line="3" selection-end-line="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/modules/procurement/views/bids/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="9" selection-start-line="9" selection-end-line="9" selection-end-column="41" />
+          <folding>
+            <element signature="e#6#27#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/web/js/procurement/bids/bids.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3893">
+          <caret line="235" column="13" selection-start-line="235" selection-start-column="8" selection-end-line="235" selection-end-column="13" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common/config/main-local.php">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common/config/main.php">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/models/ContactForm.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-80">
+          <caret line="10" column="6" selection-start-line="10" selection-start-column="6" selection-end-line="10" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/modules/procurement/views/bids/_bids.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="555">
+          <caret line="836" column="72" selection-start-line="836" selection-start-column="57" selection-end-line="836" selection-end-column="72" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/common/config/aliases.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="6" lean-forward="true" selection-start-line="6" selection-end-line="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/modules/procurement/controllers/BidsController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="755" column="56" selection-start-line="755" selection-start-column="40" selection-end-line="755" selection-end-column="56" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/modules/procurement/views/purchaserequest/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="481">
+          <caret line="97" column="10" selection-start-line="97" selection-start-column="10" selection-end-line="97" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/frontend/modules/procurement/views/purchaserequest/_modal.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5066">
-          <caret line="311" column="25" selection-start-line="309" selection-end-line="311" selection-end-column="25" />
+        <state relative-caret-position="1930">
+          <caret line="342" column="18" selection-start-line="342" selection-start-column="18" selection-end-line="342" selection-end-column="18" />
           <folding>
             <element signature="e#6#33#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/modules/procurement/controllers/BidsController.php">
+    <entry file="file://$PROJECT_DIR$/frontend/modules/procurement/controllers/DivisionController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="414">
-          <caret line="224" column="138" selection-start-line="224" selection-start-column="19" selection-end-line="224" selection-end-column="138" />
-          <folding>
-            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#1;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#table#0;n#!!top" expanded="true" />
-          </folding>
+        <state relative-caret-position="17">
+          <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/frontend/modules/procurement/controllers/PurchaserequestController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="397">
-          <caret line="271" column="37" selection-start-line="271" selection-start-column="31" selection-end-line="271" selection-end-column="37" />
+        <state relative-caret-position="-468">
+          <caret line="204" column="28" selection-start-line="204" selection-start-column="28" selection-end-line="204" selection-end-column="28" />
           <folding>
             <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#td#0;n#tr#0;n#table#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#td#1;n#tr#0;n#table#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#table#0;n#!!top" expanded="true" />
-            <element signature="e#237#243#1" expanded="true" />
-            <element signature="e#485#491#1" expanded="true" />
-            <element signature="e#691#697#1" expanded="true" />
-            <element signature="e#901#907#1" expanded="true" />
+            <element signature="e#225#231#1" expanded="true" />
+            <element signature="e#461#467#1" expanded="true" />
+            <element signature="e#655#661#1" expanded="true" />
+            <element signature="e#853#859#1" expanded="true" />
             <element signature="n#style#0;n#td#0;n#tr#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#td#1;n#tr#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#td#0;n#tr#0;n#table#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#td#1;n#tr#0;n#table#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#tr#5;n#table#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#td#1;n#tr#5;n#table#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#tr#0;n#tbody#0;n#table#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#td#0;n#tr#0;n#tbody#0;n#table#0;n#!!top" expanded="true" />
+            <element signature="e#113#119#1" expanded="true" />
+            <element signature="n#style#0;n#td#1;n#tr#0;n#tbody#0;n#table#0;n#!!top" expanded="true" />
+            <element signature="e#265#271#0" expanded="true" />
+            <element signature="n#style#0;n#p#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#p#1;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#table#1;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#tr#0;n#tbody#0;n#table#1;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#td#0;n#tr#0;n#tbody#0;n#table#1;n#!!top" expanded="true" />
+            <element signature="e#798#804#0" expanded="true" />
+            <element signature="e#805#811#0" expanded="true" />
+            <element signature="e#812#818#0" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#td#0;n#tr#0;n#tbody#0;n#table#1;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#td#1;n#tr#0;n#tbody#0;n#table#1;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#td#1;n#tr#0;n#tbody#0;n#table#1;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#td#2;n#tr#0;n#tbody#0;n#table#1;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#tr#1;n#tbody#0;n#table#1;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#td#0;n#tr#1;n#tbody#0;n#table#1;n#!!top" expanded="true" />
+            <element signature="e#1161#1167#0" expanded="true" />
+            <element signature="e#1168#1174#0" expanded="true" />
+            <element signature="e#1175#1181#0" expanded="true" />
+            <element signature="e#1182#1188#0" expanded="true" />
+            <element signature="e#1189#1195#0" expanded="true" />
+            <element signature="e#1196#1202#0" expanded="true" />
+            <element signature="n#style#0;n#span#0;n#td#0;n#tr#1;n#tbody#0;n#table#1;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#td#1;n#tr#1;n#tbody#0;n#table#1;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#td#2;n#tr#1;n#tbody#0;n#table#1;n#!!top" expanded="true" />
+            <element signature="e#1358#1364#0" expanded="true" />
+            <element signature="n#style#0;n#tr#0;n#table#2;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#td#0;n#tr#0;n#table#2;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#td#1;n#tr#0;n#table#2;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#td#2;n#tr#0;n#table#2;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#td#3;n#tr#0;n#table#2;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#td#4;n#tr#0;n#table#2;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#td#5;n#tr#0;n#table#2;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#td#0;n#tr#1;n#table#2;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#td#1;n#tr#1;n#table#2;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#td#2;n#tr#1;n#table#2;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#td#3;n#tr#1;n#table#2;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#td#4;n#tr#1;n#table#2;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#td#5;n#tr#1;n#table#2;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#td#0;n#tr#2;n#table#2;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#td#0;n#tr#3;n#table#2;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#td#0;n#tr#4;n#table#2;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#td#1;n#tr#4;n#table#2;n#!!top" expanded="true" />
+            <element signature="e#2600#2606#1" expanded="true" />
+            <element signature="n#style#0;n#td#2;n#tr#4;n#table#2;n#!!top" expanded="true" />
+            <element signature="e#2653#2659#1" expanded="true" />
+            <element signature="n#style#0;n#td#0;n#tr#5;n#table#2;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#td#1;n#tr#5;n#table#2;n#!!top" expanded="true" />
+            <element signature="e#2768#2774#1" expanded="true" />
+            <element signature="n#style#0;n#td#2;n#tr#5;n#table#2;n#!!top" expanded="true" />
+            <element signature="e#2821#2827#1" expanded="true" />
+            <element signature="n#style#0;n#td#0;n#tr#6;n#table#2;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#td#1;n#tr#6;n#table#2;n#!!top" expanded="true" />
+            <element signature="e#2935#2941#1" expanded="true" />
+            <element signature="n#style#0;n#td#2;n#tr#6;n#table#2;n#!!top" expanded="true" />
+            <element signature="e#2988#2994#1" expanded="true" />
+            <element signature="n#style#0;n#table#0;n#!!top" expanded="true" />
+            <element signature="e#225#231#1" expanded="true" />
+            <element signature="e#461#467#1" expanded="true" />
+            <element signature="e#655#661#1" expanded="true" />
+            <element signature="e#853#859#1" expanded="true" />
+            <element signature="n#style#0;n#td#0;n#tr#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#td#1;n#tr#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#tr#5;n#table#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/web/js/procurement/purchaserequest/purchaserequest.js">
+    <entry file="file://$PROJECT_DIR$/frontend/modules/procurement/views/purchaseorder/_report.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="413">
-          <caret line="126" column="46" selection-start-line="126" selection-start-column="46" selection-end-line="126" selection-end-column="46" />
+        <state relative-caret-position="-357">
+          <caret column="29" selection-start-column="29" selection-end-column="29" />
+          <folding>
+            <element signature="n#style#0;n#td#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#td#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#td#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#td#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#td#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#td#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#td#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#td#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#td#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#td#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#td#0;n#!!top" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/modules/procurement/views/bids/_report_abstract.php">
+    <entry file="file://$PROJECT_DIR$/frontend/modules/procurement/controllers/PurchaseorderController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="527">
-          <caret line="64" column="49" selection-start-line="64" selection-start-column="49" selection-end-line="64" selection-end-column="49" />
+        <state relative-caret-position="3094">
+          <caret line="189" column="28" selection-start-line="189" selection-start-column="28" selection-end-line="189" selection-end-column="28" />
           <folding>
-            <element signature="n#style#0;n#th#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#th#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#tr#0;n#table#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#td#0;n#tr#7;n#table#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#td#1;n#tr#7;n#table#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#td#1;n#tr#0;n#table#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/modules/procurement/views/purchaserequest/_report2.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="379">
+          <caret line="35" column="18" selection-start-line="35" selection-start-column="18" selection-end-line="35" selection-end-column="18" />
+          <folding>
+            <element signature="n#style#0;n#tr#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#td#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#td#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#td#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#td#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#td#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#td#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/modules/procurement/views/purchaserequest/_report.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="16" column="54" selection-start-line="16" selection-start-column="54" selection-end-line="16" selection-end-column="54" />
+          <folding>
+            <element signature="n#style#0;n#td#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#td#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#td#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#td#0;n#!!top" expanded="true" />

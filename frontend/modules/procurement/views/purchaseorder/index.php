@@ -181,6 +181,22 @@ $this->registerJsFile($BaseURL.'js/custom.js');
                 ]);
             },
         ],
+        [
+
+            'label'=>'Actions2',
+            'headerOptions' => ['class' => 'kartik-sheet-style'],
+            'group'=>true,  // enable grouping
+            'subGroupOf'=>1, // supplier column index is the parent group
+            'format'=>'raw',
+            'value' => function ($data) use ($func) {
+                return Html::a('<span class="glyphicon glyphicon-print"></span>', ['reportpofull?id='.$data["purchase_order_number"]], [
+                    'class'=>'btn-pdfprint btn btn-primary',
+                    'data-pjax'=>"0",
+                    'pjax'=>"0",
+                    'title'=>'Will open the generated PDF file in a new window'
+                ]);
+            },
+        ],
 
     ];
 

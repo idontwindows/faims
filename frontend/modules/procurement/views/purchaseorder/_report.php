@@ -1,5 +1,5 @@
 <div class="print-container">
-<div style="height: 215px;"></div>
+    <div style="height: 215px;"></div>
 <?php
     $fin="";
     $x=0;
@@ -41,7 +41,8 @@
     <table border="0" width="100%">
         <?php
             echo $fin;
-            //echo $yy;
+            echo $yy;
+            echo $cc;
         ?>
     </table>
 

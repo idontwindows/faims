@@ -14,7 +14,7 @@ and open the template in the editor.
     list-style: none;
     padding-bottom: 0px;
     margin-bottom: 0px;
-    background-color: #e6e9ed
+    background-color: #e6e9ed;
 }
 .breadcrumb-arrow li:first-child a {
     border-radius: 4px 0 0 4px;

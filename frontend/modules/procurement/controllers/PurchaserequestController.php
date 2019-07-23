@@ -81,7 +81,7 @@ class PurchaserequestController extends Controller
             $pdf->destination =  $pdf::DEST_BROWSER;
             $pdf->content  = $content;
             $pdf->cssFile = '@vendor/kartik-v/yii2-mpdf/assets/kv-mpdf-bootstrap.min.css';
-            $pdf->cssInline = 'body {font-size:}.kv-heading-1{font-size:18px}.nospace-border{border:0px;}.no-padding{ padding:0px;}.print-container{font-size:11px;font-family:Arial,Helvetica Neue,Helvetica,sans-serif;}h6 {  }';
+            $pdf->cssInline = 'body {}.kv-heading-1{font-size:18px}.nospace-border{border:0px;}.no-padding{ padding:0px;}.print-container{font-size:11px;font-family:Arial,Helvetica Neue,Helvetica,sans-serif;}h6 {  }';
             $pdf->marginFooter=5;
 
             $requested_by="";
@@ -109,10 +109,10 @@ class PurchaserequestController extends Controller
                             </tr>
                         </table>';
         $LeftFooterContent = '
-<table style="width: 50%;" border="0" cellpadding="1">
+<table style="width: 50%;" border="0" cellpadding="0">
                                 <tbody>
                                 <tr>
-                                <td><h6>'.$model->purchase_request_purpose.'</h6></td>
+                                <td><h6>'.strtoupper($model->purchase_request_purpose).'</h6></td>
                                 <td>&nbsp;</td>
                                 </tr>
                                 <tr>
@@ -147,9 +147,6 @@ class PurchaserequestController extends Controller
                                         <td width="50%" style="text-align: center;padding-left: 75px;"><b>'.$approved_by.'</b><br/>'.$approved_by_position.'</td>
                                     </tr>
                                     <tr><td></td><td></td></tr>
-                                    <tr><td></td><td></td></tr>
-                                    <tr><td></td><td></td></tr> 
-                                    <tr><td></td><td></td></tr>
                                                                                                                                                             
                                     <tr style="text-align: right;">
                                          <td>'.date("F j, Y").'</td>
@@ -169,6 +166,237 @@ class PurchaserequestController extends Controller
 
             return $pdf->render();
     }
+
+
+
+
+
+    public function actionReportprfull($id) {
+        $request = Yii::$app->request;
+        $id = $request->get('id');
+        $model = $this->findModel($id);
+        $prdetails = $this->getprDetails($model->purchase_request_id);
+        $content = $this->renderPartial('_report2', ['prdetails'=> $prdetails,'model'=>$model]);
+        $pdf = new Pdf();
+        $pdf->mode = Pdf::MODE_UTF8;
+        $pdf->format = pdf::FORMAT_A4;
+        $pdf->orientation = Pdf::ORIENT_PORTRAIT;
+        $pdf->destination =  $pdf::DEST_BROWSER;
+        $pdf->content  = $content;
+        $pdf->cssFile = '@vendor/kartik-v/yii2-mpdf/assets/kv-mpdf-bootstrap.min.css';
+        $pdf->cssInline = 'body {} .kv-heading-1{font-size:18px}.nospace-border{border:0px;}.no-padding{ padding:0px;}.print-container{font-family:Arial;}';
+        $pdf->marginFooter=5;
+
+        $requested_by="";
+        $requested_by_position="";
+        $approved_by="";
+        $approved_by_position="";
+
+        foreach ($prdetails as $pr) {
+            $requested_by = $pr["requested_by"];
+            $requested_by_position = $pr["requested_by_position"];
+            $approved_by = $pr["approved_by"];
+            $approved_by_position = $pr["approved_by_position"];
+            $section = $pr["section"];
+            $division = $pr["division"];
+        }
+
+
+        $pdf->marginTop = 80;
+        $pdf->marginBottom =65;
+
+        $headers= '<table width="100%">
+<tbody>
+<tr style="height: 43.6667px;">
+<td style="width: 82.4103%; height: 43.6667px;">
+<p>&nbsp;</p>
+</td>
+<td style="width: 12.5897%; height: 43.6667px;">
+<table border="1" width="100%" style="border-collapse: collapse;">
+<tbody>
+<tr>
+<td>
+<p><h6><strong>FASS-PUR F05</strong>&nbsp; Rev. 0/ 08-16-07</h6></p>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+
+<table style="width: 100%;">
+<tbody>
+<tr>
+<td style="text-align: center;">Republic of the Philippines</td>
+</tr>
+<tr>        
+<td style="text-align: center;"><strong>DEPARTMENT OF SCIENCE AND TECHNOLOGY</strong></td>
+</tr>
+<tr>
+<td style="text-align: center;">Regional Office No. IX</td>
+</tr>
+<tr>
+<td style="text-align: center;">Zamboanga City</td>
+</tr>
+<tr>
+<td style="text-align: center;">&nbsp;</td>
+</tr>
+<tr>
+<td style="text-align: center;font-family:Arial;font-size:15px"><b>PURCHASE REQUEST</b></td>
+</tr>
+</tbody>
+</table>
+<div style="height:20px"></div>
+<table style="width: 100%;">
+<tbody>
+<tr>
+<td style="width: 60%; height: 12.6667px;">Department: <span style="text-decoration: underline;">'. $division.'</span></td>
+<td style="width: 20%; ">PR No. <span style="text-decoration: underline;">'.$model->purchase_request_number.'</span></td>
+<td style="width: 20%; height: 12.6667px;">Date : <span style="text-decoration:underline;">'.date("m-d-Y",strtotime($model->purchase_request_date)).'</span></td>
+</tr>
+<tr>
+<td style="width: 60%; height: 12px;">Section: <span style="text-decoration: underline;">'. $section.'</span></td>
+<td style="width: 25%; height: 12px;">SAI No. ______________</td>
+<td style="width: 15%; height: 12px;">Date : ____________</td>
+</tr>
+</tbody>
+</table>
+
+<table border="1" style="border-collapse: collapse;font-size:12px;width:100%;">
+        <tr>
+            <td style="width: 10%; height: 12px; text-align: center;">
+                <p>Stock No.</p>
+            </td>
+            <td style="width: 10%; height: 12px; text-align: center;">Unit</td>
+            <td style="text-align: center; width: 50%;">Item Desription</td>
+            <td style="width: 10%; height: 12px; text-align: center;">Quantity</td>
+            <td style="width: 10%; height: 12px; text-align: center;">Unit Cost</td>
+            <td style="width: 10%; height: 12px; text-align: center;">Total Cost</td>
+        </tr>
+        <tr>
+            <td style="height: 570px;"></td>
+            <td style="height: 570px;"></td>
+            <td style="height: 570px;"></td>    
+            <td style="height: 570px;"></td>
+            <td style="height: 570px;"></td>
+            <td style="height: 570px;"></td>
+        </tr>
+        <tr>
+            <td colspan="6" style="height: 110px;"></td>
+        </tr>
+		<tr>
+			<td colspan="2" style="border-top:none;border-bottom:none;"></td>
+			<td>Requested By:</td>
+			<td colspan="3">Approved By:</td>
+		</tr>
+		<tr>
+			<td colspan="2" style="border-top:none;">Signature</td>
+			<td style="border-top:none;border-bottom:none;"></td>
+			<td colspan="3" style="border-top:none;border-bottom:none;"></td>
+		</tr>
+		<tr>
+			<td colspan="2" style="">Printed Name</td>
+			<td style="border-top:none;border-bottom:none;"></td>
+			<td colspan="3" style="border-top:none;border-bottom:none;"></td>
+		</tr>
+		<tr>
+			<td colspan="2" style="">Designation</td>
+			<td style="border-top:none;"></td>
+			<td colspan="3" style="border-top:none;"></td>
+		</tr>   
+</table>';
+        $LeftFooterContent = '
+        <div style="height:0px;"></div>
+<table style="width: 100%;font-size:9px; ">
+                                <tbody>
+                                <tr>
+                                <td style="padding-left:10px;"><h6>Purpose : '.$model->purchase_request_purpose.'</h6></td>
+                                <td>&nbsp;</td>
+                                </tr>
+                                <tr>
+                                <td style="padding-left:10px;"><h6>Project Reference No. : '.$model->purchase_request_referrence_no.'</h6>
+                                </td>
+                                <td>&nbsp;</td>
+                                </tr>
+                                <tr>5
+                                <td style="padding-left:10px;"><h6>Project Name : '.$model->purchase_request_project_name .'</h6></td>
+                                <td>&nbsp;</td>
+                                </tr>
+                                <tr>
+                                <td style="padding-left:10px;"><h6>Project Location : '.$model->purchase_request_location_project.'</h6></td>
+                                <td>&nbsp;</td>
+                                </tr>
+                                </tbody>    
+                                </table>';
+        $s = "";
+        $x = 0;
+        while ($x<12) {
+            $x++;
+            $s = $s.'<tr class="nospace-border">
+                      <td width="50%" style="text-align: right;padding-left: 50px;"></td>
+                      <td width="50%" style="text-align: right;padding-right: 100px;"></td>
+                     </tr>';
+        }
+        $LeftFooterContent =
+            $LeftFooterContent.'<table width="100%">
+                                    '.$s.'
+                                    <tr class="nospace-border">
+                                        <td width="50%" style="text-align: center;padding-left: 120px;"><b>'.$requested_by.'</b><br/>'.$requested_by_position.'</td>
+                                        <td width="50%" style="text-align: center;padding-left: 75px;"><b>'.$approved_by.'</b><br/>'.$approved_by_position.'</td>
+                                    </tr>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>   
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>     
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>  
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>  
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>   
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>  
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>        
+                                                                                                                                                     
+                                    <tr style="text-align: right;">
+                                         <td>'.date("F j, Y").'</td>
+                                         <td style="text-align: right;">Page {PAGENO} of {nbpg}</td>
+                                    </tr>    
+                                  </table>';
+
+        $pdf->options = [
+            'title' => 'Report Title',
+            'defaultheaderline' => 0,
+            'defaultfooterline' => 0,
+            'subject'=> 'Report Subject'];
+        $pdf->methods = [
+            'SetHeader'=>[$headers],
+            'SetFooter'=>[$LeftFooterContent],
+        ];
+
+        return $pdf->render();
+    }
+
+
+
+
 
     /**
      * @return string
@@ -404,16 +632,18 @@ WHERE YEAR(`tbl_purchase_request`.`purchase_request_date`) =" . $gg);
     {
         //Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         $con = Yii::$app->procurementdb;
-        $sql = "SELECT *,
-`fnGetAssignatoryName`(`tbl_purchase_request`.`purchase_request_requestedby_id`) AS requested_by,
-`fnGetAssignatoryPosition`(`tbl_purchase_request`.`purchase_request_requestedby_id`) AS requested_by_position,
-`fnGetAssignatoryName`(`tbl_purchase_request`.`purchase_request_approvedby_id`) AS approved_by,
-`fnGetAssignatoryPosition`(`tbl_purchase_request`.`purchase_request_approvedby_id`) AS approved_by_position
-FROM `tbl_purchase_request_details` 
-INNER JOIN `tbl_purchase_request` 
-ON `tbl_purchase_request`.`purchase_request_id` = `tbl_purchase_request_details`.`purchase_request_id`
-INNER JOIN `fais`.`tbl_unit_type`
-ON `tbl_unit_type`.`unit_type_id` = `tbl_purchase_request_details`.`unit_id`
+            $sql = "SELECT *,
+            `fnGetAssignatoryName`(`tbl_purchase_request`.`purchase_request_requestedby_id`) AS requested_by,
+            `fnGetAssignatoryPosition`(`tbl_purchase_request`.`purchase_request_requestedby_id`) AS requested_by_position,
+            `fnGetAssignatoryName`(`tbl_purchase_request`.`purchase_request_approvedby_id`) AS approved_by,
+            `fnGetAssignatoryPosition`(`tbl_purchase_request`.`purchase_request_approvedby_id`) AS approved_by_position,
+            `fnGetSection`(`tbl_purchase_request`.`section_id`) AS section,
+            `fnGetDivision`(`tbl_purchase_request`.`division_id`) AS division
+            FROM `tbl_purchase_request_details` 
+            INNER JOIN `tbl_purchase_request` 
+            ON `tbl_purchase_request`.`purchase_request_id` = `tbl_purchase_request_details`.`purchase_request_id`
+            INNER JOIN `fais`.`tbl_unit_type`
+            ON `tbl_unit_type`.`unit_type_id` = `tbl_purchase_request_details`.`unit_id`
 WHERE `tbl_purchase_request_details`.`purchase_request_id`=".$id;
         $porequest = $con->createCommand($sql)->queryAll();
         return $porequest;

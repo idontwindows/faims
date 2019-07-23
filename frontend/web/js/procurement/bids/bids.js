@@ -267,8 +267,10 @@ jQuery(document).ready(function ($) {
 
 
     $('#bids').on('hidden.bs.modal', function () {
-        location.reload();
-
+        //location.reload();
+        location.href = '/procurement/bids/index';
+       // window.history.back();
+        
     });
 
     $('body').on('click','#btnAddBids',function () {

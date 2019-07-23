@@ -215,6 +215,110 @@ class DisbursementController extends Controller
 
 
 
+
+
+    public function actionReportdvfull($id) {
+        $request = Yii::$app->request;
+        $id = $request->get('id');
+        $model = $this->findModel($id);
+        $prdetails = $this->getDetails($id);
+        $content = $this->renderPartial('_report2', ['prdetails'=> $prdetails,'model'=>$model]);
+        $pdf = new Pdf();
+        $pdf->mode = pdf::MODE_UTF8;
+        $pdf->format = pdf::FORMAT_A4;
+        $pdf->orientation = Pdf::ORIENT_PORTRAIT;
+        $pdf->destination =  $pdf::DEST_BROWSER;
+        $pdf->content  = $content;
+        $pdf->cssFile = '@vendor/kartik-v/yii2-mpdf/assets/kv-mpdf-bootstrap.min.css';
+        $pdf->cssInline = 'body {font-size:11px}.kv-heading-1{font-size:18px}.nospace-border{border:0px;}.no-padding{ padding:0px;}.print-container{font-size:11px;font-family:Arial,Helvetica Neue,Helvetica,sans-serif;}h6 {  }';
+        $supplier='';
+        $ponum='';
+        $prno='';
+        $pdate='';
+        $prdate='';
+        foreach ($prdetails as $pr) {
+            $payee = $pr["payee"];
+            $dvno = $pr["dv_no"];
+            $pdate = $pr["dv_date"];
+            $prno = $pr["taxable"];
+            $dvamount = $pr["dv_amount"];
+        }
+        $pdf->marginTop = 20;
+        $pdf->marginFooter = 0;
+
+        $headers= '<table width="100%">
+        <tbody>
+        <tr style="height: 43.6667px;">
+        <td style="width: 82.4103%; height: 43.6667px;">
+        <p>&nbsp;</p>
+        </td>
+        <td style="width: 12.5897%; height: 43.6667px;">
+        <table border="1" width="100%" style="border-collapse: collapse;">
+        <tbody>
+        <tr>
+        <td>
+        <p><h6 style-P><strong>FASS-PUR F13</strong>&nbsp; Rev. 2/07-01-19</h6></p>
+        </td>
+        </tr>
+        </tbody>
+        </table>
+        </td>
+        </tr>
+        </tbody>
+        </table>';
+        $footerss= '<table width="100%">
+            <tr>
+                <td width="50%" style="text-align: left;font-size: 11px;font-weight: lighter;">'. $dvno .'</td>
+                <td width="50%" style="text-align: right;font-size: 11px;font-weight: lighter;">'.date("m-d-Y").'</td>
+            </tr>
+        </table>';
+        $LeftFooterContent = '<div style="text-align: left;">'.date("m-d-Y").'</div>';
+        $CenterFooterContent = '';
+        $RightFooterContent = '<div style="text-align: right;">Page {PAGENO} of {nbpg}</div>';
+        $oddEvenConfiguration =
+            [
+                'L' => [ // L for Left part of the header
+                    'content' => $LeftFooterContent,
+                    'font-size' => 7,
+                    'footer-style-left' => 300,
+                    'font-family' => 'Arial',
+                    'color'=>'#000000'
+                ],
+                'C' => [ // C for Center part of the header
+                    'content' => $CenterFooterContent,
+                    'font-size' => 6,
+                    'font-style' => 'B',
+                    'font-family' => 'arial',
+                    'color'=>'#000000',
+                ],
+                'R' => [
+                    'content' => $RightFooterContent,
+                    'font-size' => 6,
+                    'font-style' => 'B',
+                    'font-family' => 'arial',
+                    'color'=>'#000000'
+                ],
+                'line' =>0, // That's the relevant parameter
+            ];
+        $headerFooterConfiguration = [
+            'odd' => $oddEvenConfiguration,
+            'even' => $oddEvenConfiguration
+        ];
+        $pdf->options = [
+            'title' => 'Report Title',
+            'defaultheaderline' => 0,
+            'defaultfooterline' => 0,
+            'subject'=> 'Report Subject'];
+        $pdf->methods = [
+            'SetHeader'=>[$headers],
+            'SetFooter'=>[$footerss],
+        ];
+
+        return $pdf->render();
+    }
+
+
+
     public function actionCheckimportid()
     {
         $request = Yii::$app->request;

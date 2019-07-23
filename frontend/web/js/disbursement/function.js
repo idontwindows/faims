@@ -12,11 +12,11 @@ $("body").ready(function() {
         $('#pono').hide(500);
         $('#taxable').show(500);
         $(".cboEmployeeA").select2({
-            disabled : true,
+            disabled : false,
             dropdownParent: $('#modalDisbursement'),
             theme : "krajee"
         });
-        $("#disbursement-certified_a").val('').trigger('change');
+        //$("#disbursement-certified_a").val('').trigger('change');
     }
     if (data=='TF') {
         $('#sono').hide(500);

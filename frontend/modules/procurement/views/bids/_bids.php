@@ -22,6 +22,16 @@ $BaseURL = $GLOBALS['frontend_base_uri'];
 /* @var $model common\models\procurement\Department */
 /* @var $form yii\widgets\ActiveForm */
 
+
+
+//$this->registerJsFile($BaseURL.'js/angular.min.js');
+//$this->registerJsFile($BaseURL.'js/ui-bootstrap-tpls-0.10.0.min.js');
+//$this->registerJsFile($BaseURL.'js/app.js');
+$this->registerJsFile($BaseURL.'js/jquery.tabletojson.js');
+$this->registerJsFile($BaseURL.'js/procurement/bids/bids.js');
+
+
+//$this->registerJsFile($BaseURL.'js/custom.js');
 ?>
 
 <div class="bids-form">
@@ -208,11 +218,11 @@ $BaseURL = $GLOBALS['frontend_base_uri'];
                                                         return [
                                                             'header'=>'Price',
                                                             'format' => ['decimal', 2],
-                                                            'convertFormat'=>true,
+                                                            'convertFormat'=>false,
                                                             'size'=>'sm',
-                                                            'inputType' => \kartik\editable\Editable::INPUT_SPIN,
+                                                            'inputType' => \kartik\editable\Editable::INPUT_TEXT,
                                                             'options' => [
-                                                                'pluginOptions' => ['min' => 0, 'max' => 999999999],
+                                                                'pluginOptions' => ['min' => 0, 'max' => 999999999,['decimal', 2]],
                                                                 'pluginEvents' => [
                                                                     "editableSuccess"=>"function(event, val, form, data) { alert('Successful submission of value ' + val); }",
                                                                 ]
@@ -220,7 +230,7 @@ $BaseURL = $GLOBALS['frontend_base_uri'];
                                                             'formOptions'=>['action' => ['bids/editPrice']], // point to the new action
                                                         ];
                                                     },
-                                                ],
+                                                    ],
 
 
                                                 [
@@ -298,7 +308,7 @@ $BaseURL = $GLOBALS['frontend_base_uri'];
                                                     'heading' => 'Data Details',
                                                 ],
                                                 'persistResize' => false,
-                                                'toggleDataOptions' => ['minCount' => 10],
+                                                'toggleDataOptions' => ['minCount' => 3000000],
                                                 'exportConfig' => true,
                                             ]);
                                             ?>
@@ -374,7 +384,7 @@ $BaseURL = $GLOBALS['frontend_base_uri'];
                                 <div>
                                     <span class="badge" style="background: green;">Available for Award <i class="fa fa-toggle-on"></i></span>
                                     <span class="badge" style="background: black;">Pending for Award <i class="fa fa-pencil"></i></span>
-                                    <span class="badge" style="background: red;">Not Awarded <i class="fa fa-recycle"></i></span>
+                                    <span class="badge" style="background: red;">Not Available for Award <i class="fa fa-recycle"></i></span>
                                     <span class="badge" style="background: blue;">Awarded <i class="fa fa-check-circle"></i></span>
                                 </div>
                             </div>
@@ -474,7 +484,7 @@ $BaseURL = $GLOBALS['frontend_base_uri'];
                                                     return '<span class="badge btn-block" style="background: black;">Pending for Award <i class="fa fa-pencil"></i></span>';
                                                     break;
                                                 case 4:
-                                                    return '<span class="badge btn-block" style="background: red;">Not Awarded <i class="fa fa-recycle"></i></span>';
+                                                    return '<span class="badge btn-block" style="background: red;">Not Available for Award <i class="fa fa-recycle"></i></span>';
                                                     break;
                                             }
                                         },
@@ -613,10 +623,10 @@ $BaseURL = $GLOBALS['frontend_base_uri'];
                                     'pjax' => true,
                                     'columns' => $gridColumns,
                                     'pjaxSettings' => [
-                                        'neverTimeout'=>false,
+                                        'neverTimeout'=>true,
                                         'options' => [
                                             'id'=>'mycontainersss',
-                                            'enablePushState' => false,
+                                            'enablePushState' => true,
                                         ],
                                     ],
 
@@ -647,7 +657,7 @@ $BaseURL = $GLOBALS['frontend_base_uri'];
 
                                     ],
                                     'persistResize' => false,
-                                    //'toggleDataOptions' => ['minCount' => 10],
+                                    'toggleDataOptions' => ['minCount' => 5000],
                                     'exportConfig' => true,
                                 ]);
 
@@ -862,7 +872,7 @@ $BaseURL = $GLOBALS['frontend_base_uri'];
                                             'heading' => 'Awards Details',
                                         ],
                                         'persistResize' => false,
-                                        'toggleDataOptions' => ['minCount' => 10],
+                                        'toggleDataOptions' => ['minCount' => 3000000],
                                         'exportConfig' => true,
                                     ]);
                                     ?>

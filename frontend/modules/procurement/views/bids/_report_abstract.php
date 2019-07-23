@@ -1,5 +1,3 @@
-<?php
-?>
 <div class="print-container">
 <?php
     $fin="";
@@ -13,40 +11,13 @@
     $item_decription = "";
     $tablecount=count($columns);
     ?>
-
-    <table border="0" class="table">
-        <thead>
-            <tr class="nospace-border">
-                <?php
-                $max = 13;//$tablecount;
-                $count = $tablecount;
-                $i=3;
-                while($i<$max) {
-                    if($i<7) {
-                        echo '<th></th>';
-                    }else{
-                        if ($i>$count - 1) {
-                                echo '<th style="font-size: 7px;">N/A</th>';
-                        }else{
-                            if ($i>6) {
-                                echo '<th style="font-size: 7px;">'.$columns[$i].'</th>';
-                            }else{
-                                echo '<th>'.$columns[$i].'</th>';
-                            }
-                        }
-                    }
-                    $i++;
-                }
-                ?>
-            </tr>
-        </thead>
-
+    <table border="0" width=100% style="border-collapse:collapse;">
+      
         <tbody>
-
                 <?php
                 $max = $tablecount;
+                $loops = 13 ;
                 $i=7;
-
                 foreach ($prdetails as $pr) {
                     $x++;
                     $tempid =  $pr[$columns[0]];
@@ -57,28 +28,38 @@
                     $unit = $pr[$columns[5]];
                     $item_decription = $pr[$columns[6]];
                     echo '<tr class="nospace-border">';
-                    //echo '<td>'.$tempid.'</td>';
-                    //echo '<td>'.$headrid.'</td>';
-                    echo '<td style="font-size: 7px; width: 3%; text-align: left;vertical-align: top;">'.$itemno.'</td>';
-                    echo '<td style="font-size: 7px; width: 4%; text-align: left;vertical-align: top;">'.$qty.'</td>';
-                    echo '<td style="font-size: 7px; width: 4%; text-align: left;vertical-align: top;">'.$unit.'</td>';
-                    echo '<td style="font-size: 8px; width: 25%; text-align: left;vertical-align: top;">'.$item_decription.'</td>';
-                    while($i<$max) {
-                        $myval = $pr[$columns[$i]];
-                        if (is_numeric($myval)) {
-                            $myval = number_format($myval,2);
-                        }
-                        if($myval=='0.00<br/>') {
-                            $myval='No Bid';
-                        }
+                    echo '<td style="font-size: 9px; width: 5%; text-align: center;vertical-align: top;border:none;">'.$itemno.'</td>';
+                    echo '<td style="font-size: 9px; width: 5%; text-align: center;vertical-align: top;border:none;">'.$qty.'</td>';
+                    echo '<td style="font-size: 9px; width: 5%; text-align: center;vertical-align: top;border:none;">'.$unit.'</td>';
+                    echo '<td style="font-size: 9px; width: 25%; text-align: left;vertical-align: top; border:none;padding-left:5px;">'.$item_decription.'</td>';
+                    while($i<$loops) {
+                        
+                   
+                        if($i>=$max && $i <=$loops) {
 
-                        echo '<td style="font-size: 7px; width: 10%;text-align: center;">'.$myval.'</td>';
-                        $i++;
+                            echo '<td style="font-size: 9px; width:10%;text-align: center; border:none;"></td>'; 
+
+                        } else {
+
+                            $myval = $pr[$columns[$i]];
+                            if (is_numeric($myval)) {
+                                $myval = number_format($myval,2);
+                            }
+                            if($myval=='0.00<br/>') {
+                                $myval='No Bid';
+                            }
+                            if ($myval=='') {
+                                $myval = "";
+                            }
+                             echo '<td style="font-size: 9px; width:10%;text-align: center; border:none;">'.$myval.'</td>'; 
+                        }
+           
+                        $i++;              
                     }
                     $i=7;
                     echo '</tr>';
                 }
-                ?>
+                ?>  
         </tbody>
     </table>
 

@@ -418,7 +418,7 @@ class BidsController extends Controller
             <td width="30%" style="padding: 0px;padding-left: 15px;">'.$model->purchase_request_location_project.'</td>
         </tr>
         <tr class="nospace-border">
-            <td style="padding: 0px; padding-top: 34px" width="">'.$supplier.'</td>
+            <td style="padding: 0px; padding-top: 34px" width="">'.strtoupper($supplier).'</td>
         </tr>
         <tr class="nospace-border">
             <td style="padding: 0px;" width="">'.$address.'</td>
@@ -499,28 +499,121 @@ class BidsController extends Controller
         $pdf->orientation = Pdf::ORIENT_LANDSCAPE;
         //$pdf->format = Pdf::FORMAT_LEGAL;
         $pdf->destination = Pdf::DEST_BROWSER;
-        $pdf->marginLeft=41;
-        $pdf->marginRight=0;
-        $pdf->marginTop=43;
-        $pdf->marginBottom=5;
-        $pdf->defaultFontSize=7;
+        $pdf->marginLeft=10;
+        $pdf->marginHeader=5;
+        $pdf->marginTop=55;
+        $pdf->marginBottom=65;
+        $pdf->defaultFontSize=11;
         $pdf->content = $content;
         $pdf->cssFile = '@vendor/kartik-v/yii2-mpdf/assets/kv-mpdf-bootstrap.min.css';
         $pdf->cssInline = '.kv-heading-1{font-size:18px}.nospace-border{border:0px;}.no-padding{ padding:0px;}.print-container{font-size:11px;font-family:Arial,Helvetica Neue,Helvetica,sans-serif; }';
-        $headers='<table style="padding-right: 150px;text-align: right;" width="100%"> 
-            <tr>
-                <td style="padding-top: 55px;"></td>
-            </tr>
-            <tr>
-                <td style="font-size: 9px;padding-left: 250px;">'.$model->purchase_request_referrence_no.'</td>
-            </tr>
-            <tr>
-                <td style="font-size: 9px;padding-left: 200px;">'.$model->purchase_request_project_name.'</td>
-            </tr>
-             <tr>
-                <td style="font-size: 9px;padding-left: 200px;">'.$model->purchase_request_location_project.'</td>
-            </tr>
+       if($model->purchase_request_referrence_no==''){$ref='__________________';}else{$ref=$model->purchase_request_referrence_no;}
+       if($model->purchase_request_project_name==''){$pname='__________________';}else{$pname=$model->purchase_request_project_name;}
+       if($model->purchase_request_location_project==''){$pproject='__________________';}else{$pproject=$model->purchase_request_location_project;}
+
+       $headers='
+       <div style="width: 100px;border: 1px solid black;margin:10px;font-weight:bold;text-align:center;float:right;padding:0px;">FASS-PUR F07 <br> <span style="font-weight:lighter;">Rev. 0/ 08-16-07</span></div>
+       <table border="0" style="width: 100%; table-collapsed: collapsed;">
+       <tbody>
+       <tr style="height: 12px;">   
+       <td style="width: 27%; height: 12px;">&nbsp;</td>
+       <td style="text-align: center; width: 50%; height: 12px;">Republic of The Philippines</td>
+       <td style="text-align: center; width: 10%; height: 12px;">&nbsp;</td>
+       <td style="width: 17%; height: 12px;">&nbsp;</td>
+       </tr>
+       <tr style="height: 12px;">
+       <td style="width: 27%; height: 12px;">&nbsp;</td>
+       <td style="text-align: center; width: 50%; height: 12px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>DEPARTMENT OF SCIENCE AND TECHNOLOGY</strong></td>
+       <td style="text-align: right; width: 10%; height: 12px;">&nbsp;</td>
+       <td style="text-align:right;width: 17%;font-size:11px;padding:2px;padding-right:10px; height: 50px;vertical-align:top;border:none;" rowspan="2"></td>
+       </tr>
+       <tr style="height: 12px;">
+       <td style="width: 27%; height: 12px;">&nbsp;</td>
+       <td style="text-align: left; width: 45%; height: 12px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Regional Office No. IX</td>
+       <td style="text-align: center; width: 10%; height: 12px;">&nbsp;</td>
+     
+       </tr>            
+       <tr style="height: 12px;">
+       <td style="width: 27%;font-size:11px; height: 12px;">&nbsp;Standard Form Number : SF-GOOD-40</td>
+       <td style="text-align: center; width: 40.5332%; height: 12px;">&nbsp;</td>
+       <td style="width: 27%;font-size:11px;  height: 12px; text-align: right;" colspan="2">Project Reference No. : '.$ref.'</td>
+       </tr>
+       <tr style="height: 12px;">
+       <td style="width: 27%;font-size:11px; height: 12px;">&nbsp;Revised&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; : May 24, 2004</td>
+       <td style="text-align: left;font-size:16px; width: 40.5332%; height: 12px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>ABSTRACT OF BIDS</strong></td>
+       <td style="width: 10%;font-size:11px;  height: 12px; text-align: right;" colspan="2">Name of the Project.&nbsp; : '.$pname.'</td>
+       </tr>
+       <tr style="height: 12.2727px;">
+       <td style="width: 27%; height: 12.2727px;">&nbsp;</td>
+       <td style="text-align: center; width: 40.5332%; height: 12.2727px;">&nbsp;</td>
+       <td style="width: 10%;font-size:11px; height: 12.2727px; text-align: right;" colspan="2">Location of The Project : '.$pproject.'</td>
+       </tr>
+       </tbody>
+       </table>
+       <div style="height:0px;"></div>';
+        $fin="";
+        $x=0;
+        $munit="";
+        $tempid ="";
+        $headerd = "";
+        $itemno = "";
+        $qty = "";
+        $unit = "";
+        $item_decription = "";
+        $tablecount=count($columns);
+        $headers = $headers.'<table border="1" width=100% style="border-collapse:collapse;"><thead><tr class="">';
+            $max = 13;//$tablecount;
+                $count = $tablecount;
+                $i=3;
+                $h=1;
+                while($i<$max) {
+     
+                    if($i<7) {
+                         //$headers = $headers.'<th></th>';
+                         if ($h==1) {
+                            $headers = $headers.'<th style="font-size:7px;text-align:center;">Item No.</th>';
+                         }
+                         elseif($h==2) {
+                            $headers = $headers.'<th style="font-size:7px;text-align:center;">QTY</th>';
+                         }
+                         elseif($h==3) {
+                            $headers = $headers.'<th style="font-size:7px;text-align:center;">UNIT</th>';
+                         }
+                         elseif($h==4) {
+                            $headers = $headers.'<th style="font-size:7px;text-align:center;">DESCRIPTIONS</th>';
+                         }else{
+                            $headers = $headers.'<th></th>';
+                         }
+                    }else{
+                        if ($i>$count - 1) {
+                            $headers = $headers.'<th style="font-size: 9px;text-align:center">N/A</th>';
+                        }else{
+                            if ($i>6) {
+                                $headers = $headers.'<th style="font-size: 9px;text-align:center;">'.$columns[$i].'</th>';
+                            }else{
+                                $headers = $headers.'<th>'.$columns[$i].'</th>';
+                            }
+                        }
+                    }
+                    $i++;
+                    $h++;
+                }
+                $headers = $headers.'</tr>';
+        $headers = $headers.'</thead>
+        <tr>
+        <td style="height:380px;font-size: 9px; width: 5%; text-align: center;vertical-align: top;"></td>
+        <td style="height:380px;font-size: 9px; width: 5%; text-align: center;vertical-align: top;"></td>
+        <td style="height:380px;font-size: 9px; width: 5%; text-align: center;vertical-align: top;"></td>
+        <td style="height:380px;font-size: 9px; width: 25%; text-align: center;vertical-align: top;"></td>
+        <td style="height:380px;font-size: 9px; width: 10%; text-align: center;vertical-align: top;"></td>
+        <td style="height:380px;font-size: 9px; width: 10%; text-align: center;vertical-align: top;"></td>
+        <td style="height:380px;font-size: 9px; width: 10%; text-align: center;vertical-align: top;"></td>
+        <td style="height:380px;font-size: 9px; width: 10%; text-align: center;vertical-align: top;"></td>
+        <td style="height:380px;font-size: 9px; width: 10%; text-align: center;vertical-align: top;"></td>
+        <td style="height:380px;font-size: 9px; width: 10%; text-align: center;vertical-align: top;"></td>
+        </tr>
         </table>';
+
         foreach ($assig as $sg) {
            $assig1 =  $sg["Assig1"];
            $assig2 =  $sg["Assig2"];
@@ -537,6 +630,9 @@ class BidsController extends Controller
         }
         $LeftFooterContent = '
 <table width="100%">
+<tr>
+<td style="font-size: 11px;text-align: left; width=100%" colspan="12"><b>Awarding Comitee</b></td>
+</tr>
     <tr>
         <td style="font-size: 11px;text-align: center; width=16.67"><b>'.$assig1.'</b><br/>Chairperson</td>
         <td style="width: 50px;"></td>
@@ -551,6 +647,9 @@ class BidsController extends Controller
         <td style="font-size: 11px;text-align: center; width=16.67"><b>'.$assig6.'</b><br/>'.$Assig6Position.'</td>
         <td style="height: 100px;"></td>
     </tr>
+    <tr>
+<td style="font-size: 11px;text-align: left; width=100%" colspan="12">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$model->purchase_request_number .'</td>
+</tr>
         <tr>
         <td style="font-size: 11px;text-align: center; width=16.67">'.date("F j, Y").'</td>
         <td style="width: 50px;"></td>
@@ -588,6 +687,17 @@ class BidsController extends Controller
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
+    }
+
+
+    public function actionCheckimportid()
+    {
+        $request = Yii::$app->request;
+        $sup_id = $request->post('sup_id');
+        $con = Yii::$app->procurementdb;
+        $sql = "SELECT * FROM `tbl_supplier` WHERE supplier_name= '".$sup_id."';";
+        $checkxml = $con->createCommand($sql)->queryAll();
+        return json_encode($checkxml);
     }
 
     public function actionView()
@@ -681,7 +791,10 @@ class BidsController extends Controller
     function getprDetails($id)
     {
         $con = Yii::$app->procurementdb;
-        $sql = "SELECT * FROM `tbl_purchase_request_details` WHERE `purchase_request_id`=" . $id;
+        $sql = "SELECT * FROM `fais-procurement`.`tbl_purchase_request_details`
+INNER JOIN `fais`.`tbl_unit_type` 
+ON `tbl_purchase_request_details`.`unit_id` = `tbl_unit_type`.`unit_type_id`
+ WHERE `purchase_request_id`=" . $id;
         $porequest = $con->createCommand($sql)->queryAll();
         return $porequest;
     }
