@@ -74,5 +74,5 @@ Modal::end();
     ?>
 </div>
 <pre>
-    <?php print_r(Yii::$app->user->identity->profile);?>
+    <?php //print_r(Yii::$app->user->identity->profile);?>
 </pre>
