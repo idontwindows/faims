@@ -57,11 +57,11 @@ if(Yii::$app->user->isGuest){
                         'label' => 'Procurement Plan', 
                         'icon' => 'archive', 
                         //'url' => ['/settings'],
-                        'visible'=> Yii::$app->user->can('access-pre-procurement'),
+                        //'visible'=> Yii::$app->user->can('access-pre-procurement'),
                         'items' => [
-                            ['label' => 'Line-Item Budget', 'icon' => 'money', 'url' => ['/procurement/lineitembudget/index']],
-                            ['label' => 'PPMP', 'icon' => 'clipboard', 'url' => ['/procurement/ppmp/index']],
-                            ['label' => 'APP', 'icon' => 'file-text', 'url' => ['/procurement/app/index']],
+                            ['label' => 'Line-Item Budget', 'icon' => 'money', 'url' => ['/procurementplan/lineitembudget/index']],
+                            ['label' => 'PPMP', 'icon' => 'clipboard', 'url' => ['/procurementplan/ppmp/index']],
+                            ['label' => 'APP', 'icon' => 'file-text', 'url' => ['/procurementplan/app/index']],
                         ]
                     ],
                     [
