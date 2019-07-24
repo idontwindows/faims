@@ -51,7 +51,7 @@
                             if ($myval=='') {
                                 $myval = "";
                             }
-                             echo '<td style="font-size: 9px; width:10%;text-align: center; border:none;vertical-align:top;">'.$myval.'</td>'; 
+                             echo '<td style="font-size: 9px; width:10%;text-align: center; border:none;">'.$myval.'</td>'; 
                         }
            
                         $i++;              
