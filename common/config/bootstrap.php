@@ -15,11 +15,11 @@ $whitelist = array(
 );
 if (isset($_SERVER['SERVER_NAME'])) {
     if (!in_array($_SERVER['SERVER_NAME'], $whitelist)) {
-        $Backend_URI = 'https://' . $_SERVER['SERVER_NAME'] . '/';
+        $Backend_URI = 'http://' . $_SERVER['SERVER_NAME'] . '/';
         $BaseURI = $Backend_URI.'/';
         $Backend_URI = $Backend_URI . "/uploads/user/photo/";
         #$FrontendBaseURI = 'http://' . $_SERVER['SERVER_NAME'] . ':8082/';
-        $FrontendBaseURI = 'https://' . $_SERVER['SERVER_NAME'] . '/';
+        $FrontendBaseURI = 'http://' . $_SERVER['SERVER_NAME'] . '/';
     } else {
         $Backend_URI = 'http://localhost/faims/backend/web/uploads/user/photo/';
         $BaseURI = "http://localhost/faims/backend/web/";
