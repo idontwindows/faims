@@ -9,7 +9,7 @@
 
 
 use yii\helpers\Html;
-
+use yii\helpers\Url;
 use common\modules\pdfprint;
 use common\components\Functions;
 use kartik\grid\GridView;
@@ -46,7 +46,9 @@ $this->registerJsFile($BaseURL.'js/custom.js');
             'tabindex'=>false,
         ]
     ]);
-    echo "<div id='modalContent'><div style='text-align:center'><img src='/images/loading.gif'></div></div>";
+    echo "<div id='modalContent'><div style='text-align:center'><img src='/images/loading.gif'>
+   
+        </div></div>";
     Modal::end();
     ?>
 
@@ -167,23 +169,18 @@ $this->registerJsFile($BaseURL.'js/custom.js');
         ],
         [
 
-            'label'=>'Actions',
+            'label'=>'Modify',
             'headerOptions' => ['class' => 'kartik-sheet-style'],
-            'group'=>true,  // enable grouping
-            'subGroupOf'=>1, // supplier column index is the parent group
             'format'=>'raw',
             'value' => function ($data) use ($func) {
-                return Html::a('<span class="glyphicon glyphicon-print"></span>', ['reportpo?id='.$data["purchase_order_number"]], [
-                    'class'=>'btn-pdfprint btn btn-warning',
-                    'data-pjax'=>"0",
-                    'pjax'=>"0",
-                    'title'=>'Will open the generated PDF file in a new window'
-                ]);
+                $btn ="<h5 style='text-align:center;display: inline-block;margin:0px;' data-step='2' data-intro='Click here to view Obligation Request'><span>". Html::button('<span class=\'glyphicon glyphicon-pencil\'></span>', ['value' => Url::to(['viewpo?id='.$data["bids_details_id"]]), 'title' => 'Modify Purchase Request', 'tab-index'=>0 , 'class' => 'btn btn-success', 'style'=>'margin-right: 6px;', 'id'=>'buttonAddObligation'])."</span></h5>";
+                return $btn;
+                
             },
         ],
         [
 
-            'label'=>'Actions2',
+            'label'=>'Actions',
             'headerOptions' => ['class' => 'kartik-sheet-style'],
             'group'=>true,  // enable grouping
             'subGroupOf'=>1, // supplier column index is the parent group
@@ -238,7 +235,7 @@ $this->registerJsFile($BaseURL.'js/custom.js');
         'persistResize' => false,
         'toggleDataOptions' => ['minCount' => 10],
         'exportConfig' => true,
-    ]);
+    ]); 
     ?>
 
     <?= pdfprint\Pdfprint::widget([

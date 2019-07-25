@@ -3,9 +3,11 @@
 namespace frontend\modules\procurement\controllers;
 use common\models\procurement\Purchaseorder;
 use common\models\procurement\Purchaserequest;
+use common\models\procurement\Bidsdetails;
 use common\models\procurement\PurchaserequestSearch;
 use yii\data\ArrayDataProvider;
 use kartik\mpdf\Pdf;
+
 
 //use yii\web\NotFoundHttpException;
 use Yii;
@@ -56,30 +58,33 @@ class PurchaseorderController extends \yii\web\Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionViewPO($id)
+    public function actionViewpo()
     {
+        $session = Yii::$app->session;
         $request = Yii::$app->request;
-        if($request->get('id') && $request->get('view')) {
-            $id = $request->get('id');
-            $model = $this->getgetprDetailsPOList($id);
-            return $this->renderAjax('_forms', [
+        $id = $request->get('id');
+        $session->set('myID',$id); 
+        $model = $this->findModelBidDetails($id);
+                return $this->renderAjax('_form', [
                 'model' => $model,
             ]);
-        }
+    
     }
 
 
-    /*  public  function actionPurchaseOrder() {
 
-   /*   Modal::begin([
-             'header' => '<h2>Hello world</h2>',
-             'toggleButton' => ['label' => 'click me'],
-         ]);
-         echo 'Say hello...';
-         Modal::end();
+    public function actionUpdate()
+    {
+      $model = new Bidsdetails();
+      $session = Yii::$app->session;
+      $request = Yii::$app->request;    
+      $id = $session->get('myID');
+          $model = $this->findModelBidDetails($id);
+          if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                  return $this->redirect('index');
+          } 
+    }
 
-     }
-     */
 
      function getPOList()
      {
@@ -562,6 +567,17 @@ a penalty of one-tenth (1/10) of one percent for every day of delay shall be imp
     protected function findModelDetails($id)
     {
         if (($model = Purchaseorder::findOne($id)) !== null) {
+            return $model;
+        } else {
+            //return var_dump($model);
+            //throw new NotFoundHttpException('The requested page does not exist.');
+        }
+    }
+
+
+    protected function findModelBidDetails($id)
+    {
+        if (($model = BidsDetails::findOne($id)) !== null) {
             return $model;
         } else {
             //return var_dump($model);
