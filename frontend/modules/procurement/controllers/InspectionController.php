@@ -366,12 +366,12 @@ class InspectionController extends \yii\web\Controller
                         </tr>
                         
                         <tr style="text-align: left;">
-                            <td style="text-align: center;padding-left: -125px;"><b>'.$assig1.'</b><br>Chairman<br></td>
+                            <td style="text-align: center;padding-left: -125px;padding-bottom:10px;"><b>'.$assig1.'</b><br>Chairman<br></td>
                             <td style="text-align: right;"></td>
                         </tr>
                  
                         <tr style="text-align: left;">
-                            <td style="text-align: center;padding-left: -125px;"><b>'.$assig2.'</b><br>Member<br></td>
+                            <td style="text-align: center;padding-left: -125px;padding-bottom:10px;"><b>'.$assig2.'</b><br>Member<br></td>
                             <td style="text-align: right;text-align: center;"><b>'.$assig3.'</b><br>Supply Officer</td>
                         </tr>
                         <tr style="text-align: right;">

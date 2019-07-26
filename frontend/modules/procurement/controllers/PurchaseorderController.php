@@ -8,7 +8,6 @@ use common\models\procurement\PurchaserequestSearch;
 use yii\data\ArrayDataProvider;
 use kartik\mpdf\Pdf;
 
-
 //use yii\web\NotFoundHttpException;
 use Yii;
 //$model = new Purchaseorder();
@@ -63,10 +62,14 @@ class PurchaseorderController extends \yii\web\Controller
         $session = Yii::$app->session;
         $request = Yii::$app->request;
         $id = $request->get('id');
+        $myid = $request->get('mid');
         $session->set('myID',$id); 
+        $session->set('myID2',$myid);
         $model = $this->findModelBidDetails($id);
+        $model2 = $this->findModelPurchase($myid);
                 return $this->renderAjax('_form', [
                 'model' => $model,
+                'model2' => $model2,
             ]);
     
     }
@@ -76,13 +79,31 @@ class PurchaseorderController extends \yii\web\Controller
     public function actionUpdate()
     {
       $model = new Bidsdetails();
+      // $model2 = new Purchaseorder();
       $session = Yii::$app->session;
-      $request = Yii::$app->request;    
-      $id = $session->get('myID');
-          $model = $this->findModelBidDetails($id);
+      $request = Yii::$app->request;
+      $id = $session->get('myID');    
+      $myid = $session->get('myID2');
+      $model = $this->findModelBidDetails($id);
+      $model2 = $this->findModelBidDetails($myid);
+        $delivery = $request->post('txtdelivery');
+        $delivery_date = $request->post('txtdelivery_date');
+        $delivery_term = $request->post('txtdelivery_term');
+        $payment_term = $request->post('txtpayment_term');
+        $mod_of_proc = $request->post('txtmode_of_procurement');
+      
           if ($model->load(Yii::$app->request->post()) && $model->save()) {
-                  return $this->redirect('index');
-          } 
+                Purchaseorder::updateAll( 
+                ['place_of_delivery' => $delivery ,
+                'date_of_delivery'=> $delivery_date , 
+                'delivery_term'=> $delivery_term , 
+                'payment_term'=> $payment_term , 
+                'mode_of_procurement'=> $mod_of_proc , 
+                ],'purchase_order_id = ' . $myid);
+                
+                return $this->redirect('index');
+          }
+        
     }
 
 
@@ -336,7 +357,8 @@ class PurchaseorderController extends \yii\web\Controller
      public function actionReportpofull($id) {
         $request = Yii::$app->request;
         $id = $request->get('id');
-        $model = $this->findModelDetails($id);
+        $mid = $request->get('mid');
+        $model = $this->findModelDetails($mid);
         $prdetails = $this->getprDetails($id);
         $assig = $this->getassig();
         $content = $this->renderPartial('_report2', ['prdetails'=> $prdetails,'model'=>$model]);
@@ -435,7 +457,7 @@ class PurchaseorderController extends \yii\web\Controller
 <h5>Gentlemen:</h5>
 <p>Please furnish this office the following articles subject to the terms and conditions contained them</p>
 </td>
-<td style="width: 30%; height: 12px;">Mode of Procurement :</td>
+<td style="width: 30%; height: 12px;">Mode of Procurement : '.$model->mode_of_procurement.'</td>
 </tr>
 <tr style="height: 10px;">
 <td style="width: 30%; height: 10px;">P.R. No. : <span style="text-decoration:underline;">'.$prno.'</span></td>
@@ -444,12 +466,12 @@ class PurchaseorderController extends \yii\web\Controller
 <td style="width: 30%; height: 12px;">P.R Date : <span style="text-decoration:underline;">'.$pdate.'</span> </td>
 </tr>
 <tr style="height: 12px;">
-<td style="width: 70%; height: 15px;">Place of Delivery :&nbsp;</td>
-<td style="width: 30%; height: 15px;">Delivery Term&nbsp;:&nbsp;</td>
+<td style="width: 70%; height: 15px;">Place of Delivery : '.$model->place_of_delivery.'</td>
+<td style="width: 30%; height: 15px;">Delivery Term : '.$model->delivery_term.'</td>
 </tr>
 <tr style="height: 12px;">
-<td style="width: 70%; height: 15px;">Date of Delivery :&nbsp;</td>
-<td style="width: 30%; height: 15px;">Payment Term :&nbsp;</td>
+<td style="width: 70%; height: 15px;">Date of Delivery : '.$model->date_of_delivery.'</td>
+<td style="width: 30%; height: 15px;">Payment Term : '.$model->payment_term.'</td>
 </tr>
 </tbody>
 </table>
@@ -584,5 +606,16 @@ a penalty of one-tenth (1/10) of one percent for every day of delay shall be imp
             //throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+
+    protected function findModelPurchase($id)
+    {
+        if (($model = Purchaseorder::findOne($id)) !== null) {
+            return $model;
+        } else {
+            //return var_dump($model);
+            //throw new NotFoundHttpException('The requested page does not exist.');
+        }
+    }
+
 
 }

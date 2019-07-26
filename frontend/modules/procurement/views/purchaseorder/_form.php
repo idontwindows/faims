@@ -40,9 +40,10 @@ $this->registerJsFile('https://code.jquery.com/ui/1.12.1/jquery-ui.js');
                 <div class="col-lg-12">
                 <label>Unit</label>
                     <?=
-                    $form->field($model, 'bids_unit')->widget(Select2::className(),[
+                    Select2::widget([
+                                            'name' => 'txtunits',
+                                            'id'=> 'txtunits',
                                             'data' => $listUnits,
-                                            'value' => $model->bids_unit,
                                             'options' => ['placeholder' => 'Select Unit Type','tabindex'=>0,],
                                             'pluginEvents' => [
                                                 "change" => "function() {
@@ -51,19 +52,29 @@ $this->registerJsFile('https://code.jquery.com/ui/1.12.1/jquery-ui.js');
                                             ],
                                         ]);
                     ?>
-
-
-
-
-
-
                 </div>
                 <div class="col-lg-12">
                      <?= $form->field($model, 'bids_quantity')->textInput(['maxlength' => true,'placeholder'=>'0'])->label('Quantity') ?> 
                 </div>
                 <div class="col-lg-12">
                      <?= $form->field($model, 'bids_price')->textInput(['maxlength' => true,'placeholder'=>'0'])->label('Price'); ?> 
+                </div>   
+                <div class="col-lg-12">
+                     <?= $form->field($model2, 'place_of_delivery')->textInput(['maxlength' => true,'placeholder'=>'Place of Delivery','id'=>'txtdelivery','name'=> 'txtdelivery'])->label('Place of Delivery'); ?> 
+                </div> 
+                <div class="col-lg-12">
+                <?= $form->field($model2, 'date_of_delivery')->input("date",['value' =>  date("Y-m-d"),'id'=>'txtdelivery_date','name'=> 'txtdelivery_date'])->label('Date of Delivery') ?>
+                </div> 
+                <div class="col-lg-12">
+                     <?= $form->field($model2, 'delivery_term')->textInput(['maxlength' => true,'placeholder'=>'Terms of Delivery','id'=>'txtdelivery_term','name'=> 'txtdelivery_term'])->label('Delivery Term'); ?> 
+                </div> 
+                <div class="col-lg-12">
+                     <?= $form->field($model2, 'payment_term')->textInput(['maxlength' => true,'placeholder'=>'Terms of Payment','id'=>'txtdelivery_term','name'=> 'txtpayment_term'])->label('Payment Term'); ?> 
+                </div> 
+                <div class="col-lg-12">
+                     <?= $form->field($model2, 'mode_of_procurement')->textInput(['maxlength' => true,'placeholder'=>'Mode of Procurement','id'=>'txtmode_of_procurement','name'=> 'txtmode_of_procurement'])->label('Mode of Procurement'); ?> 
                 </div>    
+                 
             </div>
         </div>
                 

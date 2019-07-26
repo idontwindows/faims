@@ -173,7 +173,7 @@ $this->registerJsFile($BaseURL.'js/custom.js');
             'headerOptions' => ['class' => 'kartik-sheet-style'],
             'format'=>'raw',
             'value' => function ($data) use ($func) {
-                $btn ="<h5 style='text-align:center;display: inline-block;margin:0px;' data-step='2' data-intro='Click here to view Obligation Request'><span>". Html::button('<span class=\'glyphicon glyphicon-pencil\'></span>', ['value' => Url::to(['viewpo?id='.$data["bids_details_id"]]), 'title' => 'Modify Purchase Request', 'tab-index'=>0 , 'class' => 'btn btn-success', 'style'=>'margin-right: 6px;', 'id'=>'buttonAddObligation'])."</span></h5>";
+                $btn ="<h5 style='text-align:center;display: inline-block;margin:0px;' data-step='2' data-intro='Click here to view Obligation Request'><span>". Html::button('<span class=\'glyphicon glyphicon-pencil\'></span>', ['value' => Url::to(['viewpo?id='.$data["bids_details_id"].'&&'.'mid='.$data["purchase_order_id"]]), 'title' => 'Modify Purchase Request', 'tab-index'=>0 , 'class' => 'btn btn-success', 'style'=>'margin-right: 6px;', 'id'=>'buttonAddObligation'])."</span></h5>";
                 return $btn;
                 
             },
@@ -186,7 +186,7 @@ $this->registerJsFile($BaseURL.'js/custom.js');
             'subGroupOf'=>1, // supplier column index is the parent group
             'format'=>'raw',
             'value' => function ($data) use ($func) {
-                return Html::a('<span class="glyphicon glyphicon-print"></span>', ['reportpofull?id='.$data["purchase_order_number"]], [
+                return Html::a('<span class="glyphicon glyphicon-print"></span>', ['reportpofull?id='.$data["purchase_order_number"].'&&'.'mid='.$data["purchase_order_id"]], [
                     'class'=>'btn-pdfprint btn btn-primary',
                     'data-pjax'=>"0",
                     'pjax'=>"0",

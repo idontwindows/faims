@@ -30,6 +30,7 @@ jQuery(document).ready(function ($) {
 
 
 
+
 $("body").on("click","#buttonAddObligation",function () {
     $('#modalPurchaseOrder').modal('show')
         .find('#modalContent')
