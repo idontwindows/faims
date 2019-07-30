@@ -69,7 +69,7 @@ $this->params['breadcrumbs'][] = $this->title;
         [
             'class' => 'kartik\grid\SerialColumn',
             'contentOptions' => ['class' => 'kartik-sheet-style'],
-            'width' => '5%',
+            'width' => '0.5%',
             'vAlign' => 'top',
             'header' => '',
             'headerOptions' => ['class' => 'kartik-sheet-style'],
@@ -137,19 +137,9 @@ $this->params['breadcrumbs'][] = $this->title;
                  "class"=>"btn btn-danger"
                   ])."</span></h5>";
             },
-             'print' => function($url,$model,$key){
-                return "<h5 style='display: inline-block;margin:0px;' data-step='5' data-intro='Click here to print Obligation Request'><span>".Html::a('<span class="glyphicon glyphicon-print"></span>', ['reportob?id='.$model["obligation_request_id"]], [
-                     'class'=>'btn-pdfprint btn btn-warning',
-                     'data-pjax'=>"0",
-                     'pjax'=>"0",
-                     'title'=>'Will open the generated PDF file in a new window'
-                 ])."</span></h5>";
-                    //$btn = Html::submitButton('<span class=\'glyphicon glyphicon-print\'></span>', ['value' => Url::to(['reportob?id='.$model["obligation_request_id"]]), 'title' => 'Print Obligation Request', 'tab-index'=>0 , 'class' => 'btn btn-info', 'style'=>'margin-right: 6px;']);
-                    //return $btn;
-             },
              'print2' => function($url,$model,$key){
                 return "<h5 style='display: inline-block;margin:0px;' data-step='6' data-intro='Click here to print Obligation Request'><span>".Html::a('<span class="glyphicon glyphicon-print"></span>', ['reportobfull?id='.$model["obligation_request_id"]], [
-                     'class'=>'btn-pdfprint btn btn-primary',
+                     'class'=>'btn-pdfprint btn btn-warning',
                      'data-pjax'=>"0",
                      'pjax'=>"0",
                      'title'=>'Will open the generated PDF file in a new window'

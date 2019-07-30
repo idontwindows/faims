@@ -164,7 +164,6 @@ $listEmployees = ArrayHelper::map($employees, 'employeename', 'employeename');
         </div>
         <div class="col-lg-2">
             <?= Html::submitButton( 'Print' , ['class' =>  'btn-pdfprint btn btn-primary btn-block','id'=> 'btnSubmit','name'=>'btnSubmit','data-pjax'=>'0']) ?>
-
         </div>
     </div>
     <?php ActiveForm::end(); ?>

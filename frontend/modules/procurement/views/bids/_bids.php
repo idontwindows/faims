@@ -599,7 +599,7 @@ $this->registerJsFile($BaseURL.'js/procurement/bids/bids.js');
                                         'template' => '{cancel}',                   // move grouped column to a single grouped row
                                         'buttons'=>[
                                             'cancel' => function($url,$model,$key){
-                                                return Html::a('<span class="glyphicon glyphicon-remove-circle"></span>', ['cancelbids?id='.$model["bids_id"].'&pid='.$model["purchase_request_id"]], [
+                                                return Html::a('<span class="glyphicon glyphicon-remove-circle"></span>', ['cancelbids?id='.$model["bids_details_id"].'&pid='.$model["purchase_request_id"]], [
                                                         'class'=>'btn btn-warning',
                                                         'data-pjax'=>"1",
                                                         'pjax'=>"1",

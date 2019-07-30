@@ -69,7 +69,7 @@ $this->registerJsFile('https://code.jquery.com/ui/1.12.1/jquery-ui.js');
                      <?= $form->field($model2, 'delivery_term')->textInput(['maxlength' => true,'placeholder'=>'Terms of Delivery','id'=>'txtdelivery_term','name'=> 'txtdelivery_term'])->label('Delivery Term'); ?> 
                 </div> 
                 <div class="col-lg-12">
-                     <?= $form->field($model2, 'payment_term')->textInput(['maxlength' => true,'placeholder'=>'Terms of Payment','id'=>'txtdelivery_term','name'=> 'txtpayment_term'])->label('Payment Term'); ?> 
+                     <?= $form->field($model2, 'payment_term')->textInput(['maxlength' => true,'placeholder'=>'Terms of Payment','id'=>'txtpayment_term','name'=> 'txtpayment_term'])->label('Payment Term'); ?> 
                 </div> 
                 <div class="col-lg-12">
                      <?= $form->field($model2, 'mode_of_procurement')->textInput(['maxlength' => true,'placeholder'=>'Mode of Procurement','id'=>'txtmode_of_procurement','name'=> 'txtmode_of_procurement'])->label('Mode of Procurement'); ?> 

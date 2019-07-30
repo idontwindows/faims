@@ -74,8 +74,7 @@ $this->registerJsFile($BaseURL.'js/custom.js');
     <?= $func->GridGroupStart('button-control')?>
     <?= $func->GridButton('purchase_request_id',"","btnView","primary","","grdbutton", "fa fa-eye","myView","myView") ?>
     <?= $func->GridButton('purchase_request_id',"","btnEdit","default ","","grdbutton","fa fa-edit","Update","myEdit") ?>
-    <h5 style='display: inline-block;margin:0px;' data-step='5' data-intro='Click here to Report'><a href="reportpr?id={{data.purchase_request_id}}" class="btn-pdfprint btn btn-warning grdbutton"> <i class="fa fa-print"></i></a></h5>
-    <h5 style='display: inline-block;margin:0px;' data-step='6' data-intro='Click here to Report'><a href="reportprfull?id={{data.purchase_request_id}}" class="btn-pdfprint btn btn-primary grdbutton"> <i class="fa fa-print"></i></a></h5>
+    <h5 style='display: inline-block;margin:0px;' data-step='5' data-intro='Click here to Report'><a href="reportprfull?id={{data.purchase_request_id}}" class="btn-pdfprint btn btn-warning grdbutton"> <i class="fa fa-print"></i></a></h5>
     <?= $func->GridGroupEnd();?>
     <!-- *********************************** Close Group for Buttons ************************************************ -->
     <?=

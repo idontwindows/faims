@@ -351,12 +351,18 @@ class BidsController extends Controller
     {
         $request = Yii::$app->request;
         $id = $request->get('id');
-        foreach (Bids::find()->where('bids_id='.$id)->all() as $user) {
+    
+        Bidsdetails::updateAll( 
+            [
+            'bids_details_status'=> '0' , 
+            ],'bids_details_id = ' . $id);
+        /*foreach (Bids::find()->where('bids_id='.$id)->all() as $user) {
             $user->delete();
         }
         foreach (Bidsdetails::find()->where('bids_id='.$id)->all() as $user) {
             $user->delete();
-        }
+        }*/
+
         $id = $request->get('íd');
         $pid = $request->get('pid');
         $model = $this->findModel($pid);
@@ -399,51 +405,71 @@ class BidsController extends Controller
 
     $pdf->content = $content;
     $pdf->cssFile = '@vendor/kartik-v/yii2-mpdf/assets/kv-mpdf-bootstrap.min.css';
-    $pdf->cssInline = '.kv-heading-1{font-size:18px}.nospace-border{border:0px;}.no-padding{ padding:0px;}.print-container{font-size:11px;font-family:Arial,Helvetica Neue,Helvetica,sans-serif; }';
+    $pdf->cssInline = '.kv-heading-1{font-size:18px}.nospace-border{border:0px;}.no-padding{ padding:0px;}.print-container{font-size:px;font-family:Arial,Helvetica Neue,Helvetica,sans-serif; }';
     $pdf->marginTop = 150;
     $pdf->marginBottom = 50;
-    $headers = '<div style="height: 145px;"></div>
-   <table class="table table-responsive">
-       <tbody>
-        <tr class="nospace-border">
-            <td width="70%" style="padding: 0px;"></td>
-            <td width="30%" style="padding: 0px; padding-left: 15px; padding-top: 0px;">'.$model->purchase_request_referrence_no.'</td>
-        </tr>
-        <tr class="nospace-border">
-            <td width="70%" style="padding: 0px;"></td>
-            <td width="30%" style="padding: 0px;padding-left: 15px;">'.$model->purchase_request_project_name.'</td>
-        </tr>
-        <tr class="nospace-border">
-            <td width="70%" style="padding: 0px;"></td>
-            <td width="30%" style="padding: 0px;padding-left: 15px;">'.$model->purchase_request_location_project.'</td>
-        </tr>
-        <tr class="nospace-border">
-            <td style="padding: 0px; padding-top: 34px" width="">'.strtoupper($supplier).'</td>
-        </tr>
-        <tr class="nospace-border">
-            <td style="padding: 0px;" width="">'.$address.'</td>
-        </tr>
-        <tr class="nospace-border">
-            <td style="height: 50px;"></td>
-        </tr>
-        <tr class="nospace-border">
-            <td style="padding: 0px; padding-top:25px; padding-left:50px;" width="">'.date_format($sub, "F j, Y").'</td>
-        </tr>
+    $headers = '
+    <table width="100%">
+<tbody>
+<tr style="height: 43.6667px;">
+<td style="width: 82.4103%; height: 43.6667px;">
+<p>&nbsp;</p>
+</td>
+<td style="width: 12.5897%; height: 43.6667px;">
+<table border="1" width="100%" style="border-collapse: collapse;">
+<tbody>
+<tr>
+<td>
+<p><h6><strong>FASS-PUR F06</strong>&nbsp; Rev. 0/ 08-16-07</h6></p>
+</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
 
-        <tr class="nospace-border">
-            <td style="height: 50px;"></td>
-        </tr>
+<table style="width: 100%;">
+<tbody>
+<tr>
+<td style="text-align: center;">Republic of the Philippines</td>
+</tr>
+<tr>        
+<td style="text-align: center;"><strong>DEPARTMENT OF SCIENCE AND TECHNOLOGY</strong></td>
+</tr>
+<tr>
+<td style="text-align: center;">Regional Office No. IX</td>
+</tr>
+<tr>
+<td style="text-align: center;">Zamboanga City</td>
+</tr>
+<tr>
+<td style="text-align: center;">&nbsp;</td>
+</tr>
+</tbody>
+</table>
 
-        <tr class="nospace-border">
-            <td width="80%"></td>
-            <td style="padding: -10px; padding-left: -20px; text-align: center; text-decoration: underline;" width="20%">'.$employee[0].'</td>
-        </tr>
-        <tr class="nospace-border">
-            <td width="80%"></td>
-            <td style="padding: 0px; padding-left: -20px; text-align: center;" width="20%">Supply Officer</td>
-        </tr>
-       </tbody>
-    </table>
+<table style="width: 100%;">
+<tbody>
+<tr style="height: 12px;">
+<td style="height: 12px; width: 50%;font-size:11px;">Standard Form Number&nbsp; : SF-GOOD-60</td>
+<td style="height: 12px; width: 50%;font-size:11px;">Project Ref. No.  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;:'.$model->purchase_request_referrence_no.'</td>
+</tr>
+<tr style="height: 12.6364px;">
+<td style="height: 12.6364px; width: 50%;font-size:11px;">Revised on&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; : May 24, 2004&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</td>
+<td style="height: 12.6364px;font-size:11px;">Name of the Project&nbsp; &nbsp; &nbsp; &nbsp;:'.$model->purchase_request_project_name.'</td>
+</tr>
+<tr style="height: 12px;">
+<td style="width: 50%; height: 12px;font-size:11px;">Standard Form Title&nbsp; &nbsp; &nbsp; &nbsp;: <span style="text-decoration: underline;">REQUEST FOR QUOTATION</span></td>
+<td style="height: 12px;font-size:11px;">Location of the Project&nbsp; &nbsp;: '.$model->purchase_request_location_project.'</td>
+</tr>
+<tr style="height: 12px;">
+<td style="height: 12px;">&nbsp;</td>
+<td style="height: 12px;">&nbsp;</td>
+</tr>
+</tbody>
+</table>
     ';
 
 
@@ -474,7 +500,7 @@ class BidsController extends Controller
 
     $pdf->methods = [
         'SetHeader' => [$headers],
-        'SetFooter' => [$headerFooterConfiguration],
+        'SetFooter' => [''],
     ];
 
     return $pdf->render();
