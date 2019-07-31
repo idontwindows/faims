@@ -13,6 +13,12 @@ use yii\bootstrap\Modal;
 
 $BaseURL = $GLOBALS['frontend_base_uri'];
 $this->registerJsFile($BaseURL.'js/procurement/obligationrequest/ajax-modal-popup.js');
+$this->registerJsFile($BaseURL.'js/angular.min.js');
+$this->registerJsFile($BaseURL.'js/ui-bootstrap-tpls-0.10.0.min.js');
+$this->registerJsFile($BaseURL.'js/jquery.tabletojson.js');
+$this->registerJsFile($BaseURL.'js/app.js');
+$this->registerJsFile($BaseURL.'js/custom.js');
+
 
 
 $this->title = 'Obligation Request Module';

@@ -131,6 +131,7 @@ class PurchaseorderController extends \yii\web\Controller
                  ON `tbl_bids`.`bids_id` = `tbl_bids_details`.`bids_id`
                  INNER JOIN `tbl_purchase_request`
                  ON `tbl_purchase_request`.`purchase_request_id` = `tbl_bids_details`.`purchase_request_id`
+                 WHERE `tbl_purchase_order_details`.`purchase_request_details_status`=1
                  ORDER BY `tbl_purchase_order`.`purchase_order_number` DESC";
          $pordetails = $con->createCommand($sql)->queryAll();
 
@@ -190,7 +191,7 @@ class PurchaseorderController extends \yii\web\Controller
                  ON `tbl_bids`.`bids_id` = `tbl_bids_details`.`bids_id`
                  INNER JOIN `tbl_purchase_request`
                  ON `tbl_purchase_request`.`purchase_request_id` = `tbl_bids_details`.`purchase_request_id`
-                 WHERE `tbl_purchase_order`.`purchase_order_number` = '".$id."'";
+                 WHERE `tbl_purchase_order`.`purchase_order_number` = '".$id."' AND `tbl_purchase_order_details`.`purchase_request_details_status`=1";
          $porequest = $con->createCommand($sql)->queryAll();
          return $porequest;
      }

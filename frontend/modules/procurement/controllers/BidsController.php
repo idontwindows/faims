@@ -6,6 +6,7 @@ use common\models\procurement\Bidsdetails;
 use common\models\procurement\BidsdetailSearch;
 use common\models\procurement\BidsSearch;
 use common\models\procurement\Purchaseorder;
+use common\models\procurement\Purchaseorderdetails;
 use common\models\procurement\Purchaserequest;
 use common\models\procurement\Purchaserequestdetails;
 use common\models\procurement\Purchaserequestsearchdetails;
@@ -356,12 +357,10 @@ class BidsController extends Controller
             [
             'bids_details_status'=> '0' , 
             ],'bids_details_id = ' . $id);
-        /*foreach (Bids::find()->where('bids_id='.$id)->all() as $user) {
-            $user->delete();
-        }
-        foreach (Bidsdetails::find()->where('bids_id='.$id)->all() as $user) {
-            $user->delete();
-        }*/
+        Purchaseorderdetails::updateAll(
+            [
+            'purchase_request_details_status'=> '0' , 
+            ],'bids_details_id = ' . $id);
 
         $id = $request->get('íd');
         $pid = $request->get('pid');
@@ -830,9 +829,9 @@ class BidsController extends Controller
     {
         $con = Yii::$app->procurementdb;
         $sql = "SELECT * FROM `fais-procurement`.`tbl_purchase_request_details`
-INNER JOIN `fais`.`tbl_unit_type` 
-ON `tbl_purchase_request_details`.`unit_id` = `tbl_unit_type`.`unit_type_id`
- WHERE `purchase_request_id`=" . $id;
+                INNER JOIN `fais`.`tbl_unit_type` 
+                ON `tbl_purchase_request_details`.`unit_id` = `tbl_unit_type`.`unit_type_id`
+                WHERE `purchase_request_id`=" . $id;
         $porequest = $con->createCommand($sql)->queryAll();
         return $porequest;
     }
