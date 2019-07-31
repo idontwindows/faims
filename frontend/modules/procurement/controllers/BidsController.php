@@ -468,6 +468,18 @@ class BidsController extends Controller
 <td style="height: 12px;">&nbsp;</td>
 <td style="height: 12px;">&nbsp;</td>
 </tr>
+<tr style="height: 12px;">
+<td style="height: 12px;font-size:11px;text-decoration:underline;">'.strtoupper($supplier).'</td>
+<td style="height: 12px;">&nbsp;</td>
+</tr>
+<tr style="height: 12px;">
+<td style="height: 12px;font-size:11px;text-decoration:underline;">'.$address.'</td>
+<td style="height: 12px;">&nbsp;</td>
+</tr>
+<tr style="height: 12px;">
+<td style="height: 12px;font-size:11px;" colspan="2"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Please quote  your  lowest   price  on  the   item/s  listed   below,  subject  to  the   General   Conditions   on   the  last page,  stating  the   shortest   time  of   delivery
+  and   submit   your  quotation  duly   signed  by  your  representative   not   later than _____________________ in   an   envelope.</p></td>
+</tr>
 </tbody>
 </table>
     ';
