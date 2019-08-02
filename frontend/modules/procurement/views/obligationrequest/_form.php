@@ -22,7 +22,7 @@ if ($model->funds_available=='') {
     $model->funds_available =  $assig->assignatory_2;
 }
 
-
+$this->registerJsFile('https://code.jquery.com/ui/1.12.1/jquery-ui.js');
 ?>
 
 
@@ -186,9 +186,12 @@ if ($model->funds_available=='') {
                     <?= $form->field($model, 'resp_center')->textInput(['maxlength' => true,'placeholder' => 'Responsibility Center '])->label('') ?>
                 </div>
                 <div class="col-lg-3">
-              
+                    <?= $form->field($model, 'particulars')->widget(CKEditor::className(), [
+                    'options' => ['rows' => 5],
+                    'preset' => 'basic'
+                ])->label('Particulars') ?>
 
-<?= $form->field($model, 'particulars')->textarea(['rows' => 5,'placeholder'=>'Particulars'])->label('') ?>
+                
                 </div>
                 <div class="col-lg-2">
                     <?= $form->field($model, 'ppa')->textInput(['maxlength' => true])->label('MFO/PAP') ?>

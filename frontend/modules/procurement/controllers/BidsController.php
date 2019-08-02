@@ -404,7 +404,7 @@ class BidsController extends Controller
 
     $pdf->content = $content;
     $pdf->cssFile = '@vendor/kartik-v/yii2-mpdf/assets/kv-mpdf-bootstrap.min.css';
-    $pdf->cssInline = '.kv-heading-1{font-size:18px}.nospace-border{border:0px;}.no-padding{ padding:0px;}.print-container{font-size:px;font-family:Arial,Helvetica Neue,Helvetica,sans-serif; }';
+    $pdf->cssInline = '.kv-heading-1{font-size:18px}.nospace-border{border:0px;}.no-padding{ padding:0px;}.print-container{font-size:11px;font-family:Arial,Helvetica Neue,Helvetica,sans-serif; }';
     $pdf->marginTop = 150;
     $pdf->marginBottom = 50;
     $headers = '
@@ -481,11 +481,57 @@ class BidsController extends Controller
 </tr>
 </tbody>
 </table>
+<table style="width:100%;">
+<tr>
+<td style="width:80%;"></td>
+<td style="width:20%;text-align:center;"><td>
+</tr>
+    <tr>
+        <td style="width:80%;"></td>
+        <td style="width:35%;font-size:13px;">Ronel B. Gundoy<br/>Supply Officer<td>
+    </tr>
+</table>
+<div style="height:25px;"></div>
+<table style="width: 100%;">
+<tbody>
+<tr>
+<td style="width: 10%;font-size:10px; vertical-align: top; text-align: left;">Note:</td>
+<td style="width: 90%;font-size:10px;line-space:11px; vertical-align: top;">
+<p>&nbsp;<strong>1</strong><strong>. ALL ENTRIES MUST BE TYPEWRITTEN</strong></p>
+<p><strong>&nbsp;2</strong><strong>.</strong><strong> DELIVERY PERIOD WITHIN _________ CALENDAR DAYS</strong></p>
+<p><strong>&nbsp;3</strong><strong>. WARRANTY SHALL</strong> <strong>B</strong><strong>E</strong> <strong>F</strong><strong>OR</strong> <strong>A</strong> <strong>P</strong><strong>ERIOD</strong> <strong>O</strong><strong>F</strong><strong> SIX (6) MONTHS FOR SUPPLIES &amp; MATERIALS, ONE(1) YEAR FOR EQUIPMENT, FROM DATE OF&nbsp; &nbsp; &nbsp;<strong>ACCEPTANCE BY THE PROCURING ENTITY.</strong></strong></p>
+<p><strong>&nbsp;4. PRICE VALIDITY</strong> <strong>S</strong><strong>HALL BE FOR</strong><strong> A PERIOD OF _________ CALENDAR DAYS.</strong></p>
+<p><strong>&nbsp;5. G-EPS</strong> <strong>R</strong><strong>EGISTRATION</strong><strong> CERTIFICATE SHALL BE ATTACHED UPON SUBMISSION OF THE QUOTATION</strong></p>
+<p><strong>&nbsp;6</strong><strong>. BIDDERS</strong> <strong>SH</strong><strong>A</strong><strong>LL SUBMIT</strong><strong> ORIGINAL BROCHURES SHOWING CERTIFICATIONS OF THE PRODUCT BEING OFFERED</strong></p>
+</td>
+</tr>
+</tbody>
+</table>
+
+<div style="height:35px;"></div>
+<table style="width:100%;border-collapse:collapse;" border="1">
+<thead>
+    <tr>
+        <th style="text-align:center;font-size:11px;"> Item/s No.</th>
+        <th style="text-align:center;font-size:11px;"> Item/s Description.</th>
+        <th style="text-align:center;font-size:11px;"> Qty.</th>
+        <th style="text-align:center;font-size:11px;"> Unit Price</th>
+    </tr>
+</thead>
+<tbody>
+    <tr>
+        <td width="10%" style="height:385px;"></td>
+        <td width="60%" style="height:385px;"></td>
+        <td width="15%" style="height:385px;"></td>
+        <td width="15%" style="height:385px;"></td>
+    </td>
+</tbody>
+</table>
     ';
 
 
-    $LeftFooterContent = '<div style="text-align: left;font-weight: bold;">' . $model->purchase_request_number . '</div><div style="text-align: left;font-weight: lighter">'.date("F j, Y").'</div>';
-    $RightFooterContent = '<div style="text-align: right;padding-top:-50px;">Page {PAGENO} of {nbpg}</div>';
+    $LeftFooterContent = '<div style="text-align: left;font-weight: bold;font-size:11px;">' . $model->purchase_request_number . '</div><div style="text-align: left;font-size:11px;font-weight: lighter"><span style="font-size:11px;">'.date("F j, Y").'</span></div>';
+    $RightFooterContent = '<div style="text-align: right;padding-top:-50px;font-size:11px;">Page {PAGENO} of {nbpg}</div>';
     $oddEvenConfiguration =
         [
             'L' => [ // L for Left part of the header
@@ -511,7 +557,7 @@ class BidsController extends Controller
 
     $pdf->methods = [
         'SetHeader' => [$headers],
-        'SetFooter' => [''],
+        'SetFooter' => [$headerFooterConfiguration],
     ];
 
     return $pdf->render();
