@@ -393,7 +393,7 @@ class BidsController extends Controller
     $sub = $request->post('txtsubmission');
     $employee = $request->post('cboemployees');
     $employee = explode("|",$employee);
-    $sub = date_create($sub);
+    //$sub = date_create($sub);
     $model = $this->findModel($id);
     $prdetails = $this->getprDetails($model->purchase_request_id);
     $content = $this->renderPartial('_report', ['prdetails' => $prdetails, 'model' => $model]);
@@ -405,7 +405,7 @@ class BidsController extends Controller
     $pdf->content = $content;
     $pdf->cssFile = '@vendor/kartik-v/yii2-mpdf/assets/kv-mpdf-bootstrap.min.css';
     $pdf->cssInline = '.kv-heading-1{font-size:18px}.nospace-border{border:0px;}.no-padding{ padding:0px;}.print-container{font-size:11px;font-family:Arial,Helvetica Neue,Helvetica,sans-serif; }';
-    $pdf->marginTop = 150;
+    $pdf->marginTop = 157;
     $pdf->marginBottom = 50;
     $headers = '
     <table width="100%">
@@ -477,10 +477,11 @@ class BidsController extends Controller
 </tr>
 <tr style="height: 12px;">
 <td style="height: 12px;font-size:11px;" colspan="2"><p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Please quote  your  lowest   price  on  the   item/s  listed   below,  subject  to  the   General   Conditions   on   the  last page,  stating  the   shortest   time  of   delivery
-  and   submit   your  quotation  duly   signed  by  your  representative   not   later than _____________________ in   an   envelope.</p></td>
+  and   submit   your  quotation  duly   signed  by  your  representative   not   later than <span style="text-decoration:underline;">'.$sub.'</span> in an envelope.</p></td>
 </tr>
 </tbody>
 </table>
+<div style="height:30px;"></div>
 <table style="width:100%;">
 <tr>
 <td style="width:80%;"></td>
@@ -488,7 +489,7 @@ class BidsController extends Controller
 </tr>
     <tr>
         <td style="width:80%;"></td>
-        <td style="width:35%;font-size:13px;">Ronel B. Gundoy<br/>Supply Officer<td>
+        <td style="width:35%;font-size:13px;text-align:center;"><b>Ronnel B. Gundoy</b><br/>Supply Officer<td>
     </tr>
 </table>
 <div style="height:25px;"></div>
@@ -520,13 +521,46 @@ class BidsController extends Controller
 </thead>
 <tbody>
     <tr>
-        <td width="10%" style="height:385px;"></td>
-        <td width="60%" style="height:385px;"></td>
-        <td width="15%" style="height:385px;"></td>
-        <td width="15%" style="height:385px;"></td>
+        <td width="10%" style="height:375px;"></td>
+        <td width="60%" style="height:375px;"></td>
+        <td width="15%" style="height:375px;"></td>
+        <td width="15%" style="height:375px;"></td>
     </td>
 </tbody>
 </table>
+
+<div style="height:10px"></div>
+
+<table style="width: 100%;">
+<tbody>
+<tr style="height: 12px;">
+<td style="width: 45.0699%; height: 12px;font-size:9px;">Brand and Model : _______________________</td>
+<td style="width: 53.5839%; height: 12px;font-size:9px;">&nbsp;</td>
+</tr>
+<tr style="height: 12px;">
+<td style="width: 45.0699%; height: 12px;font-size:9px;">Delivery Period&nbsp; &nbsp; : _______________________</td>
+<td style="width: 53.5839%; height: 12px;font-size:9px;">&nbsp;</td>
+</tr>
+<tr style="height: 12px;">
+<td style="width: 45.0699%; height: 12px;font-size:9px;">Warranty&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; : _______________________</td>
+<td style="width: 53.5839%; height: 12px;font-size:9px;">&nbsp;</td>
+</tr>
+<tr style="height: 12px;">
+<td style="width: 45.0699%; height: 12px;font-size:9px;">Price Validity&nbsp; &nbsp; &nbsp; &nbsp;: _______________________</td>
+<td style="width: 53.5839%; height: 12px;font-size:9px; text-align: right;">&nbsp;</td>
+</tr>
+<tr style="height: 12.7273px;">
+<td style="width: 45.0699%; height: 12.7273px;font-size:9px;">&nbsp;</td>
+<td style="width: 53.5839%; height: 12.7273px;font-size:9px; text-align: right;">_______________________</td>
+</tr>
+<tr style="height: 12.7273px;">
+<td style="width: 45.0699%; height: 12.7273px;font-size:9px;">&nbsp;</td>
+<td style="width: 53.5839%; height: 12.7273px;font-size:9px; text-align: center;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Supplier</td>
+</tr>
+</tbody>
+</table>
+
+
     ';
 
 
