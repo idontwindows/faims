@@ -37,7 +37,7 @@
 </tr>
 <tr style="height: 13px;">
 <td style="width: 80%; height: 21px; text-align: center;font-size:16px;font-family:Arial;border-top:none;" colspan="5" rowspan="2"><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DISBURSEMENT VOUCHER</strong></td>
-<td style="width: 20%; height: 13px;" colspan="2">Date : <?= date("m/d/Y"); ?></td>
+<td style="width: 20%; height: 13px;" colspan="2">Date : <?= $dv_date; ?></td>
 </tr>
 <tr style="height: 8px;">
 <td style="width: 80%; height: 8px;" colspan="2">DV No. :</td>

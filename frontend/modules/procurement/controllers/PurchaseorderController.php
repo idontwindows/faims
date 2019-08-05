@@ -437,7 +437,7 @@ class PurchaseorderController extends \yii\web\Controller
         <td style="text-align: center;border-bottom:none;border-top:none;">Regional Office No. IX</td>
         </tr>
         <tr>
-        <td style="text-align: center;border-bottom:none;border-top:none;">Zamboanga City</td></tr>
+        <td style="text-align: center;border-bottom:none;border-top:none;">Pettit Barracks, Zamboanga City</td></tr>
         <tr>
         <td style="text-align: center;font-family:Arial;font-size:15px;border-top:none;"><b>PURCHASE ORDER</b></td>
         </tr>

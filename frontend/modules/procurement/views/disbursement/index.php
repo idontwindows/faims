@@ -132,7 +132,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     ]);
                 },
 
-                'print' => function($url,$model,$key){
+              /*  'print' => function($url,$model,$key){
                     return Html::a('<span class="glyphicon glyphicon-print"></span>', ['reportdv?id='.$model["dv_id"]], [
                         'class'=>'btn-pdfprint btn btn-warning',
                         'data-pjax'=>"0",
@@ -142,6 +142,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 },
 
+                */
                 'print2' => function($url,$model,$key){
                     return Html::a('<span class="glyphicon glyphicon-print"></span>', ['reportdvfull?id='.$model["dv_id"]], [
                         'class'=>'btn-pdfprint btn btn-primary',
