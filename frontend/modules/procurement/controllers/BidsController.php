@@ -393,7 +393,7 @@ class BidsController extends Controller
     $sub = $request->post('txtsubmission');
     $employee = $request->post('cboemployees');
     $employee = explode("|",$employee);
-    //$sub = date_create($sub);
+    $sub = date("F j, Y", strtotime($sub) );
     $model = $this->findModel($id);
     $prdetails = $this->getprDetails($model->purchase_request_id);
     $content = $this->renderPartial('_report', ['prdetails' => $prdetails, 'model' => $model]);
@@ -401,10 +401,10 @@ class BidsController extends Controller
     $pdf->format = pdf::FORMAT_A4;
     $pdf->orientation = Pdf::ORIENT_PORTRAIT;
     $pdf->destination = $pdf::DEST_BROWSER;
-
+    //$sub = date('F j, Y',$sub);
     $pdf->content = $content;
     $pdf->cssFile = '@vendor/kartik-v/yii2-mpdf/assets/kv-mpdf-bootstrap.min.css';
-    $pdf->cssInline = '.kv-heading-1{font-size:18px}.nospace-border{border:0px;}.no-padding{ padding:0px;}.print-container{font-size:11px;font-family:Arial,Helvetica Neue,Helvetica,sans-serif; }';
+    $pdf->cssInline = '.kv-heading-1{font-size:18px}.nospace-border{border:0px;}.no-padding{ padding:0px;}.print-container{font-size:11px;font-family:Arial,Helvetica Neue,Helvetica,sans-serif;} h1 {border-bottom: 2px solid blackfont-weight:normal;margin-bottom:5px;width: 140px;}';
     $pdf->marginTop = 157;
     $pdf->marginBottom = 50;
     $headers = '
@@ -441,7 +441,7 @@ class BidsController extends Controller
 <td style="text-align: center;">Regional Office No. IX</td>
 </tr>
 <tr>
-<td style="text-align: center;">Zamboanga City</td>
+<td style="text-align: center;">Pettit Barracks, Zamboanga City</td>
 </tr>
 <tr>
 <td style="text-align: center;">&nbsp;</td>
@@ -452,27 +452,67 @@ class BidsController extends Controller
 <table style="width: 100%;">
 <tbody>
 <tr style="height: 12px;">
-<td style="height: 12px; width: 50%;font-size:11px;">Standard Form Number&nbsp; : SF-GOOD-60</td>
-<td style="height: 12px; width: 50%;font-size:11px;">Project Ref. No.  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;:'.$model->purchase_request_referrence_no.'</td>
+<td style="height: 12px; width: 50%;font-size:11px;">Standard Form Number&nbsp;: SF-GOOD-60</td>
+<td style="height: 12px; width: 50%;font-size:11px;">Project Ref.No.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: ';
+if($model->purchase_request_referrence_no=='') {
+    $headers=$headers.'_______________________________________';
+}else{
+    $headers=$headers.'<span style="text-decoration:underline;">'.$model->purchase_request_referrence_no.'</span>';
+}
+
+$headers=$headers.'</td>
 </tr>
 <tr style="height: 12.6364px;">
-<td style="height: 12.6364px; width: 50%;font-size:11px;">Revised on&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; : May 24, 2004&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</td>
-<td style="height: 12.6364px;font-size:11px;">Name of the Project&nbsp; &nbsp; &nbsp; &nbsp;:'.$model->purchase_request_project_name.'</td>
+<td style="height: 12.6364px; width: 50%;font-size:11px;">Revised on&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: May 24, 2004&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</td>
+<td style="height: 12.6364px;font-size:11px;">Name of the Project&nbsp; &nbsp; &nbsp; &nbsp;: ';
+if($model->purchase_request_project_name=='') {
+    $headers=$headers.'_______________________________________';
+}else{
+    $headers=$headers.'<span style="text-decoration:underline;">'.$model->purchase_request_project_name.'</span>';
+}
+
+$headers=$headers.'</td>
 </tr>
 <tr style="height: 12px;">
 <td style="width: 50%; height: 12px;font-size:11px;">Standard Form Title&nbsp; &nbsp; &nbsp; &nbsp;: <span style="text-decoration: underline;">REQUEST FOR QUOTATION</span></td>
-<td style="height: 12px;font-size:11px;">Location of the Project&nbsp; &nbsp;: '.$model->purchase_request_location_project.'</td>
+<td style="height: 12px;font-size:11px;">Location of the Project&nbsp; &nbsp;: ';
+if($model->purchase_request_location_project=='') {
+    $headers=$headers.'_______________________________________';
+}else{
+    $headers=$headers.'<span style="text-decoration:underline;">'.$model->purchase_request_location_project.'</span>';
+}
+
+$headers=$headers.'</td>
 </tr>
 <tr style="height: 12px;">
 <td style="height: 12px;">&nbsp;</td>
 <td style="height: 12px;">&nbsp;</td>
 </tr>
 <tr style="height: 12px;">
-<td style="height: 12px;font-size:11px;text-decoration:underline;">'.strtoupper($supplier).'</td>
+<td style="height: 12px;font-size:11px;">';
+
+if($supplier=='') {
+    $headers=$headers.'_______________________________________';
+}else{
+     $headers=$headers.'<span style="text-decoration:underline;">'.strtoupper($supplier).'</span>';
+}
+
+$headers=$headers.'</td>
+
+
 <td style="height: 12px;">&nbsp;</td>
 </tr>
 <tr style="height: 12px;">
-<td style="height: 12px;font-size:11px;text-decoration:underline;">'.$address.'</td>
+<td style="height: 12px;font-size:11px;">';
+
+if($address=='') {
+    $headers=$headers.'_______________________________________';
+}else{
+    $headers=$headers.'<span style="text-decoration:underline;">'.$address.'</span>';
+}
+
+$headers=$headers.'</td>
+
 <td style="height: 12px;">&nbsp;</td>
 </tr>
 <tr style="height: 12px;">
@@ -534,28 +574,28 @@ class BidsController extends Controller
 <table style="width: 100%;">
 <tbody>
 <tr style="height: 12px;">
-<td style="width: 45.0699%; height: 12px;font-size:9px;">Brand and Model : _______________________</td>
+<td style="width: 45.0699%; height: 12px;font-size:9px;">Brand and Model&nbsp;:  __________________________________________</td>
 <td style="width: 53.5839%; height: 12px;font-size:9px;">&nbsp;</td>
 </tr>
 <tr style="height: 12px;">
-<td style="width: 45.0699%; height: 12px;font-size:9px;">Delivery Period&nbsp; &nbsp; : _______________________</td>
+<td style="width: 45.0699%; height: 12px;font-size:9px;">Delivery Period &nbsp;&nbsp;&nbsp;: __________________________________________</td>
 <td style="width: 53.5839%; height: 12px;font-size:9px;">&nbsp;</td>
 </tr>
 <tr style="height: 12px;">
-<td style="width: 45.0699%; height: 12px;font-size:9px;">Warranty&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; : _______________________</td>
+<td style="width: 45.0699%; height: 12px;font-size:9px;">Warranty &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: __________________________________________ </td>                                                                                                                                                           </td>
 <td style="width: 53.5839%; height: 12px;font-size:9px;">&nbsp;</td>
 </tr>
 <tr style="height: 12px;">
-<td style="width: 45.0699%; height: 12px;font-size:9px;">Price Validity&nbsp; &nbsp; &nbsp; &nbsp;: _______________________</td>
+<td style="width: 45.0699%; height: 12px;font-size:9px;">Price Validity&nbsp; &nbsp; &nbsp; &nbsp;: __________________________________________</td>
 <td style="width: 53.5839%; height: 12px;font-size:9px; text-align: right;">&nbsp;</td>
 </tr>
 <tr style="height: 12.7273px;">
 <td style="width: 45.0699%; height: 12.7273px;font-size:9px;">&nbsp;</td>
-<td style="width: 53.5839%; height: 12.7273px;font-size:9px; text-align: right;">_______________________</td>
+<td style="width: 53.5839%; height: 12.7273px;font-size:9px; text-align: right;">___________________________________________________</td>
 </tr>
 <tr style="height: 12.7273px;">
 <td style="width: 45.0699%; height: 12.7273px;font-size:9px;">&nbsp;</td>
-<td style="width: 53.5839%; height: 12.7273px;font-size:9px; text-align: center;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Supplier</td>
+<td style="width: 53.5839%; height: 12.7273px;font-size:9px; text-align: center;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Supplier</td>
 </tr>
 </tbody>
 </table>
