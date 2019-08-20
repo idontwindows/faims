@@ -29,9 +29,9 @@
                     $item_decription = $pr[$columns[6]];
                     echo '<tr class="nospace-border">';
                     echo '<td style="font-size: 9px; width: 5%; text-align: center;vertical-align: top;border:none;">'.$itemno.'</td>';
-                    echo '<td style="font-size: 9px; width: 5%; text-align: center;vertical-align: top;border:none;">'.$qty.'</td>';
-                    echo '<td style="font-size: 9px; width: 5%; text-align: center;vertical-align: top;border:none;">'.$unit.'</td>';
-                    echo '<td style="font-size: 9px; width: 25%; text-align: left;vertical-align: top; border:none;padding-left:5px;">'.$item_decription.'</td>';
+                    echo '<td style="font-size: 9px; width: 4%; text-align: center;vertical-align: top;border:none;">'.$qty.'</td>';
+                    echo '<td style="font-size: 9px; width: 4%; text-align: center;vertical-align: top;border:none;">'.$unit.'</td>';
+                    echo '<td style="font-size: 8px; width:25%;word-wrap: break-word;max-width:50px; text-align: left;vertical-align: top; border:none;padding-left:30px;">'.$item_decription.'</td>';
                     while($i<$loops) {
                         
                    
