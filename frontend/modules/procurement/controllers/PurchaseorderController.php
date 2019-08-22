@@ -400,9 +400,9 @@ class PurchaseorderController extends \yii\web\Controller
             $Assig2Position =  $sg["Assig2Position"];
         }
 
-        $pdf->marginTop = 100;
+        $pdf->marginTop = 95;
         //$pdf->marginHeader = 40;
-        $pdf->marginBottom=90   ;
+        $pdf->marginBottom=100   ;
         $headers= '
         <table width="100%">
         <tbody>
@@ -479,15 +479,15 @@ class PurchaseorderController extends \yii\web\Controller
 
 <table style="width: 100%; border-collapse: collapse;" border="1">
 <tbody>
-<tr style="height: 20px;">
-<td style="width: 10%; height: 20px; text-align: center;">Stock No.</td>
-<td style="width: 10%; height: 20px; text-align: center;">Unit</td>
-<td style="width: 40%; height: 20px; text-align: center;">Description</td>
-<td style="width: 13%; height: 20px; text-align: center;">Quantity</td>
-<td style="width: 13%; height: 20px; text-align: center;">Unit Cost</td>
-<td style="width: 13%; height: 20px; text-align: center;">Amount</td>
+<tr>
+<td style="width: 10%; height: 5px; text-align: center;">Stock No.</td>
+<td style="width: 10%; height: 5px; text-align: center;">Unit</td>
+<td style="width: 40%; height: 5px; text-align: center;">Description</td>
+<td style="width: 13%; height: 5px; text-align: center;">Quantity</td>
+<td style="width: 13%; height: 5px; text-align: center;">Unit Cost</td>
+<td style="width: 13%; height: 5px; text-align: center;">Amount</td>
 </tr>
-<tr style="height: 20px;">
+<tr>
 <td style="width: 10%; height: 400px; text-align: center;">&nbsp;</td>
 <td style="width: 10%; height: 400px; text-align: center;">&nbsp;</td>
 <td style="width: 40%; height: 400px; text-align: center;">&nbsp;</td>
