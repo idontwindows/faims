@@ -362,6 +362,9 @@ class BidsController extends Controller
             'purchase_request_details_status'=> '0' , 
             ],'bids_details_id = ' . $id);
 
+        
+
+
         $id = $request->get('íd');
         $pid = $request->get('pid');
         $model = $this->findModel($pid);
@@ -374,6 +377,7 @@ class BidsController extends Controller
         $searchModelBid = new BidsSearch();
         $bidsProvider = $searchModelBid->search(Yii::$app->request->queryParams);
         $dataProvider->query->where('purchase_request_id=' . $pid);
+
 
 
         return $this->renderAjax('_bids', [

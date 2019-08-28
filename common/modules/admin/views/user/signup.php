@@ -28,7 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
                <span style="float:left; width: 45%;">
                 <?= $form->field($model, 'username') ?>
                 <?= $form->field($model, 'email') ?>
-                <!--?= $form->field($model, 'password')->passwordInput() ?-->
+                <?= $form->field($model, 'password')->passwordInput() ?>
                 
                 <?= $form->field($model, 'division_id')->widget(Select2::classname(), [
                     'data' => $listDivisions,

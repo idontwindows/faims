@@ -212,7 +212,47 @@ class InspectionController extends \yii\web\Controller
         $pdf->marginBottom = 60;
         $pdf->marginFooter = 0;
 
-        $headers= '<div style="height: 175px"></div>
+        $headers= '
+        <table width="100%">
+        <tbody>
+        <tr style="height: 43.6667px;">
+        <td style="width: 82.4103%; height: 43.6667px;">
+        <p>&nbsp;</p>
+        </td>
+        <td style="width: 12.5897%; height: 43.6667px;">
+        <table border="1" width="100%" style="border-collapse: collapse;">
+        <tbody>
+        <tr>
+        <td>
+        <p><h6 style-P><strong>FASS-PUR F09</strong>&nbsp; Rev. 0 / 08-16-07</h6></p>
+        </td>
+        </tr>
+        </tbody>
+        </table>
+        </td>
+        </tr>
+        </tbody>
+        </table>
+        
+        <table width="100%" style="border-collapse: collapse;" border="1">
+        <tbody>
+        <tr>
+        <td style="text-align: center;border-bottom:none;">Republic of the Philippines</td>
+        </tr>
+        <tr>        
+        <td style="text-align: center;border-bottom:none;border-top:none;"><strong>DEPARTMENT OF SCIENCE AND TECHNOLOGY</strong></td>
+        </tr>
+        <tr>
+        <td style="text-align: center;border-bottom:none;border-top:none;">Regional Office No. IX</td>
+        </tr>
+        <tr>
+        <td style="text-align: center;border-bottom:none;border-top:none;">Pettit Barracks, Zamboanga City</td></tr>
+        <tr>
+        <td style="text-align: center;font-family:Arial;font-size:15px;border-top:none;padding:20px;"><b>INSPECTION & ACCEPTANCE REPORT</b></td>
+        </tr>
+        </tbody>                                                                                                                                                                                                                                                                                                                                                             
+        </table>
+
                     <table border="0" width="100%">
                         <tr style="text-align: left;">
                             <td style="padding-left: 50px;">'.$supplier.'</td>

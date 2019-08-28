@@ -98,7 +98,7 @@ $gridColumn = [
                 'type' => GridView::TYPE_PRIMARY,
                 'heading' => '<span class="glyphicon glyphicon-book"></span>  ' . Html::encode($this->title),
             ],
-            'toolbar' => [
+            /*'toolbar' => [
                 '{export}',
                 ExportMenu::widget([
                     'dataProvider' => $dataProvider,
@@ -114,6 +114,7 @@ $gridColumn = [
                     ],
                 ]),
             ],
+            */
         ]);
         ?>
     </div>

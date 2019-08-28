@@ -13,38 +13,16 @@
         $units = $pr["bids_unit"];
         $totalcost =  $quantity * $price;
         $append = "
-        <tr class=\"nospace-border\">";
-        $append = $append . "<td width='10%' style='vertical-align: top;padding-left:10px;text-align:center;'>".$x.".</td>";
-        $append = $append . "<td width='10%' style='vertical-align: top;padding-left:10px;text-align:center;'>".$units."</td>";
-        $append = $append . "<td width='40%' style='vertical-align: top;padding-left:10px;'>" . $itemdescription . "</td>";
-        $append = $append . "<td width='13%' style='vertical-align: top;padding-left:10px;text-align:center;'>" . $quantity . "</td>";
-        $append = $append . "<td width='13%' style='font-size:12px;vertical-align: top;padding-left:10px;text-align:right;padding-right:10px;'>" . $price . "</td>";
-        $append = $append . "<td width='13%' style='font-size:12px;vertical-align: top;padding-left:10px;text-align:right;padding-right:10px;'>" . number_format($totalcost,2) . "</td>";
+        <tr>";
+        $append = $append . "<td width='12.25%' style='vertical-align: top;padding-left:10px;text-align:center;background:blue;'>".$x.".</td>";
+        $append = $append . "<td width='12.25%' style='vertical-align: top;padding-left:10px;text-align:center'>".$units."</td>";
+        $append = $append . "<td width='30%' style='vertical-align: top;padding-left:0px;  word-wrap: break-word;'>" . $itemdescription . "</td>";
+        $append = $append . "<td width='10%' style='vertical-align: top;text-align:left;'>" . $quantity . "</td>";
+        $append = $append . "<td width='10%' style='font-size:12px;vertical-align: top;padding-left:10px;text-align:right;padding-right:10px;'>" . $price . "</td>";
+        $append = $append . "<td width='10%' style='font-size:12px;vertical-align: top;padding-left:10px;text-align:right;padding-right:10px;'>" . number_format($totalcost,2) . "</td>";
         $append = $append . "</tr>";
         $fin = $fin . $append;
-        /*$summary = $summary + $totalcost;
-
-        $yy = '<tfoot>
-        <tr>
-            <td style="width: 87%; text-align: left;border:none;border:1px solid black;background:white;" colspan="5">'.strtoupper(Yii::$app->formatter->asSpellout($summary))." PESOS ONLY".'</td>
-            <td style="width: 13%; text-align: center;border:1px solid black;">'.number_format($summary,2).'</td>      
-        </tr>
-        </tfoot>';*/
-        $cc = "<tr>";
-        $cc = $cc . '<td style="width: 10%;  text-align: center;">&nbsp;</td>';
-        $cc = $cc . '<td style="width: 10%;  text-align: center;">&nbsp;</td>';
-        $cc = $cc . '<td style="width: 10%;  text-align: center;">&nbsp;</td>';
-        $cc = $cc . '<td style="width: 10%;  text-align: center;">&nbsp;</td>';
-        $cc = $cc . '<td style="width: 10%;  text-align: center;">&nbsp;</td>';
-        $cc = $cc . '<td style="width: 10%;  text-align: center;">&nbsp;</td>';
-        $cc = $cc . "</tr>";
     }
-
-    /*$yy = "<tr>";
-    $yy = $yy . "<td width='86%' colspan='5'>".strtoupper(Yii::$app->formatter->asSpellout($summary))." PESOS ONLY</td>";
-    $yy = $yy . "<td width='13%' style='padding-left: 25px;'>{colsum2}</td>";
-    $yy = $yy . "</tr>";
-    */
 
     ?>  
 
