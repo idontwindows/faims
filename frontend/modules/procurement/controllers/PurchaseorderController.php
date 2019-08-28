@@ -400,9 +400,9 @@ class PurchaseorderController extends \yii\web\Controller
             $Assig2Position =  $sg["Assig2Position"];
         }
 
-        $pdf->marginTop = 95;
+        $pdf->marginTop = 96;
         //$pdf->marginHeader = 40;
-        $pdf->marginBottom=100   ;
+        $pdf->marginBottom=100;
         $headers= '
         <table width="100%">
         <tbody>
@@ -477,7 +477,7 @@ class PurchaseorderController extends \yii\web\Controller
 </tbody>
 </table>
 
-<table style="width: 100%; border-collapse: collapse;" border="1">
+<table style="width: 100%; border-collapse: collapse;" border="1" autosize="1">
 <tbody>
 <tr>
 <td style="width: 10%; height: 5px; text-align: center;">Stock No.</td>

@@ -599,7 +599,8 @@ $this->registerJsFile($BaseURL.'js/procurement/bids/bids.js');
                                         'template' => '{cancel}',                   // move grouped column to a single grouped row
                                         'buttons'=>[
                                             'cancel' => function($url,$model,$key){
-                                                return Html::a('<span class="glyphicon glyphicon-remove-circle"></span>', ['cancelbids?id='.$model["bids_details_id"].'&pid='.$model["purchase_request_id"]], [
+                                                return Html::a('<span class="glyphicon glyphicon-remove-circle"></span>', ['cancelbids?id='.$model["bids_details_id"].
+                                                '&pid='.$model["purchase_request_id"].'&bid='.$model["bids_id"].'&bid_status='.$model["bids_details_status"]], [
                                                         'class'=>'btn btn-warning',
                                                         'data-pjax'=>"1",
                                                         'pjax'=>"1",
@@ -608,11 +609,11 @@ $this->registerJsFile($BaseURL.'js/procurement/bids/bids.js');
                                             },
                                         ],
                                         'headerOptions' => ['class' => 'kartik-sheet-style'],
-                                        'deleteOptions' => ['label' => '<span class="glyphicon glyphicon-remove"></span>']
+                                        'deleteOptions' => ['label' => '<span class="glyphicon glyphicon-remove"></span>'],
+                                        'contentOptions' => function ($model, $key, $index, $column) {
+                                            return ['style' => 'position:absolute;border:none;'];
+                                        }
                                     ],
-
-
-
 
                                 ];
 

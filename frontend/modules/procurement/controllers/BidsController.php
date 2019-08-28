@@ -352,7 +352,11 @@ class BidsController extends Controller
     {
         $request = Yii::$app->request;
         $id = $request->get('id');
-    
+        $bid = $request->get('bid');
+        $pid = $request->get('pid');
+        $pStatus = $request->get('bid_status');
+
+        if ($pStatus==1) {
         Bidsdetails::updateAll( 
             [
             'bids_details_status'=> '0' , 
@@ -360,13 +364,15 @@ class BidsController extends Controller
         Purchaseorderdetails::updateAll(
             [
             'purchase_request_details_status'=> '0' , 
-            ],'bids_details_id = ' . $id);
-
-        
-
-
-        $id = $request->get('íd');
-        $pid = $request->get('pid');
+            ],'bids_details_id = ' . $id); 
+        }else{
+            foreach (Bids::find()->where('bids_id='.$bid)->all() as $user) {
+                $user->delete();
+            }
+            foreach (Bidsdetails::find()->where('bids_details_id='.$bid)->all() as $user) {
+                $user->delete();
+            }
+        }
         $model = $this->findModel($pid);
         $m = $this->findSupplier();
         $prdetails = $this->getprDetails($pid);
@@ -377,8 +383,6 @@ class BidsController extends Controller
         $searchModelBid = new BidsSearch();
         $bidsProvider = $searchModelBid->search(Yii::$app->request->queryParams);
         $dataProvider->query->where('purchase_request_id=' . $pid);
-
-
 
         return $this->renderAjax('_bids', [
             'model' => $model, 'prdetails' => $prdetails, 'biddetails' => $biddetails, 'searchModel' => $searchModel, 'dataProvider' => $dataProvider,
@@ -409,7 +413,7 @@ class BidsController extends Controller
     $pdf->content = $content;
     $pdf->cssFile = '@vendor/kartik-v/yii2-mpdf/assets/kv-mpdf-bootstrap.min.css';
     $pdf->cssInline = '.kv-heading-1{font-size:18px}.nospace-border{border:0px;}.no-padding{ padding:0px;}.print-container{font-size:11px;font-family:Arial,Helvetica Neue,Helvetica,sans-serif;} h1 {border-bottom: 2px solid blackfont-weight:normal;margin-bottom:5px;width: 140px;}';
-    $pdf->marginTop = 157;
+    $pdf->marginTop = 170;
     $pdf->marginBottom = 50;
     $headers = '
     <table width="100%">
