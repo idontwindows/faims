@@ -15,7 +15,7 @@ return [
 
     'procurementdb'=>[
         'class' => 'yii\db\Connection',  
-        //'dsn' => 'mysql:host=localhost;dbname=fais-procurement',
+        //'dsn' => 'mysql:host=localhost;dbname=fais-procurement',cc
         'dsn' => 'mysql:host=192.168.1.96;dbname=fais-procurement',
         'username' => 'fais',
         'password' => 'D057R3g10n9!@#$%',
