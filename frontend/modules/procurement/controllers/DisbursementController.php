@@ -222,7 +222,8 @@ class DisbursementController extends Controller
         $id = $request->get('id');
         $model = $this->findModel($id);
         $prdetails = $this->getDetails($id);
-        $content = $this->renderPartial('_report2', ['prdetails'=> $prdetails,'model'=>$model]);
+        $assig = $this->findAssignatory(5);
+        $content = $this->renderPartial('_report2', ['prdetails'=> $prdetails,'model'=>$model,'assig'=>$assig]);
         $pdf = new Pdf();
         $pdf->mode = pdf::MODE_UTF8;
         $pdf->format = pdf::FORMAT_A4;

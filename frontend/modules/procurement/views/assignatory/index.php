@@ -11,8 +11,7 @@ $this->title = 'Assignatories';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="assignatory-index">
-
-    <h1><?= Html::encode($this->title) ?></h1>
+<h1 class="centered"><i class="fa fa-sitemap"></i> <?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
@@ -26,18 +25,100 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterRowOptions' => ['class' => 'kartik-sheet-style'],
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-            'CompanyTitle',
-            'RegionOffice',
-            'Address',
             'report_title',
-            // 'assignatory_1',
-            // 'assignatory_2',
-            // 'assignatory_3',
-            // 'assignatory_4',
-            // 'assignatory_5',
-            // 'assignatory_6',
+            'CompanyTitle',
+            [
+                'attribute'=>'assignatory_1',
+                'label'=>'Assignatory 1',
+                'enableSorting'=> 'false',
+                'width'=>'60%',
+                'value'=>function($data){
+                    if ($data->assignatory_1=='') {
+                        return '';
+                    }else{
+                        return $data->assig1->firstname . ' ' . $data->assig1->middleinitial .'. '. $data->assig1->lastname;  
+                    }
+                
+                },
+                'headerOptions' => ['class' => 'kartik-sheet-style'],
+            ],
+            [
+                'attribute'=>'assignatory_2',
+                'label'=>'Assignatory 2',
+                'enableSorting'=> 'false',
+                'width'=>'60%',
+                'value'=>function($data){
+                    if ($data->assignatory_2=='') {
+                        return '';
+                    }else{
+                    return $data->assig2->firstname . ' ' . $data->assig2->middleinitial .'. '. $data->assig2->lastname;
+                    }
+                },
+                'headerOptions' => ['class' => 'kartik-sheet-style'],
+            ],
+            [
+                'attribute'=>'assignatory_3',
+                'label'=>'Assignatory 3',
+                'enableSorting'=> 'false',
+                'width'=>'60%',
+                'value'=>function($data){
+                    if ($data->assignatory_3=='') {
+                        return '';
+                    }else{
+                    return $data->assig3->firstname . ' ' . $data->assig3->middleinitial .'. '. $data->assig3->lastname;
+                    }
+                },
+                'headerOptions' => ['class' => 'kartik-sheet-style'],
+            ],
 
-            ['class' => 'yii\grid\ActionColumn'],
+            [
+                'attribute'=>'assignatory_4',
+                'label'=>'Assignatory 4',
+                'enableSorting'=> 'false',
+                'width'=>'60%',
+                'value'=>function($data){
+                    if ($data->assignatory_4=='') {
+                        return '';
+                    }else{
+                    return $data->assig4->firstname . ' ' . $data->assig4->middleinitial .'. '. $data->assig4->lastname;
+                    }
+                },
+                'headerOptions' => ['class' => 'kartik-sheet-style'],
+            ],
+
+            [
+                'attribute'=>'assignatory_5',
+                'label'=>'Assignatory 5',
+                'enableSorting'=> 'false',
+                'width'=>'60%',
+                'value'=>function($data){
+                    if ($data->assignatory_5=='') {
+                        return '';
+                    }else{
+                    return $data->assig5->firstname . ' ' . $data->assig5->middleinitial .'. '. $data->assig5->lastname;
+                    }
+                },
+                'headerOptions' => ['class' => 'kartik-sheet-style'],
+            ],
+
+            [
+                'attribute'=>'assignatory_6',
+                'label'=>'Assignatory 6',
+                'enableSorting'=> 'false',
+                'width'=>'60%',
+                'value'=>function($data){
+                    if ($data->assignatory_6=='') {
+                        return '';
+                    }else{
+                    return $data->assig6->firstname . ' ' . $data->assig6->middleinitial .'. '. $data->assig6->lastname;
+                    }
+                },
+                'headerOptions' => ['class' => 'kartik-sheet-style'],
+            ],
+
+            ['class' => 'yii\grid\ActionColumn',
+            'template' => '{view}{update}',  
+            ],    
         ],
     ]); ?>
 </div>

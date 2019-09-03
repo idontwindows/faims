@@ -8,6 +8,7 @@ use common\models\procurement\BidsSearch;
 use common\models\procurement\Purchaseorder;
 use common\models\procurement\Purchaseorderdetails;
 use common\models\procurement\Purchaserequest;
+use common\models\procurement\Assignatory;
 use common\models\procurement\Purchaserequestdetails;
 use common\models\procurement\Purchaserequestsearchdetails;
 use common\models\procurement\Supplier;
@@ -412,6 +413,7 @@ class BidsController extends Controller
     $model = $this->findModel($id);
     $prdetails = $this->getprDetails($model->purchase_request_id);
     $content = $this->renderPartial('_report', ['prdetails' => $prdetails, 'model' => $model]);
+    $assig =$this->findAssignatory(3);
     $pdf = new Pdf();
     $pdf->format = pdf::FORMAT_A4;
     $pdf->orientation = Pdf::ORIENT_PORTRAIT;
@@ -450,13 +452,13 @@ class BidsController extends Controller
 <td style="text-align: center;">Republic of the Philippines</td>
 </tr>
 <tr>        
-<td style="text-align: center;"><strong>DEPARTMENT OF SCIENCE AND TECHNOLOGY</strong></td>
+<td style="text-align: center;"><strong>'.$assig->CompanyTitle.'</strong></td>
 </tr>
 <tr>
-<td style="text-align: center;">Regional Office No. IX</td>
+<td style="text-align: center;">'.$assig->RegionOffice.'</td>
 </tr>
 <tr>
-<td style="text-align: center;">Pettit Barracks, Zamboanga City</td>
+<td style="text-align: center;">'.$assig->Address.'</td>
 </tr>
 <tr>
 <td style="text-align: center;">&nbsp;</td>
@@ -682,7 +684,7 @@ $headers=$headers.'</td>
        if($model->purchase_request_referrence_no==''){$ref='__________________';}else{$ref=$model->purchase_request_referrence_no;}
        if($model->purchase_request_project_name==''){$pname='__________________';}else{$pname=$model->purchase_request_project_name;}
        if($model->purchase_request_location_project==''){$pproject='__________________';}else{$pproject=$model->purchase_request_location_project;}
-
+       $assigs = $this->findAssignatory(4);
        $headers='
        <div style="width: 100px;border: 1px solid black;margin:10px;font-weight:bold;text-align:center;float:right;padding:0px;">FASS-PUR F07 <br> <span style="font-weight:lighter;">Rev. 0/ 08-16-07</span></div>
        <table border="0" style="width: 100%; table-collapsed: collapsed;">
@@ -695,13 +697,13 @@ $headers=$headers.'</td>
        </tr>
        <tr style="height: 12px;">
        <td style="width: 27%; height: 12px;">&nbsp;</td>
-       <td style="text-align: center; width: 50%; height: 12px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>DEPARTMENT OF SCIENCE AND TECHNOLOGY</strong></td>
+       <td style="text-align: center; width: 50%; height: 12px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>'.$assigs->CompanyTitle.'</strong></td>
        <td style="text-align: right; width: 10%; height: 12px;">&nbsp;</td>
        <td style="text-align:right;width: 17%;font-size:11px;padding:2px;padding-right:10px; height: 50px;vertical-align:top;border:none;" rowspan="2"></td>
        </tr>
        <tr style="height: 12px;">
        <td style="width: 27%; height: 12px;">&nbsp;</td>
-       <td style="text-align: left; width: 45%; height: 12px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Regional Office No. IX</td>
+       <td style="text-align: left; width: 45%; height: 12px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'.$assigs->RegionOffice.'</td>
        <td style="text-align: center; width: 10%; height: 12px;">&nbsp;</td>
      
        </tr>            
@@ -1094,5 +1096,13 @@ $headers=$headers.'</td>
         return $pordetails;
     }
 
+    protected function findAssignatory($id)
+    {
+        if (($model = Assignatory::findOne($id)) !== null) {
+            return $model;
+        } else {
+            throw new NotFoundHttpException('The requested page does not exist.');
+        }
+    }
 
 }

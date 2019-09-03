@@ -40,7 +40,7 @@ $this->registerJsFile('https://code.jquery.com/ui/1.12.1/jquery-ui.js');
                 <div class="col-lg-12">
                 <label>Unit</label>
                     <?=
-                    Select2::widget([
+                   /* Select2::widget([
                                             'name' => 'txtunits',
                                             'id'=> 'txtunits',
                                             'data' => $listUnits,
@@ -50,7 +50,20 @@ $this->registerJsFile('https://code.jquery.com/ui/1.12.1/jquery-ui.js');
                                                                  var data=$(this).val();
                                                         }",
                                             ],
-                                        ]);
+                                        ]);*/
+// Normal select with ActiveForm & model
+ $form->field($model, 'bids_unit')->widget(Select2::classname(), [
+    'data' => $listUnits,
+    'language' => 'en',
+    'options' => ['placeholder' => 'Select Unit Type','tabindex'=>0,],
+    'pluginEvents' => [
+        "change" => "function() {
+                         var data=$(this).val();
+                }",
+    ],
+])->label('');
+                                        
+    
                     ?>
                 </div>
                 <div class="col-lg-12">

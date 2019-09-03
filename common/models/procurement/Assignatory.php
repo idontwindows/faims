@@ -59,4 +59,25 @@ class Assignatory extends \yii\db\ActiveRecord
             'assignatory_6' => 'Assignatory 6',
         ];
     }
+
+    public function getAssig1() {
+        return $this->hasOne(Profile::className(), ['user_id'=>'assignatory_1']);
+    }
+    public function getAssig2() {
+        return $this->hasOne(Profile::className(), ['user_id'=>'assignatory_2']);
+    }
+    public function getAssig3() {
+        return $this->hasOne(Profile::className(), ['user_id'=>'assignatory_3']);
+    }
+    public function getAssig4() {
+        return $this->hasOne(Profile::className(), ['user_id'=>'assignatory_4']);
+    }
+    public function getAssig5() {
+        return $this->hasOne(Profile::className(), ['user_id'=>'assignatory_5']);
+    }
+    public function getAssig6() {
+        return $this->hasOne(Profile::className(), ['user_id'=>'assignatory_6']);
+    }
+
+
 }

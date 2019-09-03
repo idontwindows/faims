@@ -191,7 +191,7 @@ class PurchaserequestController extends Controller
         $requested_by_position="";
         $approved_by="";
         $approved_by_position="";
-
+        $assig =$this->findAssignatory(1);
         foreach ($prdetails as $pr) {
             $requested_by = $pr["requested_by"];
             $requested_by_position = $pr["requested_by_position"];
@@ -232,13 +232,13 @@ class PurchaserequestController extends Controller
 <td style="text-align: center;">Republic of the Philippines</td>
 </tr>
 <tr>        
-<td style="text-align: center;"><strong>DEPARTMENT OF SCIENCE AND TECHNOLOGY</strong></td>
+<td style="text-align: center;"><strong>'.$assig->CompanyTitle.'</strong></td>
 </tr>
 <tr>
-<td style="text-align: center;">Regional Office No. IX</td>
+<td style="text-align: center;">'.$assig->RegionOffice.'</td>
 </tr>
 <tr>
-<td style="text-align: center;">Zamboanga City</td>
+<td style="text-align: center;">'.$assig->Address.'</td>
 </tr>
 <tr>
 <td style="text-align: center;">&nbsp;</td>

@@ -150,6 +150,7 @@ WHERE LEFT(`tbl_obligationrequest`.`os_no`,6) = '".$characters."'";
         $id = $request->get('id');
         $model = $this->findModel($id);
         $obassig = $this->getobAssignatory($model->os_no);//  .date("F j, Y")
+        $assig =$this->findAssignatory(2);
         $content = $this->renderPartial('_report2', ['model'=> $model,'assig' => $obassig]);
         $pdf = new Pdf();
         $pdf->format = pdf::FORMAT_A4;
@@ -203,11 +204,11 @@ WHERE LEFT(`tbl_obligationrequest`.`os_no`,6) = '".$characters."'";
         <td style="width: 28.9808%; height: 16.6px;">Serial No. :</td>
         </tr>
         <tr style="height: 13px;">  
-        <td style="width: 70.0192%; text-align: center; height: 13px;border-top:none;border-bottom:none;"><span style="text-decoration: underline;"><strong>DEPARTMENT OF SCIENCE AND TECHNOLOGY - IX</strong></span></td>
+        <td style="width: 70.0192%; text-align: center; height: 13px;border-top:none;border-bottom:none;"><span style="text-decoration: underline;"><strong>'.$assig->CompanyTitle.'</strong></span></td>
         <td style="width: 28.9808%; height: 13px;">Date : '.$model->os_date.' </td>
         </tr>
         <tr style="height: 13px;">
-        <td style="width: 70.0192%; text-align: center; height: 13px;border-top:none;border-bottom:none;">Entity Name</td>
+        <td style="width: 70.0192%; text-align: center; height: 13px;border-top:none;border-bottom:none;">'.$assig->Address.'</td>
         <td style="width: 28.9808%; height: 13px;">Fund Cluster</td>
         </tr>
         </tbody>
