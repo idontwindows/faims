@@ -5,12 +5,12 @@ namespace common\models\procurement;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use common\models\procurement\Division;
+use common\models\procurement\Unittype;
 
 /**
- * DivisionSearch represents the model behind the search form about `common\models\procurement\Division`.
+ * UnittypeSearch represents the model behind the search form about `common\models\procurement\Unittype`.
  */
-class DivisionSearch extends Division
+class UnittypeSearch extends Unittype
 {
     /**
      * @inheritdoc
@@ -18,8 +18,8 @@ class DivisionSearch extends Division
     public function rules()
     {
         return [
-            [['division_id'], 'integer'],
-            [['code', 'name'], 'safe'],
+            [['unit_type_id'], 'integer'],
+            [['name_short', 'name_long'], 'safe'],
         ];
     }
 
@@ -41,7 +41,7 @@ class DivisionSearch extends Division
      */
     public function search($params)
     {
-        $query = Division::find();
+        $query = Unittype::find();
 
         // add conditions that should always apply here
 
@@ -59,11 +59,11 @@ class DivisionSearch extends Division
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'division_id' => $this->division_id,
+            'unit_type_id' => $this->unit_type_id,
         ]);
 
-        $query->andFilterWhere(['like', 'code', $this->code])
-            ->andFilterWhere(['like', 'name', $this->name]);
+        $query->andFilterWhere(['like', 'name_short', $this->name_short])
+            ->andFilterWhere(['like', 'name_long', $this->name_long]);
 
         return $dataProvider;
     }

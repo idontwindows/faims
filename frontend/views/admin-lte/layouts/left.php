@@ -104,6 +104,10 @@ if(Yii::$app->user->isGuest){
                         'visible'=> Yii::$app->user->can('access-book'),
                         'items' => [
                             ['label' => 'Suppliers', 'icon' => 'truck', 'url' => ['/procurement/supplier']],
+                            ['label' => 'Unit Type', 'icon' => 'cog', 'url' => ['/procurement/unittype']],
+                            ['label' => 'Position', 'icon' => 'fa fa-user-o', 'url' => ['/procurement/position']],
+                            ['label' => 'Division', 'icon' => 'cog', 'url' => ['/procurement/division']],
+                            ['label' => 'Section', 'icon' => 'cog', 'url' => ['/procurement/section']],
                             ['label' => 'Report Configuration', 'icon' => 'th-list', 'url' => ['/procurement/assignatory'],'visible'=> Yii::$app->user->can('access-system-tools')],
                         ]
                     ],

@@ -5,12 +5,12 @@ namespace common\models\procurement;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use common\models\procurement\Division;
+use common\models\procurement\Position;
 
 /**
- * DivisionSearch represents the model behind the search form about `common\models\procurement\Division`.
+ * PositionSearch represents the model behind the search form about `common\models\procurement\Position`.
  */
-class DivisionSearch extends Division
+class PositionSearch extends Position
 {
     /**
      * @inheritdoc
@@ -18,7 +18,7 @@ class DivisionSearch extends Division
     public function rules()
     {
         return [
-            [['division_id'], 'integer'],
+            [['position_id'], 'integer'],
             [['code', 'name'], 'safe'],
         ];
     }
@@ -41,7 +41,7 @@ class DivisionSearch extends Division
      */
     public function search($params)
     {
-        $query = Division::find();
+        $query = Position::find();
 
         // add conditions that should always apply here
 
@@ -59,7 +59,7 @@ class DivisionSearch extends Division
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'division_id' => $this->division_id,
+            'position_id' => $this->position_id,
         ]);
 
         $query->andFilterWhere(['like', 'code', $this->code])
