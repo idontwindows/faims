@@ -211,7 +211,7 @@ class InspectionController extends \yii\web\Controller
         $pdf->marginTop = 5;
         $pdf->marginBottom = 60;
         $pdf->marginFooter = 0;
-        $pdf->marginHeader = 50;
+        $pdf->marginHeader = 60;
 $ss='     <table width="100%">
 <tbody>
 <tr style="height: 43.6667px;">
