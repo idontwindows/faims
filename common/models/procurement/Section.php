@@ -55,4 +55,8 @@ class Section extends \yii\db\ActiveRecord
             'name' => 'Name',
         ];
     }
+
+    public function getDivision() {
+        return $this->hasOne(Division::className(), ['division_id'=>'division_id']);
+    }
 }

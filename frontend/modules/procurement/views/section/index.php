@@ -1,7 +1,7 @@
 <?php
 
 use yii\helpers\Html;
-use yii\grid\GridView;
+use kartik\grid\GridView;
 
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\procurement\SectionSearch */
@@ -12,7 +12,8 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="section-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+<h1 class="centered" style="margin-bottom: 0px;"><i class="fa fa-sitemap"></i> <?= Html::encode($this->title) ?></h1>
+<br/>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
@@ -21,11 +22,22 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'containerOptions' => ['style' => 'overflow: auto'], // only set when $responsive = false
+        'headerRowOptions' => ['class' => 'kartik-sheet-style'],
+        'filterRowOptions' => ['class' => 'kartik-sheet-style'],
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
             'section_id',
-            'division_id',
+            [
+                'attribute'=>'division_id',
+                'label'=>'Division Name',
+                'enableSorting'=> 'false',
+                'width'=>'60%',
+                'value'=>function($data){ 
+                    return $data->division->name;
+                },
+            ],
             'code',
             'name',
 
