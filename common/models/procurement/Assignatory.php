@@ -8,6 +8,9 @@ use Yii;
  * This is the model class for table "tbl_assignatory".
  *
  * @property integer $assignatory_id
+ * @property string $CompanyTitle
+ * @property string $RegionOffice
+ * @property string $Address 
  * @property string $report_title
  * @property integer $assignatory_1
  * @property integer $assignatory_2
@@ -33,7 +36,7 @@ class Assignatory extends \yii\db\ActiveRecord
     {
         return [
             [['assignatory_1', 'assignatory_2', 'assignatory_3', 'assignatory_4', 'assignatory_5', 'assignatory_6'], 'integer'],
-            [['report_title'], 'string', 'max' => 255],
+            [['report_title','CompanyTitle','RegionOffice','Address'], 'string', 'max' => 255],
         ];
     }
 
@@ -44,6 +47,9 @@ class Assignatory extends \yii\db\ActiveRecord
     {
         return [
             'assignatory_id' => 'Assignatory ID',
+            'CompanyTitle' => 'Company Title',
+            'RegionOffice' => 'Region Office',
+            'Address' => 'Address',
             'report_title' => 'Report Title',
             'assignatory_1' => 'Assignatory 1',
             'assignatory_2' => 'Assignatory 2',

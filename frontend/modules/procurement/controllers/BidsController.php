@@ -366,8 +366,16 @@ class BidsController extends Controller
             'purchase_request_details_status'=> '0' , 
             ],'bids_details_id = ' . $id); 
         }else{
+            Bidsdetails::updateAll( 
+            [
+            'bids_details_status'=> '0' , 
+            ],'bids_details_id = ' . $id);
+            Purchaseorderdetails::updateAll(
+            [
+            'purchase_request_details_status'=> '0' , 
+            ],'bids_details_id = ' . $id); 
             foreach (Bids::find()->where('bids_id='.$bid)->all() as $user) {
-                $user->delete();
+                //$user->delete();
             }
             foreach (Bidsdetails::find()->where('bids_details_id='.$bid)->all() as $user) {
                 $user->delete();
@@ -390,8 +398,7 @@ class BidsController extends Controller
         ]);
 
     }
-
-
+    
     public function actionReport()
 {
     $request = Yii::$app->request;

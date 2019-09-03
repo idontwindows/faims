@@ -71,14 +71,23 @@ if(Yii::$app->user->isGuest){
                         'visible'=> Yii::$app->user->can('access-procurement'),
                         'items' => [
                             ['label' => 'Purchase Request', 'icon' => 'cart-plus', 'url' => ['/procurement/purchaserequest/index']],
-                            ['label' => 'Obligation Request', 'icon' => 'object-ungroup', 'url' => ['/procurement/obligationrequest/index']],
+                            /*['label' => 'Obligation Request', 'icon' => 'object-ungroup', 'url' => ['/procurement/obligationrequest/index']],*/
                             ['label' => 'Quotations, Bids and Awards', 'icon' => 'object-ungroup', 'url' => ['/procurement/bids/index'],'visible'=> Yii::$app->user->can('access-bidsquotation')],
                             ['label' => 'Purchase Order', 'icon' => 'tags', 'url' => ['/procurement/purchaseorder/index'],'visible'=> Yii::$app->user->can('access-purchaseorder')],
                             ['label' => 'Inspection and Acceptance', 'icon' => 'search', 'url' => ['/procurement/inspection'],'visible'=> Yii::$app->user->can('access-inspection')],
-                            ['label' => 'Disbursement and Payment', 'icon' => 'ruble ', 'url' => ['/procurement/disbursement']],
+                            /*['label' => 'Disbursement and Payment', 'icon' => 'ruble ', 'url' => ['/procurement/disbursement']],*/
                         ]
                     ],
                     [
+                        'label' => 'Finance', 
+                        'icon' => 'line-chart', 
+                        'visible'=> Yii::$app->user->can('access-procurement'),
+                        'items' => [
+                            ['label' => 'Obligation Request', 'icon' => 'object-ungroup', 'url' => ['/procurement/obligationrequest/index']],
+                            ['label' => 'Disbursement and Payment', 'icon' => 'ruble ', 'url' => ['/procurement/disbursement']],
+                        ]
+                    ],
+                    /*[
                         'label' => 'Evaluation', 
                         'icon' => 'line-chart', 
                         'url' => ['/settings'],
@@ -88,14 +97,14 @@ if(Yii::$app->user->isGuest){
                             ['label' => 'PAR', 'icon' => 'briefcase', 'url' => ['/procurement/par']],
                             ['label' => 'ICS', 'icon' => 'book', 'url' => ['/procurement/ics']],
                         ]
-                    ],
+                    ],*/
                     [
-                        'label' => 'Suppliers', 
-                        'icon' => 'truck', 
-                        'visible'=> Yii::$app->user->can('access-suppliers'),
+                        'label' => 'Libraries', 
+                        'icon' => 'book', 
+                        'visible'=> Yii::$app->user->can('access-book'),
                         'items' => [
-                            ['label' => 'Management', 'icon' => 'th', 'url' => ['/procurement/management']],
-                            ['label' => 'Accreditation', 'icon' => 'th-list', 'url' => ['/procurement/accreditation']],
+                            ['label' => 'Suppliers', 'icon' => 'truck', 'url' => ['/procurement/supplier']],
+                            ['label' => 'Report Configuration', 'icon' => 'th-list', 'url' => ['/procurement/assignatory'],'visible'=> Yii::$app->user->can('access-system-tools')],
                         ]
                     ],
                     [
