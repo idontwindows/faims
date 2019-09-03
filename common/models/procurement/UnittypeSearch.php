@@ -5,12 +5,12 @@ namespace common\models\procurement;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use common\models\procurement\Unittype;
+use common\models\procurement\UnitType;
 
 /**
  * UnittypeSearch represents the model behind the search form about `common\models\procurement\Unittype`.
  */
-class UnittypeSearch extends Unittype
+class UnittypeSearch extends UnitType
 {
     /**
      * @inheritdoc
