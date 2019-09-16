@@ -85,7 +85,7 @@ class InspectionController extends \yii\web\Controller
         INNER JOIN `tbl_purchase_request`
         ON `tbl_purchase_request`.`purchase_request_id` = `tbl_bids_details`.`purchase_request_id`
         INNER JOIN tbl_purchase_request_details
-ON `tbl_purchase_request_details`.`purchase_request_details_id` = `fais-procurement`.`tbl_bids_details`.`purchase_request_details_id`
+        ON `tbl_purchase_request_details`.`purchase_request_details_id` = `fais-procurement`.`tbl_bids_details`.`purchase_request_details_id`
         ORDER BY purchase_order_number DESC";
         $pordetails = $con->createCommand($sql)->queryAll();
 
@@ -130,27 +130,29 @@ ON `tbl_purchase_request_details`.`purchase_request_details_id` = `fais-procurem
         //Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         $con = Yii::$app->procurementdb;
         $sql = "SELECT `tbl_purchase_order`.`purchase_order_number`  ,
-                 `tbl_bids_details`.`bids_details_id`,
-                 `fnGetSupplierName`(`tbl_bids`.`supplier_id`) AS supplier_name,
-                 `tbl_bids_details`.`bids_item_description` , 
-                 `tbl_bids_details`.`bids_quantity` , 
-                 `fais`.`fnGetUnits`(`tbl_bids_details`.`bids_unit`) as bids_unit , 
-                 `tbl_bids_details`.`bids_price`,
-		 `tbl_purchase_order`.`purchase_order_id`,
-		 `tbl_purchase_order_details`.`delivered`,
-		 `tbl_purchase_order`.`purchase_order_date`,
-		 `tbl_purchase_request`.`purchase_request_number`,
-		 `tbl_purchase_request`.`purchase_request_date`,
-		`tbl_purchase_order_details`.`purchase_order_details_id`
-                 FROM `fais-procurement`.`tbl_purchase_order`
-                 INNER JOIN `fais-procurement`.`tbl_purchase_order_details`
-                 ON `tbl_purchase_order_details`.`purchase_order_id` = `tbl_purchase_order`.`purchase_order_id`
-                 INNER JOIN `fais-procurement`.`tbl_bids_details`
-                 ON `tbl_bids_details`.`bids_details_id` = `tbl_purchase_order_details`.`bids_details_id`
-                 INNER JOIN `fais-procurement`.`tbl_bids` 
-                 ON `tbl_bids`.`bids_id` = `tbl_bids_details`.`bids_id`
-                 INNER JOIN `tbl_purchase_request`
-                 ON `tbl_purchase_request`.`purchase_request_id` = `tbl_bids_details`.`purchase_request_id`
+        `tbl_bids_details`.`bids_details_id`,
+        `fnGetSupplierName`(`tbl_bids`.`supplier_id`) AS supplier_name,
+        `tbl_bids_details`.`bids_item_description` , 
+        `tbl_bids_details`.`bids_quantity` , 
+         `fais`.`fnGetUnits`(`tbl_purchase_request_details`.`unit_id`) AS bids_unit ,
+        `tbl_bids_details`.`bids_price`,
+`tbl_purchase_order`.`purchase_order_id`,
+`tbl_purchase_order_details`.`delivered`,
+`tbl_purchase_order`.`purchase_order_date`,
+`tbl_purchase_request`.`purchase_request_number`,
+`tbl_purchase_request`.`purchase_request_date`,
+`tbl_purchase_order_details`.`purchase_order_details_id`
+        FROM `fais-procurement`.`tbl_purchase_order`
+        INNER JOIN `fais-procurement`.`tbl_purchase_order_details`
+        ON `tbl_purchase_order_details`.`purchase_order_id` = `tbl_purchase_order`.`purchase_order_id`
+        INNER JOIN `fais-procurement`.`tbl_bids_details`
+        ON `tbl_bids_details`.`bids_details_id` = `tbl_purchase_order_details`.`bids_details_id`
+        INNER JOIN `fais-procurement`.`tbl_bids` 
+        ON `tbl_bids`.`bids_id` = `tbl_bids_details`.`bids_id`
+        INNER JOIN `tbl_purchase_request`
+        ON `tbl_purchase_request`.`purchase_request_id` = `tbl_bids_details`.`purchase_request_id`
+        INNER JOIN tbl_purchase_request_details
+ON `tbl_purchase_request_details`.`purchase_request_details_id` = `fais-procurement`.`tbl_bids_details`.`purchase_request_details_id`
                  WHERE `tbl_purchase_order`.`purchase_order_number` = '".$id."' and `tbl_purchase_order_details`.`delivered`=1
                  ORDER BY purchase_order_number";
         $porequest = $con->createCommand($sql)->queryAll();
