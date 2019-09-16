@@ -111,28 +111,30 @@ class PurchaseorderController extends \yii\web\Controller
      {
         $con = Yii::$app->procurementdb;
          $sql = "SELECT `tbl_purchase_order`.`purchase_order_number`  ,
-                 `tbl_bids_details`.`bids_details_id`,
-                 `fnGetSupplierName`(`tbl_bids`.`supplier_id`) AS supplier_name,
-                 `tbl_bids_details`.`bids_item_description` , 
-                 `tbl_bids_details`.`bids_quantity` , 
-                 `fais`.`fnGetUnits`(`tbl_bids_details`.`bids_unit`) as bids_unit ,
-                 `tbl_bids_details`.`bids_price`,
-		 `tbl_purchase_order`.`purchase_order_id`,
-		 `tbl_purchase_order_details`.`delivered`,
-		 `tbl_purchase_order`.`purchase_order_date`,
-		 `tbl_purchase_request`.`purchase_request_number`,
-		 `tbl_purchase_request`.`purchase_request_date`
-                 FROM `fais-procurement`.`tbl_purchase_order`
-                 INNER JOIN `fais-procurement`.`tbl_purchase_order_details`
-                 ON `tbl_purchase_order_details`.`purchase_order_id` = `tbl_purchase_order`.`purchase_order_id`
-                 INNER JOIN `fais-procurement`.`tbl_bids_details`
-                 ON `tbl_bids_details`.`bids_details_id` = `tbl_purchase_order_details`.`bids_details_id`
-                 INNER JOIN `fais-procurement`.`tbl_bids` 
-                 ON `tbl_bids`.`bids_id` = `tbl_bids_details`.`bids_id`
-                 INNER JOIN `tbl_purchase_request`
-                 ON `tbl_purchase_request`.`purchase_request_id` = `tbl_bids_details`.`purchase_request_id`
-                 WHERE `tbl_purchase_order_details`.`purchase_request_details_status`=1
-                 ORDER BY `tbl_purchase_order`.`purchase_order_number` DESC";
+         `tbl_bids_details`.`bids_details_id`,
+         `fnGetSupplierName`(`tbl_bids`.`supplier_id`) AS supplier_name,
+         `tbl_bids_details`.`bids_item_description` , 
+         `tbl_bids_details`.`bids_quantity` , 
+         `fais`.`fnGetUnits`(`tbl_purchase_request_details`.`unit_id`) AS bids_unit ,
+         `tbl_bids_details`.`bids_price`,
+ `tbl_purchase_order`.`purchase_order_id`,
+ `tbl_purchase_order_details`.`delivered`,
+ `tbl_purchase_order`.`purchase_order_date`,
+ `tbl_purchase_request`.`purchase_request_number`,
+ `tbl_purchase_request`.`purchase_request_date`
+         FROM `fais-procurement`.`tbl_purchase_order`
+         INNER JOIN `fais-procurement`.`tbl_purchase_order_details`
+         ON `tbl_purchase_order_details`.`purchase_order_id` = `tbl_purchase_order`.`purchase_order_id`
+         INNER JOIN `fais-procurement`.`tbl_bids_details`
+         ON `tbl_bids_details`.`bids_details_id` = `tbl_purchase_order_details`.`bids_details_id`
+         INNER JOIN `fais-procurement`.`tbl_bids` 
+         ON `tbl_bids`.`bids_id` = `tbl_bids_details`.`bids_id`
+         INNER JOIN `tbl_purchase_request`
+         ON `tbl_purchase_request`.`purchase_request_id` = `tbl_bids_details`.`purchase_request_id`
+           INNER JOIN tbl_purchase_request_details
+         ON `tbl_purchase_request_details`.`purchase_request_details_id` = `fais-procurement`.`tbl_bids_details`.`purchase_request_details_id`
+         WHERE `tbl_purchase_order_details`.`purchase_request_details_status`=1
+         ORDER BY `tbl_purchase_order`.`purchase_order_number` DESC";
          $pordetails = $con->createCommand($sql)->queryAll();
 
          $x = 0;
@@ -171,26 +173,28 @@ class PurchaseorderController extends \yii\web\Controller
          //Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
          $con = Yii::$app->procurementdb;
          $sql = "SELECT `tbl_purchase_order`.`purchase_order_number`  ,
-                 `tbl_bids_details`.`bids_details_id`,
-                 `fnGetSupplierName`(`tbl_bids`.`supplier_id`) AS supplier_name,
-                 `tbl_bids_details`.`bids_item_description` , 
-                 `tbl_bids_details`.`bids_quantity` , 
-                 `fais`.`fnGetUnits`(`tbl_bids_details`.`bids_unit`) as bids_unit ,
-                 `tbl_bids_details`.`bids_price`,
-		 `tbl_purchase_order`.`purchase_order_id`,
-		 `tbl_purchase_order_details`.`delivered`,
-		 `tbl_purchase_order`.`purchase_order_date`,
-		 `tbl_purchase_request`.`purchase_request_number`,
-		 `tbl_purchase_request`.`purchase_request_date`
-                 FROM `fais-procurement`.`tbl_purchase_order`
-                 INNER JOIN `fais-procurement`.`tbl_purchase_order_details`
-                 ON `tbl_purchase_order_details`.`purchase_order_id` = `tbl_purchase_order`.`purchase_order_id`
-                 INNER JOIN `fais-procurement`.`tbl_bids_details`
-                 ON `tbl_bids_details`.`bids_details_id` = `tbl_purchase_order_details`.`bids_details_id`
-                 INNER JOIN `fais-procurement`.`tbl_bids` 
-                 ON `tbl_bids`.`bids_id` = `tbl_bids_details`.`bids_id`
-                 INNER JOIN `tbl_purchase_request`
-                 ON `tbl_purchase_request`.`purchase_request_id` = `tbl_bids_details`.`purchase_request_id`
+         `tbl_bids_details`.`bids_details_id`,
+         `fnGetSupplierName`(`tbl_bids`.`supplier_id`) AS supplier_name,
+         `tbl_bids_details`.`bids_item_description` , 
+         `tbl_bids_details`.`bids_quantity` , 
+         `fais`.`fnGetUnits`(`tbl_purchase_request_details`.`unit_id`) AS bids_unit ,
+         `tbl_bids_details`.`bids_price`,
+ `tbl_purchase_order`.`purchase_order_id`,
+ `tbl_purchase_order_details`.`delivered`,
+ `tbl_purchase_order`.`purchase_order_date`,
+ `tbl_purchase_request`.`purchase_request_number`,
+ `tbl_purchase_request`.`purchase_request_date`
+         FROM `fais-procurement`.`tbl_purchase_order`
+         INNER JOIN `fais-procurement`.`tbl_purchase_order_details`
+         ON `tbl_purchase_order_details`.`purchase_order_id` = `tbl_purchase_order`.`purchase_order_id`
+         INNER JOIN `fais-procurement`.`tbl_bids_details`
+         ON `tbl_bids_details`.`bids_details_id` = `tbl_purchase_order_details`.`bids_details_id`
+         INNER JOIN `fais-procurement`.`tbl_bids` 
+         ON `tbl_bids`.`bids_id` = `tbl_bids_details`.`bids_id`
+         INNER JOIN `tbl_purchase_request`
+         ON `tbl_purchase_request`.`purchase_request_id` = `tbl_bids_details`.`purchase_request_id`
+         INNER JOIN tbl_purchase_request_details
+ ON `tbl_purchase_request_details`.`purchase_request_details_id` = `fais-procurement`.`tbl_bids_details`.`purchase_request_details_id`
                  WHERE `tbl_purchase_order`.`purchase_order_number` = '".$id."' AND `tbl_purchase_order_details`.`purchase_request_details_status`=1";
          $porequest = $con->createCommand($sql)->queryAll();
          return $porequest;
@@ -231,7 +235,7 @@ class PurchaseorderController extends \yii\web\Controller
              $Assig1Position =  $sg["Assig1Position"];
              $Assig2Position =  $sg["Assig2Position"];
          }
-         $pdf->marginTop = 45;
+         $pdf->marginTop = 60;
          //$pdf->marginHeader = 40;
          $pdf->marginBottom =50;
 
@@ -365,7 +369,6 @@ class PurchaseorderController extends \yii\web\Controller
         $content = $this->renderPartial('_report2', ['prdetails'=> $prdetails,'model'=>$model]);
         $pdf = new Pdf();
         $pdf->mode = pdf::MODE_UTF8;
-       // $pdf->format = pdf::FORMAT_A4;
         $pdf->orientation = Pdf::ORIENT_PORTRAIT;
         $pdf->destination =  $pdf::DEST_BROWSER;
         $pdf->content  = $content;
@@ -458,7 +461,7 @@ class PurchaseorderController extends \yii\web\Controller
 <h5>Gentlemen:</h5>
 <p>Please furnish this office the following articles subject to the terms and conditions contained them</p>
 </td>
-<td style="width: 30%; height: 12px;">Mode of Procurement : '.$model->mode_of_procurement.'</td>
+<td style="width: 30%; height: 12px;">Mode of Proc. : '.$model->mode_of_procurement.'</td>
 </tr>
 <tr style="height: 10px;">
 <td style="width: 30%; height: 10px;">P.R. No. : <span style="text-decoration:underline;">'.$prno.'</span></td>
@@ -477,7 +480,7 @@ class PurchaseorderController extends \yii\web\Controller
 </tbody>
 </table>
 
-<table style="width: 100%; border-collapse: collapse;" border="1" autosize="1">
+<table style="width: 100%; border-collapse: collapse;" border="1" autosize="0">
 <tbody>
 <tr>
 <td style="width: 10%; height: 5px; text-align: center;">Stock No.</td>
@@ -519,7 +522,7 @@ a penalty of one-tenth (1/10) of one percent for every day of delay shall be imp
 <td style="border-top:none;padding:5px;border-bottom:none;border-left:none; text-align: center;" colspan="2">&nbsp;<span style="text-decoration:underline;text-align:center;"><b>'.$assig2.'</b></span><br>'.$Assig2Position.'</td>
 </tr>
 <tr>
-<td style="border-top:none;padding:5px;border-top:none;border-bottom:none;border-right:none; text-align: center;padding-left: 30px;" colspan="2">&nbsp;</td>
+<td st yle="border-top:none;padding:5px;border-top:none;border-bottom:none;border-right:none; text-align: center;padding-left: 30px;" colspan="2">&nbsp;</td>
 <td style="border-top:none;padding:5px;border-top:none;border-bottom:none;border-right:none;border-left:none; text-align: left;" colspan="2">&nbsp;</td>
 <td style="border-top:none;padding:5px;border-top:none;border-bottom:none;border-left:none; text-align: center;" colspan="2">&nbsp;</td>
 </tr>
