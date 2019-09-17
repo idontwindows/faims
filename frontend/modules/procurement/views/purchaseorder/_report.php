@@ -38,7 +38,7 @@
 
     ?>
 
-    <table border="0" width="100%">
+    <table border="0" style="overflow: wrap" autosize="1">
         <?php
             echo $fin;
             echo $yy;

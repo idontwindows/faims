@@ -194,7 +194,7 @@ class PurchaseorderController extends \yii\web\Controller
          INNER JOIN `tbl_purchase_request`
          ON `tbl_purchase_request`.`purchase_request_id` = `tbl_bids_details`.`purchase_request_id`
          INNER JOIN tbl_purchase_request_details
- ON `tbl_purchase_request_details`.`purchase_request_details_id` = `fais-procurement`.`tbl_bids_details`.`purchase_request_details_id`
+         ON `tbl_purchase_request_details`.`purchase_request_details_id` = `fais-procurement`.`tbl_bids_details`.`purchase_request_details_id`
                  WHERE `tbl_purchase_order`.`purchase_order_number` = '".$id."' AND `tbl_purchase_order_details`.`purchase_request_details_status`=1";
          $porequest = $con->createCommand($sql)->queryAll();
          return $porequest;
@@ -347,7 +347,9 @@ class PurchaseorderController extends \yii\web\Controller
              'title' => 'Report Title',
              'defaultheaderline' => 0,
              'defaultfooterline' => 0,
+             'shrink_tables_to_fit' => 0,
              'subject'=> 'Report Subject'];
+
          $pdf->methods = [
              'SetHeader'=>[$headers],
              'SetFooter'=>[$footerss],
@@ -373,7 +375,7 @@ class PurchaseorderController extends \yii\web\Controller
         $pdf->destination =  $pdf::DEST_BROWSER;
         $pdf->content  = $content;
         $pdf->cssFile = '@vendor/kartik-v/yii2-mpdf/assets/kv-mpdf-bootstrap.min.css';
-        $pdf->cssInline = 'body {} .kv-heading-1{font-size:18px}.nospace-border{border:0px;}.no-padding{ padding:0px;}.print-container{font-family:Arial;}';
+        $pdf->cssInline = '.kv-heading-1{font-size:18px}.nospace-border{border:0px;}.no-padding{ padding:0px;}.page-break{ page-break-after:always; }.print-container{font-size:11px;font-family:Arial,Helvetica Neue,Helvetica,sans-serif;}h6 {  }';
         $pdf->marginFooter=5;
 
         $supplier='';
@@ -549,6 +551,7 @@ a penalty of one-tenth (1/10) of one percent for every day of delay shall be imp
             'title' => 'Report Title',
             'defaultheaderline' => 0,
             'defaultfooterline' => 0,
+            'shrink_tables_to_fit' => 0 ,
             'subject'=> 'Report Subject'];
         $pdf->methods = [
             'SetHeader'=>[$headers],
