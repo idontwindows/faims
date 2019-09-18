@@ -59,13 +59,13 @@
                     echo '<tr class="nospace-border">';
                     //echo '<td>'.$tempid.'</td>';
                     //echo '<td>'.$headrid.'</td>';
-                    echo '<td style="font-size: 11px; width: 3%; text-align: left;vertical-align: top;">'.$x.'</td>';
-                    echo '<td style="font-size: 11px; width: 4%; text-align: left;vertical-align: top;">'.$qty.'</td>';
-                    echo '<td style="font-size: 11px; width: 4%; text-align: left;vertical-align: top;">'.$unit.'</td>';
-                    echo '<td style="font-size: 11px; width: 25%; text-align: left;vertical-align: top;">'.$item_decription.'</td>';
+                    echo '<td style="font-size: 11px; width: 3%; text-align: left;vertical-align: top;">'.$itemno.'</td>';
+                    echo '<td style="font-size: 14px; width: 4%; text-align: left;vertical-align: top;">'.$qty.'</td>';
+                    echo '<td style="font-size: 11px; width: 48%;padding-right:50;text-align: left;vertical-align: top;">'.$unit.'</td>';
+                    echo '<td style="font-size: 15px; width: 25%; text-align: left;vertical-align: top;">'.$item_decription.'</td>';
                     while($i<$max) {
                         $myval = $pr[$columns[$i]];
-                        if (is_numeric($myval)) {
+                        if (is_numeric($myval)) {                                                                                                                                                                                                       
                             $myval = number_format($myval,2);
                         }
                         if($myval=='0.00<br/>') {
