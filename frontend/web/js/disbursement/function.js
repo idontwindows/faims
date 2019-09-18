@@ -62,16 +62,16 @@ $("body").on("change","input[name='Disbursement[taxable]']",function () {
         $("input[name='Disbursement[taxable]'][value='0']").prop('checked', true);
     }else{
         if (s==1) {
-             var gross = Math.round(amt);
-             var lesstax = Math.round(gross / 1.12);
-             var tax = Math.round(lesstax * 0.05);
-             var ewt = Math.round(lesstax * 0.01);
+             var gross = amt;
+             var lesstax = gross / 1.12;
+             var tax = lesstax * 0.05;
+             var ewt = lesstax * 0.01;
              var taxwet = tax - ewt;
              var net = 0;
             var disb =  $("#disbursement-particulars").text();
             localStorage["lastSet"] = disb;
              if (gross > 10000) {
-                net = gross - taxwet;   
+                net = gross - Math.round(taxwet);   
                  $("#disbursement-particulars").html(disb
                      +'&#13;&#13;' + 'GROSS : ' + parseFloat( gross ).toFixed(2)
                      +'&#13;' + 'Less TAX : ' + parseFloat( tax ).toFixed(2)
@@ -79,7 +79,7 @@ $("body").on("change","input[name='Disbursement[taxable]']",function () {
                      +'&#13;' + 'NET AMOUNT : ' + parseFloat( net ).toFixed(2));
                      $("#disbursement-dv_amount").val(parseFloat(net).toFixed(2));
              }else{
-                 net = gross - tax;
+                 net = gross - Math.round(tax);
                  $("#disbursement-particulars").html(disb
                      +'&#13;&#13;' + 'GROSS : ' + parseFloat( gross ).toFixed(2)
                      +'&#13;' + 'Less TAX : ' + parseFloat( tax ).toFixed(2)
