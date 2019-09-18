@@ -14,12 +14,12 @@
         $totalcost =  $quantity * $price;
         $append = "
         <tr>";
-        $append = $append . "<td width='10%' style='vertical-align: top;padding-left:0px;text-align:center;'>".$x.".</td>";
-        $append = $append . "<td width='10%' style='vertical-align: top;padding-left:0px;text-align:center;'>".$units."</td>";
-        $append = $append . "<td autosize='0' width='40%' style='vertical-align: top;padding:10px;padding-top:0px;font-size:13px;word-wrap: break-word;'>" . $itemdescription . "</td>";
+        $append = $append . "<td width='10%' style='vertical-align: top;padding-left:px;text-align:center;'>".$x.".</td>";
+        $append = $append . "<td width='10%' style='vertical-align: top;padding-left:25px;text-align:center;'>".$units."</td>";
+        $append = $append . "<td autosize='0' width='40%' style='vertical-align: top;padding:20px;padding-top:0px;font-size:13px;word-wrap: break-word;'>" . $itemdescription . "</td>";
         $append = $append . "<td width='13%' style='vertical-align: top;font-size:12px;text-align:center;'>" . $quantity . "</td>";
-        $append = $append . "<td width='13%' style='font-size:12px;vertical-align: top;padding-left:10px;text-align:center;padding-right:10px;'>" . number_format($price,2) . "</td>";
-        $append = $append . "<td width='13%' style='font-size:12px;vertical-align: top;padding-left:10px;text-align:center;padding-right:10px;'>" . number_format($totalcost,2) . "</td>";
+        $append = $append . "<td width='13%' style='font-size:12px;vertical-align: top;padding-left:25px;text-align:center;padding-right:10px;'>" . number_format($price,2) . "</td>";
+        $append = $append . "<td width='13%' style='font-size:12px;vertical-align: top;padding-left:25px;text-align:center;padding-right:10px;'>" . number_format($totalcost,2) . "</td>";
         $append = $append . "</tr>";
         $fin = $fin . $append;
     }
