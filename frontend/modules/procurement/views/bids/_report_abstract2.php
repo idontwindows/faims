@@ -59,7 +59,7 @@
                     echo '<tr class="nospace-border">';
                     //echo '<td>'.$tempid.'</td>';
                     //echo '<td>'.$headrid.'</td>';
-                    echo '<td style="font-size: 11px; width: 3%; text-align: left;vertical-align: top;">'.$itemno.'</td>';
+                    echo '<td style="font-size: 11px; width: 3%; text-align: left;vertical-align: top;">'.$x.'</td>';
                     echo '<td style="font-size: 11px; width: 4%; text-align: left;vertical-align: top;">'.$qty.'</td>';
                     echo '<td style="font-size: 11px; width: 4%; text-align: left;vertical-align: top;">'.$unit.'</td>';
                     echo '<td style="font-size: 11px; width: 25%; text-align: left;vertical-align: top;">'.$item_decription.'</td>';
