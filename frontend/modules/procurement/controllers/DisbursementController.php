@@ -347,7 +347,13 @@ class DisbursementController extends Controller
         $con =  Yii::$app->db;
         $command_employee = $con->createCommand("SELECT `tbl_profile`.`user_id`,CONCAT(`tbl_profile`.`lastname`,', ', `tbl_profile`.`firstname` ,' ', `tbl_profile`.`middleinitial`, ' - ' , `tbl_profile`.`designation`) AS employeename
         FROM `tbl_profile`");
-        $command_so = $con->createCommand("SELECT `tbl_obligationrequest`.`os_no` FROM `fais-procurement`.`tbl_obligationrequest`");
+        $command_so = $con->createCommand("SELECT `tbl_obligationrequest`.`os_no`
+        FROM `tbl_obligationrequest`
+        WHERE NOT EXISTS
+         (SELECT NULL
+           FROM `tbl_disbursement`
+           WHERE `tbl_disbursement`.`dv_no` =  `tbl_obligationrequest`.`dv_no`)
+           ORDER BY dv_no DESC");
         $employees = $command_employee->queryAll();
         $sono=$command_so->queryAll();
         $command_po = $con->createCommand("SELECT `tbl_purchase_order`.`purchase_order_number` FROM `fais-procurement`.`tbl_purchase_order`");
