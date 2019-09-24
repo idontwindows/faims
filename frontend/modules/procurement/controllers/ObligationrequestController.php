@@ -398,10 +398,10 @@ WHERE `tbl_obligationrequest`.`os_no` = '".$id."';";
                 FROM `tbl_profile`");
                 $employees = $command_employee->queryAll();
                 $command_po = $con->createCommand("SELECT `tbl_purchase_order`.`purchase_order_number` 
-                FROM tbl_purchase_order
+                FROM `fais-procurement`.tbl_purchase_order
                 WHERE NOT EXISTS
                   (SELECT NULL
-                   FROM tbl_obligationrequest
+                   FROM `fais-procurement`.tbl_obligationrequest
                    WHERE `tbl_obligationrequest`.`purchase_no` =  tbl_purchase_order.`purchase_order_number`)
                    ORDER BY purchase_order_number DESC");
                 $ponum = $command_po->queryAll();
