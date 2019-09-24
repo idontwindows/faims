@@ -212,11 +212,11 @@ ON `tbl_purchase_request_details`.`purchase_request_details_id` = `fais-procurem
             $Assig3Position =  $sg["Assig3Position"];
             $Assig4Position =  $sg["Assig4Position"];
         }
-        $pdf->marginTop = 5;
-        $pdf->marginBottom = 60;
+        $pdf->marginTop = 75;
+        $pdf->marginBottom = 125;
         $pdf->marginFooter = 0;
         $pdf->marginHeader = 55;
-$ss='     <table width="100%">
+$ss='<table width="100%">
 <tbody>
 <tr style="height: 43.6667px;">
 <td style="width: 82.4103%; height: 43.6667px;">
@@ -255,10 +255,7 @@ $ss='     <table width="100%">
 </tr>
 </tbody>                                                                                                                                                                                                                                                                                                                                                             
 </table>';
-        $headers= '
-   
-
-                    <table border="0" width="100%">
+        $headers= '<table border="0" width="100%">
                         <tr style="text-align: left;">
                             <td style="padding-left: 50px;">'.$supplier.'</td>
                             <td style="text-align: right;">'.str_replace('PO','IAR',$ponum).'</td>
@@ -289,28 +286,28 @@ $ss='     <table width="100%">
                                <tr style="text-align: left;">
                             <td></td>
                             <td style="text-align: right;"></td>
-                        </tr>
-                           <tr style="text-align: left;">
+                            </tr>
+                            <tr style="text-align: left;">
                             <td></td>
                             <td style="text-align: right;"></td>
-                        </tr>
-                                    <tr style="text-align: left;">
+                            </tr>
+                            <tr style="text-align: left;">
                             <td></td>
                             <td style="text-align: right;"></td>
-                        </tr>
-                                    <tr style="text-align: left;">
+                            </tr>
+                            <tr style="text-align: left;">
                             <td></td>
                             <td style="text-align: right;"></td>
-                        </tr>
-                                    <tr style="text-align: left;">
+                            </tr>
+                            <tr style="text-align: left;">
                             <td></td>
                             <td style="text-align: right;"></td>
-                        </tr>
-                                    <tr style="text-align: left;">
+                            </tr>
+                            <tr style="text-align: left;">
                             <td></td>
                             <td style="text-align: right;"></td>
-                        </tr>
-                                    <tr style="text-align: left;">
+                            </tr>
+                            <tr style="text-align: left;">
                             <td></td>
                             <td style="text-align: right;"></td>
                         </tr>

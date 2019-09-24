@@ -62,7 +62,7 @@
                     echo '<td style="font-size: 11px; width: 3%; text-align: left;vertical-align: top;">'.$itemno.'</td>';
                     echo '<td style="font-size: 14px; width: 4%; text-align: left;vertical-align: top;">'.$qty.'</td>';
                     echo '<td style="font-size: 11px; width: 48%;padding-right:50;text-align: left;vertical-align: top;">'.$unit.'</td>';
-                    echo '<td style="font-size: 15px; width: 25%; text-align: left;vertical-align: top;">'.$item_decription.'</td>';
+                    echo '<td style="font-size: 15px; width: 25%; text-align: left;vertical-align: top;" autosize="0">'.$item_decription.'</td>';
                     while($i<$max) {
                         $myval = $pr[$columns[$i]];
                         if (is_numeric($myval)) {                                                                                                                                                                                                       
