@@ -212,10 +212,10 @@ ON `tbl_purchase_request_details`.`purchase_request_details_id` = `fais-procurem
             $Assig3Position =  $sg["Assig3Position"];
             $Assig4Position =  $sg["Assig4Position"];
         }
-        $pdf->marginTop = 75;
+        $pdf->marginTop = 80;
         $pdf->marginBottom = 125;
         $pdf->marginFooter = 0;
-        $pdf->marginHeader = 55;
+        $pdf->marginHeader = 5;
 $ss='<table width="100%">
 <tbody>
 <tr style="height: 43.6667px;">
@@ -255,7 +255,85 @@ $ss='<table width="100%">
 </tr>
 </tbody>                                                                                                                                                                                                                                                                                                                                                             
 </table>';
-        $headers= '<table border="0" width="100%">
+$ss = $ss.'<table style="width: 100%; font-size: 11px; border:1px solid;">
+<tbody>
+<tr style="height: 20px;">
+<td style="width: 33.9915%; font-size: 11px; height: 20px;" colspan="3">
+';
+if($supplier=='') {
+    $ss = $ss.'Supplier : __________________________________________________________________________________________________  </td>';
+}else{
+    $ss = $ss.'Supplier : <span style="text-decoration:underline;">'.$supplier.'</span></td>';
+}
+if($ponum=='') {
+    $ss = $ss.'<td style="width: 19.7461%; height: 20px; font-size: 11px;">IAR No. : ________________</td>
+    </tr>
+    <tr style="height: 20px;">
+    <td style="width: 33.9915%; font-size: 11px; height: 20px;">P.O. No. : __________________________________</td>';
+}else{
+    $ss = $ss.'<td style="width: 19.7461%; height: 20px; font-size: 11px;">IAR No. : <span style="text-decoration:underline;">'.str_replace('PO','IAR',$ponum).'</span></td>
+    </tr>
+    <tr style="height: 20px;">
+    <td style="width: 33.9915%; font-size: 11px; height: 20px;">P.O. No. : <span style="text-decoration:underline;">'.$ponum.'</span></td>';
+}
+if($ponum=='') {
+    
+}else{
+
+}
+$ss=$ss
+.'
+<td style="width: 21.2976%; font-size: 11px; height: 20px;">Date :<span style="text-decoration:underline;"> '.$pdate.'</span></td>
+<td style="width: 24.9647%; font-size: 11px; height: 20px;">&nbsp;Invoice No. : ___________________</td>
+<td style="width: 19.7461%; height: 20px; font-size: 11px;">Date&nbsp; &nbsp; &nbsp;: <span style="text-decoration:underline;"> '.$pdate.'</span></td>
+</tr>
+<tr style="height: 20px;">
+<td colspan="4" style="width: 99.9999%; height: 20px; font-size: 11px;">Requisitioning Office/Department : ___________________________________________________________________________________________________</td>
+</tr>
+</tbody>
+</table>';
+
+$ss=$ss
+.'
+<table border="1" width="100%" style="border-collapse: collapse;">
+<tr style="height: 200px">
+<td width="12%" style="padding-left: 25px;vertical-align: top;font-size:11px;">Quantity</td>
+<td width="10%" style="padding-left: 5px;vertical-align: top;font-size:11px;">Units</td>
+<td width="48%" style="text-align: justify;vertical-align: top;font-size:11px;" autosize="0">Description</td>
+<td width="18%" style="padding-left: 50px;text-align: right;font-size:11px;"></td>
+</tr>
+<tr >
+<td width="12%" style="padding-left: 25px;vertical-align: top;font-size:11px;height:500px;"></td>
+<td width="10%" style="padding-left: 5px;vertical-align: top;font-size:11px;height:500px;"></td>
+<td width="48%" style="text-align: justify;vertical-align: top;font-size:11px;height:500px;" autosize="0"></td>
+<td width="18%" style="padding-left: 50px;text-align: right;font-size:11px;height:500px;"></td>
+</tr>
+</table>
+<table border="1" style="border-collapse: collapse; width: 100%;">
+<tbody>
+<tr style="height: 20px;">
+<td style="width: 50%; text-align: center; height: 20px; border-bottom: none;font-weight:bold;">INSPECTION</td>
+<td style="width: 50%; text-align: center; height: 20px; border-bottom: none;font-weight:bold;">ACCEPTANCE</td>
+</tr>
+<tr style="height: 20px;">
+<td style="width: 50%; text-align: left; height: 20px; border-top: none; border-bottom: none;font-size:11px;">&nbsp;Date Inspected : ________________</td>
+<td style="width: 50%; height: 20px; text-align: left; border-top: none; border-bottom: none;font-size:11px;">&nbsp;Date Received : ________________</td>
+</tr>
+<tr style="height: 20px;">
+<td style="width: 50%; text-align: left; height: 250px; vertical-align: top; border-top: none;"><span style="font-size: 55px; vertical-align: top;">▯ <span style="font-size: 11px; vertical-align: top;">Inspected, verified and found OK Inspected, verified and found OK</span></span>
+<p style="text-align: left; padding-left: 15px;"></p>
+</td>
+<td style="width: 50%; text-align: left; height: 250px; vertical-align: top; border-top: none;">
+<p style="text-align: center; padding-left: 150px;"><span style="font-size: 50px;">□ <span style="font-size: 11px; vertical-align: middle;">Full</span></span></p>
+<p style="text-align: left; padding-left: 150px; margin-top: -50px;"><span style="font-size: 50px;">□ <span style="font-size: 11px; vertical-align: middle;">Partial</span></span></p>
+</td>
+</tr>
+</tbody>
+</table>
+';
+
+
+        $headers= '<table border="0" width="100%">q
                         <tr style="text-align: left;">
                             <td style="padding-left: 50px;">'.$supplier.'</td>
                             <td style="text-align: right;">'.str_replace('PO','IAR',$ponum).'</td>
@@ -268,7 +346,7 @@ $ss='<table width="100%">
                             <td></td>
                             <td style="text-align: right;"></td>
                         </tr>                                       
-                    </table>
+                    </table>    
                     ';
         $fin=0;
         foreach ($prdetails as $pr) {
@@ -282,7 +360,7 @@ $ss='<table width="100%">
                     <table border="0" width="100%">
                         <tr style="text-align: left;">
                             <td></td>
-                            <td style="text-align: right;">' . number_format($fin,2) . '</td>
+                            <td style="text-align: right;"><span style="text-decoration:underline">' . number_format($fin,2) . '</span></td>
                                <tr style="text-align: left;">
                             <td></td>
                             <td style="text-align: right;"></td>
@@ -296,7 +374,7 @@ $ss='<table width="100%">
                             <td style="text-align: right;"></td>
                             </tr>
                             <tr style="text-align: left;">
-                            <td></td>
+                            <td></td>   
                             <td style="text-align: right;"></td>
                             </tr>
                             <tr style="text-align: left;">
@@ -408,16 +486,16 @@ $ss='<table width="100%">
                         </tr>
                         
                         <tr style="text-align: left;">
-                            <td style="text-align: center;padding-left: -125px;padding-bottom:10px;"><b>'.$assig1.'</b><br>Chairman<br></td>
+                            <td style="text-align: center;padding-left: -125px;padding-bottom:10px;font-size:12px;"><b>'.$assig1.'</b><br>Chairman<br></td>
                             <td style="text-align: right;"></td>
                         </tr>
                  
                         <tr style="text-align: left;">
-                            <td style="text-align: center;padding-left: -125px;padding-bottom:10px;"><b>'.$assig2.'</b><br>Member<br></td>
-                            <td style="text-align: right;text-align: center;"><b>'.$assig3.'</b><br>Supply Officer</td>
+                            <td style="text-align: center;padding-left: -125px;padding-bottom:10px;font-size:12px;"><b>'.$assig2.'</b><br>Member<br></td>
+                            <td style="text-align: right;text-align: center;font-size:12px;"><b>'.$assig3.'</b><br>Supply Officer</td>
                         </tr>
                         <tr style="text-align: right;">
-                            <td style="text-align: center;padding-left: -125px;"><b>'.$assig4.'</b><br>Member</td>
+                            <td style="text-align: center;padding-left: -125px;font-size:12px;"><b>'.$assig4.'</b><br>Member</td>
                             <td style="text-align: right;"></td>
                         </tr>  
                         <tr style="text-align: right;">
@@ -506,7 +584,7 @@ $ss='<table width="100%">
             'defaultfooterline' => 0,
             'subject'=> 'Report Subject'];
         $pdf->methods = [
-            'SetHeader'=>[$headers],
+            'SetHeader'=>[$ss],
             'SetFooter'=>[$footerss],
         ];
 
