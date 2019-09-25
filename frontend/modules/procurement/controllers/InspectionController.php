@@ -184,7 +184,11 @@ ON `tbl_purchase_request_details`.`purchase_request_details_id` = `fais-procurem
         $pdf->destination =  $pdf::DEST_BROWSER;
         $pdf->content  = $content;
         $pdf->cssFile = '@vendor/kartik-v/yii2-mpdf/assets/kv-mpdf-bootstrap.min.css';
-        $pdf->cssInline = '.kv-heading-1{font-size:18px}.nospace-border{border:0px;}.no-padding{ padding:0px;}.print-container{font-size:11px;font-family:Arial,Helvetica Neue,Helvetica,sans-serif;}h6 {  }';
+        $pdf->cssInline = '.kv-heading-1{font-size:18px}.nospace-border{border:0px;}.no-padding{ padding:0px;}.print-container{font-size:11px;font-family:Arial,Helvetica Neue,Helvetica,sans-serif;} .underline{
+            border-bottom: 1px solid black;
+            width: 100%;
+            display: block;
+        }';
         $supplier='';
         $ponum='';
         $prno='';
@@ -198,6 +202,7 @@ ON `tbl_purchase_request_details`.`purchase_request_details_id` = `fais-procurem
             $prno = $pr["purchase_request_number"];
             $prdate = $pr["purchase_request_date"];
             $quantity = $pr["bids_quantity"];
+            $units = $pr["bids_unit"];
             $price = $pr["bids_price"];
             $totalcost =  $quantity * $price;
             $tots = $tots + $totalcost;
@@ -254,53 +259,48 @@ $ss='<table width="100%">
 <td style="text-align: center;font-family:Arial;font-size:15px;border-top:none;padding:20px;"><b>INSPECTION & ACCEPTANCE REPORT</b></td>
 </tr>
 </tbody>                                                                                                                                                                                                                                                                                                                                                             
-</table>';
-$ss = $ss.'<table style="width: 100%; font-size: 11px; border:1px solid;">
+</table>
+<table style="width: 100%; font-size: 11px; border:1px solid;">
 <tbody>
-<tr style="height: 20px;">
-<td style="width: 33.9915%; font-size: 11px; height: 20px;" colspan="3">
-';
-if($supplier=='') {
-    $ss = $ss.'Supplier : __________________________________________________________________________________________________  </td>';
-}else{
-    $ss = $ss.'Supplier : <span style="text-decoration:underline;">'.$supplier.'</span></td>';
-}
-if($ponum=='') {
-    $ss = $ss.'<td style="width: 19.7461%; height: 20px; font-size: 11px;">IAR No. : ________________</td>
-    </tr>
-    <tr style="height: 20px;">
-    <td style="width: 33.9915%; font-size: 11px; height: 20px;">P.O. No. : __________________________________</td>';
-}else{
-    $ss = $ss.'<td style="width: 19.7461%; height: 20px; font-size: 11px;">IAR No. : <span style="text-decoration:underline;">'.str_replace('PO','IAR',$ponum).'</span></td>
-    </tr>
-    <tr style="height: 20px;">
-    <td style="width: 33.9915%; font-size: 11px; height: 20px;">P.O. No. : <span style="text-decoration:underline;">'.$ponum.'</span></td>';
-}
-if($ponum=='') {
-    
-}else{
+<tr>
+<td style="width: 11.4598%;">Supplier :</td>
+<td style="width: 67.8773%;font-size: 11px; height: 20px;" colspan="5"  class="underline">'.$supplier.'</td>
+<td style="width: 11.1777%; height: 20px; font-size: 11px;">IAR No. : </td>
+<td style="width: 9.48521%;" class="underline">'.str_replace('PO','IAR',$ponum).'</td>
+</tr>
 
-}
-$ss=$ss
-.'
-<td style="width: 21.2976%; font-size: 11px; height: 20px;">Date :<span style="text-decoration:underline;"> '.$pdate.'</span></td>
-<td style="width: 24.9647%; font-size: 11px; height: 20px;">&nbsp;Invoice No. : ___________________</td>
-<td style="width: 19.7461%; height: 20px; font-size: 11px;">Date&nbsp; &nbsp; &nbsp;: <span style="text-decoration:underline;"> '.$pdate.'</span></td>
-</tr>
 <tr style="height: 20px;">
-<td colspan="4" style="width: 99.9999%; height: 20px; font-size: 11px;">Requisitioning Office/Department : ___________________________________________________________________________________________________</td>
+<td style="width: 10.8075%; height: 20px; font-size: 11px;">P.O. No. :</td>
+<td style="width: 19.2701%; height: 20px; font-size: 11px;" class="underline">'.$ponum.'</td>
+<td style="width: 7.14033%; height: 20px; font-size: 11px;">Date :</td>
+<td style="width: 16.8723%; height: 20px; font-size: 11px;" class="underline">'.$pdate.'</td>
+<td style="width: 10.5254%; height: 20px; font-size: 11px;">Invoice No. :</td>
+<td style="width: 14.4746%; height: 20px; font-size: 11px;" class="underline"></td>
+<td style="width: 5.44782%; height: 20px; font-size: 11px;">Date :</td>
+<td style="width: 15.4619%; height: 20px; font-size: 11px;" class="underline">'.$pdate.'</td>
 </tr>
+
+
+<tr>
+<td colspan="8" style="width: 100%; height: 20px; font-size: 11px;">Requisitioning Office/Department : _____________________________________________________________________________________________________________</td>
+</tr>
+
+
 </tbody>
-</table>';
+</table>
+
+';
+
+
 
 $ss=$ss
 .'
 <table border="1" width="100%" style="border-collapse: collapse;">
 <tr style="height: 200px">
-<td width="12%" style="padding-left: 25px;vertical-align: top;font-size:11px;">Quantity</td>
-<td width="10%" style="padding-left: 5px;vertical-align: top;font-size:11px;">Units</td>
-<td width="48%" style="text-align: justify;vertical-align: top;font-size:11px;" autosize="0">Description</td>
-<td width="18%" style="padding-left: 50px;text-align: right;font-size:11px;"></td>
+<td width="12%" style="padding-left: 25px;vertical-align: top;font-size:11px;text-align:center;">Quantity</td>
+<td width="10%" style="padding-left: 5px;vertical-align: top;font-size:11px;text-align:center;">Units</td>
+<td width="48%" style="text-align: justify;vertical-align: top;font-size:11px;text-align:center;" autosize="0">Description</td>
+<td width="18%" style="padding-left: 50px;text-align: right;font-size:11px;text-align:center;"></td>
 </tr>
 <tr >
 <td width="12%" style="padding-left: 25px;vertical-align: top;font-size:11px;height:500px;"></td>
