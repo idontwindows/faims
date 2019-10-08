@@ -71,13 +71,14 @@ $("body").on("change","input[name='Disbursement[taxable]']",function () {
             var disb =  $("#disbursement-particulars").text();
             localStorage["lastSet"] = disb;
              if (gross > 10000) {
-                net = gross - taxwet;   
+                net = gross - taxwet - tax;   
                  $("#disbursement-particulars").html(disb
                      +'&#13;&#13;' + 'GROSS : ' + parseFloat( gross ).toFixed(2)
                      +'&#13;' + 'Less TAX : ' + parseFloat( tax ).toFixed(2)
                      +'&#13;' + 'Less EWT : ' + parseFloat( ewt ).toFixed(2)
                      +'&#13;' + 'NET AMOUNT : ' + parseFloat( net ).toFixed(2));
                      $("#disbursement-dv_amount").val(parseFloat(net).toFixed(2));
+                     alert(net);
              }else{
                  net = gross - tax;
                  $("#disbursement-particulars").html(disb
