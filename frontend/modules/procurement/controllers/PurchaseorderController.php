@@ -469,7 +469,7 @@ class PurchaseorderController extends \yii\web\Controller
 <td style="width: 30%; height: 10px;">P.R. No. : <span style="text-decoration:underline;">'.$prno.'</span></td>
 </tr>
 <tr style="height: 12px;">
-<td style="width: 30%; height: 12px;">P.R Date : <span style="text-decoration:underline;">'.$pdate.'</span> </td>
+<td style="width: 30%; height: 12px;">P.R Date : <span style="text-decoration:underline;">'.$prdate.'</span> </td>
 </tr>
 <tr style="height: 12px;">
 <td style="width: 70%; height: 15px;">Place of Delivery : '.$model->place_of_delivery.'</td>
