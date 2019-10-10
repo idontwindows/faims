@@ -65,41 +65,9 @@ if($TotalMsg==0){
             
             <ul class="nav navbar-nav">
                 <li class="dropdown tasks-menu">
-                    <?php if(!Yii::$app->user->isGuest){ ?>
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <i class="fa fa-dashcube"> Modules</i>
-                    </a>
-                    <ul class="dropdown-menu box-shadow">
-                        <li class="header">Modules</li>
-                        <li>
-                            <ul class="menu">
-                                <?php
-                                    $ul="";
-                                    foreach ($Packages as $Packages){
-                                        if($Packages->icon!='' || $Packages->icon){
-                                            $icon=$Packages->icon;
-                                        }else{
-                                            $icon='fa fa-bolt';
-                                        }
-                                        $modulePermission="access-".strtolower($Packages->PackageName);
-                                        if (Yii::$app->user->can($modulePermission)) {
-                                            $ul .= "<li>" . PHP_EOL;
-                                            $ul .= "<a class='" . $icon . "' href='" . Url::toRoute('/' . $Packages->PackageName) . "'>" . PHP_EOL;
-                                            $ul .= ucwords($Packages->PackageName);
-                                            $ul .= "</a>" . PHP_EOL;
-                                            $ul .= "</li>" . PHP_EOL;
-                                        }
-                                    }
-                                    //Show Submenu
-                                    echo $ul;
-                                ?>
-                            </ul>
-                        </li>
-                        <li class="footer">
-                            <a href="#">View all</a>
-                        </li>
+                    <ul class="dropdown-menu">
+        
                     </ul>
-                    <?php } ?>
                 </li>
                 <li class="dropdown messages-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">

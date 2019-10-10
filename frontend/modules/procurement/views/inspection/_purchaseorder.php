@@ -22,13 +22,7 @@ $con =  Yii::$app->db;
 
 /*$command2 = $con->createCommand("CALL `fais-procurement`.`spGenerateSupplier`(".$model->purchase_request_id.")");
 $supplier = $command2->queryAll();
-$listSupplier = ArrayHelper::map($supplier,'supplier_id','supplier_name');
-*/
-$BaseURL = $GLOBALS['frontend_base_uri'];
-
-/* @var $this yii\web\View */
-/* @var $model common\models\procurement\Department */
-/* @var $form yii\widgets\ActiveForm */
+$listSupplier = ArrayHelper::map($supplier,'supplier_id','supplier_name');                                                                                                  iveForm */
 
 ?>
 

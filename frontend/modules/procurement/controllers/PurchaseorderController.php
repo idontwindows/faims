@@ -375,9 +375,9 @@ class PurchaseorderController extends \yii\web\Controller
         $pdf->destination =  $pdf::DEST_BROWSER;
         $pdf->content  = $content;
         $pdf->cssFile = '@vendor/kartik-v/yii2-mpdf/assets/kv-mpdf-bootstrap.min.css';
-        $pdf->cssInline = '.kv-heading-1{font-size:18px}.nospace-border{border:0px;}.no-padding{ padding:0px;}.page-break{ page-break-after:always; }.print-container{font-size:11px;font-family:Arial,Helvetica Neue,Helvetica,sans-serif;}h6 {  }';
+        $pdf->cssInline = '.kv-heading-1{font-size:18px}.nospace-border{border:0px;}.no-padding{ padding:0px;}.page-break{ auto; }.print-container{font-size:11px;font-family:Arial,Helvetica Neue,Helvetica,sans-serif;}';
         $pdf->marginFooter=5;
-
+       
         $supplier='';
         $ponum='';
         $prno='';
@@ -482,7 +482,7 @@ class PurchaseorderController extends \yii\web\Controller
 </tbody>
 </table>
 
-<table style="width: 100%; border-collapse: collapse;" border="1" autosize="0">
+<table style="width: 100%; border-collapse: collapse;" border="1">
 <tbody>
 <tr>
 <td style="width: 10%; height: 5px; text-align: center;">Stock No.</td>
@@ -551,7 +551,7 @@ a penalty of one-tenth (1/10) of one percent for every day of delay shall be imp
             'title' => 'Report Title',
             'defaultheaderline' => 0,
             'defaultfooterline' => 0,
-            'shrink_tables_to_fit' => 0 ,
+            'shrink_tables_to_fit' => 1 ,
             'subject'=> 'Report Subject'];
         $pdf->methods = [
             'SetHeader'=>[$headers],
