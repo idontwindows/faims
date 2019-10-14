@@ -3,16 +3,16 @@
 namespace frontend\modules\procurement\controllers;
 
 use Yii;
-use common\models\procurement\Division;
-use common\models\procurement\DivisionSearch;
+use common\models\procurement\Unittype;
+use common\models\procurement\UnittypeSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * DivisionController implements the CRUD actions for Division model.
+ * UnittypeController implements the CRUD actions for Unittype model.
  */
-class DivisionController extends Controller
+class UnittypeController extends Controller
 {
     /**
      * @inheritdoc
@@ -30,12 +30,12 @@ class DivisionController extends Controller
     }
 
     /**
-     * Lists all Division models.
+     * Lists all Unittype models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new DivisionSearch();
+        $searchModel = new UnittypeSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -45,7 +45,7 @@ class DivisionController extends Controller
     }
 
     /**
-     * Displays a single Division model.
+     * Displays a single Unittype model.
      * @param integer $id
      * @return mixed
      */
@@ -57,16 +57,16 @@ class DivisionController extends Controller
     }
 
     /**
-     * Creates a new Division model.
+     * Creates a new Unittype model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Division();
+        $model = new Unittype();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->division_id]);
+            return $this->redirect(['view', 'id' => $model->unit_type_id]);
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -75,7 +75,7 @@ class DivisionController extends Controller
     }
 
     /**
-     * Updates an existing Division model.
+     * Updates an existing Unittype model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -85,7 +85,7 @@ class DivisionController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->division_id]);
+            return $this->redirect(['view', 'id' => $model->unit_type_id]);
         } else {
             return $this->render('update', [
                 'model' => $model,
@@ -94,7 +94,7 @@ class DivisionController extends Controller
     }
 
     /**
-     * Deletes an existing Division model.
+     * Deletes an existing Unittype model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -107,15 +107,15 @@ class DivisionController extends Controller
     }
 
     /**
-     * Finds the Division model based on its primary key value.
+     * Finds the Unittype model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Division the loaded model
+     * @return Unittype the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Division::findOne($id)) !== null) {
+        if (($model = Unittype::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

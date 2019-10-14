@@ -4,20 +4,19 @@ use yii\helpers\Html;
 use kartik\grid\GridView;
 
 /* @var $this yii\web\View */
-/* @var $searchModel common\models\procurement\DivisionSearch */
+/* @var $searchModel common\models\procurement\PositionSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Divisions';
+$this->title = 'Positions';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="division-index">
-
+<div class="position-index">
 <h1 class="centered" style="margin-bottom: 0px;"><i class="fa fa-sitemap"></i> <?= Html::encode($this->title) ?></h1>
-   <br/>
+<br/>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Division', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Create Position', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -28,7 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'division_id',
+            'position_id',
             'code',
             'name',
 

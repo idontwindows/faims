@@ -4,16 +4,18 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model common\models\procurement\DivisionSearch */
+/* @var $model common\models\procurement\SectionSearch */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="division-search">
+<div class="section-search">
 
     <?php $form = ActiveForm::begin([
         'action' => ['index'],
         'method' => 'get',
     ]); ?>
+
+    <?= $form->field($model, 'section_id') ?>
 
     <?= $form->field($model, 'division_id') ?>
 

@@ -4,20 +4,20 @@ use yii\helpers\Html;
 use kartik\grid\GridView;
 
 /* @var $this yii\web\View */
-/* @var $searchModel common\models\procurement\DivisionSearch */
+/* @var $searchModel common\models\procurement\SectionSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Divisions';
+$this->title = 'Sections';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="division-index">
+<div class="section-index">
 
 <h1 class="centered" style="margin-bottom: 0px;"><i class="fa fa-sitemap"></i> <?= Html::encode($this->title) ?></h1>
-   <br/>
+<br/>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a('Create Division', ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Create Section', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -28,7 +28,16 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'division_id',
+            'section_id',
+            [
+                'attribute'=>'division_id',
+                'label'=>'Division Name',
+                'enableSorting'=> 'false',
+                'width'=>'60%',
+                'value'=>function($data){ 
+                    return $data->division->name;
+                },
+            ],
             'code',
             'name',
 

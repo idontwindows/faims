@@ -66,20 +66,25 @@ $("body").on("change","input[name='Disbursement[taxable]']",function () {
              var lesstax = gross / 1.12;
              var tax = lesstax * 0.05;
              var ewt = lesstax * 0.01;
-             var net = gross - tax - ewt;
+             var taxwet = tax + ewt;
+             var net = 0;
             var disb =  $("#disbursement-particulars").text();
             localStorage["lastSet"] = disb;
              if (gross > 10000) {
+                net = gross - taxwet;   
                  $("#disbursement-particulars").html(disb
                      +'&#13;&#13;' + 'GROSS : ' + parseFloat( gross ).toFixed(2)
                      +'&#13;' + 'Less TAX : ' + parseFloat( tax ).toFixed(2)
                      +'&#13;' + 'Less EWT : ' + parseFloat( ewt ).toFixed(2)
                      +'&#13;' + 'NET AMOUNT : ' + parseFloat( net ).toFixed(2));
+                     $("#disbursement-dv_amount").val(parseFloat(net).toFixed(2));
              }else{
+                 net = gross - tax;
                  $("#disbursement-particulars").html(disb
                      +'&#13;&#13;' + 'GROSS : ' + parseFloat( gross ).toFixed(2)
                      +'&#13;' + 'Less TAX : ' + parseFloat( tax ).toFixed(2)
                      +'&#13;' + 'NET AMOUNT : ' + parseFloat( net ).toFixed(2));
+                     $("#disbursement-dv_amount").val(parseFloat(net).toFixed(2));
              }
         }else{
             var s = document.getElementById('disbursement-particulars');

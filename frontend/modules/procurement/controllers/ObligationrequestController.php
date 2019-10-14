@@ -397,7 +397,13 @@ WHERE `tbl_obligationrequest`.`os_no` = '".$id."';";
                 $command_employee = $con->createCommand("SELECT `tbl_profile`.`user_id`,CONCAT(`tbl_profile`.`lastname`,', ', `tbl_profile`.`firstname` ,' ', `tbl_profile`.`middleinitial`, ' - ' , `tbl_profile`.`designation`) AS employeename
                 FROM `tbl_profile`");
                 $employees = $command_employee->queryAll();
-                $command_po = $con->createCommand("SELECT `tbl_purchase_order`.`purchase_order_number` FROM `fais-procurement`.`tbl_purchase_order`");
+                $command_po = $con->createCommand("SELECT `tbl_purchase_order`.`purchase_order_number` 
+                FROM `fais-procurement`.tbl_purchase_order
+                WHERE NOT EXISTS
+                  (SELECT NULL
+                   FROM `fais-procurement`.tbl_obligationrequest
+                   WHERE `tbl_obligationrequest`.`purchase_no` =  tbl_purchase_order.`purchase_order_number`)
+                   ORDER BY purchase_order_number DESC");
                 $ponum = $command_po->queryAll();
                 $listEmployee = ArrayHelper::map($employees, 'user_id', 'employeename');
                 $listPono = ArrayHelper::map($ponum, 'purchase_order_number', 'purchase_order_number');

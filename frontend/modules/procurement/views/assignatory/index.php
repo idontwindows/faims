@@ -7,7 +7,7 @@ use kartik\grid\GridView;
 /* @var $searchModel common\models\procurement\AssignatorySearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Assignatories';
+$this->title = 'Report Configuration';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="assignatory-index">

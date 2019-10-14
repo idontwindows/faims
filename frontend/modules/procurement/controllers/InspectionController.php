@@ -63,28 +63,30 @@ class InspectionController extends \yii\web\Controller
     {
         $con = Yii::$app->procurementdb;
         $sql = "SELECT `tbl_purchase_order`.`purchase_order_number`  ,
-                 `tbl_bids_details`.`bids_details_id`,
-                 `fnGetSupplierName`(`tbl_bids`.`supplier_id`) AS supplier_name,
-                 `tbl_bids_details`.`bids_item_description` , 
-                 `tbl_bids_details`.`bids_quantity` , 
-                 `tbl_bids_details`.`bids_unit` , 
-                 `tbl_bids_details`.`bids_price`,
-		 `tbl_purchase_order`.`purchase_order_id`,
-		 `tbl_purchase_order_details`.`delivered`,
-		 `tbl_purchase_order`.`purchase_order_date`,
-		 `tbl_purchase_request`.`purchase_request_number`,
-		 `tbl_purchase_request`.`purchase_request_date`,
-		 `tbl_purchase_order_details`.`purchase_order_details_id`
-                 FROM `fais-procurement`.`tbl_purchase_order`
-                 INNER JOIN `fais-procurement`.`tbl_purchase_order_details`
-                 ON `tbl_purchase_order_details`.`purchase_order_id` = `tbl_purchase_order`.`purchase_order_id`
-                 INNER JOIN `fais-procurement`.`tbl_bids_details`
-                 ON `tbl_bids_details`.`bids_details_id` = `tbl_purchase_order_details`.`bids_details_id`
-                 INNER JOIN `fais-procurement`.`tbl_bids` 
-                 ON `tbl_bids`.`bids_id` = `tbl_bids_details`.`bids_id`
-                 INNER JOIN `tbl_purchase_request`
-                 ON `tbl_purchase_request`.`purchase_request_id` = `tbl_bids_details`.`purchase_request_id`
-                 ORDER BY purchase_order_number DESC";
+        `tbl_bids_details`.`bids_details_id`,
+        `fnGetSupplierName`(`tbl_bids`.`supplier_id`) AS supplier_name,
+        `tbl_bids_details`.`bids_item_description` , 
+        `tbl_bids_details`.`bids_quantity` , 
+        `fais`.`fnGetUnits`(`tbl_purchase_request_details`.`unit_id`) AS bids_unit ,
+        `tbl_bids_details`.`bids_price`,
+`tbl_purchase_order`.`purchase_order_id`,
+`tbl_purchase_order_details`.`delivered`,
+`tbl_purchase_order`.`purchase_order_date`,
+`tbl_purchase_request`.`purchase_request_number`,
+`tbl_purchase_request`.`purchase_request_date`,
+`tbl_purchase_order_details`.`purchase_order_details_id`
+        FROM `fais-procurement`.`tbl_purchase_order`
+        INNER JOIN `fais-procurement`.`tbl_purchase_order_details`
+        ON `tbl_purchase_order_details`.`purchase_order_id` = `tbl_purchase_order`.`purchase_order_id`
+        INNER JOIN `fais-procurement`.`tbl_bids_details`
+        ON `tbl_bids_details`.`bids_details_id` = `tbl_purchase_order_details`.`bids_details_id`
+        INNER JOIN `fais-procurement`.`tbl_bids` 
+        ON `tbl_bids`.`bids_id` = `tbl_bids_details`.`bids_id`
+        INNER JOIN `tbl_purchase_request`
+        ON `tbl_purchase_request`.`purchase_request_id` = `tbl_bids_details`.`purchase_request_id`
+        INNER JOIN tbl_purchase_request_details
+        ON `tbl_purchase_request_details`.`purchase_request_details_id` = `fais-procurement`.`tbl_bids_details`.`purchase_request_details_id`
+        ORDER BY purchase_order_number DESC";
         $pordetails = $con->createCommand($sql)->queryAll();
 
         $x = 0;
@@ -128,27 +130,29 @@ class InspectionController extends \yii\web\Controller
         //Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         $con = Yii::$app->procurementdb;
         $sql = "SELECT `tbl_purchase_order`.`purchase_order_number`  ,
-                 `tbl_bids_details`.`bids_details_id`,
-                 `fnGetSupplierName`(`tbl_bids`.`supplier_id`) AS supplier_name,
-                 `tbl_bids_details`.`bids_item_description` , 
-                 `tbl_bids_details`.`bids_quantity` , 
-                 `tbl_bids_details`.`bids_unit` , 
-                 `tbl_bids_details`.`bids_price`,
-		 `tbl_purchase_order`.`purchase_order_id`,
-		 `tbl_purchase_order_details`.`delivered`,
-		 `tbl_purchase_order`.`purchase_order_date`,
-		 `tbl_purchase_request`.`purchase_request_number`,
-		 `tbl_purchase_request`.`purchase_request_date`,
-		`tbl_purchase_order_details`.`purchase_order_details_id`
-                 FROM `fais-procurement`.`tbl_purchase_order`
-                 INNER JOIN `fais-procurement`.`tbl_purchase_order_details`
-                 ON `tbl_purchase_order_details`.`purchase_order_id` = `tbl_purchase_order`.`purchase_order_id`
-                 INNER JOIN `fais-procurement`.`tbl_bids_details`
-                 ON `tbl_bids_details`.`bids_details_id` = `tbl_purchase_order_details`.`bids_details_id`
-                 INNER JOIN `fais-procurement`.`tbl_bids` 
-                 ON `tbl_bids`.`bids_id` = `tbl_bids_details`.`bids_id`
-                 INNER JOIN `tbl_purchase_request`
-                 ON `tbl_purchase_request`.`purchase_request_id` = `tbl_bids_details`.`purchase_request_id`
+        `tbl_bids_details`.`bids_details_id`,
+        `fnGetSupplierName`(`tbl_bids`.`supplier_id`) AS supplier_name,
+        `tbl_bids_details`.`bids_item_description` , 
+        `tbl_bids_details`.`bids_quantity` , 
+         `fais`.`fnGetUnits`(`tbl_purchase_request_details`.`unit_id`) AS bids_unit ,
+        `tbl_bids_details`.`bids_price`,
+`tbl_purchase_order`.`purchase_order_id`,
+`tbl_purchase_order_details`.`delivered`,
+`tbl_purchase_order`.`purchase_order_date`,
+`tbl_purchase_request`.`purchase_request_number`,
+`tbl_purchase_request`.`purchase_request_date`,
+`tbl_purchase_order_details`.`purchase_order_details_id`
+        FROM `fais-procurement`.`tbl_purchase_order`
+        INNER JOIN `fais-procurement`.`tbl_purchase_order_details`
+        ON `tbl_purchase_order_details`.`purchase_order_id` = `tbl_purchase_order`.`purchase_order_id`
+        INNER JOIN `fais-procurement`.`tbl_bids_details`
+        ON `tbl_bids_details`.`bids_details_id` = `tbl_purchase_order_details`.`bids_details_id`
+        INNER JOIN `fais-procurement`.`tbl_bids` 
+        ON `tbl_bids`.`bids_id` = `tbl_bids_details`.`bids_id`
+        INNER JOIN `tbl_purchase_request`
+        ON `tbl_purchase_request`.`purchase_request_id` = `tbl_bids_details`.`purchase_request_id`
+        INNER JOIN tbl_purchase_request_details
+ON `tbl_purchase_request_details`.`purchase_request_details_id` = `fais-procurement`.`tbl_bids_details`.`purchase_request_details_id`
                  WHERE `tbl_purchase_order`.`purchase_order_number` = '".$id."' and `tbl_purchase_order_details`.`delivered`=1
                  ORDER BY purchase_order_number";
         $porequest = $con->createCommand($sql)->queryAll();
@@ -180,7 +184,11 @@ class InspectionController extends \yii\web\Controller
         $pdf->destination =  $pdf::DEST_BROWSER;
         $pdf->content  = $content;
         $pdf->cssFile = '@vendor/kartik-v/yii2-mpdf/assets/kv-mpdf-bootstrap.min.css';
-        $pdf->cssInline = '.kv-heading-1{font-size:18px}.nospace-border{border:0px;}.no-padding{ padding:0px;}.print-container{font-size:11px;font-family:Arial,Helvetica Neue,Helvetica,sans-serif;}h6 {  }';
+        $pdf->cssInline = '.kv-heading-1{font-size:18px}.nospace-border{border:0px;}.no-padding{ padding:0px;}.print-container{font-size:11px;font-family:Arial,Helvetica Neue,Helvetica,sans-serif;} .underline{
+            border-bottom: 1px solid black;
+            width: 100%;
+            display: block;
+        }';
         $supplier='';
         $ponum='';
         $prno='';
@@ -194,6 +202,7 @@ class InspectionController extends \yii\web\Controller
             $prno = $pr["purchase_request_number"];
             $prdate = $pr["purchase_request_date"];
             $quantity = $pr["bids_quantity"];
+            $units = $pr["bids_unit"];
             $price = $pr["bids_price"];
             $totalcost =  $quantity * $price;
             $tots = $tots + $totalcost;
@@ -208,11 +217,11 @@ class InspectionController extends \yii\web\Controller
             $Assig3Position =  $sg["Assig3Position"];
             $Assig4Position =  $sg["Assig4Position"];
         }
-        $pdf->marginTop = 5;
-        $pdf->marginBottom = 60;
+        $pdf->marginTop = 80;
+        $pdf->marginBottom = 125;
         $pdf->marginFooter = 0;
-        $pdf->marginHeader = 55;
-$ss='     <table width="100%">
+        $pdf->marginHeader = 5;
+$ss='<table width="100%">
 <tbody>
 <tr style="height: 43.6667px;">
 <td style="width: 82.4103%; height: 43.6667px;">
@@ -250,11 +259,81 @@ $ss='     <table width="100%">
 <td style="text-align: center;font-family:Arial;font-size:15px;border-top:none;padding:20px;"><b>INSPECTION & ACCEPTANCE REPORT</b></td>
 </tr>
 </tbody>                                                                                                                                                                                                                                                                                                                                                             
-</table>';
-        $headers= '
-   
+</table>
+<table style="width: 100%; font-size: 11px; border:1px solid;">
+<tbody>
+<tr>
+<td style="width: 11.4598%;">Supplier :</td>
+<td style="width: 67.8773%;font-size: 11px; height: 20px;" colspan="5"  class="underline">'.$supplier.'</td>
+<td style="width: 11.1777%; height: 20px; font-size: 11px;">IAR No. : </td>
+<td style="width: 9.48521%;" class="underline">'.str_replace('PO','IAR',$ponum).'</td>
+</tr>
 
-                    <table border="0" width="100%">
+<tr style="height: 20px;">
+<td style="width: 10.8075%; height: 20px; font-size: 11px;">P.O. No. :</td>
+<td style="width: 19.2701%; height: 20px; font-size: 11px;" class="underline">'.$ponum.'</td>
+<td style="width: 7.14033%; height: 20px; font-size: 11px;">Date :</td>
+<td style="width: 16.8723%; height: 20px; font-size: 11px;" class="underline">'.$pdate.'</td>
+<td style="width: 10.5254%; height: 20px; font-size: 11px;">Invoice No. :</td>
+<td style="width: 14.4746%; height: 20px; font-size: 11px;" class="underline"></td>
+<td style="width: 5.44782%; height: 20px; font-size: 11px;">Date :</td>
+<td style="width: 15.4619%; height: 20px; font-size: 11px;" class="underline">'.$pdate.'</td>
+</tr>
+
+
+<tr>
+<td colspan="8" style="width: 100%; height: 20px; font-size: 11px;">Requisitioning Office/Department : _____________________________________________________________________________________________________________</td>
+</tr>
+
+
+</tbody>
+</table>
+
+';
+
+
+
+$ss=$ss
+.'
+<table border="1" width="100%" style="border-collapse: collapse;">
+<tr style="height: 200px">
+<td width="12%" style="padding-left: 25px;vertical-align: top;font-size:11px;text-align:center;">Quantity</td>
+<td width="10%" style="padding-left: 5px;vertical-align: top;font-size:11px;text-align:center;">Units</td>
+<td width="48%" style="text-align: justify;vertical-align: top;font-size:11px;text-align:center;" autosize="0">Description</td>
+<td width="18%" style="padding-left: 50px;text-align: right;font-size:11px;text-align:center;"></td>
+</tr>
+<tr >
+<td width="12%" style="padding-left: 25px;vertical-align: top;font-size:11px;height:500px;"></td>
+<td width="10%" style="padding-left: 5px;vertical-align: top;font-size:11px;height:500px;"></td>
+<td width="48%" style="text-align: justify;vertical-align: top;font-size:11px;height:500px;" autosize="0"></td>
+<td width="18%" style="padding-left: 50px;text-align: right;font-size:11px;height:500px;"></td>
+</tr>
+</table>
+<table border="1" style="border-collapse: collapse; width: 100%;">
+<tbody>
+<tr style="height: 20px;">
+<td style="width: 50%; text-align: center; height: 20px; border-bottom: none;font-weight:bold;">INSPECTION</td>
+<td style="width: 50%; text-align: center; height: 20px; border-bottom: none;font-weight:bold;">ACCEPTANCE</td>
+</tr>
+<tr style="height: 20px;">
+<td style="width: 50%; text-align: left; height: 20px; border-top: none; border-bottom: none;font-size:11px;">&nbsp;Date Inspected : ________________</td>
+<td style="width: 50%; height: 20px; text-align: left; border-top: none; border-bottom: none;font-size:11px;">&nbsp;Date Received : ________________</td>
+</tr>
+<tr style="height: 20px;">
+<td style="width: 50%; text-align: left; height: 250px; vertical-align: top; border-top: none;"><span style="font-size: 55px; vertical-align: top;">▯ <span style="font-size: 11px; vertical-align: top;">Inspected, verified and found OK Inspected, verified and found OK</span></span>
+<p style="text-align: left; padding-left: 15px;"></p>
+</td>
+<td style="width: 50%; text-align: left; height: 250px; vertical-align: top; border-top: none;">
+<p style="text-align: center; padding-left: 150px;"><span style="font-size: 50px;">□ <span style="font-size: 11px; vertical-align: middle;">Full</span></span></p>
+<p style="text-align: left; padding-left: 150px; margin-top: -50px;"><span style="font-size: 50px;">□ <span style="font-size: 11px; vertical-align: middle;">Partial</span></span></p>
+</td>
+</tr>
+</tbody>
+</table>
+';
+
+
+        $headers= '<table border="0" width="100%">q
                         <tr style="text-align: left;">
                             <td style="padding-left: 50px;">'.$supplier.'</td>
                             <td style="text-align: right;">'.str_replace('PO','IAR',$ponum).'</td>
@@ -267,7 +346,7 @@ $ss='     <table width="100%">
                             <td></td>
                             <td style="text-align: right;"></td>
                         </tr>                                       
-                    </table>
+                    </table>    
                     ';
         $fin=0;
         foreach ($prdetails as $pr) {
@@ -281,32 +360,32 @@ $ss='     <table width="100%">
                     <table border="0" width="100%">
                         <tr style="text-align: left;">
                             <td></td>
-                            <td style="text-align: right;">' . number_format($fin,2) . '</td>
+                            <td style="text-align: right;"><span style="text-decoration:underline">' . number_format($fin,2) . '</span></td>
                                <tr style="text-align: left;">
                             <td></td>
                             <td style="text-align: right;"></td>
-                        </tr>
-                           <tr style="text-align: left;">
+                            </tr>
+                            <tr style="text-align: left;">
                             <td></td>
                             <td style="text-align: right;"></td>
-                        </tr>
-                                    <tr style="text-align: left;">
+                            </tr>
+                            <tr style="text-align: left;">
                             <td></td>
                             <td style="text-align: right;"></td>
-                        </tr>
-                                    <tr style="text-align: left;">
+                            </tr>
+                            <tr style="text-align: left;">
+                            <td></td>   
+                            <td style="text-align: right;"></td>
+                            </tr>
+                            <tr style="text-align: left;">
                             <td></td>
                             <td style="text-align: right;"></td>
-                        </tr>
-                                    <tr style="text-align: left;">
+                            </tr>
+                            <tr style="text-align: left;">
                             <td></td>
                             <td style="text-align: right;"></td>
-                        </tr>
-                                    <tr style="text-align: left;">
-                            <td></td>
-                            <td style="text-align: right;"></td>
-                        </tr>
-                                    <tr style="text-align: left;">
+                            </tr>
+                            <tr style="text-align: left;">
                             <td></td>
                             <td style="text-align: right;"></td>
                         </tr>
@@ -407,16 +486,16 @@ $ss='     <table width="100%">
                         </tr>
                         
                         <tr style="text-align: left;">
-                            <td style="text-align: center;padding-left: -125px;padding-bottom:10px;"><b>'.$assig1.'</b><br>Chairman<br></td>
+                            <td style="text-align: center;padding-left: -125px;padding-bottom:10px;font-size:12px;"><b>'.$assig1.'</b><br>Chairman<br></td>
                             <td style="text-align: right;"></td>
                         </tr>
                  
                         <tr style="text-align: left;">
-                            <td style="text-align: center;padding-left: -125px;padding-bottom:10px;"><b>'.$assig2.'</b><br>Member<br></td>
-                            <td style="text-align: right;text-align: center;"><b>'.$assig3.'</b><br>Supply Officer</td>
+                            <td style="text-align: center;padding-left: -125px;padding-bottom:10px;font-size:12px;"><b>'.$assig2.'</b><br>Member<br></td>
+                            <td style="text-align: right;text-align: center;font-size:12px;"><b>'.$assig3.'</b><br>Supply Officer</td>
                         </tr>
                         <tr style="text-align: right;">
-                            <td style="text-align: center;padding-left: -125px;"><b>'.$assig4.'</b><br>Member</td>
+                            <td style="text-align: center;padding-left: -125px;font-size:12px;"><b>'.$assig4.'</b><br>Member</td>
                             <td style="text-align: right;"></td>
                         </tr>  
                         <tr style="text-align: right;">
@@ -505,7 +584,7 @@ $ss='     <table width="100%">
             'defaultfooterline' => 0,
             'subject'=> 'Report Subject'];
         $pdf->methods = [
-            'SetHeader'=>[$headers],
+            'SetHeader'=>[$ss],
             'SetFooter'=>[$footerss],
         ];
 
