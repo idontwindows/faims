@@ -57,11 +57,22 @@ if(Yii::$app->user->isGuest){
                         'label' => 'Procurement Plan', 
                         'icon' => 'archive', 
                         //'url' => ['/settings'],
-                        //'visible'=> Yii::$app->user->can('access-pre-procurement'),
+                        'visible'=> Yii::$app->user->can('access-procurementplan'),
                         'items' => [
-                            ['label' => 'Line-Item Budget', 'icon' => 'money', 'url' => ['/procurementplan/lineitembudget/index']],
+                            //['label' => 'Line-Item Budget', 'icon' => 'money', 'url' => ['/procurementplan/lineitembudget/index']],
                             ['label' => 'PPMP', 'icon' => 'clipboard', 'url' => ['/procurementplan/ppmp/index']],
                             ['label' => 'APP', 'icon' => 'file-text', 'url' => ['/procurementplan/app/index']],
+                        ]
+                    ],
+                    [
+                        'label' => 'Budget', 
+                        'icon' => 'archive', 
+                        //'url' => ['/settings'],
+                        'visible'=> Yii::$app->user->can('access-budget'),
+                        'items' => [
+                            ['label' => 'Budget Allocation', 'icon' => 'money', 'url' => ['/budget/budgetallocation/index']],
+                            ['label' => 'PPMP', 'icon' => 'clipboard', 'url' => ['/budget/ppmp/index']],
+                            ['label' => 'SAOB', 'icon' => 'clipboard', 'url' => ['/budget/saob/index']],
                         ]
                     ],
                     [
@@ -123,6 +134,7 @@ if(Yii::$app->user->isGuest){
                                 'url' => '#',
                                 'items' => [
                                     ['label' => 'Users', 'icon' => 'fa fa-user-o', 'url' => ['/admin/user'],'visible'=> Yii::$app->user->can('access-user')],
+                                    ['label' => 'Groups', 'icon' => 'dashboard', 'url' => ['/admin/group'],'visible'=> Yii::$app->user->can('access-user')],
                                     ['label' => 'Assignment', 'icon' => 'dashboard', 'url' => ['/admin'],'visible'=> Yii::$app->user->can('access-assignment')],
                                     ['label' => 'Route', 'icon' => 'line-chart', 'url' => ['/admin/route'],'visible'=> Yii::$app->user->can('access-route')],
                                     ['label' => 'Roles', 'icon' => 'glide-g', 'url' => ['/admin/role'],'visible'=> Yii::$app->user->can('access-role')],
