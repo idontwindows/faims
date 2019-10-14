@@ -5,12 +5,12 @@ namespace common\models\procurementplan;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use common\models\procurementplan\Ppmp;
+use common\models\procurementplan\Item;
 
 /**
- * PpmpSearch represents the model behind the search form about `common\models\procurementplan\Ppmp`.
+ * ItemSearch represents the model behind the search form about `common\models\procurementplan\Item`.
  */
-class PpmpSearch extends Ppmp
+class ItemSearch extends Item
 {
     /**
      * @inheritdoc
@@ -18,7 +18,9 @@ class PpmpSearch extends Ppmp
     public function rules()
     {
         return [
-            [['ppmp_id', 'division_id', 'charged_to', 'project_id', 'year', 'end_user_id', 'head_id'], 'integer'],
+            [['item_id', 'item_category_id', 'item_code', 'unit_of_measure_id'], 'integer'],
+            [['item_name', 'last_update'], 'safe'],
+            [['price_catalogue'], 'number'],
         ];
     }
 
@@ -40,12 +42,19 @@ class PpmpSearch extends Ppmp
      */
     public function search($params)
     {
-        $query = Ppmp::find();
+        $query = Item::find();
 
         // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'pagination' => false,
+            'sort' => [
+                'defaultOrder' => [
+                    'item_category_id' => SORT_ASC,
+                    'item_name' => SORT_ASC,
+                ]
+            ],
         ]);
 
         $this->load($params);
@@ -58,14 +67,15 @@ class PpmpSearch extends Ppmp
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'ppmp_id' => $this->ppmp_id,
-            'division_id' => $this->division_id,
-            'charged_to' => $this->charged_to,
-            'project_id' => $this->project_id,
-            'year' => $this->year,
-            'end_user_id' => $this->end_user_id,
-            'head_id' => $this->head_id,
+            'item_id' => $this->item_id,
+            'item_category_id' => $this->item_category_id,
+            'item_code' => $this->item_code,
+            'unit_of_measure_id' => $this->unit_of_measure_id,
+            'price_catalogue' => $this->price_catalogue,
+            'last_update' => $this->last_update,
         ]);
+
+        $query->andFilterWhere(['like', 'item_name', $this->item_name]);
 
         return $dataProvider;
     }

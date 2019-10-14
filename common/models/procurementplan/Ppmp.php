@@ -1,8 +1,15 @@
 <?php
 
 namespace common\models\procurementplan;
+
+use common\models\procurementplan\Budgetallocation;
+use common\models\procurementplan\Ppmpitem;
+
 use common\models\procurement\Division;
-use common\models\procurement\Unit;
+//use common\models\procurement\Unit;
+use common\models\procurement\Section;
+
+use common\models\system\Usersection;
 
 use Yii;
 
@@ -22,6 +29,9 @@ use Yii;
  */
 class Ppmp extends \yii\db\ActiveRecord
 {
+    const STATUS_PENDING = 1;
+    const STATUS_SUBMITTED = 2;
+    const STATUS_APPROVED = 3;
     /**
      * @inheritdoc
      */
@@ -44,8 +54,8 @@ class Ppmp extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['division_id', 'unit_id', 'charged_to', 'project_id', 'year', 'end_user_id', 'head_id'], 'required'],
-            [['division_id', 'unit_id', 'charged_to', 'project_id', 'year', 'end_user_id', 'head_id'], 'integer'],
+            [['division_id', 'unit_id', 'charged_to', 'project_id', 'year', 'end_user_id', 'head_id', 'status_id'], 'required'],
+            [['division_id', 'unit_id', 'charged_to', 'project_id', 'year', 'end_user_id', 'head_id', 'status_id'], 'integer'],
         ];
     }
 
@@ -63,6 +73,7 @@ class Ppmp extends \yii\db\ActiveRecord
             'year' => 'Year',
             'end_user_id' => 'End User ID',
             'head_id' => 'Head ID',
+            'status_id' => 'Status',
         ];
     }
 
@@ -95,6 +106,57 @@ class Ppmp extends \yii\db\ActiveRecord
      */
     public function getUnit()
     {
-        return $this->hasOne(Unit::className(), ['unit_id' => 'unit_id']);
+        return $this->hasOne(Section::className(), ['section_id' => 'unit_id']);
+    }
+    
+    public function getBudgetAllocation()
+    {
+        $allocation = Budgetallocation::find()->where(['section_id' => $this->unit_id, 'year' => $this->year])->one();
+        if($allocation)
+            return $allocation->amount;
+        else
+            return 0;
+    }
+    
+    public function getRunningTotal()
+    {
+        $items = Ppmpitem::find()->where(['ppmp_id' => $this->ppmp_id, 'active' => 1])->all();
+        $runningtotal = 0;
+        foreach($items as $item)
+        {
+            $runningtotal += $item->getTotalamount();
+        }
+        return $runningtotal;
+    }
+    
+    public function isPending()
+    {
+        return ($this->status_id == self::STATUS_PENDING) ? true : false;
+    }
+    
+    public function getStatus()
+    {
+        switch ($this->status_id) {
+            case self::STATUS_PENDING:
+                return 'PENDING';
+                break;
+            case self::STATUS_SUBMITTED:
+                return 'SUBMITTED';
+                break;
+            case self::STATUS_APPROVED:
+                return 'APPROVED';
+                break;
+            default:
+                return 'PENDING';
+        }
+    }
+    
+    public function isMember()
+    {
+        $user = Usersection::find()->where(['user_id' => Yii::$app->user->id, 'section_id' => $this->unit_id])->one();
+        if($user)
+            return true;
+        else
+            return '';
     }
 }

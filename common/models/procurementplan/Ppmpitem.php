@@ -2,6 +2,9 @@
 
 namespace common\models\procurementplan;
 
+use common\models\procurementplan\Itemcategory;
+use common\models\procurementplan\Unitofmeasure;
+
 use Yii;
 
 /**
@@ -55,10 +58,10 @@ class Ppmpitem extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['ppmp_id', 'code', 'description', 'quantity', 'unit', 'estimated_budget', 'mode_of_procurement', 'q1', 'q2', 'q3', 'q4', 'q5', 'q6', 'q7', 'q8', 'q9', 'q10', 'q11', 'q12'], 'required'],
-            [['ppmp_id', 'quantity', 'unit', 'mode_of_procurement', 'q1', 'q2', 'q3', 'q4', 'q5', 'q6', 'q7', 'q8', 'q9', 'q10', 'q11', 'q12'], 'integer'],
-            [['description'], 'string'],
-            [['estimated_budget'], 'number'],
+            [['ppmp_id', 'item_id', 'item_category_id', 'ppmp_item_category_id', 'code', 'description', 'quantity', 'unit', 'estimated_budget', 'mode_of_procurement', 'active'], 'required'],
+            [['ppmp_id', 'ppmp_item_category_id','quantity', 'unit', 'mode_of_procurement', 'q1', 'q2', 'q3', 'q4', 'q5', 'q6', 'q7', 'q8', 'q9', 'q10', 'q11', 'q12', 'active'], 'integer'],
+            [['description', 'item_specification'], 'string'],
+            [['estimated_budget', 'cost'], 'number'],
             [['code'], 'string', 'max' => 20],
             [['ppmp_id'], 'exist', 'skipOnError' => true, 'targetClass' => Ppmp::className(), 'targetAttribute' => ['ppmp_id' => 'ppmp_id']],
         ];
@@ -72,10 +75,14 @@ class Ppmpitem extends \yii\db\ActiveRecord
         return [
             'ppmp_item_id' => 'Ppmp Item ID',
             'ppmp_id' => 'Ppmp ID',
+            'item_id' => 'Item',
+            'item_category_id' => 'Item Category',
+            'ppmp_item_category_id' => 'Category',
             'code' => 'Code',
             'description' => 'Description',
             'quantity' => 'Quantity',
-            'unit' => 'Unit',
+            'unit' => 'Unit of Measure',
+            'cost' => 'Unit Cost',
             'estimated_budget' => 'Estimated Budget',
             'mode_of_procurement' => 'Mode Of Procurement',
             'q1' => 'Q1',
@@ -90,6 +97,7 @@ class Ppmpitem extends \yii\db\ActiveRecord
             'q10' => 'Q10',
             'q11' => 'Q11',
             'q12' => 'Q12',
+            'active' => 'Active',
         ];
     }
 
@@ -100,6 +108,11 @@ class Ppmpitem extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Ppmp::className(), ['ppmp_id' => 'ppmp_id']);
     }
+    
+    public function getUnitofmeasure()
+    {
+        return $this->hasOne(Unitofmeasure::className(), ['unit_of_measure_id' => 'unit']);
+    }
 
     /**
      * @return \yii\db\ActiveQuery
@@ -107,5 +120,25 @@ class Ppmpitem extends \yii\db\ActiveRecord
     public function getPpmpItemScheds()
     {
         return $this->hasMany(PpmpItemSched::className(), ['ppmp_item_id' => 'ppmp_item_id']);
+    }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getItemcategory()
+    {
+        return $this->hasOne(Itemcategory::className(), ['item_category_id' => 'item_category_id']);
+    }
+    
+    public function getTotalqty()
+    {
+        $total = $this->q1 + $this->q2 + $this->q3 + $this->q4 + $this->q5 + $this->q6 + $this->q7 + $this->q8 + $this->q9 + $this->q10 + $this->q11 + $this->q12;
+        return $total;
+    }
+    
+    public function getTotalamount()
+    {
+        $totalamount = $this->getTotalqty() * $this->cost;
+        return $totalamount;
     }
 }
