@@ -297,9 +297,11 @@ class PpmpController extends Controller
         $model = $this->findModel($_GET['id']);
         
         if (Yii::$app->request->isAjax) {
-            if($model->status_id == Ppmp::STATUS_SUBMITTED)
+            if(!$model->isMember())
             {
-                return $this->renderAjax('_info', []);   
+                return $this->renderAjax('_info', ['message'=>'You are not Authorized to do this action.']);   
+            }elseif($model->status_id == Ppmp::STATUS_SUBMITTED){
+                return $this->renderAjax('_info', ['message'=>'This PPMP has been submitted for Approval.']);   
             }
         }
         if (Yii::$app->request->post()) {

@@ -103,9 +103,11 @@ class PpmpitemController extends Controller
         $year = $_GET['year'];
         if (Yii::$app->request->isAjax) {
             $ppmp = Ppmp::findOne($id); 
-            if($ppmp->status_id == Ppmp::STATUS_SUBMITTED)
+            if(!$ppmp->isMember())
             {
-                return $this->renderAjax('_info', []);   
+                return $this->renderAjax('_info', ['message'=>'You are not Authorized to do this action.']);   
+            }elseif($ppmp->status_id == Ppmp::STATUS_SUBMITTED){
+                return $this->renderAjax('_info', ['message'=>'This PPMP has been submitted for Approval.']);   
             }
         }
         
