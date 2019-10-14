@@ -105,7 +105,7 @@ class Profile extends \yii\db\ActiveRecord
         ];
     }
     public function getFullname(){
-        return $this->firstname. ' ' . $this->lastname;
+        return $this->firstname. ' '. $this->lastname;
     }
     /**
      * @return \yii\db\ActiveQuery
@@ -114,6 +114,7 @@ class Profile extends \yii\db\ActiveRecord
     {
         return $this->hasOne(User::className(), ['user_id' => 'user_id']);
     }
+    
     public function initialPreviewConfig($urldel = ['/controller/action-delete-files'])
     {
 

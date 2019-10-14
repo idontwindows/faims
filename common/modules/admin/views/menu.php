@@ -6,6 +6,17 @@ switch($button){
     case 'assignment':
         $Assignment='active';
         $User='';
+        $Group='';
+        $route='';
+        $role='';
+        $permissions='';
+        $menu='';
+        $rule='';
+        break;
+    case 'Group':
+        $Assignment='';
+        $User='';
+        $Group='active';
         $route='';
         $role='';
         $permissions='';
@@ -15,6 +26,7 @@ switch($button){
     case 'user':
         $Assignment='';
         $User='active';
+        $Group='';
         $route='';
         $role='';
         $permissions='';
@@ -24,6 +36,7 @@ switch($button){
     case 'route':
         $Assignment='';
         $User='';
+        $Group='';
         $route='active';
         $role='';
         $permissions='';
@@ -33,6 +46,7 @@ switch($button){
     case 'roles':
         $Assignment='';
         $User='';
+        $Group='';
         $route='';
         $role='active';
         $permissions='';
@@ -42,6 +56,7 @@ switch($button){
     case 'permissions':
         $Assignment='';
         $User='';
+        $Group='';
         $route='';
         $role='';
         $permissions='active';
@@ -51,6 +66,7 @@ switch($button){
     case 'menu':
         $Assignment='';
         $User='';
+        $Group='';
         $route='';
         $role='';
         $permissions='';
@@ -60,6 +76,7 @@ switch($button){
     case 'rule':
         $Assignment='';
         $User='';
+        $Group='';
         $route='';
         $role='';
         $permissions='';
@@ -72,6 +89,9 @@ switch($button){
     <div class="col-lg-12">
         <?php if(Yii::$app->user->can('access-user')){ ?>
         <a href="<?= Url::toRoute('/admin/user') ?>" class="btn btn-primary <?= $User ?>"></i>User</a>
+        <?php } ?>
+        <?php if(Yii::$app->user->can('access-user')){ ?>
+        <a href="<?= Url::toRoute('/admin/group') ?>" class="btn btn-primary <?= $User ?>"></i>Group</a>
         <?php } ?>
         <?php if(Yii::$app->user->can('access-assignment')){ ?>
         <a href="<?= Url::toRoute('/admin') ?>" class="btn btn-primary <?= $Assignment ?>"></i>Assignment</a>
