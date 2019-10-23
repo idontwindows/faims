@@ -239,6 +239,7 @@ class PpmpController extends Controller
         $itemId = $_POST['itemId'];
         $checked = $_POST['checked'];
         $year = $_POST['year'];
+
         
         $item = Item::findOne($itemId);
         $ppmp_item = Ppmpitem::find()->where([

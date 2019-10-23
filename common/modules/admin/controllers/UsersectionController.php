@@ -83,7 +83,7 @@ class UsersectionController extends Controller
         
         $model = new Usersection();
         $users = Profile::find()->orderBy('lastname')->asArray()->all();
-        $listUsers = ArrayHelper::map($users, 'user_id', 'lastname');
+        $listUsers = ArrayHelper::map($users, 'user_id', 'firstname');
         
         $sections = Section::find()->orderBy('section_id')->asArray()->all();
         $listSections = ArrayHelper::map($sections, 'section_id', 'name');

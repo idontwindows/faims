@@ -15,9 +15,11 @@ use common\models\procurementplan\Unitofmeasure;
 /* @var $model common\models\procurementplan\Ppmpitem */
 /* @var $form yii\widgets\ActiveForm */
 ?>
+
 <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'id'=>'ppmp_items', //additional
         'pjax' => true, // pjax is set to always true for this demo
                 'pjaxSettings' => [
                         'options' => [
@@ -28,9 +30,12 @@ use common\models\procurementplan\Unitofmeasure;
             [
                 'class' => '\kartik\grid\CheckboxColumn',
                 'headerOptions' => ['class' => 'kartik-sheet-style'],
+                'name'=>'ppmp-item', //additional
                 'checkboxOptions' => function($model, $key, $index, $column) use ($id){
                                          $bool = Ppmpitem::find()->where(['ppmp_id' => $id, 'item_id' => $model->item_id, 'active'=>1])->count();
-                                         return ['checked' => $bool];
+                                         return ['checked' => $bool,
+                                                'onclick'=>'onPPMP(this.value,this.checked)' //additional
+                                                ];
                                      }
             ],
             [
@@ -40,10 +45,10 @@ use common\models\procurementplan\Unitofmeasure;
                         },
                 'filter' => ArrayHelper::map(Itemcategory::find()->asArray()->all(), 'item_category_id', 'category_name'),
                 'filterType' => GridView::FILTER_SELECT2,
-                'filterWidgetOptions' => [
+                /*'filterWidgetOptions' => [
                     'pluginOptions' => ['allowClear' => true],
                 ],
-                'filterInputOptions' => ['placeholder' => 'Select'],
+                'filterInputOptions' => ['placeholder' => 'Select'],*/
                 
                 'group'=>true,  // enable grouping,
                 'groupedRow'=>true,                    // move grouped column to a single grouped row
@@ -76,18 +81,17 @@ use common\models\procurementplan\Unitofmeasure;
     ]); 
 ?>
 
-
 <script>
-$(function(){
-    $('.kv-row-checkbox').click(function(){
-        var chkRow = $(this);
+//$(function(){
+   // $('.kv-row-checkbox').click(function(){
+        /*var chkRow = $(this);
         var item_category_id = $(this).next().val();
-        var ppmp_id = <?php echo $id?>;
-        var ppmp_year = <?php echo $year?>;
+        var ppmp_id = <?php //echo $id?>;
+        var ppmp_year = <?php //echo $year?>;
         var checked = chkRow.is(':checked');
         $.ajax({
                 type: "POST",
-                url: "<?php echo Url::to(['ppmp/additems']); ?>",
+                url: "<?php //echo Url::to(['ppmp/additems']); ?>",
                 data: { itemId : chkRow.val(), itemCategoryId: item_category_id, checked: checked, ppmpId: ppmp_id, year: ppmp_year },
                 success: function(){ 
                     if(chkRow.is(':checked'))
@@ -97,10 +101,37 @@ $(function(){
                     },
                 });
 
-        return false;
-    });
-});
-</script>    
+        return false;*/
+      //  $('form').submit();
+//    });
+//});
+</script>  
+<script type="text/javascript">
+function onPPMP(item_id,checked){
+    //var key_id = $('#ppmp_items').yiiGridView('getSelectedRows');
+    //var input_selected = $("input[name='ppmp-item[]']:checked");
+    var ppmp_id = <?php echo $id?>;
+    var ppmp_year = <?php echo $year?>;
+    //var checked = input_selected.is(':checked');
+    //var input_check_value = input_selected.val();
+    $.ajax({
+            type: "POST",
+            url: "<?php echo Url::to(['ppmp/additems']); ?>",
+            //data: { itemId : chkRow.val(), itemCategoryId: item_category_id, checked: checked, ppmpId: ppmp_id, year: ppmp_year },
+            data: {itemId:item_id,ppmpId:ppmp_id,year:ppmp_year,checked:checked},
+            success: function(data){ 
+                //if(input_selected.is(':checked'))
+                  //  input_selected.prop("checked", false);
+                //else
+                  //  input_selected.prop("checked", true);
+                //},
+                    //console.log(data);
+                }
+            });
 
+    return false;
+  //});
+}    
+</script>
 
 
