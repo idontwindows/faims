@@ -358,29 +358,32 @@ class BidsController extends Controller
         $pStatus = $request->get('bid_status');
 
         if ($pStatus==1) {
-        Bidsdetails::updateAll( 
-            [
-            'bids_details_status'=> '0' , 
-            ],'bids_details_id = ' . $id);
-        Purchaseorderdetails::updateAll(
-            [
-            'purchase_request_details_status'=> '0' , 
-            ],'bids_details_id = ' . $id); 
+            Bidsdetails::updateAll( 
+                [
+                'bids_details_status'=> '0' , 
+                ],'bids_id = ' . $bid);
+            Purchaserequestdetails::updateAll(
+                [
+                'purchase_request_details_status'=> '0' , 
+                ],'purchase_request_id = ' . $pid);; 
         }else{
             Bidsdetails::updateAll( 
-            [
-            'bids_details_status'=> '0' , 
-            ],'bids_details_id = ' . $id);
-            Purchaseorderdetails::updateAll(
-            [
-            'purchase_request_details_status'=> '0' , 
-            ],'bids_details_id = ' . $id); 
+                [
+                'bids_details_status'=> '0' , 
+                ],'bids_id = ' . $bid);
+            Purchaserequestdetails::updateAll(
+                [
+                'purchase_request_details_status'=> '0' , 
+                ],'purchase_request_id = ' . $pid);
+
+            /* 
             foreach (Bids::find()->where('bids_id='.$bid)->all() as $user) {
-                //$user->delete();
+                $user->delete();
             }
             foreach (Bidsdetails::find()->where('bids_details_id='.$bid)->all() as $user) {
                 $user->delete();
             }
+            */
         }
         $model = $this->findModel($pid);
         $m = $this->findSupplier();

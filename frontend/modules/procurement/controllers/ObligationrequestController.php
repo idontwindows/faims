@@ -353,14 +353,16 @@ WHERE `tbl_obligationrequest`.`os_no` = '".$id."';";
         $request = Yii::$app->request;
         $po_num = $request->post('po_num');
         $con = Yii::$app->procurementdb;
-        $sql = "SELECT `tbl_purchase_order`.`purchase_order_number` ,CONCAT('TO PAYMENT of items to be delivered to DOST IX per P.O. No. ',`tbl_purchase_order`.`purchase_order_number`,
+        $sql = "SELECT `fnGetSupplierName`(`tbl_bids`.`supplier_id`) AS Payee, `fnGetSupplierAddress`(`tbl_bids`.`supplier_id`) AS `Address` ,`tbl_purchase_order`.`purchase_order_number` ,CONCAT('TO PAYMENT of items to be delivered to DOST IX per P.O. No. ',`tbl_purchase_order`.`purchase_order_number`,
         ' dated ' , `tbl_purchase_order`.`purchase_order_date`) AS Particulars ";
         $sql = $sql.", SUM(`tbl_bids_details`.`bids_quantity` * `tbl_bids_details`.`bids_price`) AS Amount,
 	    `tbl_purchase_order`.`purchase_order_date`
 	    FROM `tbl_purchase_order` INNER JOIN `tbl_purchase_order_details`
 	    ON `tbl_purchase_order_details`.`purchase_order_id` = `tbl_purchase_order`.`purchase_order_id`
 	    INNER JOIN `tbl_bids_details` ON 
-	    `tbl_bids_details`.`bids_details_id` = `tbl_purchase_order_details`.`bids_details_id`
+        `tbl_bids_details`.`bids_details_id` = `tbl_purchase_order_details`.`bids_details_id`
+        INNER JOIN `tbl_bids` ON
+	    `tbl_bids`.`bids_id` = `tbl_bids_details`.`bids_id`
 	    WHERE `tbl_purchase_order`.`purchase_order_number` = '".$po_num."';";
         $checkxml = $con->createCommand($sql)->queryAll();
         return json_encode($checkxml);
@@ -407,7 +409,6 @@ WHERE `tbl_obligationrequest`.`os_no` = '".$id."';";
                 $ponum = $command_po->queryAll();
                 $listEmployee = ArrayHelper::map($employees, 'user_id', 'employeename');
                 $listPono = ArrayHelper::map($ponum, 'purchase_order_number', 'purchase_order_number');
-                //if ($model->load(Yii::$app->request->post()) && $model->save()) {
                 $assig =$this->findAssignatory(2);
                 return $this->renderAjax('_form', [
                     'model' => $model,
