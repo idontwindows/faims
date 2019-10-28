@@ -42,7 +42,6 @@ Modal::begin([
 echo "<div id='modalContent'><div style='text-align:center'><img src='/images/loading.gif'></div></div>";
 Modal::end();
 
-echo $isMember ? 'User is a Member!' : 'User is not a Member!';
 ?>
 <div class="ppmp-view">
    <?php

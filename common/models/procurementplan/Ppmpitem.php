@@ -3,6 +3,7 @@
 namespace common\models\procurementplan;
 
 use common\models\procurementplan\Itemcategory;
+use common\models\procurementplan\Ppmpitem;
 use common\models\procurementplan\Unitofmeasure;
 
 use Yii;
@@ -140,5 +141,21 @@ class Ppmpitem extends \yii\db\ActiveRecord
     {
         $totalamount = $this->getTotalqty() * $this->cost;
         return $totalamount;
+    }
+    
+    public function getMonthItemQuantity($month)
+    {
+        $queryPpmpItems = $this->find()
+                            ->where(['item_id' => $this->item_id,'active' => 1])
+                            ->sum($month);
+        return $queryPpmpItems;
+    }
+    
+    public function getItemQuantity()
+    {
+        $queryPpmpItems = $this->find()
+                            ->where(['item_id' => $this->item_id,'active' => 1])
+                            ->sum('q1+q2+q3+q4+q5+q6+q7+q8+q9+q10+q11+q12');
+        return $queryPpmpItems;
     }
 }
