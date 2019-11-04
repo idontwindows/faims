@@ -144,8 +144,8 @@ $this->registerJsFile('https://code.jquery.com/ui/1.12.1/jquery-ui.js');
                                                         var amount = item.Amount;
                                                         var payee  = item.Payee;
                                                         var address = item.Address;
-                                                       // $('#obligationrequest-particulars').val (particular);
-                                                       CKEDITOR.instances.mypt.setData(description);
+                                                        $('#obligationrequest-particulars').val (particular);
+                                                       //CKEDITOR.instances.mypt.setData(description);
                                                         $('#obligationrequest-amount').val(amount);
                                                         $('#obligationrequest-payee').val(payee);
                                                         $('#obligationrequest-address').val(address);
@@ -206,15 +206,7 @@ $this->registerJsFile('https://code.jquery.com/ui/1.12.1/jquery-ui.js');
                 <?php //$form->field($model, 'particulars')->textarea(['rows' => 5,'placeholder'=>'Particulars'])->label('') ?>
                 <?php  //echo CKEditor::widget([ 'name' => "particulars", 'id' => 'particulars', 'preset' => 'full', 'value' => "", 'clientOptions' => ['height' => 200, 'width' => '100%'], ]);
                 ?>
-                <?=
-                $form->field($model,'particulars')->widget(CKEditor::className(), [
-                    'options' => ['rows' => 6],
-                    'preset' => 'basic',
-                    'id' => 'mypt',
-                    'name' => 'mypt',
-                ])->label('Particulars');   
-                
-                ?>
+       <?= $form->field($model, 'particulars')->textarea(['rows' => 5,'placeholder'=>'Particulars'])->label('') ?>
                 </div>
                 <div class="col-lg-2">
                     <?= $form->field($model, 'ppa')->textInput(['maxlength' => true])->label('MFO/PAP') ?>
