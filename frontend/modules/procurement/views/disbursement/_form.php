@@ -329,8 +329,12 @@ if ($model->approved=='') {
                                                         $.each(data, function(i, item) {
                                                             var particular = item.Particulars;
                                                             var amount = item.Amount;
+                                                            var address = item.supplier_address;
+                                                            var payee = item.supplier_name;
                                                             $('#disbursement-particulars').text(particular);
                                                             $('#disbursement-dv_amount').val(amount);
+                                                            $('#disbursement-address').text(address);
+                                                            $('#disbursement-payee').val(payee);
                                                         });
                                                     },
                                                     error: function ( xhr, ajaxOptions, thrownError ) {
