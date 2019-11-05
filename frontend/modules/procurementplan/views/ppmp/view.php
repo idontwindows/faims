@@ -195,7 +195,7 @@ Modal::end();
                     'attribute'=>'unit', 
                     'header'=>'Unit of Measure',
                     'value'=>function ($model, $key, $index, $widget) { 
-                            return $model->unitofmeasure->name;
+                            return $model->unitofmeasure->name ? $model->unitofmeasure->name : '';
                         },
                     'width'=>'100px',
                     'headerOptions' => ['style' => 'text-align: center'],
