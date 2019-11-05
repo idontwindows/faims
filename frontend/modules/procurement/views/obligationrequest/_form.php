@@ -126,7 +126,9 @@ $this->registerJsFile('https://code.jquery.com/ui/1.12.1/jquery-ui.js');
                                 'dropdownParent'=> new yii\web\JsExpression('$("#modalObligation")')
                             ],
                             'pluginEvents' => [
-                                "change" => "function() {
+                                "change" => "
+                                function() {
+                                             
                                              var po_num=$(this).val();
                                              jQuery.ajax( {
                                                 type: \"POST\",
@@ -143,6 +145,7 @@ $this->registerJsFile('https://code.jquery.com/ui/1.12.1/jquery-ui.js');
                                                         var payee  = item.Payee;
                                                         var address = item.Address;
                                                         $('#obligationrequest-particulars').val (particular);
+                                                       //CKEDITOR.instances.mypt.setData(description);
                                                         $('#obligationrequest-amount').val(amount);
                                                         $('#obligationrequest-payee').val(payee);
                                                         $('#obligationrequest-address').val(address);
@@ -199,9 +202,11 @@ $this->registerJsFile('https://code.jquery.com/ui/1.12.1/jquery-ui.js');
                 <div class="col-lg-2">
                     <?= $form->field($model, 'resp_center')->textInput(['maxlength' => true,'placeholder' => 'Responsibility Center '])->label('') ?>
                 </div>
-                <div class="col-lg-3">
-                <?= $form->field($model, 'particulars')->textarea(['rows' => 5,'placeholder'=>'Particulars'])->label('') ?>
-                
+                <div class="col-lg-4">
+                <?php //$form->field($model, 'particulars')->textarea(['rows' => 5,'placeholder'=>'Particulars'])->label('') ?>
+                <?php  //echo CKEditor::widget([ 'name' => "particulars", 'id' => 'particulars', 'preset' => 'full', 'value' => "", 'clientOptions' => ['height' => 200, 'width' => '100%'], ]);
+                ?>
+       <?= $form->field($model, 'particulars')->textarea(['rows' => 5,'placeholder'=>'Particulars'])->label('') ?>
                 </div>
                 <div class="col-lg-2">
                     <?= $form->field($model, 'ppa')->textInput(['maxlength' => true])->label('MFO/PAP') ?>
@@ -209,7 +214,7 @@ $this->registerJsFile('https://code.jquery.com/ui/1.12.1/jquery-ui.js');
                 <div class="col-lg-2">
                     <?= $form->field($model, 'account_code')->textInput(['maxlength' => true,'placeholder'=>'5010101001'])->label('UACS Object Code.')?>
                 </div>
-                <div class="col-lg-3">
+                <div class="col-lg-2">
                     <?= $form->field($model, 'amount')->textInput(['maxlength' => true,'placeholder'=>'0.00']) ?>
                 </div>
             </div>
@@ -232,7 +237,8 @@ $this->registerJsFile('https://code.jquery.com/ui/1.12.1/jquery-ui.js');
                             'dropdownParent'=> new yii\web\JsExpression('$("#modalObligation")')
                         ],
 
-                    ])->label(''); ?>
+                    ])->label(''); 
+                    ?>
 
                 </div>
 

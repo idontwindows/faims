@@ -102,11 +102,14 @@ class DisbursementController extends Controller
         $sql = "SELECT `tbl_purchase_order`.`purchase_order_number` ,CONCAT('TO PAYMENT of items to be delivered to DOST IX per P.O. No. ',`tbl_purchase_order`.`purchase_order_number`,
         ' dated ' , `tbl_purchase_order`.`purchase_order_date`) AS Particulars ";
         $sql = $sql.", SUM(`tbl_bids_details`.`bids_quantity` * `tbl_bids_details`.`bids_price`) AS Amount,
+        `fnGetSupplierName`(`tbl_bids`.`supplier_id`) AS supplier_name , 
+        `fnGetSupplierAddress`(`tbl_bids`.`supplier_id`) AS supplier_address , 
 	    `tbl_purchase_order`.`purchase_order_date`
 	    FROM `tbl_purchase_order` INNER JOIN `tbl_purchase_order_details`
 	    ON `tbl_purchase_order_details`.`purchase_order_id` = `tbl_purchase_order`.`purchase_order_id`
 	    INNER JOIN `tbl_bids_details` ON 
-	    `tbl_bids_details`.`bids_details_id` = `tbl_purchase_order_details`.`bids_details_id`
+        `tbl_bids_details`.`bids_details_id` = `tbl_purchase_order_details`.`bids_details_id`
+        INNER JOIN `tbl_bids` ON `tbl_bids`.`bids_id` = `tbl_bids_details`.`bids_id`
 	    WHERE `tbl_purchase_order`.`purchase_order_number` = '".$dv_num."';";
         $checkxml = $con->createCommand($sql)->queryAll();
         return json_encode($checkxml);
