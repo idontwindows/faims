@@ -265,7 +265,7 @@ class PpmpController extends Controller
             $model->item_category_id = $item->item_category_id;
             $model->code = $item->item_code;
             $model->description = $item->item_name;
-            $model->unit = $item->unit_of_measure_id;
+            $model->unit = $item->unit_of_measure_id ? $item->unit_of_measure_id : 18;
             $model->cost = $item->price_catalogue;
             $model->active = 1;
             $model->save(false);
