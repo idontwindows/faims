@@ -49,7 +49,7 @@ Modal::end();
 ?>    
     <div class="ppmp-index">
     <?php //echo $selected_year; ?>
-    <h3 style="text-align: center"><?= Html::encode('PROJECT PROCUREMENT MANAGEMENT PLAN (PPMP)') ?></h3>
+    <h3 style="text-align: center"><?= Html::encode('BUDGET ALLOCATION AND MONITORING') ?></h3>
 
    
    
@@ -80,14 +80,19 @@ Modal::end();
                             ],
                             [
                                 'attribute'=>'name',
-                                'header'=>'Budget Allocation',
-                                'contentOptions' => ['style' => 'padding-left: 25px; text-align: right; font-weight: bold;'],
+                                'header'=>'2020',
+                                'headerOptions' => ['style' => 'text-align: center; font-weight: bold;'],
+                                'contentOptions' => ['style' => 'padding-right: 75px; text-align: right; font-weight: bold;'],
                                 'width'=>'200px',
                                 'format'=>'raw',
                                 'value'=>function ($model, $key, $index, $widget) { 
-                                    return $model->budgetallocation;
+                                    $budget = $model->budgetallocation ? $model->budgetallocation->getTotal() : '';
+                                    $fmt = Yii::$app->formatter;
+                                    //return Html::a($fmt->asDecimal($budget), ['budgetallocation/view?id='.$this->budget_allocation_id]);
+                                    return $fmt->asDecimal($budget);
                                 },
                             ],
+                            /*
                             [
                                 'attribute'=>'status',
                                 'header'=>'PPMPs',
@@ -98,7 +103,7 @@ Modal::end();
                                 'value'=>function ($model) { 
                                     return $model->getPpmps();
                                 },
-                            ],
+                            ],*/
                     ],
             'containerOptions' => ['style' => 'overflow: auto'], // only set when $responsive = false
             'headerRowOptions' => ['class' => 'kartik-sheet-style'],
@@ -112,10 +117,10 @@ Modal::end();
             'toolbar' => 
                         [
                             [
-                                'content'=>
-                                    Html::button('PENDING', ['title' => 'Approved', 'class' => 'btn btn-warning', 'style'=>'width: 90px; margin-right: 6px;']) .    
+                                'content'=>'',
+                                    /*Html::button('PENDING', ['title' => 'Approved', 'class' => 'btn btn-warning', 'style'=>'width: 90px; margin-right: 6px;']) .    
                                     Html::button('SUBMITTED', ['title' => 'Approved', 'class' => 'btn btn-primary', 'style'=>'width: 90px; margin-right: 6px;']) .
-                                    Html::button('APPROVED', ['title' => 'Approved', 'class' => 'btn btn-success', 'style'=>'width: 90px; margin-right: 6px;'])
+                                    Html::button('APPROVED', ['title' => 'Approved', 'class' => 'btn btn-success', 'style'=>'width: 90px; margin-right: 6px;'])*/
                             ],
                             //'{export}',
                             //'{toggleData}'

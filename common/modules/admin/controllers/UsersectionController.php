@@ -4,6 +4,7 @@ namespace common\modules\admin\controllers;
 
 use Yii;
 use common\models\procurement\Section;
+use common\models\procurement\Project;
 
 use common\models\system\Profile;
 use common\models\system\Usersection;
@@ -75,6 +76,7 @@ class UsersectionController extends Controller
                     $model = new Usersection();
                     $model->user_id = $user;
                     $model->section_id = $posts['Usersection']['section_id'];
+                    $model->project_id = $posts['Usersection']['project_id'];
                     $model->save();
             }
             Yii::$app->session->setFlash('success', "Users successfully assigned.");
@@ -88,17 +90,22 @@ class UsersectionController extends Controller
         $sections = Section::find()->orderBy('section_id')->asArray()->all();
         $listSections = ArrayHelper::map($sections, 'section_id', 'name');
         
+        $projects = Project::find()->orderBy('project_id')->asArray()->all();
+        $listProjects = ArrayHelper::map($projects, 'project_id', 'code');
+        
         if (Yii::$app->request->isAjax) {
             return $this->renderAjax('_form', [
                         'model' => $model,
                         'listUsers' => $listUsers,
                         'listSections' => $listSections,
+                        'listProjects' => $listProjects,
             ]);
         } else {
             return $this->render('_form', [
                         'model' => $model,
                         'listUsers' => $listUsers,
                         'listSections' => $listSections,
+                        'listProjects' => $listProjects,    
             ]);
         }
     }

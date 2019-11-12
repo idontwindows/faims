@@ -25,6 +25,7 @@ class AppAsset extends AssetBundle
         'js/jquery.validate.min.js',
         'js/lineitembudget/ajax-modal-popup.js',
         'js/ppmp/ajax-modal-popup.js',
+        'js/budget/ajax-modal-popup.js',
         'js/intro.js',
         
     ];

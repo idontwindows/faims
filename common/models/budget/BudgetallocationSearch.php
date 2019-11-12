@@ -1,16 +1,16 @@
 <?php
 
-namespace common\models\procurement;
+namespace common\models\budget;
 
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use common\models\procurement\Project;
+use common\models\budget\Budgetallocation;
 
 /**
- * ProjectSearch represents the model behind the search form about `common\models\procurement\Project`.
+ * BudgetallocationSearch represents the model behind the search form about `common\models\budget\Budgetallocation`.
  */
-class ProjectSearch extends Project
+class BudgetallocationSearch extends Budgetallocation
 {
     /**
      * @inheritdoc
@@ -18,8 +18,8 @@ class ProjectSearch extends Project
     public function rules()
     {
         return [
-            [['project_id'], 'integer'],
-            [['code', 'name', 'description'], 'safe'],
+            [['budget_allocation_id', 'section_id', 'year'], 'integer'],
+            [['amount'], 'number'],
         ];
     }
 
@@ -41,7 +41,7 @@ class ProjectSearch extends Project
      */
     public function search($params)
     {
-        $query = Project::find();
+        $query = Budgetallocation::find();
 
         // add conditions that should always apply here
 
@@ -59,12 +59,11 @@ class ProjectSearch extends Project
 
         // grid filtering conditions
         $query->andFilterWhere([
-            'project_id' => $this->project_id,
+            'budget_allocation_id' => $this->budget_allocation_id,
+            'section_id' => $this->section_id,
+            'year' => $this->year,
+            'amount' => $this->amount,
         ]);
-
-        $query->andFilterWhere(['like', 'code', $this->code])
-            ->andFilterWhere(['like', 'name', $this->name])
-            ->andFilterWhere(['like', 'description', $this->description]);
 
         return $dataProvider;
     }

@@ -2,7 +2,7 @@
 
 namespace common\models\procurementplan;
 
-use common\models\procurementplan\Budgetallocation;
+use common\models\budget\Budgetallocation;
 use common\models\procurementplan\Ppmpitem;
 
 use common\models\procurement\Division;
@@ -88,10 +88,10 @@ class Ppmp extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getSection()
+    /*public function getSection()
     {
         return $this->hasOne(Section::className(), ['section_id' => 'section_id']);
-    }
+    }*/
     
     /**
      * @return \yii\db\ActiveQuery
@@ -109,14 +109,20 @@ class Ppmp extends \yii\db\ActiveRecord
         return $this->hasOne(Section::className(), ['section_id' => 'unit_id']);
     }
     
-    public function getBudgetAllocation()
+    /*public function getBudgetallocation()
     {
-        $allocation = Budgetallocation::find()->where(['section_id' => $this->unit_id, 'year' => $this->year])->one();
-        if($allocation)
-            return $allocation->amount;
-        else
-            return 0;
-    }
+        return $this->hasOne(Division::className(), ['division_id' => 'division_id']);
+    }*/
+    /*public function getBudgetAllocation()
+    {
+        //$allocation = Budgetallocation::find()->where(['section_id' => $this->unit_id, 'year' => $this->year])->one();
+        //if($allocation)
+        //    return $allocation->amount;
+        //else
+        //    return 0;
+        $this->unit->budgetallocation->getTotal();
+        //return $model->budgetallocation ? $model->budgetallocation->getTotal() : '';
+    }*/
     
     public function getRunningTotal()
     {
@@ -153,10 +159,14 @@ class Ppmp extends \yii\db\ActiveRecord
     
     public function isMember()
     {
-        $user = Usersection::find()->where(['user_id' => Yii::$app->user->id, 'section_id' => $this->unit_id])->one();
+        if($this->project_id)
+            $user = Usersection::find()->where(['user_id' => Yii::$app->user->id, 'project_id' => $this->project_id])->one();
+        else
+            $user = Usersection::find()->where(['user_id' => Yii::$app->user->id, 'section_id' => $this->unit_id])->one();
+        
         if($user)
             return true;
         else
-            return '';
+            return false;
     }
 }

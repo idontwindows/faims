@@ -37,9 +37,15 @@ use kartik\select2\Select2;
                         'allowClear' => true
                     ],
                 ]); ?>
-    <!--?= $form->field($model, 'section_id')->textInput() ?-->
-
-    <!--?= $form->field($model, 'access')->textInput() ?-->
+                
+    <?= $form->field($model, 'project_id')->widget(Select2::classname(), [
+                    'data' => $listProjects,
+                    'language' => 'en',
+                    'options' => ['placeholder' => 'Select Project', 'id'=>'group-project_id'],
+                    'pluginOptions' => [
+                        'allowClear' => true
+                    ],
+                ]); ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Assign' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>

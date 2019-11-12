@@ -7,9 +7,14 @@ use Yii;
 /**
  * This is the model class for table "tbl_expenditure".
  *
- * @property integer $id
+ * @property integer $expenditure_id
+ * @property integer $expenditure_class_id
+ * @property integer $expenditure_subclass_id
+ * @property integer $expenditure_object_id
+ * @property integer $year
  * @property string $name
  * @property string $code
+ * @property double $amount
  */
 class Expenditure extends \yii\db\ActiveRecord
 {
@@ -35,7 +40,9 @@ class Expenditure extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'code'], 'required'],
+            [['expenditure_class_id', 'expenditure_subclass_id', 'expenditure_object_id', 'year', 'name', 'code', 'amount', 'active'], 'required'],
+            [['expenditure_class_id', 'expenditure_subclass_id', 'expenditure_object_id', 'year', 'active'], 'integer'],
+            [['amount'], 'number'],
             [['name'], 'string', 'max' => 100],
             [['code'], 'string', 'max' => 50],
         ];
@@ -47,9 +54,25 @@ class Expenditure extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
+            'expenditure_id' => 'Expenditure ID',
+            'expenditure_class_id' => 'Expenditure Class ID',
+            'expenditure_subclass_id' => 'Expenditure Subclass ID',
+            'expenditure_object_id' => 'Expenditure Object ID',
+            'year' => 'Year',
             'name' => 'Name',
             'code' => 'Code',
+            'amount' => 'Amount',
+            'active' => 'Active',
         ];
+    }
+    
+    public function getExpenditureClass()
+    {
+        return $this->hasOne(Expenditureclass::className(), ['expenditure_class_id' => 'expenditure_class_id']);
+    }
+    
+    public function getExpenditureSubclass()
+    {
+        return $this->hasOne(Expendituresubclass::className(), ['expenditure_sub_class_id' => 'expenditure_subclass_id']);
     }
 }

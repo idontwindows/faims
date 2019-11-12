@@ -337,7 +337,7 @@ Modal::end();
                             return $model->getItemQuantity();
                         },
                     'headerOptions' => ['style' => 'text-align: center'],
-                    'contentOptions' => ['style' => 'text-align: center'],
+                    'contentOptions' => ['style' => 'text-align: center; font-weight: bold;'],
                 ],
                 [
                     'attribute'=>'estimated_budget',

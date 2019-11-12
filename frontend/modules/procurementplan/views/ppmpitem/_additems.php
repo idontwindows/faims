@@ -80,52 +80,15 @@ use common\models\procurementplan\Unitofmeasure;
         ],
     ]); 
 ?>
-
-<script>
-//$(function(){
-   // $('.kv-row-checkbox').click(function(){
-        /*var chkRow = $(this);
-        var item_category_id = $(this).next().val();
-        var ppmp_id = <?php //echo $id?>;
-        var ppmp_year = <?php //echo $year?>;
-        var checked = chkRow.is(':checked');
-        $.ajax({
-                type: "POST",
-                url: "<?php //echo Url::to(['ppmp/additems']); ?>",
-                data: { itemId : chkRow.val(), itemCategoryId: item_category_id, checked: checked, ppmpId: ppmp_id, year: ppmp_year },
-                success: function(){ 
-                    if(chkRow.is(':checked'))
-                        chkRow.prop("checked", false);
-                    else
-                        chkRow.prop("checked", true);
-                    },
-                });
-
-        return false;*/
-      //  $('form').submit();
-//    });
-//});
-</script>  
 <script type="text/javascript">
 function onPPMP(item_id,checked){
-    //var key_id = $('#ppmp_items').yiiGridView('getSelectedRows');
-    //var input_selected = $("input[name='ppmp-item[]']:checked");
     var ppmp_id = <?php echo $id?>;
     var ppmp_year = <?php echo $year?>;
-    //var checked = input_selected.is(':checked');
-    //var input_check_value = input_selected.val();
     $.ajax({
             type: "POST",
             url: "<?php echo Url::to(['ppmp/additems']); ?>",
-            //data: { itemId : chkRow.val(), itemCategoryId: item_category_id, checked: checked, ppmpId: ppmp_id, year: ppmp_year },
             data: {itemId:item_id,ppmpId:ppmp_id,year:ppmp_year,checked:checked},
             success: function(data){ 
-                //if(input_selected.is(':checked'))
-                  //  input_selected.prop("checked", false);
-                //else
-                  //  input_selected.prop("checked", true);
-                //},
-                    //console.log(data);
                 }
             });
 

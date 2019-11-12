@@ -29,8 +29,8 @@ class Usersection extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['user_id', 'section_id'], 'required'],
-            [['user_id', 'section_id', 'access'], 'integer'],
+            [['user_id'], 'required'],
+            [['user_id', 'section_id', 'project_id', 'access'], 'integer'],
         ];
     }
 
@@ -43,6 +43,7 @@ class Usersection extends \yii\db\ActiveRecord
             'user_section_id' => 'User Section ID',
             'user_id' => 'User ID',
             'section_id' => 'Section ID',
+            'project_id' => 'Project ID',
             'access' => 'Access',
         ];
     }

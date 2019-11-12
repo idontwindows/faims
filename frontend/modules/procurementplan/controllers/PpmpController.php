@@ -5,6 +5,8 @@ namespace frontend\modules\procurementplan\controllers;
 use Yii;
 use common\models\procurement\Division;
 use common\models\procurement\Section;
+use common\models\procurement\Project;
+use common\models\procurement\ProjectSearch;
 use common\models\procurement\Unit;
 
 use common\models\procurementplan\Item;
@@ -57,6 +59,8 @@ class PpmpController extends Controller
         //$selected_year = isset($_POST['year']) ? $_POST['year'] : '';
         
         $searchModel = new PpmpSearch();
+        $searchProjectModel = new ProjectSearch();
+        
         //$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         
         $divisions = Division::find()->orderBy('name')->asArray()->all();
@@ -65,12 +69,12 @@ class PpmpController extends Controller
         $sections = Section::find()->orderBy('division_id, section_id');
         $dataProvider = Ppmp::find();
         
-        $dataProvider = new ActiveDataProvider([
+        /*$dataProvider = new ActiveDataProvider([
             'query' => $dataProvider,
             'pagination' => [
                 'pageSize' => 20,
             ],
-        ]);
+        ]);*/
     
         
         $ppmpDataProvider = new ActiveDataProvider([
@@ -79,8 +83,15 @@ class PpmpController extends Controller
                 'pageSize' => 20,
             ],
         ]);
+        
+        $projectDataProvider = new ActiveDataProvider([
+            'query' => Project::find(),
+            'pagination' => [
+                'pageSize' => 20,
+            ],
+        ]);
 
-        $queryPpmpItems = Ppmpitem::find();
+        /*$queryPpmpItems = Ppmpitem::find();
         $ppmpItemsDataProvider = new ActiveDataProvider([
             'query' => $queryPpmpItems,
             'pagination' => [
@@ -92,16 +103,17 @@ class PpmpController extends Controller
                     //'title' => SORT_ASC, 
                 ]
             ],
-        ]);
+        ]);*/
         
         $units = Unit::find()->orderBy('name')->asArray()->all();
         $listUnits = ArrayHelper::map($units, 'unit_id', 'name');
         
         return $this->render('index', [
             'searchModel' => $searchModel,
+            'searchProjectModel' => $searchProjectModel,
             'dataProvider' => $dataProvider,
             'ppmpDataProvider' => $ppmpDataProvider,
-            'ppmpItemsDataProvider' => $ppmpItemsDataProvider,
+            'projectDataProvider' => $projectDataProvider,
             'listDivisions' => $listDivisions,
             
             'listUnits' => $listUnits,

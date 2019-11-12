@@ -91,5 +91,38 @@ class PpmpController extends Controller
             'selected_year' => $selected_year,
         ]);
     }
+    
+    public function actionView($id)
+    {
+        //$queryPpmpItems = Ppmpitem::find();
+        $model = Ppmp::findOne($id);
+        $isMember = $model->isMember();
+        $disableApprovePpmp = ($model->status_id == 1) ? true : false;
+        $disableAddItem = ($model->status_id != 1) ? true : false;
 
+        $queryPpmpItems = Ppmpitem::find()->where([
+                                    'ppmp_id' => $id, 
+                                    'active' => 1]);
+        
+        $ppmpItemsDataProvider = new ActiveDataProvider([
+            'query' => $queryPpmpItems,
+            'pagination' => [
+                'pageSize' => 10,
+            ],
+            'sort' => [
+                'defaultOrder' => [
+                    'item_category_id' => SORT_ASC,
+                    //'title' => SORT_ASC, 
+                ]
+            ],
+        ]);
+        
+        return $this->render('view', [
+            'model' => $model,
+            'ppmpItemsDataProvider' => $ppmpItemsDataProvider,
+            'disableApprovePpmp' => $disableApprovePpmp,
+            'disableAddItem' => $disableAddItem,
+            'isMember' => $isMember
+        ]);
+    }
 }

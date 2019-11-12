@@ -2,12 +2,16 @@
 
 namespace common\models\procurement;
 
+use common\models\procurementplan\Ppmp;
+
+use yii\helpers\Html;
+use yii\helpers\Url;
 use Yii;
 
 /**
  * This is the model class for table "tbl_project".
  *
- * @property integer $id
+ * @property integer $project_id
  * @property string $code
  * @property string $name
  * @property string $description
@@ -20,14 +24,6 @@ class Project extends \yii\db\ActiveRecord
     public static function tableName()
     {
         return 'tbl_project';
-    }
-
-    /**
-     * @return \yii\db\Connection the database connection used by this AR class.
-     */
-    public static function getDb()
-    {
-        return Yii::$app->get('procurementdb');
     }
 
     /**
@@ -49,10 +45,31 @@ class Project extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'project_id' => 'ID',
+            'project_id' => 'Project ID',
             'code' => 'Code',
             'name' => 'Name',
             'description' => 'Description',
         ];
+    }
+    
+    public function getPpmps()
+    {
+        $ppmps = Ppmp::find()
+            ->where(['project_id' => $this->project_id])
+            ->all();
+        $status = [
+                '0' => 'btn-default',   
+                '1' => 'btn-warning',   
+                '2' => 'btn-info',
+                '3' => 'btn-success',
+            ];
+        
+        $output = '';
+        foreach($ppmps as $ppmp)
+        {
+            //Html::button('PENDING', ['title' => 'Approved', 'class' => 'btn btn-warning', 'style'=>'width: 90px; margin-right: 6px;'])
+            $output .= Html::a('  '.$ppmp->year.'  ', '', ['onclick' => "window.open ('".Url::toRoute(['view', 'id' => $ppmp->ppmp_id])."'); return false", 'style'=>'width: 60px; font-weight: bold; margin-right: 6px;', 'class' => 'btn btn-md '.$status[$ppmp->status_id]]). ' ';
+        }
+        return $output;
     }
 }

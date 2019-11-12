@@ -12,7 +12,7 @@ use Yii;
  * @property integer $year
  * @property double $amount
  */
-class Budgetallocation extends \yii\db\ActiveRecord
+class Budgetallocation_ extends \yii\db\ActiveRecord
 {
     /**
      * @inheritdoc

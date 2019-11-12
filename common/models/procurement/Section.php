@@ -3,6 +3,8 @@
 namespace common\models\procurement;
 
 use Yii;
+
+use common\models\budget\Budgetallocation;
 use common\models\procurementplan\Ppmp;
 use common\models\system\Usersection;
 
@@ -157,4 +159,24 @@ class Section extends \yii\db\ActiveRecord
         }
         return $output;
     }
+    
+    public function getBudgetallocation()
+    {
+        return $this->hasOne(Budgetallocation::className(), ['section_id' => 'section_id']);
+    }
+    
+    /*public function getBudgetallocation()
+    {
+        $budget = Budgetallocation::find()
+            ->where(['section_id' => $this->section_id])->one();
+        
+        if($budget)
+        {
+            $fmt = Yii::$app->formatter;
+            return $budget ? Html::a($fmt->asDecimal($budget->getTotalbudget()), ['budgetallocation/view?id='.$budget->budget_allocation_id])  : '-';
+        }
+        
+        
+        //return $budget ? $fmt->asDecimal($budget->amount) : '-';
+    }*/
 }

@@ -48,14 +48,11 @@ echo "<div id='modalContent'><div style='text-align:center'><img src='/images/lo
 Modal::end();
 ?>    
     <div class="ppmp-index">
-    <?php //echo $selected_year; ?>
     <h3 style="text-align: center"><?= Html::encode('PROJECT PROCUREMENT MANAGEMENT PLAN (PPMP)') ?></h3>
-
-   
-   
+    <br>
         <?php
         echo GridView::widget([
-            'id' => 'ppmp3',
+            'id' => 'ppmp',
             'dataProvider' => $ppmpDataProvider,
             //'filterModel' => $searchModel,
             'columns' => [
@@ -79,6 +76,19 @@ Modal::end();
                                 'width'=>'250px',
                                 'value'=>function ($model, $key, $index, $widget) { 
                                     return $model->name;
+                                },
+                            ],
+                            [
+                                'attribute'=>'name',
+                                'header'=>'Budget Allocation',
+                                'contentOptions' => ['style' => 'padding-left: 25px; text-align: right; font-weight: bold;'],
+                                'width'=>'200px',
+                                'format'=>'raw',
+                                'value'=>function ($model, $key, $index, $widget) { 
+                                    $budget = $model->budgetallocation ? $model->budgetallocation->getTotal() : '';
+                                    $fmt = Yii::$app->formatter;
+                                    //return Html::a($fmt->asDecimal($budget), ['budgetallocation/view?id='.$this->budget_allocation_id]);
+                                    return $fmt->asDecimal($budget);
                                 },
                             ],
                             [
@@ -141,15 +151,9 @@ Modal::end();
                 ]
             ],*/
             'panel' => [
-                    //'heading'=>'<h3 class="panel-title">Common Supplies and Equipment</h3>',
-                    //'heading'=>false,
+                    'heading' => '<b>Functional Units</b>',
                     'type' => GridView::TYPE_PRIMARY,
-                    //'type'=>'GridView::TYPE_PRIMARY',
-                    'before'=>Html::button('New PPMP', ['value' => Url::to(['ppmp/create']), 'title' => 'PPMP', 'class' => 'btn btn-info', 'style'=>'margin-right: 6px;', 'id'=>'buttonAddPpmp']),
-                
-                /*Html::button('Add Items', ['value' => Url::to(['ppmpitem/additems', 'id'=>$model->ppmp_id, 'year'=>$model->year]), 'title' => 'PPMP Item', 'class' => 'btn btn-success', 'style'=>'margin-right: 6px; display: "";', 'id'=>'buttonAddPpmpItem']),*/
-                
-                
+                    //'before'=>Html::button('New PPMP', ['value' => Url::to(['ppmp/create']), 'title' => 'PPMP', 'class' => 'btn btn-info', 'style'=>'margin-right: 6px;', 'id'=>'buttonAddPpmp']),
                     'after'=>false,
                 ],
             // set your toolbar
@@ -159,12 +163,7 @@ Modal::end();
                                 'content'=>
                                     Html::button('PENDING', ['title' => 'Approved', 'class' => 'btn btn-warning', 'style'=>'width: 90px; margin-right: 6px;']) .    
                                     Html::button('SUBMITTED', ['title' => 'Approved', 'class' => 'btn btn btn-info', 'style'=>'width: 90px; margin-right: 6px;']) .
-                                    Html::button('APPROVED', ['title' => 'Approved', 'class' => 'btn btn-success', 'style'=>'width: 90px; margin-right: 6px;'])/*.
-                                    '<div class="btn-group">
-                                      <button type="button" class="btn btn-primary">Apple</button>
-                                      <button type="button" class="btn btn-primary">Samsung</button>
-                                      <button type="button" class="btn btn-primary">Sony</button>
-                                    </div>'*/
+                                    Html::button('APPROVED', ['title' => 'Approved', 'class' => 'btn btn-success', 'style'=>'width: 90px; margin-right: 6px;'])
                             ],
                             //'{export}',
                             //'{toggleData}'
@@ -172,6 +171,87 @@ Modal::end();
             
             'toggleDataOptions' => ['minCount' => 10],
             //'exportConfig' => $exportConfig,
+            'itemLabelSingle' => 'item',
+            'itemLabelPlural' => 'items'
+        ]);
+        ?>
+        
+        
+        
+        
+        
+        
+        
+        
+        <?php
+        echo GridView::widget([
+            'id' => 'projects',
+            'dataProvider' => $projectDataProvider,
+            'columns' => [
+                            //'project_id',
+                            [
+                                'attribute'=>'code',
+                                'contentOptions' => ['style' => 'padding-left: 25px'],
+                                'width'=>'250px',
+                                'value'=>function ($model, $key, $index, $widget) { 
+                                    return $model->code;
+                                },
+                            ],
+                            [
+                                'attribute'=>'name',
+                                'contentOptions' => ['style' => 'padding-left: 25px'],
+                                'width'=>'250px',
+                                'value'=>function ($model, $key, $index, $widget) { 
+                                    return substr($model->name, 0, 100) . ' ...';
+                                },
+                            ],
+                            [
+                                'attribute'=>'name',
+                                'header'=>'Budget Allocation',
+                                'contentOptions' => ['style' => 'text-align: right; font-weight: bold;'],
+                                'width'=>'250px',
+                                'format'=>'raw',
+                                'value'=>function ($model, $key, $index, $widget) { 
+                                    //return $model->budgetallocation;
+                                    return '10,000,000,000,000';
+                                },
+                            ],
+                            [
+                                'attribute'=>'status',
+                                'header'=>'PPMPs',
+                                'width'=>'250px',
+                                'headerOptions' => ['style' => 'text-align: center'],
+                                'contentOptions' => ['style' => 'text-align: center'],
+                                'format' => 'raw',
+                                'value'=>function ($model) { 
+                                    return $model->getPpmps();
+                                },
+                            ],
+                    ],
+            //'containerOptions' => ['style' => 'overflow: auto'], // only set when $responsive = false
+            //'headerRowOptions' => ['class' => 'kartik-sheet-style'],
+            'filterRowOptions' => ['class' => 'kartik-sheet-style'],
+            'pjax' => true, // pjax is set to always true for this demo
+            'panel' => [
+                    'heading' => '<b>Projects</b>',
+                    'type' => GridView::TYPE_PRIMARY,
+                    //'before'=>Html::button('New PPMP', ['value' => Url::to(['ppmp/create']), 'title' => 'PPMP', 'class' => 'btn btn-info', 'style'=>'margin-right: 6px;', 'id'=>'buttonAddPpmp']),
+                    'after'=>false,
+                ],
+            // set your toolbar
+            'toolbar' => 
+                        [
+                            [
+                                'content'=>
+                                    Html::button('PENDING', ['title' => 'Approved', 'class' => 'btn btn-warning', 'style'=>'width: 90px; margin-right: 6px;']) .    
+                                    Html::button('SUBMITTED', ['title' => 'Approved', 'class' => 'btn btn btn-info', 'style'=>'width: 90px; margin-right: 6px;']) .
+                                    Html::button('APPROVED', ['title' => 'Approved', 'class' => 'btn btn-success', 'style'=>'width: 90px; margin-right: 6px;'])
+                            ],
+                            //'{export}',
+                            //'{toggleData}'
+                        ],
+            
+            'toggleDataOptions' => ['minCount' => 10],
             'itemLabelSingle' => 'item',
             'itemLabelPlural' => 'items'
         ]);
