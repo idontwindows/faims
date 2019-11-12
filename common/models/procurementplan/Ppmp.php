@@ -7,6 +7,7 @@ use common\models\procurementplan\Ppmpitem;
 
 use common\models\procurement\Division;
 //use common\models\procurement\Unit;
+use common\models\procurement\Project;
 use common\models\procurement\Section;
 
 use common\models\system\Usersection;
@@ -109,10 +110,10 @@ class Ppmp extends \yii\db\ActiveRecord
         return $this->hasOne(Section::className(), ['section_id' => 'unit_id']);
     }
     
-    /*public function getBudgetallocation()
+    public function getProject()
     {
-        return $this->hasOne(Division::className(), ['division_id' => 'division_id']);
-    }*/
+        return $this->hasOne(Project::className(), ['project_id' => 'project_id']);
+    }
     /*public function getBudgetAllocation()
     {
         //$allocation = Budgetallocation::find()->where(['section_id' => $this->unit_id, 'year' => $this->year])->one();

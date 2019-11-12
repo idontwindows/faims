@@ -111,8 +111,7 @@ Modal::end();
             [
                 'attribute'=>'charged_to',
                 'label'=>'Approved Budget (Php)',
-                'value'=>$model->unit->budgetallocation ? $model->unit->budgetallocation->getTotal() : 0,
-                //'value'=>$model->unit->budgetallocation->getTotal(),
+                'value'=>$model->project_id ? $model->project->budgetallocation->getTotal() : $model->unit->budgetallocation->getTotal(),
                 'format'=>['decimal', 2],
                 'inputContainer' => ['class'=>'col-sm-6'],
             ],
@@ -125,7 +124,8 @@ Modal::end();
             ],
             [
                 'label'=>'Remaining Budget (Php)',
-                'value'=>$model->unit->budgetallocation ? ($model->unit->budgetallocation->getTotal() - $model->getRunningTotal()) : - $model->getRunningTotal(),
+                'value'=>($model->project_id ? $model->project->budgetallocation->getTotal() : $model->unit->budgetallocation->getTotal()) - $model->getRunningTotal(),
+                //'value'=>$model->unit->budgetallocation ? ($model->unit->budgetallocation->getTotal() - $model->getRunningTotal()) : - $model->getRunningTotal(),
                 'format'=>['decimal', 2],
                 'inputContainer' => ['class'=>'col-sm-6'],
                 // hide this in edit mode by adding `kv-edit-hidden` CSS class
@@ -538,4 +538,3 @@ Modal::end();
             ]);
     
         ?>
-

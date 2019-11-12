@@ -212,8 +212,8 @@ Modal::end();
                                 'width'=>'250px',
                                 'format'=>'raw',
                                 'value'=>function ($model, $key, $index, $widget) { 
-                                    //return $model->budgetallocation;
-                                    return '10,000,000,000,000';
+                                    return $model->budgetallocation->getTotal();
+                                    //return '10,000,000,000,000';
                                 },
                             ],
                             [

@@ -2,6 +2,7 @@
 
 namespace common\models\procurement;
 
+use common\models\budget\Budgetallocation;
 use common\models\procurementplan\Ppmp;
 
 use yii\helpers\Html;
@@ -71,5 +72,10 @@ class Project extends \yii\db\ActiveRecord
             $output .= Html::a('  '.$ppmp->year.'  ', '', ['onclick' => "window.open ('".Url::toRoute(['view', 'id' => $ppmp->ppmp_id])."'); return false", 'style'=>'width: 60px; font-weight: bold; margin-right: 6px;', 'class' => 'btn btn-md '.$status[$ppmp->status_id]]). ' ';
         }
         return $output;
+    }
+    
+    public function getBudgetallocation()
+    {
+        return $this->hasOne(Budgetallocation::className(), ['project_id' => 'project_id']);
     }
 }
