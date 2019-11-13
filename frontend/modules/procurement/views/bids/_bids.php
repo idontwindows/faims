@@ -596,7 +596,7 @@ $this->registerJsFile($BaseURL.'js/procurement/bids/bids.js');
                                     [
                                         'class' => '\kartik\grid\ActionColumn',
                                         'width'=>'6%',
-                                        'template' => '{cancel}',                   // move grouped column to a single grouped row
+                                        'template' => '{cancel} {delete}',                   // move grouped column to a single grouped row
                                         'buttons'=>[
                                             'cancel' => function($url,$model,$key){
                                                 return Html::a('<span class="glyphicon glyphicon-remove-circle"></span>', ['cancelbids?id='.$model["bids_details_id"].
@@ -605,6 +605,15 @@ $this->registerJsFile($BaseURL.'js/procurement/bids/bids.js');
                                                         'data-pjax'=>"1",
                                                         'pjax'=>"1",
                                                         'title'=>'Cancel Bids'
+                                                    ]);
+                                            },
+                                            'delete' => function($url,$model,$key){
+                                                return Html::a('<span class="glyphicon glyphicon-remove-circle"></span>', ['removebids?id='.$model["bids_details_id"].
+                                                '&pid='.$model["purchase_request_id"].'&bid='.$model["bids_id"].'&bid_status='.$model["bids_details_status"]], [
+                                                        'class'=>'btn btn-danger',
+                                                        'data-pjax'=>"1",   
+                                                        'pjax'=>"1",
+                                                        'title'=>'Remove Bids'
                                                     ]);
                                             },
                                         ],

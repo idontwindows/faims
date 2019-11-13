@@ -402,6 +402,37 @@ class BidsController extends Controller
         ]);
 
     }
+
+
+    public function actionRemovebids()
+    {
+        $request = Yii::$app->request;
+        $id = $request->get('id');
+        $bid = $request->get('bid');
+        $pid = $request->get('pid');
+        $pStatus = $request->get('bid_status');
+
+        foreach (Bidsdetails::find()->where('bids_details_id='.$id)->all() as $user) {
+            $user->delete();
+        }
+
+        $model = $this->findModel($pid);
+        $m = $this->findSupplier();
+        $prdetails = $this->getprDetails($pid);
+        $biddetails = $this->getbidDetails($pid);
+        $ListPOprovider = $this->getpoDetails($pid);
+        $searchModel = new Purchaserequestsearchdetails();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        $searchModelBid = new BidsSearch();
+        $bidsProvider = $searchModelBid->search(Yii::$app->request->queryParams);
+        $dataProvider->query->where('purchase_request_id=' . $pid);
+
+        return $this->renderAjax('_bids', [
+            'model' => $model, 'prdetails' => $prdetails, 'biddetails' => $biddetails, 'searchModel' => $searchModel, 'dataProvider' => $dataProvider,
+            'searchModelBid' => $searchModelBid, 'bidsProvider' => $bidsProvider, 'ListPOprovider' => $ListPOprovider , 'supp' => $m
+        ]);
+
+    } 
     
     public function actionReport()
 {
