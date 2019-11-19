@@ -33,13 +33,14 @@ jQuery(document).ready(function ($) {
                     var pd_id ="<td id='data-details"+rowCount+"' data-details='"+ purchase_request_details_id +"'>" + purchase_request_details_id + "</td>";
                     unit = "<td id='data-unit"+rowCount+"' data-unit='"+ unit_id +"'>" + unit_id+"</td>";
                     itemdescription = "<td id='data-description"+rowCount+"' data-description='"+ purchase_request_details_item_description +"'>" +purchase_request_details_item_description+"</td>";
+                 
                     qty = "<td id='data-qty"+rowCount+"' data-qty='"+ purchase_request_details_quantity +"'>" +purchase_request_details_quantity+"</td>";
                     unitcost = "<td id='data-cost"+rowCount+"' data-cost='"+ purchase_request_details_price +"'>" + purchase_request_details_price +"</td>";
                     var tt = parseFloat(purchase_request_details_quantity) * parseFloat(purchase_request_details_price);
                     totalcost = "<td id='data-total"+rowCount+"'>" +  tt.toFixed(2) + "</td>";
                     $dataAppend =  opentr + checkbox  + pd_id + unit + itemdescription + qty + unitcost + totalcost + closetr;
                     $('table tbody.table-body').append($dataAppend);
-                    var table = $('#pr-table').tableToJSON();
+                    var table = $('#pr-table').tableToJSON({allowHTML:true});
                     var jsonstring = JSON.stringify(table);
                     $('.radio.tbl-tmt').each(function(){
                         $('.radio.tbl-tmt').length > 0 ? $('.delete-row').prop('disabled',false) : $('.delete-row').prop('disabled',true);

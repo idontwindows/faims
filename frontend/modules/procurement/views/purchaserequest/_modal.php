@@ -147,7 +147,7 @@ if ($model->purchase_request_approvedby_id=='') {
             <div class="col-lg-4">
                 <h5 data-step='2' data-intro='Click here to Select Request Date'>
                 <?= $form->field($model, 'purchase_request_date')
-                    ->input("date",['value' =>  date("Y-m-d")]) ?>
+                    ->input("date",['value' => $model->isNewRecord ? date("Y-m-d") : $model->purchase_request_date]) ?>
                 </h5>
             </div>
         </div>
@@ -175,7 +175,7 @@ if ($model->purchase_request_approvedby_id=='') {
             <div class="col-lg-4">
                 <h5 data-step='5' data-intro='Click here to Select Request SAI Date'>
                 <?= $form->field($model, 'purchase_request_saidate')
-                    ->input("date",['value' =>  date("Y-m-d")]) ?>
+                   ->input("date",['value' => $model->isNewRecord ? date("Y-m-d") : $model->purchase_request_saidate]) ?>
                 </h5>
             </div>
          </div>
