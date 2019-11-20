@@ -452,32 +452,32 @@ class PurchaseorderController extends \yii\web\Controller
 <tbody>
 <tr style="height: 12px;">
 <td style="width: 70%; height: 20px;">&nbsp;Supplier : <span style="text-decoration:underline;">'.$supplier.'</span></td>
-<td style="width: 30%; height: 20px;">P.O No. : <span style="text-decoration:underline;">'.$ponum.'</span></td>
+<td style="width: 30%; height: 20px;font-size:11px;">P.O No. : <span style="text-decoration:underline;">'.$ponum.'</span></td>
 </tr>
 <tr style="height: 12px;">  
 <td style="width: 70%; height: 20px;">&nbsp;Address : <span style="text-decoration:underline;">Zamboanga City</span></td>
-<td style="width: 30%; height: 20px;">Date : '.$pdate.'</td>
+<td style="width: 30%; height: 20px;font-size:11px;">Date : '.$pdate.'</td>
 </tr>
 <tr style="height: 12px;">
 <td style="width: 70%; height: 34px; vertical-align: top;" rowspan="3">
 <h5>Gentlemen:</h5>
 <p>Please furnish this office the following articles subject to the terms and conditions contained them</p>
 </td>
-<td style="width: 30%; height: 12px;">Mode of Proc. : '.$model->mode_of_procurement.'</td>
+<td style="width: 30%; height: 12px;font-size:11px;">Mode of Proc. : '.$model->mode_of_procurement.'</td>
 </tr>
 <tr style="height: 10px;">
-<td style="width: 30%; height: 10px;">P.R. No. : <span style="text-decoration:underline;">'.$prno.'</span></td>
+<td style="width: 30%; height: 10px;font-size:11px;">P.R. No. : <span style="text-decoration:underline;">'.$prno.'</span></td>
 </tr>
 <tr style="height: 12px;">
-<td style="width: 30%; height: 12px;">P.R Date : <span style="text-decoration:underline;">'.$prdate.'</span> </td>
+<td style="width: 30%; height: 12px;font-size:11px;">P.R Date : <span style="text-decoration:underline;">'.$prdate.'</span> </td>
 </tr>
 <tr style="height: 12px;">
 <td style="width: 70%; height: 15px;">Place of Delivery : '.$model->place_of_delivery.'</td>
-<td style="width: 30%; height: 15px;">Delivery Term : '.$model->delivery_term.'</td>
+<td style="width: 30%; height: 15px;font-size:11px;">Delivery Term : '.$model->delivery_term.'</td>
 </tr>
 <tr style="height: 12px;">
 <td style="width: 70%; height: 15px;">Date of Delivery : '.$model->date_of_delivery.'</td>
-<td style="width: 30%; height: 15px;">Payment Term : '.$model->payment_term.'</td>
+<td style="width: 30%; height: 15px;font-size:11px;">Payment Term : '.$model->payment_term.'</td>
 </tr>
 </tbody>
 </table>
