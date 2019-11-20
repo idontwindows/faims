@@ -424,11 +424,12 @@ class PurchaserequestController extends Controller
                     $prequest->save();
                     $data=array();
                     foreach ($arr as $budgets) {
+                        $details = $budgets["Detail#"];
                         $unit = $budgets["Unit"];
+                        $unit_type = $budgets["unit_type"];
                         $itemdescription = $budgets["Item Description"];
                         $quantity = $budgets["Quantity"];
                         $unitcost = $budgets["Unit Cost"];
-                        $unit_type = $budgets["Unit"];
                         $totalCost = $budgets["Total Cost"];
                         $data[] =  [$prequest->purchase_request_id,$itemdescription,$quantity,$unitcost,$unit_type];
                     }
@@ -481,11 +482,12 @@ class PurchaserequestController extends Controller
                 foreach ($arr as $budgets) {
                     $details = $budgets["Detail#"];
                     $unit = $budgets["Unit"];
+                    $unit_type = $budgets["unit_type"];
                     $itemdescription = $budgets["Item Description"];
                     $quantity = $budgets["Quantity"];
                     $unitcost = $budgets["Unit Cost"];
-                    $unit_type = $budgets["Unit"];
                     $totalCost = $budgets["Total Cost"];
+                
                     if ($details=="-1") {
                         $data[] =  [$model->purchase_request_id,$itemdescription,$quantity,$unitcost,$unit_type];
                         $connection->createCommand()->batchInsert
@@ -498,7 +500,7 @@ class PurchaserequestController extends Controller
                 }
 
                 $session->set('updatepopup', "executed");
-                //return $this->redirect(['index']);
+                return $this->redirect(['index']);
                 $this->redirect('index');
             } else {
                 $assig =$this->findAssignatory(1);
@@ -518,7 +520,7 @@ class PurchaserequestController extends Controller
         $pr = Yii::$app->request;
         $pr_no = $pr->get('pno');
         $con = Yii::$app->procurementdb;
-        $sql = "SELECT * FROM `fais-procurement`.`tbl_purchase_request_details` INNER JOIN `tbl_purchase_request` ON `tbl_purchase_request`.`purchase_request_id` = `tbl_purchase_request_details`.`purchase_request_id`
+        $sql = "SELECT *,`fais`.`fnGetUnits`(`tbl_purchase_request_details`.`unit_id`) units FROM `fais-procurement`.`tbl_purchase_request_details` INNER JOIN `tbl_purchase_request` ON `tbl_purchase_request`.`purchase_request_id` = `tbl_purchase_request_details`.`purchase_request_id` 
         WHERE `tbl_purchase_request`.`purchase_request_number` = '".$pr_no."'";
         $prdetails = $con->createCommand($sql)->queryAll();
         $data=array();
@@ -530,7 +532,8 @@ class PurchaserequestController extends Controller
                 'unit_id' => $pr["unit_id"],
                 'purchase_request_details_item_description' => $pr["purchase_request_details_item_description"],
                 'purchase_request_details_quantity' => $pr["purchase_request_details_quantity"],
-                'purchase_request_details_price' => $pr["purchase_request_details_price"]
+                'purchase_request_details_price' => $pr["purchase_request_details_price"],
+                'units' => $pr["units"] ,
             ];
         }
         return json_encode($data);

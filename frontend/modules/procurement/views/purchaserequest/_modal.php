@@ -233,8 +233,9 @@ if ($model->purchase_request_approvedby_id=='') {
                                 <thead>
                                 <tr class="table-header">
                                     <td><div class="radio-container"><div id="main-radio" class="radio"><input type="radio" name="test" class="radio-ui"></div></div></td>
-                                    <td>Detail# </td>
+                                    <td style="display:none;">Detail#</td>
                                     <td class="unit">Unit</td>
+                                    <td style="display:none;">unit_type</td>
                                     <td class="item">Item Description</td>
                                     <td class="quantity">Quantity</td>
                                     <td class="unit_cost">Unit Cost</td>
@@ -247,45 +248,47 @@ if ($model->purchase_request_approvedby_id=='') {
                             </table>
 
                         </div>
-                        <div style="bottom:0;">
-                            <button type="button" disabled class="delete-row btn btn-warning">Delete Row</button>
-                            <button type="button" disabled class="edit-row btn btn-primary">Edit Row</button>
+                        <div style="bottom:0px;">
+                                <button type="button" disabled class="delete-row btn btn-warning">Delete Row</button>
+                                <button type="button" disabled class="edit-row btn btn-primary">Edit Row</button>
                         </div>
                     </div>
                 </div>
         </div>
         <!-- ********************************************** -->
         <div class="row">
-            <div class="col-lg-4">
+        
                 <div class="col-lg-12">
                     <h5 data-step='7' data-intro='Click here to Input Purchase Request Purpose'>
                 <?= $form->field($model, 'purchase_request_purpose')->textarea(['placeholder'=>''])?>
                     </h5>
                 </div>
-            </div>
-            <div class="col-lg-4">
+          
                 <div class="col-lg-12">
                     <h5 data-step='8' data-intro='Click here to Input Referrence No.'>
                     <?= $form->field($model, 'purchase_request_referrence_no')->textInput(['placeholder'=>''])?>
                     </h5>
                 </div>
+          
                 <div class="col-lg-12">
                     <h5 data-step='9' data-intro='Click here to Input Project Name.'>
                     <?= $form->field($model, 'purchase_request_project_name')->textInput(['placeholder'=>''])?>
                     </h5>
                 </div>
+           
                 <div class="col-lg-12">
                     <h5 data-step='10' data-intro='Click here to Input Location Project.'>
                     <?= $form->field($model, 'purchase_request_location_project')->textInput(['placeholder'=>''])?>
                     </h5>
                 </div>
-            </div>
-            <div class="col-lg-4">
+          
+     
                 <div class="col-lg-12">
                     <h5 data-step='11' data-intro='Select Assignatory.'>
                     <h4 style="border-bottom: #1c1c1c 2px solid;text-transform: uppercase;margin-top: 0px">Assignatory</h4>
                 </div>
-                <div class="col-lg-12">
+          
+                <div class="col-lg-6">
                     <h5 data-step='12' data-intro='Select Assignatory.'>
                     <?= $form->field($model, 'purchase_request_requestedby_id')->widget(Select2::classname(), [
                         'data' => $listEmployees,
@@ -299,7 +302,7 @@ if ($model->purchase_request_approvedby_id=='') {
                     ]); ?>
                     </h5>
                 </div>
-                <div class="col-lg-12">
+                <div class="col-lg-6">
                     <h5 data-step='13' data-intro='Select Approve By.'>
                     <?= $form->field($model, 'purchase_request_approvedby_id')->widget(Select2::classname(), [
                         'data' => $listEmployees,
@@ -313,20 +316,20 @@ if ($model->purchase_request_approvedby_id=='') {
                     ]); ?>
                     </h5>
                 </div>
-            </div>
-        </div>
+        </div>  
         <!-- ********************************************** -->
         <div class="row">
             <div class="col-lg-12">
                 <h4 style="border-bottom: #1c1c1c 2px solid;text-transform: uppercase;"></h4>
             </div>
-                <div class="col-lg-2">
-                    <div class="space-10"></div>
-                    <div id="removesubmit">
-                        <?= Html::submitButton($model->isNewRecord ? 'Create Request' : 'Update Request' , ['class' => $model->isNewRecord ? 'btn btn-success btn-block' : 'btn btn-primary','id'=> 'btnSubmit','name'=>'btnSubmit']) ?>
-                    </div>
+                <div class="col-lg-9">
+           
                 </div>
-                <div class="col-lg-10">
+                <div class="col-lg-3">
+                <div class="space-10"></div>
+                        <div id="removesubmit">
+                            <?= Html::submitButton($model->isNewRecord ? 'Create Request' : 'Update Request' , ['class' => $model->isNewRecord ? 'btn btn-lg btn-success btn-block' : 'btn btn-lg btn-primary btn-block','id'=> 'btnSubmit','name'=>'btnSubmit']) ?>
+                        </div>
                 </div>
         </div>
 
