@@ -224,7 +224,7 @@ class PurchaseorderController extends \yii\web\Controller
          $prdate='';
          foreach ($prdetails as $pr) {
              $supplier = $pr["supplier_name"];
-             $supplier_address = $pr["supplier_address"];
+             $supplier_address = $pr["zzzzzzzzzzzzzzzzzz"];
              $ponum = $pr["purchase_order_number"];
              $pdate = $pr["purchase_order_date"];
              $prno = $pr["purchase_request_number"];
@@ -250,11 +250,11 @@ class PurchaseorderController extends \yii\web\Controller
                             <td style="text-align: right;">'.$ponum.'</td>
                         </tr>
                         <tr style="text-align: right;">
-                            <td style="padding-left: 50px;">'.$supplier_address.'</td>
+                            <td style="padding-left: 50px;">Zamboanga City</td>
                             <td style="text-align: right;">'.$pdate.'</td>
                         </tr>
                         <tr style="text-align: right;">
-                            <td></td>   
+                            <td></td>
                             <td style="text-align: right;"></td>
                         </tr> 
                             <tr style="text-align: right;">
@@ -389,6 +389,7 @@ class PurchaseorderController extends \yii\web\Controller
         $totalcost = 0;
         foreach ($prdetails as $pr) {
             $supplier = $pr["supplier_name"];
+            $supplier_address = $pr["supplier_address"];
             $ponum = $pr["purchase_order_number"];
             $pdate = $pr["purchase_order_date"];
             $prno = $pr["purchase_request_number"];
@@ -457,7 +458,7 @@ class PurchaseorderController extends \yii\web\Controller
 <td style="width: 30%; height: 20px;font-size:11px;">P.O No. : <span style="text-decoration:underline;">'.$ponum.'</span></td>
 </tr>
 <tr style="height: 12px;">  
-<td style="width: 70%; height: 20px;">&nbsp;Address : <span style="text-decoration:underline;">Zamboanga City</span></td>
+<td style="width: 70%; height: 20px;">&nbsp;Address : <span style="text-decoration:underline;">'.$supplier_address.'</span></td>
 <td style="width: 30%; height: 20px;font-size:11px;">Date : '.$pdate.'</td>
 </tr>
 <tr style="height: 12px;">
