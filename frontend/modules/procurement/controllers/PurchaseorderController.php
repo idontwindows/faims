@@ -175,6 +175,7 @@ class PurchaseorderController extends \yii\web\Controller
          $sql = "SELECT `tbl_purchase_order`.`purchase_order_number`  ,
          `tbl_bids_details`.`bids_details_id`,
          `fnGetSupplierName`(`tbl_bids`.`supplier_id`) AS supplier_name,
+         `fnGetSupplierAddress`(`tbl_bids`.`supplier_id`) AS supplier_address,
          `tbl_bids_details`.`bids_item_description` , 
          `tbl_bids_details`.`bids_quantity` , 
          `fais`.`fnGetUnits`(`tbl_purchase_request_details`.`unit_id`) AS bids_unit ,
@@ -223,6 +224,7 @@ class PurchaseorderController extends \yii\web\Controller
          $prdate='';
          foreach ($prdetails as $pr) {
              $supplier = $pr["supplier_name"];
+             $supplier_address = $pr["supplier_address"];
              $ponum = $pr["purchase_order_number"];
              $pdate = $pr["purchase_order_date"];
              $prno = $pr["purchase_request_number"];
@@ -248,11 +250,11 @@ class PurchaseorderController extends \yii\web\Controller
                             <td style="text-align: right;">'.$ponum.'</td>
                         </tr>
                         <tr style="text-align: right;">
-                            <td style="padding-left: 50px;">Zamboanga City</td>
+                            <td style="padding-left: 50px;">'.$supplier_address.'</td>
                             <td style="text-align: right;">'.$pdate.'</td>
                         </tr>
                         <tr style="text-align: right;">
-                            <td></td>
+                            <td></td>   
                             <td style="text-align: right;"></td>
                         </tr> 
                             <tr style="text-align: right;">
