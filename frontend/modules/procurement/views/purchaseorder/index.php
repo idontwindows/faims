@@ -58,17 +58,34 @@ $this->registerJsFile($BaseURL.'js/custom.js');
     <?php
 
     function filter($item) {
+ 
+        $supplierfilter =Yii::$app->request->getQueryParam('filtersupplier', '');
         $pofilter = Yii::$app->request->getQueryParam('filterpo', '');
+        $bidsdescriptionfilter = Yii::$app->request->getQueryParam('filterbidsdescription', '');
         if (strlen($pofilter) > 0) {
             if (strpos($item['purchase_order_number'], $pofilter) != false) {
                 return true;
             } else {
                 return false;
             }
-        } else {
+        }
+        elseif (strlen($supplierfilter) > 0) {
+            if (strpos($item['supplier_name'], $supplierfilter) != false) {
+                return true;
+            } else {
+                return false;
+            }
+        }  
+        elseif (strlen($bidsdescriptionfilter) > 0) {
+            if (strpos($item['bids_item_description'], $bidsdescriptionfilter) != false) {
+                return true;
+            } else {
+                return false;
+            }
+        }  else {
             return true;
         }
-    }
+    }       
     $mdata = array_filter($mydata,'filter');
     $dataprovider = new ArrayDataProvider([
         'allModels' => $mdata,
@@ -76,11 +93,13 @@ $this->registerJsFile($BaseURL.'js/custom.js');
             'pageSize' => 12,
         ],
         'sort' => [
-            'attributes' => ['purchase_order_number'],
+            'attributes' => ['purchase_order_number','supplier_name','bids_item_description'],
         ],
     ]);
     $pofilter = Yii::$app->request->getQueryParam('filterpo', '');
-    $searchModel = ['purchase_order_number' => $pofilter];
+    $supplierfilter =Yii::$app->request->getQueryParam('filtersupplier', '');
+    $bidsdescriptionfilter =Yii::$app->request->getQueryParam('filterbidsdescription', '');
+    $searchModel = ['purchase_order_number' => $pofilter , 'supplier_name' => $supplierfilter, 'bids_item_description'=> $bidsdescriptionfilter];
 
     $colorPluginOptions =  [
         'showPalette' => true,
@@ -129,7 +148,9 @@ $this->registerJsFile($BaseURL.'js/custom.js');
         [
             'attribute'=>'supplier_name',
             'label'=>'Supplier Name',
-            'width'=>'10%',
+            'width'=>'15%',
+            'filter'=> '<div class="col-lg-9"><input class="form-control" placeholder="Search..." name="filtersupplier" id="filtersupplier" value="'. $searchModel['supplier_name'] .'" type="text"></div>
+            <div class="col-lg-3"><button class="btn btn-primary btn-block"><i class="fa fa-search-plus" style="font-size: 14px;"></i></button></div>',
             'headerOptions' => ['class' => 'kartik-sheet-style'],
         ],
 
@@ -145,10 +166,12 @@ $this->registerJsFile($BaseURL.'js/custom.js');
             'label'=>'Item Description',
             'vAlign' => 'top',
             'format'=>'raw',
+            'filter'=> '<div class="col-lg-9"><input class="form-control" placeholder="Search..." name="filterbidsdescription" id="filterbidsdescription" value="'. $searchModel['bids_item_description'] .'" type="text"></div>
+            <div class="col-lg-3"><button class="btn btn-primary btn-block"><i class="fa fa-search-plus" style="font-size: 14px;"></i></button></div>',
             'contentOptions' => [
                 'style'=>'max-width:200px; overflow: auto; white-space: normal; word-wrap: break-word;'
             ],
-            'width'=>'50%',
+            'width'=>'45%',
             'headerOptions' => ['class' => 'kartik-sheet-style'],
         ],
 

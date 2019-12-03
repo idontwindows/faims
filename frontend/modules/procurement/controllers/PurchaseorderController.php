@@ -131,7 +131,7 @@ class PurchaseorderController extends \yii\web\Controller
          ON `tbl_bids`.`bids_id` = `tbl_bids_details`.`bids_id`
          INNER JOIN `tbl_purchase_request`
          ON `tbl_purchase_request`.`purchase_request_id` = `tbl_bids_details`.`purchase_request_id`
-           INNER JOIN tbl_purchase_request_details
+         LEFT JOIN tbl_purchase_request_details
          ON `tbl_purchase_request_details`.`purchase_request_details_id` = `fais-procurement`.`tbl_bids_details`.`purchase_request_details_id`
          WHERE `tbl_purchase_order_details`.`purchase_request_details_status`=1
          ORDER BY `tbl_purchase_order`.`purchase_order_number` DESC";
@@ -224,7 +224,7 @@ class PurchaseorderController extends \yii\web\Controller
          $prdate='';
          foreach ($prdetails as $pr) {
              $supplier = $pr["supplier_name"];
-             $supplier_address = $pr["zzzzzzzzzzzzzzzzzz"];
+             $supplier_address = $pr["supplier_address"];
              $ponum = $pr["purchase_order_number"];
              $pdate = $pr["purchase_order_date"];
              $prno = $pr["purchase_request_number"];
