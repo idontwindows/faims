@@ -222,6 +222,7 @@ class PurchaseorderController extends \yii\web\Controller
          $prno='';
          $pdate='';
          $prdate='';
+         $supplier_address='';  
          foreach ($prdetails as $pr) {
              $supplier = $pr["supplier_name"];
              $supplier_address = $pr["supplier_address"];
