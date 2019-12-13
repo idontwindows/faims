@@ -151,7 +151,7 @@ class InspectionController extends \yii\web\Controller
         ON `tbl_bids`.`bids_id` = `tbl_bids_details`.`bids_id`
         INNER JOIN `tbl_purchase_request`
         ON `tbl_purchase_request`.`purchase_request_id` = `tbl_bids_details`.`purchase_request_id`
-        INNER JOIN tbl_purchase_request_details
+        LEFT JOIN tbl_purchase_request_details
 ON `tbl_purchase_request_details`.`purchase_request_details_id` = `fais-procurement`.`tbl_bids_details`.`purchase_request_details_id`
                  WHERE `tbl_purchase_order`.`purchase_order_number` = '".$id."' and `tbl_purchase_order_details`.`delivered`=1
                  ORDER BY purchase_order_number";
