@@ -69,13 +69,20 @@ class Budgetallocation extends \yii\db\ActiveRecord
     
     public function getItems()
     {
-        return $this->hasMany(Budgetallocationitem::className(), ['budget_allocation_id' => 'budget_allocation_id']);
+        return $this->hasMany(Budgetallocationitem::className(), ['budget_allocation_id' => 'budget_allocation_id'])->andWhere(['active'=>1]);
     }
     
     public function getTotal()
     {
         $sum = $this->hasMany(Budgetallocationitem::className(), ['budget_allocation_id' => 'budget_allocation_id'])->sum('amount');
-        return $sum;
+        
+        $sum2 = 0.00;
+        /*foreach($this->items() as $item)
+        {
+            $sum2 += $item->total; 
+        }*/
+        
+        return $sum + $sum2;
         
     }
     /*public function getTotal()

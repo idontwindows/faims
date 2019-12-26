@@ -139,23 +139,28 @@ class BudgetallocationController extends Controller
     public function actionView($id)
     {
         $model = $this->findModel($id);
-        $queryBudgetAllocationItems = Budgetallocationitem::find()->where([
-                                    'budget_allocation_id' => $id]);
+        //$queryBudgetAllocationItems = Budgetallocationitem::find()
+                                        //->select(['budget_allocation_item_id', 'budget_allocation_id', 'name', 'code', 'category_id', 'amount', ])
+                                        //->where(['budget_allocation_id' => $id])
+                                        //->groupBy('expenditure_class_id');
         
+        $queryBudgetAllocationItems = $model->getItems();
+            //->groupBy('expenditure_class_id');
         $budgetAllocationItemsDataProvider = new ActiveDataProvider([
-            //'query' => $queryBudgetAllocationItems,
-            'query' => $model->getItems(),
+            'query' => $queryBudgetAllocationItems,
+            //'query' => $model->getItems(),
             'pagination' => false,
             'sort' => [
                 'defaultOrder' => [
+                    'expenditure_subclass_id' => SORT_ASC,
                     'budget_allocation_item_id' => SORT_ASC,
-                    //'title' => SORT_ASC, 
                 ]
             ],
         ]);
         return $this->render('view', [
             'model' => $model,
             'budgetAllocationItemsDataProvider' => $budgetAllocationItemsDataProvider,
+            'year' => $model->year,
         ]);
     }
 

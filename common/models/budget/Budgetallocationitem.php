@@ -2,6 +2,10 @@
 
 namespace common\models\budget;
 
+use common\models\budget\Budgetallocation;
+use common\models\budget\Budgetallocationitemdetails;
+use common\models\procurement\Expenditure;
+use common\models\procurement\Expenditureobject;
 use Yii;
 
 /**
@@ -59,5 +63,31 @@ class Budgetallocationitem extends \yii\db\ActiveRecord
             'category_id' => 'Category ID',
             'amount' => 'Amount',
         ];
+    }
+    
+    public function getBudgetallocation()
+    {
+        return $this->hasOne(Budgetallocation::className(), ['budget_allocation_id' => 'budget_allocation_id']);
+    }
+    
+    public function getExpenditureobject()
+    {
+        return $this->hasOne(Expenditureobject::className(), ['expenditure_object_id' => 'category_id']);
+    }
+    
+    public function getExpenditure()
+    {
+        return $this->hasOne(Expenditure::className(), ['expenditure_object_id' => 'category_id']);
+    }
+    
+    public function getItemdetails()
+    {
+        return $this->hasMany(Budgetallocationitemdetails::className(), ['budget_allocation_item_id' => 'budget_allocation_item_id'])->andWhere(['active'=>1]);
+    }
+    
+    public function getTotal()
+    {
+        $sum = $this->hasMany(Budgetallocationitemdetails::className(), ['budget_allocation_item_id' => 'budget_allocation_item_id'])->sum('amount');
+        return $sum;
     }
 }

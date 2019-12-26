@@ -2,6 +2,7 @@
 
 namespace common\models\procurement;
 
+use common\models\budget\Budgetallocationitem;
 use Yii;
 
 /**
@@ -74,5 +75,19 @@ class Expenditure extends \yii\db\ActiveRecord
     public function getExpenditureSubclass()
     {
         return $this->hasOne(Expendituresubclass::className(), ['expenditure_sub_class_id' => 'expenditure_subclass_id']);
+    }
+    
+    public function getBudgetAllocationTotal()
+    {
+        $sum = $this->hasMany(Budgetallocationitem::className(), ['category_id' => 'expenditure_object_id'])->sum('amount');
+        return $sum;
+    }
+    
+    public function getBudgetAllocationPercent()
+    {
+        if($this->getBudgetAllocationTotal() != 0)
+            return ($this->getBudgetAllocationTotal() / $this->amount);
+        else
+            return 0;
     }
 }

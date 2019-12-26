@@ -19,7 +19,7 @@ use common\models\procurementplan\PpmpSearch;
 /* @var $searchModel common\models\procurementplan\PpmpSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Ppmps';
+$this->title = 'Budget Allocation';
 $this->params['breadcrumbs'][] = $this->title;
 
 // Modal PPMP
@@ -88,8 +88,7 @@ Modal::end();
                                 'value'=>function ($model, $key, $index, $widget) { 
                                     $budget = $model->budgetallocation ? $model->budgetallocation->getTotal() : '';
                                     $fmt = Yii::$app->formatter;
-                                    //return Html::a($fmt->asDecimal($budget), ['budgetallocation/view?id='.$this->budget_allocation_id]);
-                                    return $fmt->asDecimal($budget);
+                                    return Html::a($fmt->asDecimal($budget), ['budgetallocation/view?id='.$model->budgetallocation->budget_allocation_id], ['target'=>'_blank']);
                                 },
                             ],
                             /*

@@ -5,22 +5,21 @@ namespace common\models\procurement;
 use Yii;
 
 /**
- * This is the model class for table "tbl_program".
+ * This is the model class for table "tbl_fund_source".
  *
- * @property integer $program_id
  * @property integer $fund_source_id
- * @property string $name
  * @property string $code
+ * @property string $name
  * @property integer $active
  */
-class Program extends \yii\db\ActiveRecord
+class Fundsource extends \yii\db\ActiveRecord
 {
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return 'tbl_program';
+        return 'tbl_fund_source';
     }
 
     /**
@@ -29,10 +28,10 @@ class Program extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['program_id', 'fund_source_id', 'name', 'code'], 'required'],
-            [['program_id', 'fund_source_id', 'active'], 'integer'],
-            [['name'], 'string', 'max' => 250],
-            [['code'], 'string', 'max' => 50],
+            [['code', 'name', 'active'], 'required'],
+            [['name'], 'string'],
+            [['active'], 'integer'],
+            [['code'], 'string', 'max' => 25],
         ];
     }
 
@@ -42,10 +41,9 @@ class Program extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'program_id' => 'Program ID',
             'fund_source_id' => 'Fund Source ID',
-            'name' => 'Name',
             'code' => 'Code',
+            'name' => 'Name',
             'active' => 'Active',
         ];
     }
