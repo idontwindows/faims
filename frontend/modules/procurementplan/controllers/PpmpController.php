@@ -140,11 +140,10 @@ class PpmpController extends Controller
         
         $ppmpItemsDataProvider = new ActiveDataProvider([
             'query' => $queryPpmpItems,
-            'pagination' => [
-                'pageSize' => 10,
-            ],
+            'pagination' => false,
             'sort' => [
                 'defaultOrder' => [
+                    'availability' => SORT_ASC,
                     'item_category_id' => SORT_ASC,
                     //'title' => SORT_ASC, 
                 ]

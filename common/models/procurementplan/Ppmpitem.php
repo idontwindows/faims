@@ -60,7 +60,7 @@ class Ppmpitem extends \yii\db\ActiveRecord
     {
         return [
             [['ppmp_id', 'item_id', 'item_category_id', 'ppmp_item_category_id', 'code', 'description', 'quantity', 'unit', 'estimated_budget', 'mode_of_procurement', 'active'], 'required'],
-            [['ppmp_id', 'ppmp_item_category_id','quantity', 'unit', 'mode_of_procurement', 'q1', 'q2', 'q3', 'q4', 'q5', 'q6', 'q7', 'q8', 'q9', 'q10', 'q11', 'q12', 'active'], 'integer'],
+            [['ppmp_id', 'ppmp_item_category_id','quantity', 'unit', 'mode_of_procurement', 'availability', 'q1', 'q2', 'q3', 'q4', 'q5', 'q6', 'q7', 'q8', 'q9', 'q10', 'q11', 'q12', 'active'], 'integer'],
             [['description', 'item_specification'], 'string'],
             [['estimated_budget', 'cost'], 'number'],
             [['code'], 'string', 'max' => 20],
@@ -86,6 +86,7 @@ class Ppmpitem extends \yii\db\ActiveRecord
             'cost' => 'Unit Cost',
             'estimated_budget' => 'Estimated Budget',
             'mode_of_procurement' => 'Mode Of Procurement',
+            'availability' => 'Availability',
             'q1' => 'Q1',
             'q2' => 'Q2',
             'q3' => 'Q3',

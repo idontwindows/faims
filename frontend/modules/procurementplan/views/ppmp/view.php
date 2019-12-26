@@ -166,8 +166,28 @@ Modal::end();
                     'contentOptions' => ['class' => 'kartik-sheet-style'],
                     'width' => '20px',
                     'header' => '',
-                    'headerOptions' => ['class' => 'kartik-sheet-style'],
+                    'headerOptions' => ['style' => 'text-align: center; background-color: #f7ab78'],
                     //'mergeHeader' => true,
+                ],
+                [
+                    'attribute'=>'availability',
+                    'header'=>'Category',
+                    'value'=>function ($model, $key, $index, $widget) { 
+                            if($model->availability == 1){
+                                return 'PART I. AVAILABLE AT PROCUREMENT SERVICE STORES';
+                            }elseif($model->availability == 2){
+                                return 'PART II. OTHER ITEMS NOT AVALABLE AT PS BUT REGULARLY PURCHASED FROM OTHER SOURCES (Note: Please indicate price of items)';
+                            }
+                        },
+                    'headerOptions' => ['style' => 'background-color: #fee082;'],
+                    'contentOptions'=>['style'=>'background-color: #fee082; font-weight: bold;'],
+                
+                    'group'=>true,  // enable grouping,
+                    'groupedRow'=>true,                    // move grouped column to a single grouped row
+                    //'contentOptions' => ['style' => 'text-align: left; background-color: #ffe699;'],
+                    
+                    'groupOddCssClass'=>'',  // configure odd group cell css class
+                    'groupEvenCssClass'=>'', // configure even group cell css class
                 ],
                 [
                     'attribute'=>'item_category_id',
@@ -176,21 +196,21 @@ Modal::end();
                     'value'=>function ($model, $key, $index, $widget) { 
                             return $model->itemcategory->category_name;
                         },
-                    'headerOptions' => ['style' => 'text-align: left'],
-                    'contentOptions' => ['style' => 'text-align: left'],
+                    'headerOptions' => ['style' => 'text-align: left; background-color: #7e9fda;'],
+                    'contentOptions' => ['style' => 'text-align: left; background-color: #7e9fda;'],
                 
                     'group'=>true,  // enable grouping,
                     'groupedRow'=>true,                    // move grouped column to a single grouped row
-                    'groupOddCssClass'=>'kv-grouped-row',  // configure odd group cell css class
-                    'groupEvenCssClass'=>'kv-grouped-row', // configure even group cell css class
+                    'groupOddCssClass'=>'',  // configure odd group cell css class
+                    'groupEvenCssClass'=>'', // configure even group cell css class
                 ],
                 [
                     'attribute'=>'description', 
                     'header'=>'General Description',
                     'width'=>'650px',
-                    'headerOptions' => ['style' => 'text-align: center'],
+                    'headerOptions' => ['style' => 'text-align: center; background-color: #f7ab78'],
                     'contentOptions' => ['style' => 'text-align: left'],
-                        'mergeHeader' => true,
+                    'mergeHeader' => true,
                 ],
                 [
                     'attribute'=>'unit', 
@@ -199,7 +219,7 @@ Modal::end();
                             return $model->unitofmeasure->name ? $model->unitofmeasure->name : '';
                         },
                     'width'=>'100px',
-                    'headerOptions' => ['style' => 'text-align: center'],
+                    'headerOptions' => ['style' => 'text-align: center; background-color: #f7ab78'],
                     'contentOptions' => ['style' => 'text-align: center'], 
                     'mergeHeader' => true,
                 ],
@@ -211,13 +231,14 @@ Modal::end();
                             $fmt = Yii::$app->formatter;
                             return $fmt->asDecimal($model->cost);
                         },
-                    'headerOptions' => ['style' => 'text-align: center'],
+                    'headerOptions' => ['style' => 'text-align: center; background-color: #f7ab78'],
                     'contentOptions' => ['style' => 'text-align: right'],
                 ],
                 [
                     'class'=>'kartik\grid\EditableColumn',
                     'attribute'=>'q1',
                     'header'=>'J',
+                    'headerOptions' => ['style' => 'text-align: center; background-color: #f7ab78'],
                     'refreshGrid'=>true,
                     'readonly' => !$isMember,
                     'editableOptions'=> function ($model , $key , $index) {
@@ -240,6 +261,7 @@ Modal::end();
                     'class'=>'kartik\grid\EditableColumn',
                     'attribute'=>'q2',
                     'header'=>'F',
+                    'headerOptions' => ['style' => 'text-align: center; background-color: #f7ab78'],
                     'refreshGrid'=>true,
                     'readonly' => !$isMember,
                     'editableOptions'=> function ($model , $key , $index) {
@@ -262,6 +284,7 @@ Modal::end();
                     'class'=>'kartik\grid\EditableColumn',
                     'attribute'=>'q3',
                     'header'=>'M',
+                    'headerOptions' => ['style' => 'text-align: center; background-color: #f7ab78'],
                     'refreshGrid'=>true,
                     'readonly' => !$isMember,
                     'editableOptions'=> function ($model , $key , $index) {
@@ -284,6 +307,7 @@ Modal::end();
                     'class'=>'kartik\grid\EditableColumn',
                     'attribute'=>'q4',
                     'header'=>'A',
+                    'headerOptions' => ['style' => 'text-align: center; background-color: #f7ab78'],
                     'refreshGrid'=>true,
                     'readonly' => !$isMember,
                     'editableOptions'=> function ($model , $key , $index) {
@@ -306,6 +330,7 @@ Modal::end();
                     'class'=>'kartik\grid\EditableColumn',
                     'attribute'=>'q5',
                     'header'=>'M',
+                    'headerOptions' => ['style' => 'text-align: center; background-color: #f7ab78'],
                     'refreshGrid'=>true,
                     'readonly' => !$isMember,
                     'editableOptions'=> function ($model , $key , $index) {
@@ -328,6 +353,7 @@ Modal::end();
                     'class'=>'kartik\grid\EditableColumn',
                     'attribute'=>'q6',
                     'header'=>'J',
+                    'headerOptions' => ['style' => 'text-align: center; background-color: #f7ab78'],
                     'refreshGrid'=>true,
                     'readonly' => !$isMember,
                     'editableOptions'=> function ($model , $key , $index) {
@@ -350,6 +376,7 @@ Modal::end();
                     'class'=>'kartik\grid\EditableColumn',
                     'attribute'=>'q7',
                     'header'=>'J',
+                    'headerOptions' => ['style' => 'text-align: center; background-color: #f7ab78'],
                     'refreshGrid'=>true,
                     'readonly' => !$isMember,
                     'editableOptions'=> function ($model , $key , $index) {
@@ -372,6 +399,7 @@ Modal::end();
                     'class'=>'kartik\grid\EditableColumn',
                     'attribute'=>'q8',
                     'header'=>'A',
+                    'headerOptions' => ['style' => 'text-align: center; background-color: #f7ab78'],
                     'refreshGrid'=>true,
                     'readonly' => !$isMember,
                     'editableOptions'=> function ($model , $key , $index) {
@@ -394,6 +422,7 @@ Modal::end();
                     'class'=>'kartik\grid\EditableColumn',
                     'attribute'=>'q9',
                     'header'=>'S',
+                    'headerOptions' => ['style' => 'text-align: center; background-color: #f7ab78'],
                     'refreshGrid'=>true,
                     'readonly' => !$isMember,
                     'editableOptions'=> function ($model , $key , $index) {
@@ -416,6 +445,7 @@ Modal::end();
                     'class'=>'kartik\grid\EditableColumn',
                     'attribute'=>'q10',
                     'header'=>'O',
+                    'headerOptions' => ['style' => 'text-align: center; background-color: #f7ab78'],
                     'refreshGrid'=>true,
                     'readonly' => !$isMember,
                     'editableOptions'=> function ($model , $key , $index) {
@@ -438,6 +468,7 @@ Modal::end();
                     'class'=>'kartik\grid\EditableColumn',
                     'attribute'=>'q11',
                     'header'=>'N',
+                    'headerOptions' => ['style' => 'text-align: center; background-color: #f7ab78'],
                     'refreshGrid'=>true,
                     'readonly' => !$isMember,
                     'editableOptions'=> function ($model , $key , $index) {
@@ -460,6 +491,7 @@ Modal::end();
                     'class'=>'kartik\grid\EditableColumn',
                     'attribute'=>'q12',
                     'header'=>'D',
+                    'headerOptions' => ['style' => 'text-align: center; background-color: #f7ab78'],
                     'refreshGrid'=>true,
                     'readonly' => !$isMember,
                     'editableOptions'=> function ($model , $key , $index) {
@@ -481,22 +513,24 @@ Modal::end();
                 [
                     'attribute'=>'quantity',
                     'header'=>'QTY',
+                    'headerOptions' => ['style' => 'text-align: center; background-color: #f7ab78'],
                     'width'=>'75px',
                     'value'=>function ($model, $key, $index, $widget) { 
                             return $model->getTotalqty();
                         },
-                    'headerOptions' => ['style' => 'text-align: center'],
+                    //'headerOptions' => ['style' => 'text-align: center'],
                     'contentOptions' => ['style' => 'text-align: center'],
                 ],
                 [
                     'attribute'=>'estimated_budget',
                     'header'=>'Estimated Budget',
+                    'headerOptions' => ['style' => 'text-align: center; background-color: #f7ab78'],
                     'width'=>'75px',
                     'value'=>function ($model, $key, $index, $widget) { 
                             $fmt = Yii::$app->formatter;
                             return $fmt->asDecimal($model->getTotalamount());
                         },
-                    'headerOptions' => ['style' => 'text-align: center'],
+                    //'headerOptions' => ['style' => 'text-align: center'],
                     'contentOptions' => ['style' => 'text-align: right'],
                 ],
             ];

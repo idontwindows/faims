@@ -1,6 +1,6 @@
 <?php
 
-use kartik\helpers\Html;
+use yii\data\ActiveDataProvider;
 use yii\helpers\Url;
 use yii\helpers\ArrayHelper;
 
@@ -8,6 +8,9 @@ use kartik\datecontrol\DateControl;
 use kartik\detail\DetailView;
 use kartik\editable\Editable; 
 use kartik\grid\GridView;
+use kartik\helpers\Html;
+
+use common\models\budget\Budgetallocationitem;
 
 use yii\bootstrap\Modal;
 
@@ -40,11 +43,32 @@ $this->params['breadcrumbs'][] = $this->title;
                 [
                     'class' => 'kartik\grid\SerialColumn',
                     //'contentOptions' => ['class' => 'kartik-sheet-style'],
-                    'width' => '20px',
+                    //'width' => '20px',
                     'header' => '',
                     'headerOptions' => ['class' => 'kartik-sheet-style'],
                     //'mergeHeader' => true,
                 ],
+                /*[
+                    'class' => 'kartik\grid\ExpandRowColumn',
+                    //'width' => '5px',
+                    'value' => function ($model, $key, $index, $column) {
+                        return GridView::ROW_COLLAPSED;
+                    },
+                    'detail' => function ($model, $key, $index, $column) {
+
+
+                        $query = Budgetallocationitem::find()->where(['category_id' => $model->expenditure_object_id  ]);
+
+                        $dataProvider = new ActiveDataProvider([
+                            'query' => $query,
+                            'pagination' => false,
+                        ]);
+
+                        return Yii::$app->controller->renderPartial('_budgetallocation', ['dataProvider'=>$dataProvider]);
+                    },
+                    //'headerOptions' => ['class' => 'kartik-sheet-style'],
+                    //'expandOneOnly' => true
+                ],*/
                 [
                     'attribute'=>'expenditure_class_id',
                     //'header'=>'Category',
@@ -68,7 +92,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             return $model->expenditureSubclass->name;
                         },
                     //'headerOptions' => ['style' => 'text-align: left;'],
-                    'contentOptions' => ['style' => 'text-align: left; font-weight:bold; padding-left: 35px;'],
+                    //'contentOptions' => ['style' => 'text-align: left; font-weight:bold; padding-left: 35px;'],
                 
                     'group'=>true,  // enable grouping,
                     'groupedRow'=>true,                    // move grouped column to a single grouped row
@@ -76,28 +100,30 @@ $this->params['breadcrumbs'][] = $this->title;
                     //'groupEvenCssClass'=>'kv-grouped-row', // configure even group cell css class
                     'groupFooter' => function ($model, $key, $index, $widget) { // Closure method
                         return [
-                            'mergeColumns' => [[1,2]], // columns to merge in summary
+                            'mergeColumns' => [
+                                [0,1],
+                            ], // columns to merge in summary
                             'content' => [             // content to show in each summary cell
                                 3 => 'TOTAL : '.$model->expenditureSubclass->name,
                                 4 => GridView::F_SUM,
                             ],
                             'contentFormats' => [      // content reformatting for each summary cell
                                 4 => ['format' => 'number', 'decimals' => 2],
+                                //3 => ['format' => 'number', 'decimals' => 2],
                             ],
                             'contentOptions' => [      // content html attributes for each summary cell
-                                //3 => ['style' => 'font-variant:small-caps'],
+                                3 => ['style' => 'font-variant:small-caps'],
                                 4 => ['style' => 'text-align:right'],
-
                             ],
                             // html attributes for group summary row
                             'options' => ['class' => 'info table-info', 'style' => 'font-weight:bold; text-align: right;']
                         ];
                     }
-                    ],
+                ],
                 [
                     'attribute'=>'name', 
                     'header'=>'Object of Expenditures',
-                    'width'=>'650px',
+                    'width'=>'680px',
                     'value'=>function ($model, $key, $index, $widget) { 
                             return $model->name;
                         },
@@ -105,26 +131,16 @@ $this->params['breadcrumbs'][] = $this->title;
                     'contentOptions' => ['style' => 'text-align: left'],
                     //'mergeHeader' => true,
                 ],
-                /*[
-                    'attribute'=>'amount',
-                    'header'=>'Amount',
-                    'width'=>'100px',
-                    'value'=>function ($model, $key, $index, $widget) { 
-                            $fmt = Yii::$app->formatter;
-                            return $fmt->asDecimal($model->amount);
-                        },
-                    'headerOptions' => ['style' => 'text-align: center'],
-                    'contentOptions' => ['style' => 'text-align: right'],
-                ],*/
                 [
                     'class'=>'kartik\grid\EditableColumn',
                     'attribute'=>'amount',
-                    'header'=>'Amount',
+                    'header'=>'Appropriation',
                     'refreshGrid'=>true,
                     //'readonly' => !$isMember,
                     'value'=>function ($model, $key, $index, $widget) { 
                             $fmt = Yii::$app->formatter;
                             return $fmt->asDecimal($model->amount);
+                            //return $fmt->asCurrency($model->getBudgetAllocationTotal(), 'Php');
                         },
                     'editableOptions'=> function ($model , $key , $index) {
                         return [
@@ -146,9 +162,10 @@ $this->params['breadcrumbs'][] = $this->title;
                     'attribute'=>'amount',
                     'header'=>'as per Budget Allocation',
                     'width'=>'100px',
+                    'format'=>'raw',
                     'value'=>function ($model, $key, $index, $widget) { 
                             $fmt = Yii::$app->formatter;
-                            return $fmt->asDecimal(0.00);
+                            return $fmt->asDecimal($model->getBudgetAllocationTotal());
                         },
                     'headerOptions' => ['style' => 'text-align: center'],
                     'contentOptions' => ['style' => 'text-align: right'],
@@ -159,7 +176,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'width'=>'100px',
                     'value'=>function ($model, $key, $index, $widget) { 
                             $fmt = Yii::$app->formatter;
-                            return $fmt->asDecimal(0.00);
+                            return $fmt->asPercent($model->getBudgetAllocationPercent());
                         },
                     'headerOptions' => ['style' => 'text-align: center'],
                     'contentOptions' => ['style' => 'text-align: right'],
@@ -209,8 +226,6 @@ $this->params['breadcrumbs'][] = $this->title;
                                 [
                                     [
                                         'content'=>'',
-                                            /*Html::button('Submit PPMP', ['value' => Url::to(['ppmp/submit', 'id'=>$model->ppmp_id]), 'title' => 'Submit PPMP', 'class' => 'btn btn-info', 'style'=>'margin-right: 6px; display: "";', 'id'=>'buttonSubmitPpmp']).*/
-                                            /*Html::button('Add Item  <i class="glyphicon glyphicon-list"></i>', ['disabled' => $disableAddItem OR !$isMember, 'value' => Url::to(['ppmpitem/additems', 'id'=>$model->ppmp_id, 'year'=>$model->year]), 'title' => 'PPMP Item', 'class' => 'btn btn-success', 'style'=>'margin-right: 6px; display: "";', 'id'=>'buttonAddPpmpItem'])*/
                                     ],
                                 ],
                 // set export properties
@@ -223,8 +238,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 //'itemLabelSingle' => 'item',
                 //'itemLabelPlural' => 'items'
                 
-                'showPageSummary' => true,
-                'pageSummaryRowOptions' => ['class' => 'kv-page-summary warning'],
+                //'showPageSummary' => true,
+                //'pageSummaryRowOptions' => ['class' => 'kv-page-summary warning'],
             ]);
     
         ?>

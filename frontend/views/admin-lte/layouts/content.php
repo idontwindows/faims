@@ -9,8 +9,8 @@ if($StartYear>=$CurYear){
     $CopyrightYear=$StartYear.'-'.$CurYear;
 }
 $Host= "//".Yii::$app->getRequest()->serverName;
-//echo $Host;
 ?>
+
 <div class="content-wrapper">
     <?php
     echo Breadcrumbs::widget([
@@ -39,3 +39,10 @@ $Host= "//".Yii::$app->getRequest()->serverName;
     <strong>Copyright &copy; <?= $CopyrightYear ?> <a href="//region9.dost.gov.ph" target="_blank">DOST-IX</a>.</strong> All rights
     reserved. | <a href="<?= $Host ?>">frontend</a>.</strong>
 </footer>
+<script>
+$(document).ready(function () {
+    //fix bug for select2 mozilla firefox
+    $.fn.modal.Constructor.prototype.enforceFocus = function () {};
+    $.fn.modal.Constructor.prototype._enforceFocus = function() {};
+});
+</script>

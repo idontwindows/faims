@@ -73,7 +73,7 @@ if(Yii::$app->user->isGuest){
                             ['label' => 'Budget Estimate per NEP', 'icon' => 'money', 'url' => ['/budget/expenditure/index']],
                             ['label' => 'Budget Allocation', 'icon' => 'money', 'url' => ['/budget/budgetallocation/index']],
                             ['label' => 'PPMP', 'icon' => 'clipboard', 'url' => ['/budget/ppmp/index']],
-                            ['label' => 'SAOB', 'icon' => 'clipboard', 'url' => ['/budget/saob/index']],
+                            ['label' => 'Obligation', 'icon' => 'clipboard', 'url' => ['/budget/saob/index']],
                         ]
                     ],
                     [
