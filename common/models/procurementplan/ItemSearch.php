@@ -51,6 +51,7 @@ class ItemSearch extends Item
             'pagination' => false,
             'sort' => [
                 'defaultOrder' => [
+                    'availability' => SORT_ASC,
                     'item_category_id' => SORT_ASC,
                     'item_name' => SORT_ASC,
                 ]
