@@ -17,6 +17,10 @@ return [
             //'allowedIPs' => ['127.0.0.1', '::1', '192.168.1.*'] // adjust this to your needs
             'allowedIPs' => ['*'] // adjust this to your needs
         ],
+        'message' => [
+            'class' => 'thyseus\message\Module',
+            'userModelClass' => '\common\models\system\User', // your User model. Needs to be ActiveRecord.
+        ],
     ],
     
     'components' => $components

@@ -2,7 +2,7 @@
 use kartik\mpdf\Pdf;
 
 return [
-    'mailer' => [
+    /*'mailer' => [
            'class' => 'yii\swiftmailer\Mailer',
            'viewPath' => '@common/mail',
             'useFileTransport' => false,//set this property to false to send mails to real email addresses
@@ -11,7 +11,7 @@ return [
                 'class' => 'Swift_SmtpTransport',
                 'host' => 'smtp.gmail.com',
                 'username' => 'paymentonelab@gmail.com',
-                'password' => 'Arkem@88',
+                'password' => '-------',
                 'port' => '587',
                 'encryption' => 'tls',
                 'streamOptions'=>[
@@ -22,7 +22,7 @@ return [
                   ]
                 ]
             ],
-    ],
+    ],*/
     'cache' => [
             'class' => 'yii\caching\FileCache',
     ],
@@ -43,6 +43,18 @@ return [
         'orientation' => Pdf::ORIENT_PORTRAIT,
         'destination' => Pdf::DEST_BROWSER,
         // refer settings section for all configuration options
-    ]
+    ],
+    'urlManager' => [
+       'class' => 'yii\web\UrlManager',
+       // Disable index.php
+       'showScriptName' => false,
+       // Disable r= routes
+       'enablePrettyUrl' => true,
+       'rules' => array(
+          '<controller:\w+>/<id:\d+>' => '<controller>/view',
+          '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
+          '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
+       ),
+    ],
 ];
  

@@ -181,3 +181,16 @@ common/config/bootstrap.php
 common/config/main.php
 vendor/kartik-v/yii2-widget-datepicker/yii2-widget-datetimepicker/.github/ISSUE_TEMPLATE.md
 common/config/db.php
+frontend/modules/procurement/controllers/ProcessController.php
+frontend/modules/procurement/views/process/_form.php
+frontend/modules/procurement/views/process/_result-fcfs.php
+frontend/modules/procurement/views/process/_result-rr.php
+frontend/modules/procurement/views/process/_search.php
+frontend/modules/procurement/views/process/create.php
+frontend/modules/procurement/views/process/index.php
+frontend/modules/procurement/views/process/update.php
+frontend/modules/procurement/views/process/view.php
+common/models/procurement/Process.php
+common/models/procurement/Processresult.php
+common/models/procurement/ProcessSearch.php
+common/models/procurement/Program111_.php
