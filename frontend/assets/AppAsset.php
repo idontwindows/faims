@@ -26,6 +26,8 @@ class AppAsset extends AssetBundle
         'js/lineitembudget/ajax-modal-popup.js',
         'js/ppmp/ajax-modal-popup.js',
         'js/budget/ajax-modal-popup.js',
+        'js/cashier/ajax-modal-popup.js',
+        'js/finance/ajax-modal-popup.js',
         'js/intro.js',
         
     ];
