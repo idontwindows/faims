@@ -230,7 +230,7 @@ Modal::end();
                         return [
                             'options' => ['id' => $index . '_' . $model->budget_allocation_item_id],
                             'placement'=>'left',
-                            'disabled'=>$model->itemdetails ? true : false,
+                            'disabled'=>$model->itemdetails ? true : !Yii::$app->user->can('access-budget-management'),
                             //'disabled'=>true,
                             'name'=>'amount',
                             'asPopover' => true,

@@ -136,7 +136,7 @@ $this->params['breadcrumbs'][] = $this->title;
                     'attribute'=>'amount',
                     'header'=>'Appropriation',
                     'refreshGrid'=>true,
-                    //'readonly' => !$isMember,
+                    //'readonly' => Yii::$app->user->can('access-budget-management'),
                     'value'=>function ($model, $key, $index, $widget) { 
                             $fmt = Yii::$app->formatter;
                             return $fmt->asDecimal($model->amount);
@@ -146,7 +146,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         return [
                             'options' => ['id' => $index . '_' . $model->expenditure_id],
                             'placement'=>'left',
-                            //'disabled'=>($model->ppmp->status_id != Ppmp::STATUS_PENDING),
+                            'disabled'=>!Yii::$app->user->can('access-budget-management'),
                             'name'=>'amount',
                             'asPopover' => true,
                             'value' => $model->amount,
