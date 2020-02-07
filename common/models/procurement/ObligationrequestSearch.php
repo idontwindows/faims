@@ -48,7 +48,15 @@ class ObligationrequestSearch extends Obligationrequest
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
-            'sort'=> ['defaultOrder' => ['obligation_request_id'=>SORT_DESC]]
+            'sort'=> [
+                'defaultOrder' => [
+                    'os_date'=>SORT_DESC,
+                    'obligation_request_id'=>SORT_DESC,
+                ]
+            ],
+//            'pagination' => [
+//                  'pageSize' => 10,
+//             ],
         ]);
 
         $this->load($params);

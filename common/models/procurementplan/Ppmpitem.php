@@ -37,6 +37,7 @@ use Yii;
  */
 class Ppmpitem extends \yii\db\ActiveRecord
 {
+    public $q1prime;
     /**
      * @inheritdoc
      */
