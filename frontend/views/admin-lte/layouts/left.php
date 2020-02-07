@@ -113,7 +113,7 @@ if(Yii::$app->user->isGuest){
                         'label' => 'Finance', 
                         'icon' => 'line-chart', 
                         //'visible'=> Yii::$app->user->can('access-finance'),
-                        'visible'=> (Yii::$app->user->identity->username == 'Admin') ? true : false,
+                        'visible'=> false,
                         'items' => [
                             ['label' => 'Verify Requests', 'icon' => 'object-ungroup', 'url' => ['/finance/request/verifyindex'], 'visible'=> Yii::$app->user->can('access-finance-verification') //|| (Yii::$app->user->identity->username == 'Admin')
                             ],
