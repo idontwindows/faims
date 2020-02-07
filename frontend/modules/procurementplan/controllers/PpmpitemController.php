@@ -143,6 +143,40 @@ class PpmpitemController extends Controller
         }
     }
 
+    public function actionUpdateitems()
+    {
+        $id = $_GET['id'];
+        $year = $_GET['year'];
+        
+        $queryPpmpItems = Ppmpitem::find()->where([
+                                    'ppmp_id' => $id, 
+                                    'active' => 1]);
+        
+        $ppmpItemsDataProvider = new ActiveDataProvider([
+            'query' => $queryPpmpItems,
+            'pagination' => false,
+            'sort' => [
+                'defaultOrder' => [
+                    'availability' => SORT_ASC,
+                    'item_category_id' => SORT_ASC,
+                    //'title' => SORT_ASC, 
+                ]
+            ],
+        ]);
+        
+        //$searchModel = new ItemSearch();
+        //$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        
+        if (Yii::$app->request->isAjax) {
+            return $this->renderAjax('_updateitems', [
+                        'ppmpItemsDataProvider' => $ppmpItemsDataProvider,
+            ]);
+        } else {
+            return $this->render('_updateitems', [
+                        'ppmpItemsDataProvider' => $ppmpItemsDataProvider,
+            ]);
+        }
+    }
     /**
      * Updates an existing Ppmpitem model.
      * If update is successful, the browser will be redirected to the 'view' page.
@@ -189,5 +223,23 @@ class PpmpitemController extends Controller
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+    
+    public function actionUpdateitemqty() {
+       if (Yii::$app->request->post('hasEditable')) {
+           $ids = Yii::$app->request->post('editableKey');
+           
+           $index = Yii::$app->request->post('editableIndex');
+           $attr = Yii::$app->request->post('editableAttribute');
+           $qty = $_POST['Ppmpitem'][$index][$attr];
+           $model = Ppmpitem::findOne($ids);
+           $model->$attr = $qty; //$fmt->asDecimal($amt,2);
+           if($model->save(false))
+               return true;
+               //echo Yii::$app->session->setFlash('success', "Quantity updated.");
+           else
+               return false;
+               //return Yii::$app->session->setFlash('failure', "Quantity not updated. Please refresh this page.");
+       }
     }
 }

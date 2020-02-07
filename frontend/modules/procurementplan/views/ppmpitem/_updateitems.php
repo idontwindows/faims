@@ -14,150 +14,7 @@ use common\models\procurement\Project;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\procurementplan\Ppmp */
-
-$this->title = $model->project_id ? Project::findOne($model->project_id)->code : $model->unit->name;
-$this->params['breadcrumbs'][] = ['label' => 'PPMP', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
-
-Modal::begin([
-    'header' => '<h4 id="modalHeader" style="color: #ffffff"></h4>',
-    'id' => 'modalSubmitPpmp',
-    'size' => 'modal-sm',
-    'options'=> [
-             'tabindex'=>false,
-        ],
-]);
-
-echo "<div id='modalContent'><div style='text-align:center'><img src='/images/loading.gif'></div></div>";
-Modal::end();
-
-Modal::begin([
-    'header' => '<h4 id="modalHeader" style="color: #ffffff"></h4>',
-    'id' => 'modalPpmpItem',
-    'size' => 'modal-lg',
-    'options'=> [
-             'tabindex'=>false,
-        ],
-]);
-
-echo "<div id='modalContent'><div style='text-align:center'><img src='/images/loading.gif'></div></div>";
-Modal::end();
-
 ?>
-<div class="ppmp-view">
-   <?php
-        $attributes = [
-            [
-                'group'=>true,
-                'label'=>'PPMP DETAILS'.
-                    Html::button('Submit PPMP  <i class="glyphicon glyphicon-hand-right"></i>', ['disabled' => $disableSubmitPpmp OR !$isMember, 'value' => Url::to(['ppmp/submit', 'id'=>$model->ppmp_id]), 'title' => 'Submit PPMP', 'class' => 'btn btn-primary', 'style'=>'float: right; margin-right: 6px; display: "";', 'id'=>'buttonSubmitPpmp'])
-                    ,
-                'rowOptions'=>['class'=>'info'],
-            ],
-            [
-                'columns' => [
-                    [
-                        'attribute'=>$model->unit_id ? 'unit_id' : 'project_id',
-                        'value'=>$model->unit_id ? $model->unit->name : Project::findOne($model->project_id)->code,
-                        'valueColOptions'=>['style'=>'width:30%'],
-                    ],
-                    [
-                        'attribute'=>'year',
-                        'valueColOptions'=>['style'=>'width:30%'],
-                        'label'=>'Year',
-                    ],
-                ],
-            ],
-            [
-                'columns' => [
-                    
-                    [
-                        'attribute'=>'division_id', 
-                        'label'=>'Division',
-                        'displayOnly'=>true,
-                        'value'=>$model->project_id ? '' : $model->division->name,
-                        'valueColOptions'=>['style'=>'width:30%']
-                    ],
-                    [
-                        'attribute'=>'status_id', 
-                        'label'=>'Status',
-                        'format'=>'raw', 
-                        'value'=>$model->getStatus(),
-                        'valueColOptions'=>['style'=>'width:30%'], 
-                        'displayOnly'=>true
-                    ],
-                    
-                ],
-            ],
-            [
-                'columns' => [
-                    [
-                        'attribute'=>$model->project_id ? 'unit_id' : 'project_id',
-                        'valueColOptions'=>['style'=>'width:30%'],
-                    ],
-                    [
-                        'attribute'=>'unit_id',
-                        'valueColOptions'=>['style'=>'width:30%'],
-                        'label'=>'Last Update',
-                    ],
-                ],
-            ],
-            [
-                'group'=>true,
-                'label'=>'BUDGET ALLOCATION',
-                'rowOptions'=>['class'=>'info'],
-                //'groupOptions'=>['class'=>'text-center']
-            ],
-            [
-                'attribute'=>'charged_to',
-                'label'=>'Approved Budget (Php)',
-                'value'=>$model->project_id ? $model->project->budgetallocation->getTotal() : $model->unit->budgetallocation->getTotal(),
-                'format'=>['decimal', 2],
-                'inputContainer' => ['class'=>'col-sm-6'],
-            ],
-            [
-                'attribute'=>'year',
-                'label'=>'Running Total (Php)',
-                'value'=>$model->getRunningTotal(),
-                'format'=>['decimal', 2],
-                'inputContainer' => ['class'=>'col-sm-6'],
-            ],
-            [
-                'label'=>'Remaining Budget (Php)',
-                'value'=>($model->project_id ? $model->project->budgetallocation->getTotal() : $model->unit->budgetallocation->getTotal()) - $model->getRunningTotal(),
-                //'value'=>$model->unit->budgetallocation ? ($model->unit->budgetallocation->getTotal() - $model->getRunningTotal()) : - $model->getRunningTotal(),
-                'format'=>['decimal', 2],
-                'inputContainer' => ['class'=>'col-sm-6'],
-                // hide this in edit mode by adding `kv-edit-hidden` CSS class
-                'rowOptions'=>['class'=>'warning kv-edit-hidden', 'style'=>'border-top: 5px double #dedede; texl-align: right;'],
-            ],
-        ];
-        
-        echo DetailView::widget([
-            'model' => $model,
-            'mode'=>DetailView::MODE_VIEW,
-            /*'deleteOptions'=>[ // your ajax delete parameters
-                'params' => ['id' => 1000, 'kvdelete'=>true],
-            ],*/
-            'container' => ['id'=>'kv-demo'],
-            //'formOptions' => ['action' => Url::current(['#' => 'kv-demo'])] // your action to delete
-            
-            //'buttons1' => '', //hides buttons on detail view
-            'attributes' => $attributes,
-            'condensed' => true,
-            'responsive' => true,
-            'hover' => true,
-            'panel' => [
-                //'type' => 'Primary', 
-                'heading'=>'<i class="glyphicon glyphicon-book"></i> PPMP - '.($model->project_id ? Project::findOne($model->project_id)->code : $model->unit->name).' - '.$model->year,
-                'type'=>DetailView::TYPE_PRIMARY,
-                //'footer' => '<div class="text-center text-muted">This is a sample footer message for the detail view.</div>'
-            ],
-            
-        ]);
-    ?>
-</div>
-
         <?php
             
             $gridColumns = [
@@ -235,252 +92,362 @@ Modal::end();
                     'contentOptions' => ['style' => 'text-align: right'],
                 ],
                 [
-                    'class'=>'kartik\grid\EditableColumn',
                     'attribute'=>'q1',
                     'header'=>'J',
+                    'width'=>'100px',
+                    'value'=>function ($model, $key, $index, $widget) { 
+                            return $model->q1;
+                        },
+                    'headerOptions' => ['style' => 'text-align: center; background-color: #f7ab78'],
+                    'contentOptions' => ['style' => 'text-align: center'],
+                ],
+                [
+                    'class'=>'kartik\grid\EditableColumn',
+                    'attribute'=>'q1',
+                    'header'=>'J\'',
                     'headerOptions' => ['style' => 'text-align: center; background-color: #f7ab78'],
                     'refreshGrid'=>true,
-                    'readonly' => !$isMember,
+                    //'readonly' => !$isMember,
                     'editableOptions'=> function ($model , $key , $index) {
                         return [
                             'options' => ['id' => $index . '_' . $model->ppmp_item_id . '-q1'],
                             'placement'=>'left',
-                            'disabled'=>($model->ppmp->status_id != Ppmp::STATUS_PENDING),
+                            //'disabled'=>($model->ppmp->status_id != Ppmp::STATUS_PENDING),
                             'name'=>'q1',
-                            'asPopover' => true,
+                            'asPopover' => false,
                             'value' => $model->q1.' - '.$model->ppmp->isPending(),
                             'inputType' => \kartik\editable\Editable::INPUT_TEXT,
-                            'formOptions'=>['action' => ['/procurementplan/ppmp/updateqty']], // point to the new action
+                            'formOptions'=>['action' => ['/procurementplan/ppmp/updateitemqty']], // point to the new action
                         ];
                     },
                     'hAlign'=>'right',
                     'vAlign'=>'left',
                     'width'=>'100px',
+                ],
+                [
+                    'attribute'=>'q2',
+                    'header'=>'F',
+                    'width'=>'100px',
+                    'value'=>function ($model, $key, $index, $widget) { 
+                            return $model->q2;
+                        },
+                    'headerOptions' => ['style' => 'text-align: center; background-color: #f7ab78'],
+                    'contentOptions' => ['style' => 'text-align: center'],
                 ],
                 [
                     'class'=>'kartik\grid\EditableColumn',
                     'attribute'=>'q2',
-                    'header'=>'F',
+                    'header'=>'F\'',
                     'headerOptions' => ['style' => 'text-align: center; background-color: #f7ab78'],
                     'refreshGrid'=>true,
-                    'readonly' => !$isMember,
+                    //'readonly' => !$isMember,
                     'editableOptions'=> function ($model , $key , $index) {
                         return [
                             'options' => ['id' => $index . '_' . $model->ppmp_item_id . '-q2'],
                             'placement'=>'left',
-                            'disabled'=>($model->ppmp->status_id != Ppmp::STATUS_PENDING),
+                            //'disabled'=>($model->ppmp->status_id != Ppmp::STATUS_PENDING),
                             'name'=>'q2',
-                            'asPopover' => true,
+                            'asPopover' => false,
                             'value' => $model->q2,
                             'inputType' => \kartik\editable\Editable::INPUT_TEXT,
-                            'formOptions'=>['action' => ['/procurementplan/ppmp/updateqty']], // point to the new action
+                            'formOptions'=>['action' => ['/procurementplan/ppmp/updateitemqty']], // point to the new action
                         ];
                     },
                     'hAlign'=>'right',
                     'vAlign'=>'left',
                     'width'=>'100px',
+                ],
+                [
+                    'attribute'=>'q3',
+                    'header'=>'M',
+                    'width'=>'50px',
+                    'value'=>function ($model, $key, $index, $widget) { 
+                            return $model->q3;
+                        },
+                    'headerOptions' => ['style' => 'text-align: center; background-color: #f7ab78'],
+                    'contentOptions' => ['style' => 'text-align: center'],
                 ],
                 [
                     'class'=>'kartik\grid\EditableColumn',
                     'attribute'=>'q3',
-                    'header'=>'M',
+                    'header'=>'M\'',
                     'headerOptions' => ['style' => 'text-align: center; background-color: #f7ab78'],
                     'refreshGrid'=>true,
-                    'readonly' => !$isMember,
+                    //'readonly' => !$isMember,
                     'editableOptions'=> function ($model , $key , $index) {
                         return [
                             'options' => ['id' => $index . '_' . $model->ppmp_item_id . '-q3'],
                             'placement'=>'left',
-                            'disabled'=>($model->ppmp->status_id != Ppmp::STATUS_PENDING),
+                            //'disabled'=>($model->ppmp->status_id != Ppmp::STATUS_PENDING),
                             'name'=>'q3',
-                            'asPopover' => true,
+                            'asPopover' => false,
                             'value' => $model->q3,
                             'inputType' => \kartik\editable\Editable::INPUT_TEXT,
-                            'formOptions'=>['action' => ['/procurementplan/ppmp/updateqty']], // point to the new action
+                            'formOptions'=>['action' => ['/procurementplan/ppmp/updateitemqty']], // point to the new action
                         ];
                     },
                     'hAlign'=>'right',
                     'vAlign'=>'left',
                     'width'=>'100px',
+                ],
+                [
+                    'attribute'=>'q4',
+                    'header'=>'A',
+                    'width'=>'100px',
+                    'value'=>function ($model, $key, $index, $widget) { 
+                            return $model->q4;
+                        },
+                    'headerOptions' => ['style' => 'text-align: center; background-color: #f7ab78'],
+                    'contentOptions' => ['style' => 'text-align: center'],
                 ],
                 [
                     'class'=>'kartik\grid\EditableColumn',
                     'attribute'=>'q4',
-                    'header'=>'A',
+                    'header'=>'A\'',
                     'headerOptions' => ['style' => 'text-align: center; background-color: #f7ab78'],
                     'refreshGrid'=>true,
-                    'readonly' => !$isMember,
+                    //'readonly' => !$isMember,
                     'editableOptions'=> function ($model , $key , $index) {
                         return [
                             'options' => ['id' => $index . '_' . $model->ppmp_item_id . '-q4'],
                             'placement'=>'left',
-                            'disabled'=>($model->ppmp->status_id != Ppmp::STATUS_PENDING),
+                            //'disabled'=>($model->ppmp->status_id != Ppmp::STATUS_PENDING),
                             'name'=>'q4',
-                            'asPopover' => true,
+                            'asPopover' => false,
                             'value' => $model->q4,
                             'inputType' => \kartik\editable\Editable::INPUT_TEXT,
-                            'formOptions'=>['action' => ['/procurementplan/ppmp/updateqty']], // point to the new action
+                            'formOptions'=>['action' => ['/procurementplan/ppmp/updateitemqty']], // point to the new action
                         ];
                     },
                     'hAlign'=>'right',
                     'vAlign'=>'left',
                     'width'=>'100px',
+                ],
+                [
+                    'attribute'=>'q5',
+                    'header'=>'M',
+                    'width'=>'100px',
+                    'value'=>function ($model, $key, $index, $widget) { 
+                            return $model->q5;
+                        },
+                    'headerOptions' => ['style' => 'text-align: center; background-color: #f7ab78'],
+                    'contentOptions' => ['style' => 'text-align: center'],
                 ],
                 [
                     'class'=>'kartik\grid\EditableColumn',
                     'attribute'=>'q5',
-                    'header'=>'M',
+                    'header'=>'M\'',
                     'headerOptions' => ['style' => 'text-align: center; background-color: #f7ab78'],
                     'refreshGrid'=>true,
-                    'readonly' => !$isMember,
+                    //'readonly' => !$isMember,
                     'editableOptions'=> function ($model , $key , $index) {
                         return [
                             'options' => ['id' => $index . '_' . $model->ppmp_item_id . '-q5'],
                             'placement'=>'left',
-                            'disabled'=>($model->ppmp->status_id != Ppmp::STATUS_PENDING),
+                            //'disabled'=>($model->ppmp->status_id != Ppmp::STATUS_PENDING),
                             'name'=>'q5',
-                            'asPopover' => true,
+                            'asPopover' => false,
                             'value' => $model->q5,
                             'inputType' => \kartik\editable\Editable::INPUT_TEXT,
-                            'formOptions'=>['action' => ['/procurementplan/ppmp/updateqty']], // point to the new action
+                            'formOptions'=>['action' => ['/procurementplan/ppmp/updateitemqty']], // point to the new action
                         ];
                     },
                     'hAlign'=>'right',
                     'vAlign'=>'left',
                     'width'=>'100px',
+                ],
+                [
+                    'attribute'=>'q6',
+                    'header'=>'J',
+                    'width'=>'100px',
+                    'value'=>function ($model, $key, $index, $widget) { 
+                            return $model->q6;
+                        },
+                    'headerOptions' => ['style' => 'text-align: center; background-color: #f7ab78'],
+                    'contentOptions' => ['style' => 'text-align: center'],
                 ],
                 [
                     'class'=>'kartik\grid\EditableColumn',
                     'attribute'=>'q6',
-                    'header'=>'J',
+                    'header'=>'J\'',
                     'headerOptions' => ['style' => 'text-align: center; background-color: #f7ab78'],
                     'refreshGrid'=>true,
-                    'readonly' => !$isMember,
+                    //'readonly' => !$isMember,
                     'editableOptions'=> function ($model , $key , $index) {
                         return [
                             'options' => ['id' => $index . '_' . $model->ppmp_item_id . '-q6'],
                             'placement'=>'left',
-                            'disabled'=>($model->ppmp->status_id != Ppmp::STATUS_PENDING),
+                            //'disabled'=>($model->ppmp->status_id != Ppmp::STATUS_PENDING),
                             'name'=>'q6',
-                            'asPopover' => true,
+                            'asPopover' => false,
                             'value' => $model->q6,
                             'inputType' => \kartik\editable\Editable::INPUT_TEXT,
-                            'formOptions'=>['action' => ['/procurementplan/ppmp/updateqty']], // point to the new action
+                            'formOptions'=>['action' => ['/procurementplan/ppmp/updateitemqty']], // point to the new action
                         ];
                     },
                     'hAlign'=>'right',
                     'vAlign'=>'left',
                     'width'=>'100px',
+                ],
+                [
+                    'attribute'=>'q7',
+                    'header'=>'J',
+                    'width'=>'100px',
+                    'value'=>function ($model, $key, $index, $widget) { 
+                            return $model->q7;
+                        },
+                    'headerOptions' => ['style' => 'text-align: center; background-color: #f7ab78'],
+                    'contentOptions' => ['style' => 'text-align: center'],
                 ],
                 [
                     'class'=>'kartik\grid\EditableColumn',
                     'attribute'=>'q7',
-                    'header'=>'J',
+                    'header'=>'J\'',
                     'headerOptions' => ['style' => 'text-align: center; background-color: #f7ab78'],
                     'refreshGrid'=>true,
-                    'readonly' => !$isMember,
+                    //'readonly' => !$isMember,
                     'editableOptions'=> function ($model , $key , $index) {
                         return [
                             'options' => ['id' => $index . '_' . $model->ppmp_item_id . '-q7'],
                             'placement'=>'left',
-                            'disabled'=>($model->ppmp->status_id != Ppmp::STATUS_PENDING),
+                            //'disabled'=>($model->ppmp->status_id != Ppmp::STATUS_PENDING),
                             'name'=>'q7',
-                            'asPopover' => true,
+                            'asPopover' => false,
                             'value' => $model->q7,
                             'inputType' => \kartik\editable\Editable::INPUT_TEXT,
-                            'formOptions'=>['action' => ['/procurementplan/ppmp/updateqty']], // point to the new action
+                            'formOptions'=>['action' => ['/procurementplan/ppmp/updateitemqty']], // point to the new action
                         ];
                     },
                     'hAlign'=>'right',
                     'vAlign'=>'left',
                     'width'=>'100px',
+                ],
+                [
+                    'attribute'=>'q8',
+                    'header'=>'A',
+                    'width'=>'100px',
+                    'value'=>function ($model, $key, $index, $widget) { 
+                            return $model->q8;
+                        },
+                    'headerOptions' => ['style' => 'text-align: center; background-color: #f7ab78'],
+                    'contentOptions' => ['style' => 'text-align: center'],
                 ],
                 [
                     'class'=>'kartik\grid\EditableColumn',
                     'attribute'=>'q8',
-                    'header'=>'A',
+                    'header'=>'A\'',
                     'headerOptions' => ['style' => 'text-align: center; background-color: #f7ab78'],
                     'refreshGrid'=>true,
-                    'readonly' => !$isMember,
+                    //'readonly' => !$isMember,
                     'editableOptions'=> function ($model , $key , $index) {
                         return [
                             'options' => ['id' => $index . '_' . $model->ppmp_item_id . '-q8'],
                             'placement'=>'left',
-                            'disabled'=>($model->ppmp->status_id != Ppmp::STATUS_PENDING),
+                            //'disabled'=>($model->ppmp->status_id != Ppmp::STATUS_PENDING),
                             'name'=>'q8',
-                            'asPopover' => true,
+                            'asPopover' => false,
                             'value' => $model->q8,
                             'inputType' => \kartik\editable\Editable::INPUT_TEXT,
-                            'formOptions'=>['action' => ['/procurementplan/ppmp/updateqty']], // point to the new action
+                            'formOptions'=>['action' => ['/procurementplan/ppmp/updateitemqty']], // point to the new action
                         ];
                     },
                     'hAlign'=>'right',
                     'vAlign'=>'left',
                     'width'=>'100px',
+                ],
+                [
+                    'attribute'=>'q9',
+                    'header'=>'S',
+                    'width'=>'100px',
+                    'value'=>function ($model, $key, $index, $widget) { 
+                            return $model->q9;
+                        },
+                    'headerOptions' => ['style' => 'text-align: center; background-color: #f7ab78'],
+                    'contentOptions' => ['style' => 'text-align: center'],
                 ],
                 [
                     'class'=>'kartik\grid\EditableColumn',
                     'attribute'=>'q9',
-                    'header'=>'S',
+                    'header'=>'S\'',
                     'headerOptions' => ['style' => 'text-align: center; background-color: #f7ab78'],
                     'refreshGrid'=>true,
-                    'readonly' => !$isMember,
+                    //'readonly' => !$isMember,
                     'editableOptions'=> function ($model , $key , $index) {
                         return [
                             'options' => ['id' => $index . '_' . $model->ppmp_item_id . '-q9'],
                             'placement'=>'left',
-                            'disabled'=>($model->ppmp->status_id != Ppmp::STATUS_PENDING),
+                            //'disabled'=>($model->ppmp->status_id != Ppmp::STATUS_PENDING),
                             'name'=>'q9',
-                            'asPopover' => true,
+                            'asPopover' => false,
                             'value' => $model->q9,
                             'inputType' => \kartik\editable\Editable::INPUT_TEXT,
-                            'formOptions'=>['action' => ['/procurementplan/ppmp/updateqty']], // point to the new action
+                            'formOptions'=>['action' => ['/procurementplan/ppmp/updateitemqty']], // point to the new action
                         ];
                     },
                     'hAlign'=>'right',
                     'vAlign'=>'left',
                     'width'=>'100px',
+                ],
+                [
+                    'attribute'=>'q10',
+                    'header'=>'O',
+                    'width'=>'100px',
+                    'value'=>function ($model, $key, $index, $widget) { 
+                            return $model->q10;
+                        },
+                    'headerOptions' => ['style' => 'text-align: center; background-color: #f7ab78'],
+                    'contentOptions' => ['style' => 'text-align: center'],
                 ],
                 [
                     'class'=>'kartik\grid\EditableColumn',
                     'attribute'=>'q10',
-                    'header'=>'O',
+                    'header'=>'O\'',
                     'headerOptions' => ['style' => 'text-align: center; background-color: #f7ab78'],
                     'refreshGrid'=>true,
-                    'readonly' => !$isMember,
+                    //'readonly' => !$isMember,
                     'editableOptions'=> function ($model , $key , $index) {
                         return [
                             'options' => ['id' => $index . '_' . $model->ppmp_item_id . '-q10'],
                             'placement'=>'left',
-                            'disabled'=>($model->ppmp->status_id != Ppmp::STATUS_PENDING),
+                            //'disabled'=>($model->ppmp->status_id != Ppmp::STATUS_PENDING),
                             'name'=>'q10',
-                            'asPopover' => true,
+                            'asPopover' => false,
                             'value' => $model->q10,
                             'inputType' => \kartik\editable\Editable::INPUT_TEXT,
-                            'formOptions'=>['action' => ['/procurementplan/ppmp/updateqty']], // point to the new action
+                            'formOptions'=>['action' => ['/procurementplan/ppmp/updateitemqty']], // point to the new action
                         ];
                     },
                     'hAlign'=>'right',
                     'vAlign'=>'left',
                     'width'=>'100px',
+                ],
+                [
+                    'attribute'=>'q11',
+                    'header'=>'N',
+                    'width'=>'100px',
+                    'value'=>function ($model, $key, $index, $widget) { 
+                            return $model->q11;
+                        },
+                    'headerOptions' => ['style' => 'text-align: center; background-color: #f7ab78'],
+                    'contentOptions' => ['style' => 'text-align: center'],
                 ],
                 [
                     'class'=>'kartik\grid\EditableColumn',
                     'attribute'=>'q11',
-                    'header'=>'N',
+                    'header'=>'N\'',
                     'headerOptions' => ['style' => 'text-align: center; background-color: #f7ab78'],
                     'refreshGrid'=>true,
-                    'readonly' => !$isMember,
+                    //'readonly' => !$isMember,
                     'editableOptions'=> function ($model , $key , $index) {
                         return [
                             'options' => ['id' => $index . '_' . $model->ppmp_item_id . '-q11'],
                             'placement'=>'left',
-                            'disabled'=>($model->ppmp->status_id != Ppmp::STATUS_PENDING),
+                            //'disabled'=>($model->ppmp->status_id != Ppmp::STATUS_PENDING),
                             'name'=>'q11',
-                            'asPopover' => true,
+                            'asPopover' => false,
                             'value' => $model->q11,
                             'inputType' => \kartik\editable\Editable::INPUT_TEXT,
-                            'formOptions'=>['action' => ['/procurementplan/ppmp/updateqty']], // point to the new action
+                            'formOptions'=>['action' => ['/procurementplan/ppmp/updateitemqty']], // point to the new action
                         ];
                     },
                     'hAlign'=>'right',
@@ -488,22 +455,32 @@ Modal::end();
                     'width'=>'100px',
                 ],
                 [
-                    'class'=>'kartik\grid\EditableColumn',
                     'attribute'=>'q12',
                     'header'=>'D',
+                    'width'=>'100px',
+                    'value'=>function ($model, $key, $index, $widget) { 
+                            return $model->q12;
+                        },
+                    'headerOptions' => ['style' => 'text-align: center; background-color: #f7ab78'],
+                    'contentOptions' => ['style' => 'text-align: center'],
+                ],
+                [
+                    'class'=>'kartik\grid\EditableColumn',
+                    'attribute'=>'q12',
+                    'header'=>'D\'',
                     'headerOptions' => ['style' => 'text-align: center; background-color: #f7ab78'],
                     'refreshGrid'=>true,
-                    'readonly' => !$isMember,
+                    //'readonly' => !$isMember,
                     'editableOptions'=> function ($model , $key , $index) {
                         return [
                             'options' => ['id' => $index . '_' . $model->ppmp_item_id . '-q12'],
                             'placement'=>'left',
-                            'disabled'=>($model->ppmp->status_id != Ppmp::STATUS_PENDING) OR !$model->ppmp->isMember(),
+                            //'disabled'=>($model->ppmp->status_id != Ppmp::STATUS_PENDING) OR !$model->ppmp->isMember(),
                             'name'=>'q12',
-                            'asPopover' => true,
+                            'asPopover' => false,
                             'value' => $model->q12,
                             'inputType' => \kartik\editable\Editable::INPUT_TEXT,
-                            'formOptions'=>['action' => ['/procurementplan/ppmp/updateqty']], // point to the new action
+                            'formOptions'=>['action' => ['/procurementplan/ppmp/updateitemqty']], // point to the new action
                         ];
                     },
                     'hAlign'=>'right',
@@ -536,7 +513,7 @@ Modal::end();
             ];
             
             echo GridView::widget([
-                'id' => 'ppmp-items',
+                'id' => 'ppmp-items-adjustment',
                 'dataProvider' => $ppmpItemsDataProvider,
                 //'filterModel' => $searchModel,
                 'columns' => $gridColumns, // check the configuration for grid columns by clicking button above
@@ -552,16 +529,7 @@ Modal::end();
                     'after'=>false,*/
                 ],
                 // set right toolbar buttons
-                'toolbar' => 
-                                [
-                                    [
-                                        'content'=>
-                                            /*Html::button('Submit PPMP', ['value' => Url::to(['ppmp/submit', 'id'=>$model->ppmp_id]), 'title' => 'Submit PPMP', 'class' => 'btn btn-info', 'style'=>'margin-right: 6px; display: "";', 'id'=>'buttonSubmitPpmp']).*/
-                                            Html::button('Update Quantity  <i class="glyphicon glyphicon-list"></i>', ['disabled' => $disableAddItem OR !$isMember, 'value' => Url::to(['ppmpitem/updateitems', 'id'=>$model->ppmp_id, 'year'=>$model->year]), 'title' => 'PPMP Item Adjustment', 'class' => 'btn btn-success', 'style'=>'margin-right: 6px; display: "";', 'id'=>'buttonAddPpmpItem']) .
-                                        
-                                            Html::button('Add Item  <i class="glyphicon glyphicon-list"></i>', ['disabled' => $disableAddItem OR !$isMember, 'value' => Url::to(['ppmpitem/additems', 'id'=>$model->ppmp_id, 'year'=>$model->year]), 'title' => 'PPMP Item', 'class' => 'btn btn-success', 'style'=>'margin-right: 6px; display: "";', 'id'=>'buttonAddPpmpItem'])
-                                    ],
-                                ],
+                'toolbar' => '',
                 // set export properties
                 'export' => [
                     'fontAwesome' => true

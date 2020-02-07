@@ -69,14 +69,6 @@ class PpmpController extends Controller
         $sections = Section::find()->orderBy('division_id, section_id');
         $dataProvider = Ppmp::find();
         
-        /*$dataProvider = new ActiveDataProvider([
-            'query' => $dataProvider,
-            'pagination' => [
-                'pageSize' => 20,
-            ],
-        ]);*/
-    
-        
         $ppmpDataProvider = new ActiveDataProvider([
             'query' => $sections,
             'pagination' => [
@@ -91,20 +83,6 @@ class PpmpController extends Controller
             ],
         ]);
 
-        /*$queryPpmpItems = Ppmpitem::find();
-        $ppmpItemsDataProvider = new ActiveDataProvider([
-            'query' => $queryPpmpItems,
-            'pagination' => [
-                'pageSize' => 10,
-            ],
-            'sort' => [
-                'defaultOrder' => [
-                    //'created_at' => SORT_DESC,
-                    //'title' => SORT_ASC, 
-                ]
-            ],
-        ]);*/
-        
         $units = Unit::find()->orderBy('name')->asArray()->all();
         $listUnits = ArrayHelper::map($units, 'unit_id', 'name');
         
