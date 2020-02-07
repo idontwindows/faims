@@ -99,7 +99,7 @@ Modal::end();
                     //'collapseIcon' => '-',
                     //'enableRowClick' => true,
                 ],
-                [
+                /*[
                     'attribute'=>'category_id',
                     //'header'=>'Category',
                     //'width'=>'100px',
@@ -114,13 +114,13 @@ Modal::end();
                     'groupedRow'=>true,                    // move grouped column to a single grouped row
                     'groupOddCssClass'=>'kv-grouped-row',  // configure odd group cell css class
                         'groupEvenCssClass'=>'kv-grouped-row', // configure even group cell css class
-                ],
+                ],*/
                 /*[
                     'attribute'=>'expenditure_subclass_id',
                     //'header'=>'Category',
                     //'width'=>'100px',
                     'value'=>function ($model, $key, $index, $widget) { 
-                            return $model->expenditureSubclass->name;
+                            return $model->expenditureSubclass->expenditureClass->name;
                         },
                     //'headerOptions' => ['style' => 'text-align: left;'],
                     'contentOptions' => ['style' => 'text-align: left; font-weight:bold; padding-left: 35px;'],
@@ -154,7 +154,10 @@ Modal::end();
                     'header'=>'Category',
                     'width'=>'100px',
                     'value'=>function ($model, $key, $index, $widget) { 
-                            return $model->expenditureobject->expenditureSubClass->name;
+                            if(isset($model->expenditureobject->expenditureSubClass->name))
+                                return $model->expenditureobject->expenditureSubClass->name;
+                            else    
+                                return $model->expenditureSubclass->expenditureClass->name;
                         },
                     'headerOptions' => ['style' => 'text-align: left'],
                     'contentOptions' => ['style' => 'text-align: left'],

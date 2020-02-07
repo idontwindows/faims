@@ -6,6 +6,8 @@ use common\models\budget\Budgetallocation;
 use common\models\budget\Budgetallocationitemdetails;
 use common\models\procurement\Expenditure;
 use common\models\procurement\Expenditureobject;
+use common\models\procurement\Expenditureclass;
+use common\models\procurement\Expendituresubclass;
 use Yii;
 
 /**
@@ -73,6 +75,16 @@ class Budgetallocationitem extends \yii\db\ActiveRecord
     public function getExpenditureobject()
     {
         return $this->hasOne(Expenditureobject::className(), ['expenditure_object_id' => 'category_id']);
+    }
+    
+    public function getExpenditureClass()
+    {
+        return $this->hasOne(Expenditureclass::className(), ['expenditure_class_id' => 'expenditure_class_id']);
+    }
+    
+    public function getExpenditureSubclass()
+    {
+        return $this->hasOne(Expendituresubclass::className(), ['expenditure_sub_class_id' => 'expenditure_subclass_id']);
     }
     
     public function getExpenditure()
