@@ -65,6 +65,16 @@ if(Yii::$app->user->isGuest){
                         ]
                     ],
                     [
+                        'label' => 'Cashier', 
+                        'icon' => 'archive', 
+                        //'url' => ['/settings'],
+                        'visible'=> Yii::$app->user->can('access-budget'),
+                        'items' => [
+                            ['label' => 'LDDAP-ADA', 'icon' => 'money', 'url' => ['/cashier/lddapada/index']],
+                            ['label' => 'Creditors', 'icon' => 'clipboard', 'url' => ['/cashier/creditor/index']],
+                        ]
+                    ],
+                    [
                         'label' => 'Budget', 
                         'icon' => 'archive', 
                         //'url' => ['/settings'],
@@ -73,7 +83,7 @@ if(Yii::$app->user->isGuest){
                             ['label' => 'Budget Estimate per NEP', 'icon' => 'money', 'url' => ['/budget/expenditure/index']],
                             ['label' => 'Budget Allocation', 'icon' => 'money', 'url' => ['/budget/budgetallocation/index']],
                             ['label' => 'PPMP', 'icon' => 'clipboard', 'url' => ['/budget/ppmp/index']],
-                            ['label' => 'Obligation', 'icon' => 'clipboard', 'url' => ['/budget/saob/index']],
+                            ['label' => 'Obligation', 'icon' => 'clipboard', 'url' => ['/budget/obligation/index']],
                         ]
                     ],
                     [
@@ -97,6 +107,19 @@ if(Yii::$app->user->isGuest){
                         'items' => [
                             ['label' => 'Obligation Request', 'icon' => 'object-ungroup', 'url' => ['/procurement/obligationrequest/index']],
                             ['label' => 'Disbursement and Payment', 'icon' => 'ruble ', 'url' => ['/procurement/disbursement']],
+                        ]
+                    ],
+                    [
+                        'label' => 'Finance', 
+                        'icon' => 'line-chart', 
+                        'visible'=> Yii::$app->user->can('access-finance'),
+                        'items' => [
+                            ['label' => 'Verify Requests', 'icon' => 'object-ungroup', 'url' => ['/finance/request/verifyindex'], 'visible'=> Yii::$app->user->can('access-finance-verification') //|| (Yii::$app->user->identity->username == 'Admin')
+                            ],
+                            ['label' => 'Requests', 'icon' => 'object-ungroup', 'url' => ['/finance/request/index']],
+                            ['label' => 'Request Types', 'icon' => 'object-ungroup', 'url' => ['/finance/requesttype/index'], 'visible'=> Yii::$app->user->can('access-finance-verification')//  || (Yii::$app->user->identity->username == 'Admin')
+                            ],
+                            //['label' => 'Request', 'icon' => 'object-ungroup', 'url' => ['/finance/request/index']],
                         ]
                     ],
                     /*[

@@ -1,0 +1,90 @@
+<?php
+
+namespace common\models\cashier;
+
+use Yii;
+
+/**
+ * This is the model class for table "tbl_lddapada".
+ *
+ * @property integer $lddapada_id
+ * @property string $batch_number
+ * @property string $batch_date
+ * @property integer $certified_correct_id
+ * @property integer $approved_id
+ * @property integer $validated1_id
+ * @property integer $validated2_id
+ * @property string $created_by
+ *
+ * @property LddapadaItem[] $lddapadaItems
+ */
+class Lddapada extends \yii\db\ActiveRecord
+{
+    /**
+     * @inheritdoc
+     */
+    public static function tableName()
+    {
+        return 'tbl_lddapada';
+    }
+
+    /**
+     * @return \yii\db\Connection the database connection used by this AR class.
+     */
+    public static function getDb()
+    {
+        return Yii::$app->get('procurementdb');
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function rules()
+    {
+        return [
+            [['batch_number', 'batch_date', 'certified_correct_id', 'approved_id', 'validated1_id', 'validated2_id'], 'required'],
+            [['batch_date'], 'safe'],
+            [['certified_correct_id', 'approved_id', 'validated1_id', 'validated2_id'], 'integer'],
+            [['batch_number', 'created_by'], 'string', 'max' => 20],
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        return [
+            'lddapada_id' => 'Lddapada ID',
+            'batch_number' => 'LDDAP-ADA No.',
+            'batch_date' => 'Date',
+            'certified_correct_id' => 'Certified Correct ID',
+            'approved_id' => 'Approved ID',
+            'validated1_id' => 'Validated1 ID',
+            'validated2_id' => 'Validated2 ID',
+            'created_by' => 'Created By',
+        ];
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getLddapadaItems()
+    {
+        return $this->hasMany(LddapadaItem::className(), ['lddapada_id' => 'lddapada_id'])->andOnCondition(['active' => 1]);
+    }
+    
+    static function generateBatchNumber()
+    {
+        $year = date("y", strtotime("now"));
+        $month = date("m", strtotime("now"));
+        
+        $start_date = date("Y-m-d", strtotime($year.'-'.$month.'-1'));
+        $end_date = date("Y-m-t", strtotime($start_date));
+
+        $count = Lddapada::find()->where(['between', 'batch_date', $start_date, $end_date])->count();
+        $count += 1;
+    
+        return $year.'-'.$month.'-'.str_pad($count, 3, '0', STR_PAD_LEFT);
+    }
+}
