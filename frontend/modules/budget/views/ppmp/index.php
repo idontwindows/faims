@@ -19,7 +19,7 @@ use common\models\procurementplan\PpmpSearch;
 /* @var $searchModel common\models\procurementplan\PpmpSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Ppmps';
+$this->title = 'PPMP';
 $this->params['breadcrumbs'][] = $this->title;
 
 // Modal PPMP

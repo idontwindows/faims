@@ -104,8 +104,8 @@ Modal::end();
                     //'header'=>'Category',
                     //'width'=>'100px',
                     'value'=>function ($model, $key, $index, $widget) { 
-                            //return $model->name;
-                            return $model->expenditureobject->expenditureSubClass->expenditureClass->name;
+                            return $model->name;
+                            //return $model->expenditureobject->expenditureSubClass->expenditureClass->name;
                         },
                     //'headerOptions' => ['style' => 'text-decoration: underline;'],
                     'contentOptions' => ['style' => 'font-variant:small-caps; text-align: left; font-weight: bold; text-decoration: underline; font-size: large;', ],
@@ -167,7 +167,7 @@ Modal::end();
                         return [
                             'mergeColumns' => [[1,2]], // columns to merge in summary
                             'content' => [             // content to show in each summary cell
-                                3 => 'TOTAL : '.$model->expenditureobject->expenditureSubClass->name,
+                                //3 => 'TOTAL : '.$model->expenditureobject->expenditureSubClass->name,
                                 4 => GridView::F_SUM,
                             ],
                             'contentFormats' => [      // content reformatting for each summary cell
