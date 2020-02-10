@@ -56,7 +56,7 @@ Modal::end();
         <?php
         echo GridView::widget([
             'id' => 'ppmp3',
-            'dataProvider' => $ppmpDataProvider,
+            'dataProvider' => $sectionsDataProvider,
             'columns' => [
                             [
                                 'attribute'=>'division', 

@@ -81,27 +81,27 @@ class BudgetallocationController extends Controller
         $searchModel = new BudgetallocationSearch();
         //$dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         
-        $divisions = Division::find()->orderBy('name')->asArray()->all();
-        $listDivisions = ArrayHelper::map($divisions, 'division_id', 'name');
+        //$divisions = Division::find()->orderBy('name')->asArray()->all();
+        //$listDivisions = ArrayHelper::map($divisions, 'division_id', 'name');
         
-        $sections = Section::find()->orderBy('division_id, section_id');
-        $dataProvider = Ppmp::find();
+        $sections = Section::find()->where(['>', 'section_id', 0])->orderBy('division_id, section_id');
+        /*$dataProvider = Ppmp::find();
         
         $dataProvider = new ActiveDataProvider([
             'query' => $dataProvider,
             'pagination' => [
                 'pageSize' => 20,
             ],
-        ]);
+        ]);*/
     
         
-        $ppmpDataProvider = new ActiveDataProvider([
+        $sectionsDataProvider = new ActiveDataProvider([
             'query' => $sections,
             'pagination' => [
                 'pageSize' => 20,
             ],
         ]);
-
+        /*
         $queryPpmpItems = Ppmpitem::find();
         $ppmpItemsDataProvider = new ActiveDataProvider([
             'query' => $queryPpmpItems,
@@ -114,19 +114,17 @@ class BudgetallocationController extends Controller
                     //'title' => SORT_ASC, 
                 ]
             ],
-        ]);
+        ]);*/
         
-        $units = Unit::find()->orderBy('name')->asArray()->all();
-        $listUnits = ArrayHelper::map($units, 'unit_id', 'name');
+        //$units = Unit::find()->orderBy('name')->asArray()->all();
+        //$listUnits = ArrayHelper::map($units, 'unit_id', 'name');
         
         return $this->render('index', [
             'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-            'ppmpDataProvider' => $ppmpDataProvider,
-            'ppmpItemsDataProvider' => $ppmpItemsDataProvider,
-            'listDivisions' => $listDivisions,
+            'sectionsDataProvider' => $sectionsDataProvider,
+            //'listDivisions' => $listDivisions,
             
-            'listUnits' => $listUnits,
+            //'listUnits' => $listUnits,
             'selected_year' => $selected_year,
         ]);
     }
