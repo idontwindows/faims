@@ -74,21 +74,24 @@ Modal::end();
                                 'attribute'=>'name',
                                 'contentOptions' => ['style' => 'padding-left: 25px'],
                                 'width'=>'250px',
+                                'format'=>'raw',
                                 'value'=>function ($model, $key, $index, $widget) { 
-                                    return $model->name;
+                                    //return $model->name;
+                                    return Html::a($model->name, ['budgetallocation/view?id='.$model->budgetallocation->budget_allocation_id], ['data-pjax' => 0, 'target'=>'_blank']);
                                 },
                             ],
                             [
                                 'attribute'=>'name',
                                 'header'=>'2020',
                                 'headerOptions' => ['style' => 'text-align: center; font-weight: bold;'],
-                                'contentOptions' => ['style' => 'padding-right: 75px; text-align: right; font-weight: bold;'],
+                                'contentOptions' => ['style' => 'padding-right: 100px; text-align: right; font-weight: bold;'],
                                 'width'=>'200px',
                                 'format'=>'raw',
                                 'value'=>function ($model, $key, $index, $widget) { 
                                     $budget = $model->budgetallocation ? $model->budgetallocation->getTotal() : '';
                                     $fmt = Yii::$app->formatter;
-                                    return Html::a($fmt->asDecimal($budget), ['budgetallocation/view?id='.$model->budgetallocation->budget_allocation_id], ['target'=>'_blank']);
+                                    return $fmt->asDecimal($budget);
+                                    //return Html::a($fmt->asDecimal($budget), ['budgetallocation/view?id='.$model->budgetallocation->budget_allocation_id], ['data-pjax' => 0, 'target'=>'_blank']);
                                 },
                             ],
                             /*
