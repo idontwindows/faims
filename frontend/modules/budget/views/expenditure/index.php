@@ -48,27 +48,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     'headerOptions' => ['class' => 'kartik-sheet-style'],
                     //'mergeHeader' => true,
                 ],
-                /*[
-                    'class' => 'kartik\grid\ExpandRowColumn',
-                    //'width' => '5px',
-                    'value' => function ($model, $key, $index, $column) {
-                        return GridView::ROW_COLLAPSED;
-                    },
-                    'detail' => function ($model, $key, $index, $column) {
-
-
-                        $query = Budgetallocationitem::find()->where(['category_id' => $model->expenditure_object_id  ]);
-
-                        $dataProvider = new ActiveDataProvider([
-                            'query' => $query,
-                            'pagination' => false,
-                        ]);
-
-                        return Yii::$app->controller->renderPartial('_budgetallocation', ['dataProvider'=>$dataProvider]);
-                    },
-                    //'headerOptions' => ['class' => 'kartik-sheet-style'],
-                    //'expandOneOnly' => true
-                ],*/
                 [
                     'attribute'=>'expenditure_class_id',
                     //'header'=>'Category',

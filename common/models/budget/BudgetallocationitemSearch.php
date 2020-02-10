@@ -48,6 +48,16 @@ class BudgetallocationitemSearch extends Budgetallocationitem
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            /*'pagination' => false,
+            'sort' => [
+                'defaultOrder' => [
+                    //'expenditure_object_id' => SORT_ASC, 
+                    'expenditure_class_id' => SORT_ASC, 
+                    'expenditure_subclass_id' => SORT_ASC, 
+                    'name' => SORT_ASC, 
+                    
+                ]
+            ],*/
         ]);
 
         $this->load($params);

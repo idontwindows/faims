@@ -99,6 +99,77 @@ Modal::end();
                     //'collapseIcon' => '-',
                     //'enableRowClick' => true,
                 ],
+                // ############################################################################## //
+                [
+                    'attribute'=>'expenditure_class_id',
+                    //'header'=>'Category',
+                    //'width'=>'100px',
+                    'value'=>function ($model, $key, $index, $widget) { 
+                            return $model->expenditureClass->name;
+                        },
+                    //'headerOptions' => ['style' => 'text-decoration: underline;'],
+                    'contentOptions' => ['style' => 'font-variant:small-caps; text-align: left; font-weight: bold; text-decoration: underline; font-size: large;', ],
+                
+                    'group'=>true,  // enable grouping,
+                    'groupedRow'=>true,                    // move grouped column to a single grouped row
+                    //'groupOddCssClass'=>'kv-grouped-row',  // configure odd group cell css class
+                    //'groupEvenCssClass'=>'kv-grouped-row', // configure even group cell css class
+                ],
+                [
+                    'attribute'=>'expenditure_subclass_id',
+                    //'header'=>'Category',
+                    //'width'=>'100px',
+                    'value'=>function ($model, $key, $index, $widget) { 
+                            return $model->expenditureSubclass->name;
+                        },
+                    //'headerOptions' => ['style' => 'text-align: left;'],
+                    //'contentOptions' => ['style' => 'text-align: left; font-weight:bold; padding-left: 35px;'],
+                
+                    'group'=>true,  // enable grouping,
+                    'groupedRow'=>true,                    // move grouped column to a single grouped row
+                    //'groupOddCssClass'=>'kv-grouped-row',  // configure odd group cell css class
+                    //'groupEvenCssClass'=>'kv-grouped-row', // configure even group cell css class
+                    'groupFooter' => function ($model, $key, $index, $widget) { // Closure method
+                        return [
+                            'mergeColumns' => [
+                                [0,1],
+                            ], // columns to merge in summary
+                            'content' => [             // content to show in each summary cell
+                                3 => 'TOTAL : '.$model->expenditureSubclass->name,
+                                4 => GridView::F_SUM,
+                            ],
+                            'contentFormats' => [      // content reformatting for each summary cell
+                                4 => ['format' => 'number', 'decimals' => 2],
+                                //3 => ['format' => 'number', 'decimals' => 2],
+                            ],
+                            'contentOptions' => [      // content html attributes for each summary cell
+                                3 => ['style' => 'font-variant:small-caps'],
+                                4 => ['style' => 'text-align:right'],
+                            ],
+                            // html attributes for group summary row
+                            'options' => ['class' => 'info table-info', 'style' => 'font-weight:bold; text-align: right;']
+                        ];
+                    }
+                ],
+                [
+                    'attribute'=>'name', 
+                    'header'=>'Object of Expenditures',
+                    'width'=>'680px',
+                    'value'=>function ($model, $key, $index, $widget) { 
+                            return $model->name;
+                        },
+                    'headerOptions' => ['style' => 'text-align: center'],
+                    'contentOptions' => ['style' => 'text-align: left'],
+                    //'mergeHeader' => true,
+                ],
+                // ############################################################################## //
+    
+    
+    
+    
+    
+    
+    
                 /*[
                     'attribute'=>'category_id',
                     //'header'=>'Category',
@@ -149,6 +220,9 @@ Modal::end();
                         ];
                     }
                 ],*/
+    
+                // ********************************************************************** //
+                /*
                 [
                     'attribute'=>'expenditure_class_id',
                     'header'=>'Category',
@@ -192,32 +266,22 @@ Modal::end();
                     'width'=>'650px',
                     'value'=>function ($model, $key, $index, $widget) { 
                             return $model->name;
-                            /*switch ($model->expenditureobject->expenditure_object_id) {
-                                case 87:
-                                    return $model->name. ' (+) ';
-                                    break;
-                                case 88:
-                                    return $model->name. ' (+) ';
-                                    break;
-                                default:
-                                    return $model->name;
-                            }*/
+//                            switch ($model->expenditureobject->expenditure_object_id) {
+//                                case 87:
+//                                    return $model->name. ' (+) ';
+//                                    break;
+//                                case 88:
+//                                    return $model->name. ' (+) ';
+//                                    break;
+//                                default:
+//                                    return $model->name;
+//                            }
                         },
                     'headerOptions' => ['style' => 'text-align: center'],
                     'contentOptions' => ['style' => 'text-align: left'],
                         'mergeHeader' => true,
-                ],
-                /*[
-                    'attribute'=>'amount',
-                    'header'=>'Amount',
-                    'width'=>'100px',
-                    'value'=>function ($model, $key, $index, $widget) { 
-                            $fmt = Yii::$app->formatter;
-                            return $fmt->asDecimal($model->amount);
-                        },
-                    'headerOptions' => ['style' => 'text-align: center'],
-                    'contentOptions' => ['style' => 'text-align: right'],
                 ],*/
+                // ********************************************************************** //
                 [
                     'class'=>'kartik\grid\EditableColumn',
                     'attribute'=>'amount',
@@ -233,7 +297,7 @@ Modal::end();
                         return [
                             'options' => ['id' => $index . '_' . $model->budget_allocation_item_id],
                             'placement'=>'left',
-                            'disabled'=>$model->itemdetails ? true : !Yii::$app->user->can('access-budget-management'),
+                            //'disabled'=>$model->itemdetails ? true : !Yii::$app->user->can('access-budget-management'),
                             //'disabled'=>true,
                             'name'=>'amount',
                             'asPopover' => true,

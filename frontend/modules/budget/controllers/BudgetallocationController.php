@@ -144,16 +144,17 @@ class BudgetallocationController extends Controller
                                         //->where(['budget_allocation_id' => $id])
                                         //->groupBy('expenditure_class_id');
         
-        $queryBudgetAllocationItems = $model->getItems();
+        //$queryBudgetAllocationItems = $model->getItems();
             //->groupBy('expenditure_class_id');
         $budgetAllocationItemsDataProvider = new ActiveDataProvider([
-            'query' => $queryBudgetAllocationItems,
+            'query' => $model->getItems(),
             //'query' => $model->getItems(),
             'pagination' => false,
             'sort' => [
                 'defaultOrder' => [
                     'expenditure_subclass_id' => SORT_ASC,
                     'budget_allocation_item_id' => SORT_ASC,
+                    'name' => SORT_ASC,
                 ]
             ],
         ]);
