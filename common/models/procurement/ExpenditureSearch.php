@@ -54,6 +54,7 @@ class ExpenditureSearch extends Expenditure
                     //'expenditure_object_id' => SORT_ASC, 
                     'expenditure_class_id' => SORT_ASC, 
                     'expenditure_subclass_id' => SORT_ASC, 
+                    'name' => SORT_ASC, 
                     
                 ]
             ],

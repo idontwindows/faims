@@ -253,7 +253,7 @@ Modal::end();
                     'width'=>'100px',
                     'value'=>function ($model, $key, $index, $widget){ 
                                 $fmt = Yii::$app->formatter;
-                                return $fmt->asPercent($model->amount / $model->expenditure->amount);
+                                return $fmt->asPercent( isset($model->expenditure->amount) ? ($model->amount / $model->expenditure->amount) : '' );
                             },
                     'headerOptions' => ['style' => 'text-align: center'],
                     'contentOptions' => ['style' => 'text-align: center'],
