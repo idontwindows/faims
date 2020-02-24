@@ -10,6 +10,7 @@ app.filter('startFrom', function() {
 });
 app.controller(MainController, function ($scope, $http, $timeout) {
     $http({
+        origin: "*",
         method: 'GET',
         url:  frontendURI + 'ajax/' + HeaderController,
     }).then(function (success){
@@ -35,6 +36,8 @@ app.controller(MainController, function ($scope, $http, $timeout) {
         $scope.reverse = !$scope.reverse;
     };
 });
+
+
 
 
 
