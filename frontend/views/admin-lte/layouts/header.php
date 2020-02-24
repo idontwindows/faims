@@ -7,6 +7,8 @@ use common\models\system\Message;
 use yii\helpers\ArrayHelper;
 /* @var $this \yii\web\View */
 /* @var $content string */
+//header("Access-Control-Allow-Origin: *");
+//setcookie('cross-site-cookie', 'name', ['samesite' => 'None', 'secure' => true]);
 $Request_URI=$_SERVER['REQUEST_URI'];
 //$_SERVER['SERVER_NAME']
 if($Request_URI=='/'){//alias ex: http://admin.eulims.local
