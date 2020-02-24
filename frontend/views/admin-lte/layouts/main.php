@@ -20,7 +20,10 @@ if (Yii::$app->controller->action->id === 'login') {
 
     $directoryAsset = Yii::$app->assetManager->getPublishedUrl('@vendor/almasaeed2010/adminlte/dist');
     ?>
-    <?php $this->beginPage() ?>
+    <?php $this->beginPage();
+    header('Set-Cookie: cross-site-cookie=name; SameSite=None; Secure');
+    header("Access-Control-Allow-Origin: *");
+    ?>
     <!DOCTYPE html>
     <html lang="<?= Yii::$app->language ?>" ng-app="<?= str_replace(" ", "",strtolower(Html::encode($this->title))) ?>">
     <head>
