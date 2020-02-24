@@ -35,6 +35,14 @@ if (Yii::$app->controller->action->id === 'login') {
             ?>";
             var HeaderController = "<?= str_replace(" ", "",strtolower(Html::encode($this->title))); ?>";
             var MainController = "<?= str_replace(" ", "",strtolower(Html::encode($this->title))).'ctrl'; ?>";
+            
+            $(function () { 
+                $("[data-toggle='tooltip']").tooltip(); 
+            });;
+            /* To initialize BS3 popovers set this below */
+            $(function () { 
+                $("[data-toggle='popover']").popover(); 
+            });
         </script>
     </head>
     <body class="hold-transition skin-green" oncontextmenu="return true;">
