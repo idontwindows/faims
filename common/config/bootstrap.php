@@ -10,9 +10,6 @@ Yii::setAlias('@data', dirname(dirname(__DIR__)) . '\uploads');
 $whitelist = array(
     '127.0.0.1',
     '::1',
-    //'::8082',
-    'localhost',
-    '192.168.0.102',
 );
 if (isset($_SERVER['SERVER_NAME'])) {
     if (!in_array($_SERVER['SERVER_NAME'], $whitelist)) {
@@ -20,7 +17,7 @@ if (isset($_SERVER['SERVER_NAME'])) {
         $BaseURI = $Backend_URI.'/';
         $Backend_URI = $Backend_URI . "/uploads/user/photo/";
         #$FrontendBaseURI = 'http://' . $_SERVER['SERVER_NAME'] . ':8082/';
-        $FrontendBaseURI = 'http://' . $_SERVER['SERVER_NAME'] . '/';
+        $FrontendBaseURI = 'http://' . $_SERVER['SERVER_NAME'] . ':8080/';
     } else {
         $Backend_URI = 'http://localhost:8080/faims/backend/web/uploads/user/photo/';
         $BaseURI = "http://localhost:8080/faims/backend/web/";

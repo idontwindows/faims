@@ -13,49 +13,92 @@ use yii\filters\VerbFilter;
 
 class AjaxController extends \yii\web\Controller
 {
+    /*public function actionPurchaserequest()
+    {
+        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        $con = Yii::$app->procurementdb;
+        if (Yii::$app->user->can('basic-role')) {
+           $id = yii::$app->user->getId();
+            $sql = "SELECT tbl_purchase_request.`purchase_request_id`,
+	    tbl_purchase_request.`purchase_request_sai_number`,
+	    tbl_purchase_request.`purchase_request_number`,
+	    tbl_division.`name` AS division_name,
+	    tbl_section.`name` AS section_name,
+	    tbl_purchase_request.`purchase_request_purpose`,
+	    fnGetAssignatoryName(purchase_request_requestedby_id) AS requested_by,
+	    fnGetPurchaseNo`(tbl_purchase_request`.`purchase_request_id`) AS PONum
+	
+	    
+	    FROM tbl_purchase_request
+	    INNER JOIN fais.`tbl_division`
+	    ON tbl_division.`division_id` = tbl_purchase_request.`division_id`
+	    INNER JOIN fais.`tbl_section`
+	    ON tbl_section.`section_id` = tbl_purchase_request.`section_id`
+	    WHERE tbl_purchase_request.`user_id` = ".$id." OR purchase_request_requestedby_id = ".$id."
+	    ORDER BY purchase_request_number DESC";
+        }else{
+            $sql = "SELECT tbl_purchase_request.`purchase_request_id`,
+	    tbl_purchase_request.`purchase_request_sai_number`,
+	    tbl_purchase_request.`purchase_request_number`,
+	    tbl_division.`name` AS division_name,
+	    tbl_section.`name` AS section_name,
+	    tbl_purchase_request.`purchase_request_purpose`,
+	    fnGetAssignatoryName(purchase_request_requestedby_id) AS requested_by,
+	    fnGetPurchaseNo`(tbl_purchase_request`.`purchase_request_id`) AS PONum
+	    FROM tbl_purchase_request
+	    INNER JOIN fais.`tbl_division`
+	    ON tbl_division.`division_id` = tbl_purchase_request.`division_id`
+	    INNER JOIN fais.`tbl_section`
+	    ON tbl_section.`section_id` = tbl_purchase_request.`section_id`
+	    ORDER BY purchase_request_number DESC";
+        }
+        $porequest = $con->createCommand($sql)->queryAll();
+        return $porequest;
+    }*/
+    
     public function actionPurchaserequest()
     {
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
         $con = Yii::$app->procurementdb;
         if (Yii::$app->user->can('basic-role')) {
            $id = yii::$app->user->getId();
-            $sql = "SELECT `tbl_purchase_request`.`purchase_request_id`,
-	    `tbl_purchase_request`.`purchase_request_sai_number`,
-	    `tbl_purchase_request`.`purchase_request_number`,
-	    `tbl_division`.`name` AS division_name,
-	    `tbl_section`.`name` AS section_name,
-	    `tbl_purchase_request`.`purchase_request_purpose`,
-	    fnGetAssignatoryName(`purchase_request_requestedby_id`) AS requested_by,
-	    `fnGetPurchaseNo`(`tbl_purchase_request`.`purchase_request_id`) AS PONum
+            $sql = "SELECT tbl_purchase_request.purchase_request_id,
+	    tbl_purchase_request.purchase_request_sai_number,
+	    tbl_purchase_request.purchase_request_number,
+	    tbl_division.name AS division_name,
+	    tbl_section.name AS section_name,
+	    tbl_purchase_request.purchase_request_purpose,
+	    fnGetAssignatoryName(purchase_request_requestedby_id) AS requested_by,
+	    fnGetPurchaseNo(tbl_purchase_request.purchase_request_id) AS PONum
 	
 	    
-	    FROM `tbl_purchase_request`
-	    INNER JOIN `fais`.`tbl_division`
-	    ON `tbl_division`.`division_id` = `tbl_purchase_request`.`division_id`
-	    INNER JOIN `fais`.`tbl_section`
-	    ON `tbl_section`.`section_id` = `tbl_purchase_request`.`section_id`
-	    WHERE `tbl_purchase_request`.`user_id` = ".$id." OR `purchase_request_requestedby_id` = ".$id."
+	    FROM tbl_purchase_request
+	    INNER JOIN fais.tbl_division
+	    ON tbl_division.division_id = tbl_purchase_request.division_id
+	    INNER JOIN fais.tbl_section
+	    ON tbl_section.section_id = tbl_purchase_request.section_id
+	    WHERE tbl_purchase_request.user_id = ".$id." OR purchase_request_requestedby_id = ".$id."
 	    ORDER BY purchase_request_number DESC";
         }else{
-            $sql = "SELECT `tbl_purchase_request`.`purchase_request_id`,
-	    `tbl_purchase_request`.`purchase_request_sai_number`,
-	    `tbl_purchase_request`.`purchase_request_number`,
-	    `tbl_division`.`name` AS division_name,
-	    `tbl_section`.`name` AS section_name,
-	    `tbl_purchase_request`.`purchase_request_purpose`,
-	    fnGetAssignatoryName(`purchase_request_requestedby_id`) AS requested_by,
-	    `fnGetPurchaseNo`(`tbl_purchase_request`.`purchase_request_id`) AS PONum
-	    FROM `tbl_purchase_request`
-	    INNER JOIN `fais`.`tbl_division`
-	    ON `tbl_division`.`division_id` = `tbl_purchase_request`.`division_id`
-	    INNER JOIN `fais`.`tbl_section`
-	    ON `tbl_section`.`section_id` = `tbl_purchase_request`.`section_id`
+            $sql = "SELECT tbl_purchase_request.purchase_request_id,
+	    tbl_purchase_request.purchase_request_sai_number,
+	    tbl_purchase_request.purchase_request_number,
+	    tbl_division.name AS division_name,
+	    tbl_section.name AS section_name,
+	    tbl_purchase_request.purchase_request_purpose,
+	    fnGetAssignatoryName(purchase_request_requestedby_id) AS requested_by,
+	    fnGetPurchaseNo(tbl_purchase_request.purchase_request_id) AS PONum
+	    FROM tbl_purchase_request
+	    INNER JOIN fais.tbl_division
+	    ON tbl_division.division_id = tbl_purchase_request.division_id
+	    INNER JOIN fais.tbl_section
+	    ON tbl_section.section_id = tbl_purchase_request.section_id
 	    ORDER BY purchase_request_number DESC";
         }
         $porequest = $con->createCommand($sql)->queryAll();
         return $porequest;
     }
-
+    
     public function actionDepartments()
     {
         Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
