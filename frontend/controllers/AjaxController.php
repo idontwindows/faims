@@ -35,7 +35,8 @@ class AjaxController extends \yii\web\Controller
                 INNER JOIN fais.tbl_section
                 ON tbl_section.section_id = tbl_purchase_request.section_id
                 ORDER BY purchase_request_number DESC";
-        }elseif (Yii::$app->user->can('basic-role')) {
+        //}elseif (Yii::$app->user->can('basic-role')) {
+        }else{
            $id = yii::$app->user->getId();
             $sql = "SELECT tbl_purchase_request.purchase_request_id,
 	    tbl_purchase_request.purchase_request_sai_number,
