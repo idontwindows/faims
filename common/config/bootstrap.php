@@ -17,7 +17,10 @@ if (isset($_SERVER['SERVER_NAME'])) {
         $BaseURI = $Backend_URI.'/';
         $Backend_URI = $Backend_URI . "/uploads/user/photo/";
         #$FrontendBaseURI = 'http://' . $_SERVER['SERVER_NAME'] . ':8082/';
-        $FrontendBaseURI = 'http://' . $_SERVER['SERVER_NAME'] . ':8080/';
+        if($_SERVER['SERVER_NAME'] == '192.168.1.95')
+                $FrontendBaseURI = 'http://' . $_SERVER['SERVER_NAME'] . ':8080/';
+        else
+                $FrontendBaseURI = 'http://' . $_SERVER['SERVER_NAME'] . '/';
     } else {
         $Backend_URI = 'http://localhost:8080/faims/backend/web/uploads/user/photo/';
         $BaseURI = "http://localhost:8080/faims/backend/web/";

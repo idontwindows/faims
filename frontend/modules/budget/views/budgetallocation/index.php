@@ -46,6 +46,7 @@ Modal::begin([
 
 echo "<div id='modalContent'><div style='text-align:center'><img src='/images/loading.gif'></div></div>";
 Modal::end();
+
 ?>    
     <div class="ppmp-index">
     <?php //echo $selected_year; ?>
