@@ -20,7 +20,19 @@ $this->params['breadcrumbs'][] = $this->title;
 
 Modal::begin([
     'header' => '<h4 id="modalHeader" style="color: #ffffff"></h4>',
-    'id' => 'modalBudgetallocationitem',
+    'id' => 'modalBudget',
+    'size' => 'modal-md',
+    'options'=> [
+             'tabindex'=>false,
+        ],
+]);
+
+echo "<div id='modalContent'><div style='text-align:center'><img src='/images/loading.gif'></div></div>";
+Modal::end();
+
+Modal::begin([
+    'header' => '<h4 id="modalHeader" style="color: #ffffff"></h4>',
+    'id' => 'modalContainer',
     'size' => 'modal-md',
     'options'=> [
              'tabindex'=>false,
@@ -63,6 +75,17 @@ Modal::end();
                     'headerOptions' => ['class' => 'kartik-sheet-style'],
                     //'mergeHeader' => true,
                 ],*/
+                [
+                    'attribute' => 'budget_allocation_item_id',
+                    'header'=>'ID',
+                    'width'=>'20px',
+                    /*'value'=>function ($model, $key, $index, $widget){ 
+                                $fmt = Yii::$app->formatter;
+                                return $fmt->asDecimal(0);
+                            },
+                    'headerOptions' => ['style' => 'text-align: center'],
+                    'contentOptions' => ['style' => 'text-align: center'],*/
+                ],
                 [
                     'class' => 'kartik\grid\ExpandRowColumn',
                     'width' => '50px',
@@ -162,133 +185,13 @@ Modal::end();
                     'contentOptions' => ['style' => 'text-align: left'],
                     //'mergeHeader' => true,
                 ],
-                // ############################################################################## //
-    
-    
-    
-    
-    
-    
-    
-                /*[
-                    'attribute'=>'category_id',
-                    //'header'=>'Category',
-                    //'width'=>'100px',
-                    'value'=>function ($model, $key, $index, $widget) { 
-                            return $model->name;
-                            //return $model->expenditureobject->expenditureSubClass->expenditureClass->name;
-                        },
-                    //'headerOptions' => ['style' => 'text-decoration: underline;'],
-                    'contentOptions' => ['style' => 'font-variant:small-caps; text-align: left; font-weight: bold; text-decoration: underline; font-size: large;', ],
-                
-                    'group'=>true,  // enable grouping,
-                    'groupedRow'=>true,                    // move grouped column to a single grouped row
-                    'groupOddCssClass'=>'kv-grouped-row',  // configure odd group cell css class
-                        'groupEvenCssClass'=>'kv-grouped-row', // configure even group cell css class
-                ],*/
-                /*[
-                    'attribute'=>'expenditure_subclass_id',
-                    //'header'=>'Category',
-                    //'width'=>'100px',
-                    'value'=>function ($model, $key, $index, $widget) { 
-                            return $model->expenditureSubclass->expenditureClass->name;
-                        },
-                    //'headerOptions' => ['style' => 'text-align: left;'],
-                    'contentOptions' => ['style' => 'text-align: left; font-weight:bold; padding-left: 35px;'],
-                
-                    'group'=>true,  // enable grouping,
-                    'groupedRow'=>true,                    // move grouped column to a single grouped row
-                    //'groupOddCssClass'=>'kv-grouped-row',  // configure odd group cell css class
-                    //'groupEvenCssClass'=>'kv-grouped-row', // configure even group cell css class
-                    'groupFooter' => function ($model, $key, $index, $widget) { // Closure method
-                        return [
-                            'mergeColumns' => [[1,2]], // columns to merge in summary
-                            'content' => [             // content to show in each summary cell
-                                3 => 'TOTAL : '.$model->expenditureSubclass->name,
-                                4 => GridView::F_SUM,
-                            ],
-                            'contentFormats' => [      // content reformatting for each summary cell
-                                4 => ['format' => 'number', 'decimals' => 2],
-                            ],
-                            'contentOptions' => [      // content html attributes for each summary cell
-                                //3 => ['style' => 'font-variant:small-caps'],
-                                4 => ['style' => 'text-align:right'],
-
-                            ],
-                            // html attributes for group summary row
-                            'options' => ['class' => 'info table-info', 'style' => 'font-weight:bold; text-align: right;']
-                        ];
-                    }
-                ],*/
-    
-                // ********************************************************************** //
-                /*
-                [
-                    'attribute'=>'expenditure_class_id',
-                    'header'=>'Category',
-                    'width'=>'100px',
-                    'value'=>function ($model, $key, $index, $widget) { 
-                            if(isset($model->expenditureobject->expenditureSubClass->name))
-                                return $model->expenditureobject->expenditureSubClass->name;
-                            else    
-                                return $model->expenditureSubclass->expenditureClass->name;
-                        },
-                    'headerOptions' => ['style' => 'text-align: left'],
-                    'contentOptions' => ['style' => 'text-align: left'],
-                
-                    'group'=>true,  // enable grouping,
-                    'groupedRow'=>true,                    // move grouped column to a single grouped row
-                    'groupOddCssClass'=>'kv-grouped-row',  // configure odd group cell css class
-                    'groupEvenCssClass'=>'kv-grouped-row', // configure even group cell css class
-                    'groupFooter' => function ($model, $key, $index, $widget) { // Closure method
-                        return [
-                            'mergeColumns' => [[1,2]], // columns to merge in summary
-                            'content' => [             // content to show in each summary cell
-                                //3 => 'TOTAL : '.$model->expenditureobject->expenditureSubClass->name,
-                                4 => GridView::F_SUM,
-                            ],
-                            'contentFormats' => [      // content reformatting for each summary cell
-                                4 => ['format' => 'number', 'decimals' => 2],
-                            ],
-                            'contentOptions' => [      // content html attributes for each summary cell
-                                //3 => ['style' => 'font-variant:small-caps'],
-                                4 => ['style' => 'text-align:right'],
-
-                            ],
-                            // html attributes for group summary row
-                            'options' => ['class' => 'info table-info', 'style' => 'font-weight:bold; text-align: right;']
-                        ];
-                    }
-                ],
-                [
-                    'attribute'=>'name', 
-                    'header'=>'Object of Expenditures',
-                    'width'=>'650px',
-                    'value'=>function ($model, $key, $index, $widget) { 
-                            return $model->name;
-//                            switch ($model->expenditureobject->expenditure_object_id) {
-//                                case 87:
-//                                    return $model->name. ' (+) ';
-//                                    break;
-//                                case 88:
-//                                    return $model->name. ' (+) ';
-//                                    break;
-//                                default:
-//                                    return $model->name;
-//                            }
-                        },
-                    'headerOptions' => ['style' => 'text-align: center'],
-                    'contentOptions' => ['style' => 'text-align: left'],
-                        'mergeHeader' => true,
-                ],*/
-                // ********************************************************************** //
                 [
                     'class'=>'kartik\grid\EditableColumn',
                     'attribute'=>'amount',
                     'header'=>'Fund Allocation',
                     'width'=>'250px',
                     'refreshGrid'=>true,
-                    //'readonly' => !$isMember,
+                    'readonly' => true,
                     'value'=>function ($model, $key, $index, $widget) { 
                             $fmt = Yii::$app->formatter;
                             return $fmt->asDecimal($model->itemdetails ? $model->getTotal() : $model->amount);
@@ -310,6 +213,45 @@ Modal::end();
                     'hAlign'=>'right',
                     'vAlign'=>'left',
                     'width'=>'100px',
+                ],
+                /*[
+                    'class' => 'kartik\grid\ActionColumn',
+                    'template' => '{update}',
+                    'dropdown' => false,
+                    'dropdownOptions' => ['class' => 'pull-right'],
+                    'urlCreator' => function ($action, $model, $key, $index) {
+                        if ($action === 'delete') {
+                            $url ='/lab/sample/delete?id='.$model->sample_id;
+                            return $url;
+                        } 
+                        if ($action === 'cancel') {
+                            $url ='/lab/sample/cancel?id='.$model->sample_id;
+                            return $url;
+                        }
+                    },
+                    'headerOptions' => ['class' => 'kartik-sheet-style'],
+                    'buttons' => [
+                        'update' => function ($url, $model) {
+                            if($model->active == 1){
+                                return Html::a('<span class="glyphicon glyphicon-pencil"></span>', '#', ['class'=>'btn btn-primary','title'=>'Add Adjustment','onclick' => 'addAdjustment('.$model->budget_allocation_item_id.')']);
+                            } else {
+                                return null;
+                            }
+                        },
+                    ],
+                ],*/
+                [
+                    'attribute' => 'amount',
+                    'header'=>'Adjustments',
+                    'width'=>'100px',
+                    'format'=>'raw',
+                    'value'=>function ($model, $key, $index, $widget){ 
+                                return Html::button('<i class="glyphicon glyphicon-share"></i>', ['value' => Url::to(['allocationadjustment/create', 'id'=>$model->budget_allocation_id, 'itemid'=>$model->budget_allocation_item_id, 'itemdetailid'=>0]), 'title' => 'Create Adjustments', 'class' => 'btn btn-info', 'style'=>'margin-right: 6px; display: "";', 'id'=>'buttonAdjustment']) . 
+                                
+                                Html::button('<i class="glyphicon glyphicon-list"></i>', ['value' => Url::to(['allocationadjustment/view', 'id'=>$model->budget_allocation_item_id]), 'title' => 'View Adjustments', 'class' => 'btn btn-info', 'style'=>'margin-right: 6px; display: "";', 'id'=>'buttonViewAdjustment']);
+                            },
+                    'headerOptions' => ['style' => 'text-align: center'],
+                    'contentOptions' => ['style' => 'text-align: center'],
                 ],
                 [
                     'attribute' => 'amount',
@@ -374,9 +316,6 @@ Modal::end();
                 ],
                 'persistResize' => false,
                 'toggleDataOptions' => ['minCount' => 10],
-                //'exportConfig' => $exportConfig,
-                //'itemLabelSingle' => 'item',
-                //'itemLabelPlural' => 'items'
             ]);
     
         ?>

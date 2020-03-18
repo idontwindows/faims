@@ -228,4 +228,43 @@ class BudgetallocationController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+    
+    public function actionAdjustment() //call to add expenditure
+    {
+        //$model = new Itemadjustment();
+        $item_id = $_GET['itemid'];
+        //$expenditure_object = Expenditureobject::findOne($objectid);
+        $budgetallocationitem = Budgetallocationitem::find()->where([
+                                    'budget_allocation_item_id' => $item_id, //'category_id' => $objectid, 
+                                    //'year' => $year
+                                        ])->one();
+        
+        
+        
+        if (Yii::$app->request->post()) {
+
+        }
+
+        if (Yii::$app->request->isAjax) {
+                return $this->renderAjax('_adjustment', [
+                    'budgetallocationitem'=>$budgetallocationitem
+                ]);   
+        }else {
+            return $this->render('_adjustment', [
+                    'budgetallocationitem'=>$budgetallocationitem
+            ]);
+        }
+        
+
+            /*$model = new Budgetallocationitem();
+            $model->expenditure_class_id = $expenditure_object->expenditureSubClass->expenditureClass->expenditure_class_id;
+            $model->expenditure_subclass_id = $expenditure_object->expenditure_sub_class_id;
+            $model->category_id = $expenditure_object->expenditure_object_id;
+            $model->budget_allocation_id = $id;
+            $model->name = $expenditure_object->name;
+            $model->active = 1;
+            $model->save(false);*/
+    
+        //echo Json::encode(['message'=>$out]);
+    }
 }

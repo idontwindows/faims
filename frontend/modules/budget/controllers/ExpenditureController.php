@@ -82,26 +82,12 @@ class ExpenditureController extends Controller
         }elseif (Yii::$app->request->isAjax) {
             return $this->renderAjax('_form', [
                         'model' => $model,
-                        //'listDivisions' => $listDivisions,
-                        //'listUnits' => $listUnits,
-                        //'listYear' => $listYear,
             ]);
         } else {
             return $this->render('_form', [
                         'model' => $model,
-                        //'listDivisions' => $listDivisions,
-                        //'listUnits' => $listUnits,
-                        //'listYear' => $listYear,
             ]);
         }
-        
-        /*if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->expenditure_id]);
-        } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
-        }*/
     }
 
     /**

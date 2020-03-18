@@ -2,6 +2,7 @@
 
 namespace common\models\budget;
 
+use common\models\budget\Allocationajustment;
 use common\models\budget\Budgetallocation;
 use common\models\budget\Budgetallocationitemdetails;
 use common\models\procurement\Expenditure;
@@ -67,6 +68,12 @@ class Budgetallocationitem extends \yii\db\ActiveRecord
         ];
     }
     
+    public function afterFind()
+    {
+        $this->amount = $this->amount + $this->totalAdjustments;
+        return parent::afterFind();
+    }
+    
     public function getBudgetallocation()
     {
         return $this->hasOne(Budgetallocation::className(), ['budget_allocation_id' => 'budget_allocation_id']);
@@ -101,5 +108,15 @@ class Budgetallocationitem extends \yii\db\ActiveRecord
     {
         $sum = $this->hasMany(Budgetallocationitemdetails::className(), ['budget_allocation_item_id' => 'budget_allocation_item_id'])->sum('amount');
         return $sum;
+    }
+    
+    public function getAdjustments()
+    {
+        return $this->hasMany(Allocationadjustment::className(), ['item_id' => 'budget_allocation_item_id']);
+    }
+    
+    public function getTotalAdjustments()
+    {
+        return $this->hasMany(Allocationadjustment::className(), ['item_id' => 'budget_allocation_item_id'])->sum('amount');
     }
 }
