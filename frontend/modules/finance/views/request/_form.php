@@ -11,6 +11,8 @@ use yii\helpers\Url;
 
 use common\models\cashier\Creditor;
 use common\models\finance\Requesttype;
+use common\models\finance\Obligationtype;
+use common\models\procurement\Division;
 /* @var $this yii\web\View */
 /* @var $model common\models\finance\Request */
 /* @var $form yii\widgets\ActiveForm */
@@ -65,6 +67,44 @@ use common\models\finance\Requesttype;
         
     </div>
     
+    <div class="row">
+        <div class="col-md-6"> 
+                <?= $form->field($model, 'obligation_type_id')->widget(Select2::classname(), [
+                    'data' => ArrayHelper::map(Obligationtype::find()->all(),'type_id','name'),
+                    'language' => 'en',
+                    //'options' => ['placeholder' => 'Select Request Type','readonly'=>'readonly'],
+                    'pluginOptions' => [
+                        'allowClear' => false
+                    ],
+                    /*'pluginEvents'=>[
+                        "change" => 'function() { 
+                            var requestTypeId=this.value;
+                            $.post("/finance/request/updateparticulars/", 
+                                {
+                                    requestTypeId: requestTypeId
+                                }, 
+                                function(response){
+                                    if(response){
+                                       $("#request-particulars").val(response.default_text);
+                                       //alert(response.default_text);
+                                    }
+                                }
+                            );
+                        }
+                    ',]*/
+                ])->label('Fund Source'); ?>
+        </div>
+        
+        <div class="col-md-6"> 
+                <?= $form->field($model, 'division_id')->widget(Select2::classname(), [
+                    'data' => ArrayHelper::map(Division::find()->all(),'division_id','name'),
+                    'language' => 'en',
+                    'pluginOptions' => [
+                        'allowClear' => false
+                    ],
+                ])->label('Division'); ?>
+        </div>
+    </div>
 
     <?= $form->field($model, 'payee_id')->widget(Select2::classname(), [
                     'data' => ArrayHelper::map(Creditor::find()->orderBy(['name'=>SORT_ASC])->all(),'creditor_id','name'),

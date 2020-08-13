@@ -14,13 +14,11 @@ use yii\bootstrap\Modal;
 use common\models\cashier\Creditor;
 use common\models\finance\Request;
 use common\models\system\Profile;
-use common\models\system\Usersection;
-use common\models\sec\Blockchain;
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\finance\RequestSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Request';
+$this->title = 'Obligation and Disbursement';
 $this->params['breadcrumbs'][] = $this->title;
 
 // Modal Create Request
@@ -35,8 +33,9 @@ Modal::begin([
 
 echo "<div id='modalContent'><div style='text-align:center'><img src='/images/loading.gif'></div></div>";
 Modal::end();
-?>
 
+///echo '<span class="badge btn-success">'.$numberOfRequests.'</span>';
+?>
 <div class="request-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
@@ -51,79 +50,81 @@ Modal::end();
             'id' => 'request',
             'dataProvider' => $dataProvider,
             'columns' => [
+                            /*[
+                                'attribute'=>'request_id',
+                                'contentOptions' => ['style' => 'padding-left: 25px; font-weigth: bold;'],
+                                'width'=>'80px',
+                                'value'=>function ($model, $key, $index, $widget) { 
+                                    return $model->request->request_number;
+                                },
+                            ],*/
                             [
-                                'attribute'=>'request_number',
+                                'attribute'=>'osdv_id',
+                                'header'=>'OS Number',
                                 'headerOptions' => ['style' => 'text-align: center;'],
-                                'contentOptions' => ['style' => 'vertical-align:middle; text-align: center; font-weight: bold;'],
-                                'width'=>'120px',
+                                'contentOptions' => ['style' => 'text-align: center;'],
+                                'width'=>'150px',
                                 'format'=>'raw',
                                 'value'=>function ($model, $key, $index, $widget) { 
-                                    return $model->request_number;
-                                }
+                                    return isset($model->os->os_id) ? $model->os->os_number.'<br/>'.$model->os->os_date : '';
+                                },
+                            ],
+                            [
+                                'attribute'=>'osdv_id',
+                                'header'=>'DV Number',
+                                'headerOptions' => ['style' => 'text-align: center;'],
+                                'contentOptions' => ['style' => 'text-align: center;'],
+                                'width'=>'150px',
+                                'value'=>function ($model, $key, $index, $widget) { 
+                                    return isset($model->dv->dv_id) ? $model->dv->dv_number : '';
+                                },
                             ],
                             [
                                 'attribute'=>'request_date',
                                 'headerOptions' => ['style' => 'text-align: center;'],
-                                'contentOptions' => ['style' => 'vertical-align:middle; text-align: center;'],
-                                'width'=>'120px',
+                                'contentOptions' => ['style' => 'text-align: center;'],
+                                'width'=>'150px',
                                 'value'=>function ($model, $key, $index, $widget) { 
-                                    return date('Y-m-d', strtotime($model->request_date));
+                                    return date('Y-m-d', strtotime($model->request->request_date));
                                 },
                             ],
                             [
                                 'attribute'=>'payee_id',
-                                'headerOptions' => ['style' => 'text-align: center;'],
                                 'contentOptions' => ['style' => 'padding-left: 25px; font-weigth: bold;'],
-                                'width'=>'800px',
+                                'width'=>'550px',
                                 'contentOptions' => [
                                     'style'=>'max-width:300px; overflow: auto; white-space: normal; word-wrap: break-word;'
                                 ],
                                 'format' => 'raw',
                                 'value'=>function ($model, $key, $index, $widget) { 
-                                    return Html::tag('span', '<b>'.Creditor::findOne($model->payee_id)->name.'</b>', [
-                                        'title'=>'Created by: '.Profile::find($model->created_by)->one()->fullname,
-                                        //'data-toggle'=>'tooltip',
-                                        //'data-content'=>Profile::find($model->created_by)->one()->fullname,
-                                        //'data-toggle'=>'popover',
-                                        'style'=>'text-decoration: underline; cursor:pointer;'
-                                    ]).'<br>' .$model->particulars;
+                                    return '<b>' . Creditor::findOne($model->request->payee_id)->name. '</b><br>' .$model->request->particulars;
                                 },
                             ],
                             [
                                 'attribute'=>'amount',
                                 'headerOptions' => ['style' => 'text-align: center;'],
-                                'contentOptions' => ['style' => 'vertical-align:middle; text-align: right; padding-right: 20px; font-weight: bold;'],
-                                'width'=>'200px',
-                                'value'=>function ($model, $key, $index, $widget) { 
+                                'contentOptions' => ['style' => 'text-align: center;'],
+                                'width'=>'150px',
+                                'value'=>function ($model, $key, $index, $widget) {
                                     $fmt = Yii::$app->formatter;
-                                    return $fmt->asDecimal($model->amount);
+                                    return $fmt->asDecimal($model->request->amount);
                                 },
                             ],
                             [
-                                'attribute'=>'status_id',
-                                'headerOptions' => ['style' => 'text-align: center;'],
-                                'contentOptions' => ['style' => 'text-align: center; vertical-align:middle;'],
+                                'attribute'=>'created_by',
+                                'contentOptions' => ['style' => 'padding-left: 25px;'],
                                 'width'=>'250px',
                                 'value'=>function ($model, $key, $index, $widget) { 
-                                    return $model->status_id;
+                                    return Profile::find($model->created_by)->one()->fullname;
                                 },
                             ],
-//                            [
-//                                'attribute'=>'created_by',
-//                                'headerOptions' => ['style' => 'text-align: center;'],
-//                                'contentOptions' => ['style' => 'text-align: center;'],
-//                                'width'=>'250px',
-//                                'value'=>function ($model, $key, $index, $widget) { 
-//                                    return Profile::find($model->created_by)->one()->fullname;
-//                                },
-//                            ],
                             [
                                 'class' => kartik\grid\ActionColumn::className(),
                                 'template' => '{view}',
                                 'buttons' => [
 
                                     'view' => function ($url, $model){
-                                        return Html::button('<span class="glyphicon glyphicon-eye-open"></span>', ['value' => '/finance/request/view?id=' . $model->request_id,'onclick'=>'location.href=this.value', 'class' => 'btn btn-primary', 'title' => Yii::t('app', "View Request")]);
+                                        return Html::button('<span class="glyphicon glyphicon-eye-open"></span>', ['value' => '/finance/osdv/view?id=' . $model->osdv_id,'onclick'=>'location.href=this.value', 'class' => 'btn btn-primary', 'title' => Yii::t('app', "View Request")]);
                                     },
                                 ],
                             ],
@@ -135,7 +136,7 @@ Modal::end();
             'panel' => [
                     'heading' => '',
                     'type' => GridView::TYPE_PRIMARY,
-                    'before'=>Html::button('New Request', ['value' => Url::to(['request/create']), 'title' => 'Request', 'class' => 'btn btn-info', 'style'=>'margin-right: 6px;', 'id'=>'buttonCreateRequest']),
+                    'before'=>Html::button('Validated Requests  &nbsp;&nbsp;<span class="badge badge-light">'.$numberOfRequests.'</span>', ['value' => Url::to(['osdv/create']), 'title' => 'Request', 'class' => 'btn btn-success', 'style'=>'margin-right: 6px;', 'id'=>'buttonCreateOsdv']),
                     'after'=>false,
                 ],
             // set your toolbar

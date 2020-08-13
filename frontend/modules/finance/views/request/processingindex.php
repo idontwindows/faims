@@ -14,8 +14,6 @@ use yii\bootstrap\Modal;
 use common\models\cashier\Creditor;
 use common\models\finance\Request;
 use common\models\system\Profile;
-use common\models\system\Usersection;
-use common\models\sec\Blockchain;
 /* @var $this yii\web\View */
 /* @var $searchModel common\models\finance\RequestSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -35,8 +33,8 @@ Modal::begin([
 
 echo "<div id='modalContent'><div style='text-align:center'><img src='/images/loading.gif'></div></div>";
 Modal::end();
+echo 'hahaha';
 ?>
-
 <div class="request-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
@@ -53,70 +51,48 @@ Modal::end();
             'columns' => [
                             [
                                 'attribute'=>'request_number',
-                                'headerOptions' => ['style' => 'text-align: center;'],
-                                'contentOptions' => ['style' => 'vertical-align:middle; text-align: center; font-weight: bold;'],
-                                'width'=>'120px',
-                                'format'=>'raw',
+                                'contentOptions' => ['style' => 'padding-left: 25px; font-weigth: bold;'],
+                                'width'=>'80px',
                                 'value'=>function ($model, $key, $index, $widget) { 
                                     return $model->request_number;
-                                }
+                                },
                             ],
                             [
                                 'attribute'=>'request_date',
-                                'headerOptions' => ['style' => 'text-align: center;'],
-                                'contentOptions' => ['style' => 'vertical-align:middle; text-align: center;'],
-                                'width'=>'120px',
+                                'contentOptions' => ['style' => 'padding-left: 25px;'],
+                                'width'=>'80px',
                                 'value'=>function ($model, $key, $index, $widget) { 
                                     return date('Y-m-d', strtotime($model->request_date));
                                 },
                             ],
                             [
                                 'attribute'=>'payee_id',
-                                'headerOptions' => ['style' => 'text-align: center;'],
                                 'contentOptions' => ['style' => 'padding-left: 25px; font-weigth: bold;'],
-                                'width'=>'800px',
+                                'width'=>'450px',
                                 'contentOptions' => [
                                     'style'=>'max-width:300px; overflow: auto; white-space: normal; word-wrap: break-word;'
                                 ],
                                 'format' => 'raw',
                                 'value'=>function ($model, $key, $index, $widget) { 
-                                    return Html::tag('span', '<b>'.Creditor::findOne($model->payee_id)->name.'</b>', [
-                                        'title'=>'Created by: '.Profile::find($model->created_by)->one()->fullname,
-                                        //'data-toggle'=>'tooltip',
-                                        //'data-content'=>Profile::find($model->created_by)->one()->fullname,
-                                        //'data-toggle'=>'popover',
-                                        'style'=>'text-decoration: underline; cursor:pointer;'
-                                    ]).'<br>' .$model->particulars;
+                                    return '<b>' . Creditor::findOne($model->payee_id)->name. '</b><br>' .$model->particulars;
                                 },
                             ],
                             [
                                 'attribute'=>'amount',
-                                'headerOptions' => ['style' => 'text-align: center;'],
-                                'contentOptions' => ['style' => 'vertical-align:middle; text-align: right; padding-right: 20px; font-weight: bold;'],
-                                'width'=>'200px',
+                                'contentOptions' => ['style' => 'padding-left: 25px;'],
+                                'width'=>'250px',
                                 'value'=>function ($model, $key, $index, $widget) { 
-                                    $fmt = Yii::$app->formatter;
-                                    return $fmt->asDecimal($model->amount);
+                                    return $model->amount;
                                 },
                             ],
                             [
-                                'attribute'=>'status_id',
-                                'headerOptions' => ['style' => 'text-align: center;'],
-                                'contentOptions' => ['style' => 'text-align: center; vertical-align:middle;'],
+                                'attribute'=>'created_by',
+                                'contentOptions' => ['style' => 'padding-left: 25px;'],
                                 'width'=>'250px',
                                 'value'=>function ($model, $key, $index, $widget) { 
-                                    return $model->status_id;
+                                    return Profile::find($model->created_by)->one()->fullname;
                                 },
                             ],
-//                            [
-//                                'attribute'=>'created_by',
-//                                'headerOptions' => ['style' => 'text-align: center;'],
-//                                'contentOptions' => ['style' => 'text-align: center;'],
-//                                'width'=>'250px',
-//                                'value'=>function ($model, $key, $index, $widget) { 
-//                                    return Profile::find($model->created_by)->one()->fullname;
-//                                },
-//                            ],
                             [
                                 'class' => kartik\grid\ActionColumn::className(),
                                 'template' => '{view}',
@@ -135,7 +111,7 @@ Modal::end();
             'panel' => [
                     'heading' => '',
                     'type' => GridView::TYPE_PRIMARY,
-                    'before'=>Html::button('New Request', ['value' => Url::to(['request/create']), 'title' => 'Request', 'class' => 'btn btn-info', 'style'=>'margin-right: 6px;', 'id'=>'buttonCreateRequest']),
+                    //'before'=>Html::button('New Request', ['value' => Url::to(['request/create']), 'title' => 'Request', 'class' => 'btn btn-info', 'style'=>'margin-right: 6px;', 'id'=>'buttonCreateRequest']),
                     'after'=>false,
                 ],
             // set your toolbar

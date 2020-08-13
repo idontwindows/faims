@@ -70,6 +70,11 @@ class Requestattachment extends \yii\db\ActiveRecord
       return $this->hasOne(Request::className(), ['request_id' => 'request_id']);  
     }
     
+    public function getComments()
+    {
+        return $this->hasMany(Comment::className(), ['request_attachment_id' => 'record_id']);
+    }
+    
     public static function hasAttachment($id)
     {
         $model  = Requestattachment::findOne($id);

@@ -3,11 +3,17 @@
 namespace frontend\modules\finance\controllers;
 
 use Yii;
+use common\models\apiservice\Notificationrecipient;
 use common\models\finance\Request;
 use common\models\finance\Requestattachment;
 use common\models\finance\Requesttype;
 use common\models\finance\RequestSearch;
+use common\models\procurement\Disbursement;
+use common\models\sec\Blockchain;
+use common\models\system\Comment;
+use common\models\system\CommentSearch;
 
+use kartik\mpdf\Pdf;
 use yii\filters\VerbFilter;
 use yii\helpers\Json;
 use yii\web\Controller;
@@ -47,7 +53,7 @@ class RequestController extends Controller
         if(Yii::$app->user->identity->username != 'Admin')
             $searchModel->created_by =  Yii::$app->user->identity->user_id;
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
+        
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
@@ -69,6 +75,38 @@ class RequestController extends Controller
             'dataProvider' => $dataProvider,
         ]);
     }
+    
+    /**
+     * Lists all Request models.
+     * @return mixed
+     */
+    public function actionValidateindex()
+    {
+        $searchModel = new RequestSearch();
+        $searchModel->status_id = Request::STATUS_VERIFIED;
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('validateindex', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+    
+    /**
+     * Lists all Request models.
+     * @return mixed
+     */
+    public function actionProcessingindex()
+    {
+        $searchModel = new RequestSearch();
+        $searchModel->status_id = Request::STATUS_VALIDATED;
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('processingindex', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
     /**
      * Displays a single Request model.
      * @param integer $id
@@ -79,6 +117,8 @@ class RequestController extends Controller
         $model = $this->findModel($id); 
         
         $params = $this->checkAttachments($model);
+        
+        
         
         $attachmentsDataProvider = new ActiveDataProvider([
             'query' => $model->getAttachments(),
@@ -118,7 +158,8 @@ class RequestController extends Controller
             $model->created_by = Yii::$app->user->identity->user_id;
             
             if($model->save(false))
-                return $this->redirect(['view', 'id' => $model->request_id]);    
+                return $this->redirect(['view', 'id' => $model->request_id]);
+            
         }elseif (Yii::$app->request->isAjax) {
             return $this->renderAjax('_form', [
                         'model' => $model,
@@ -314,7 +355,21 @@ class RequestController extends Controller
         ];
     }
     
-    function actionSubmit()
+    function checkAttachmentsVerified($modelAttachments)
+    {
+        $files = 0;
+        $count = count($modelAttachments->attachments);
+        $txt = '';
+        $result = 0;
+        
+        $notVerified = Requestattachment::find()->where(['request_id' => $modelAttachments->request_id, 'status_id' => 0])->all();
+        if($notVerified)
+            return false;
+        else
+            return true;
+    }
+    
+    function actionSubmitforverification()
     {
         $model = $this->findModel($_GET['id']);
         
@@ -323,9 +378,26 @@ class RequestController extends Controller
         
         if($eligibleToSubmit){
             if (Yii::$app->request->post()) {
-                $model->status_id = Request::STATUS_SUBMITTED;
+                $model->status_id = Request::STATUS_SUBMITTED; //20
                 if($model->save(false)){
-                    Yii::$app->session->setFlash('success', 'Request Successfully Submitted!');
+                    
+                    $index = $model->request_id;
+                    $scope = 'Request';
+                    $data = $model->request_number.':'.$model->request_date.':'.$model->request_type_id.':'.$model->payee_id.':'.$model->particulars.':'.$model->amount.':'.$model->status_id;
+                    
+                    $block = Blockchain::createBlock($index, $scope, $data);
+                    
+                    $content = 'Request Number: '.$model->request_number.PHP_EOL;
+                    $content .= 'Payee: '.$model->creditor->name.PHP_EOL;
+                    $content .= 'Amount: '.$model->amount.PHP_EOL.PHP_EOL;
+                    $content .= 'Particulars: '.PHP_EOL.$model->particulars;
+                    $recipient = Notificationrecipient::find()->where(['status_id' => $model->status_id])->one();
+                    
+                    Yii::$app->Notification->sendSMS('', 2, $recipient->primary->sms.','.$recipient->secondary->sms, 'Request for Verification', $content, 'FAIMS', $this->module->id, $this->action->id);
+                    
+                    Yii::$app->Notification->sendEmail('', 2, $recipient->primary->email.','.$recipient->secondary->email, 'Request for Verification', $content, 'FAIMS', $this->module->id, $this->action->id);
+                    
+                    Yii::$app->session->setFlash('success', 'Request submitted for Verification!');
                 }else{
                     Yii::$app->session->setFlash('success', $model->getErrors());                 
                 }
@@ -334,9 +406,9 @@ class RequestController extends Controller
             }
 
             if (Yii::$app->request->isAjax) {
-                    return $this->renderAjax('_submit', ['model'=>$model]);   
+                    return $this->renderAjax('_submitforverification', ['model'=>$model]);   
             }else {
-                return $this->render('_submit', [
+                return $this->render('_submitforverification', [
                             'model' => $model,
                 ]);
             }
@@ -346,4 +418,150 @@ class RequestController extends Controller
             }
         }
     }
+    
+    function actionSubmitforvalidation()
+    {
+        $model = $this->findModel($_GET['id']);
+        
+        $eligibleToSubmit = $this->checkAttachmentsVerified($model);
+        //$eligibleToSubmit = $params['btnStatus'];
+        
+        if(Yii::$app->user->can('access-finance-verification') && $eligibleToSubmit){
+            if (Yii::$app->request->post()) {
+                $model->status_id = Request::STATUS_VERIFIED; //30
+                if($model->save(false)){
+                    
+                    $index = $model->request_id;
+                    $scope = 'Request';
+                    $data = $model->request_number.':'.$model->request_date.':'.$model->request_type_id.':'.$model->payee_id.':'.$model->particulars.':'.$model->amount.':'.$model->status_id;
+                    $block = Blockchain::createBlock($index, $scope, $data);
+                    
+                    $content = 'Request Number: '.$model->request_number.PHP_EOL;
+                    $content .= 'Payee: '.$model->creditor->name.PHP_EOL;
+                    $content .= 'Amount: '.$model->amount.PHP_EOL.PHP_EOL;
+                    $content .= 'Particulars: '.PHP_EOL.$model->particulars;
+                    $recipient = Notificationrecipient::find()->where(['division_id' => $model->division_id, 'status_id' => $model->status_id])->one();
+                    
+                    Yii::$app->Notification->sendSMS('', 2, $recipient->primary->sms, 'Request for Validation', $content, 'FAIMS', $this->module->id, $this->action->id);
+                    
+                    Yii::$app->Notification->sendEmail('', 2, $recipient->primary->email, 'Request for Verification', $content, 'FAIMS', $this->module->id, $this->action->id);
+                    
+                    Yii::$app->session->setFlash('success', 'Request Successfully Submitted!');
+                }else{
+                    Yii::$app->session->setFlash('success', $model->getErrors());                 
+                }
+                return $this->redirect(['view', 'id' => $model->request_id]);
+                    
+            }
+
+            if (Yii::$app->request->isAjax) {
+                    return $this->renderAjax('_submitforvalidation', ['model'=>$model]);   
+            }else {
+                return $this->render('_submitforvalidation', [
+                            'model' => $model,
+                ]);
+            }
+        }else{
+            if (Yii::$app->request->isAjax) {
+                    return $this->renderAjax( Yii::$app->user->can('access-finance-verification') ? '_noteligibleforvalidation' : '_notallowed', ['model'=>$model]);   
+            }
+        }
+    }
+    
+    function actionValidate()
+    {
+        $model = $this->findModel($_GET['id']);
+        
+        if(Yii::$app->user->can('access-finance-validation')){
+            if (Yii::$app->request->post()) {
+                $model->status_id = ($model->obligation_type_id == 1) ? Request::STATUS_VALIDATED : Request::STATUS_ALLOTTED ; //40 : 55
+                if($model->save(false)){
+                    
+                    $index = $model->request_id;
+                    $scope = 'Request';
+                    $data = $model->request_number.':'.$model->request_date.':'.$model->request_type_id.':'.$model->payee_id.':'.$model->particulars.':'.$model->amount.':'.$model->status_id;
+                    Blockchain::createBlock($index, $scope, $data);
+                    
+                    $content = 'Request Number: '.$model->request_number.PHP_EOL;
+                    $content .= 'Payee: '.$model->creditor->name.PHP_EOL;
+                    $content .= 'Amount: '.$model->amount.PHP_EOL.PHP_EOL;
+                    $content .= 'Particulars: '.PHP_EOL.$model->particulars;
+                    $recipient = Notificationrecipient::find()->where(['status_id' => $model->status_id])->one();
+                    
+                    Yii::$app->Notification->sendSMS('', 2, $recipient->primary->sms, 'Request for Obligation', $content, 'FAIMS', $this->module->id, $this->action->id);
+                    
+                    Yii::$app->Notification->sendEmail('', 2, $recipient->primary->email, 'Request for Verification', $content, 'FAIMS', $this->module->id, $this->action->id);
+                    
+                    Yii::$app->session->setFlash('success', 'Request Successfully Validated!');
+                }else{
+                    Yii::$app->session->setFlash('success', $model->getErrors());                 
+                }
+                return $this->redirect(['view', 'id' => $model->request_id]);
+                    
+            }
+
+            if (Yii::$app->request->isAjax) {
+                    return $this->renderAjax('_validate', ['model'=>$model]);   
+            }else {
+                return $this->render('_validate', [
+                            'model' => $model,
+                ]);
+            }
+        }else{
+            if (Yii::$app->request->isAjax) {
+                    return $this->renderAjax('_notallowed', ['model'=>$model]);   
+            }
+        }
+    }
+    
+    public static function createBlock($index)
+    {
+        $request = Request::findOne($index);
+
+        $index = $request->request_id;
+        $scope = 'Request';
+        $timestamp = time();
+        $data = $request->request_number.':'.$request->request_date.':'.$request->request_type_id.':'.$request->payee_id.':'.$request->particulars.':'.$request->amount.':'.$request->status_id;
+        
+        $block = new Blockchain();
+        $block->index_id = $index;
+        $block->scope = $scope;
+        $block->timestamp = $timestamp;
+        $block->data = $data;
+        $block->hash = $block->calculateHash();
+        $block->nonce = $timestamp;
+
+        $block->save();
+    }
+    
+    function actionComments()
+    {
+        $searchModel = new CommentSearch();
+        $searchModel->component_id = Comment::COMPONENT_ATTACHMENT;
+        $searchModel->record_id = $_GET['record_id'];
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        
+        //$comments = Comment::find()->where(['component_id' => Comment::COMPONENT_ATTACHMENT, 'record_id' => $_GET['record_id']])->all();
+
+        if (Yii::$app->request->isAjax) {
+                return $this->renderAjax('_comments', [
+                    'searchModel' => $searchModel,
+                    'dataProvider'=>$dataProvider
+                ]);   
+        }else {
+            return $this->render('_comments', [
+                        //'model' => $model,
+            ]);
+        }
+    }
+    
+    function actionMigrate()
+    {
+        $model1 = Disbursement::find()->orderBy(['dv_date' => SORT_ASC])->all();
+        return $this->render('migrate', [
+                    'model' => $model1,
+        ]); 
+    }
+    
+    
 }
