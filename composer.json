@@ -43,9 +43,12 @@
         "dixonstarter/yii2-pdfprint": "*",
         "kartik-v/yii2-editable": "@dev",
         "kartik-v/yii2-grid": "@dev",
-        "kartik-v/yii2-money": "dev-master",
         "kartik-v/yii2-icons": "@dev",
-        "miloschuman/yii2-highcharts-widget": "^6.0"
+        "miloschuman/yii2-highcharts-widget": "^6.0",
+        "drsdre/yii2-wizardwidget": "*",
+        "phpoffice/phpspreadsheet": "^1.10",
+        "linslin/yii2-curl": "*",
+        "yii2assets/yii2-pdfjs": "^1.0"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",
@@ -56,7 +59,8 @@
         "jamband/yii2-schemadump": "*"
     },
     "config": {
-        "process-timeout": 1800
+        "process-timeout": 1800,
+        "discard-changes": true
     },
     "repositories": [
        {
