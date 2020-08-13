@@ -839,18 +839,18 @@ $headers=$headers.'</td>
         $LeftFooterContent = '
 <table width="100%">
 <tr>
-<td style="font-size: 11px;text-align: left; width=100%" colspan="12"><b>Awarding Com   mitee</b></td>
+<td style="font-size: 11px;text-align: left; width=100%" colspan="12"><b>Awarding Commitee</b></td>
 </tr>
     <tr>
         <td style="font-size: 11px;text-align: center; width=16.67"><b>'.$assig1.'</b><br/>Chairperson</td>
         <td style="width: 50px;"></td>
-        <td style="font-size: 11px;text-align: center; width=16.67"><b>'.$assig2.'</b><br/>Members</td>
+        <td style="font-size: 11px;text-align: center; width=16.67"><b>'.$assig2.'</b><br/>Member</td>
         <td style="width: 50px;"></td>
-        <td style="font-size: 11px;text-align: center; width=16.67"><b>'.$assig3.'</b><br/>Members</td>
+        <td style="font-size: 11px;text-align: center; width=16.67"><b>'.$assig3.'</b><br/>Member</td>
         <td style="width: 50px;"></td>
-        <td style="font-size: 11px;text-align: center; width=16.67"><b>'.$assig4.'</b><br/>Members</td>
+        <td style="font-size: 11px;text-align: center; width=16.67"><b>'.$assig4.'</b><br/>Member</td>
         <td style="height: 100px;"></td>
-        <td style="font-size: 11px;text-align: center; width=16.67"><b>'.$assig5.'</b><br/>Members</td>
+        <td style="font-size: 11px;text-align: center; width=16.67"><b>'.$assig5.'</b><br/>Member</td>
         <td style="height: 100px;"></td>
         <td style="font-size: 11px;text-align: center; width=16.67"><b>'.$assig6.'</b><br/>'.$Assig6Position.'</td>
         <td style="height: 100px;"></td>

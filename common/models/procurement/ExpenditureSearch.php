@@ -34,7 +34,7 @@ class ExpenditureSearch extends Expenditure
     }
 
     /**
-     * Creates data provider instance with search query applied
+     * Creates data provider instance with search  applied
      *
      * @param array $params
      *

@@ -194,3 +194,4 @@ common/models/procurement/Process.php
 common/models/procurement/Processresult.php
 common/models/procurement/ProcessSearch.php
 common/models/procurement/Program111_.php
+frontend/modules/finance/views/osdv/view_.php
