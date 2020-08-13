@@ -9,6 +9,7 @@ use kartik\grid\GridView;
 use yii\bootstrap\Modal;
 
 use common\models\procurementplan\Ppmp;
+use common\models\cashier\Lddapada;
 /* @var $this yii\web\View */
 /* @var $model common\models\cashier\Lddapada */
 
@@ -27,6 +28,32 @@ Modal::begin([
 
 echo "<div id='modalContent'><div style='text-align:center'><img src='/images/loading.gif'></div></div>";
 Modal::end();
+
+Modal::begin([
+    'header' => '<h4 id="modalHeader" style="color: #ffffff"></h4>',
+    'id' => 'modalContainer',
+    'size' => 'modal-sm',
+    'options'=> [
+             'tabindex'=>false,
+        ],
+]);
+
+echo "<div id='modalContent'><div style='text-align:center'><img src='/images/loading.gif'></div></div>";
+Modal::end();
+
+Modal::begin([
+    'header' => '<h4 id="modalHeader" style="color: #ffffff"></h4>',
+    'id' => 'modalPreview',
+    'size' => 'modal-lg',
+    'options'=> [
+             'tabindex'=>false,
+        ],
+]);
+
+echo "<div id='modalContent'><div style='text-align:center'><img src='/images/loading.gif'></div></div>";
+Modal::end();
+
+echo $model->total;
 ?>
 <div class="lddapada-view">
 
@@ -46,9 +73,9 @@ Modal::end();
                     ],
                     [
                         'attribute'=>'batch_number',
-                        'label'=>'Operating Unit',
-                        'value'=>'MDS-GSB Branch/Account No.:',
-                        'valueColOptions'=>['style'=>'width:30%'],
+                        'format'=>'raw',
+                        'value'=>'<kbd>'.$model->batch_number.'</kbd>',
+                        'valueColOptions'=>['style'=>'width:30%; font-size:18px; font-weight: bold;'],
                     ],
                 ],
             ],
@@ -62,6 +89,7 @@ Modal::end();
                     ],
                     [
                         'attribute'=>'batch_date',
+                        'value'=>date('m/d/Y', strtotime($model->batch_date)),
                         'valueColOptions'=>['style'=>'width:30%'],
                         'label'=>'Date',
                     ],
@@ -77,9 +105,26 @@ Modal::end();
                     ],
                     [
                         'attribute'=>'batch_number',
-                        'value' => '011011',
+                        'value' => Lddapada::FUND_CLUSTER,
                         'valueColOptions'=>['style'=>'width:30%'],
                         'label'=>'Fund Cluster',
+                    ],
+                ],
+            ],
+            [
+                'columns' => [
+                    [
+                        'attribute'=>'batch_number',
+                        'value' => 'LBP Centro 2195-9000-54',
+                        'valueColOptions'=>['style'=>'width:30%'],
+                        'label'=>'MDS-GSB BRANCH / MDS SUB ACCOUNT NO.',
+                        'inputContainer' => ['class'=>'col-sm-6'],
+                    ],
+                    [
+                        'attribute'=>'batch_number',
+                        'value' => '',
+                        'valueColOptions'=>['style'=>'width:30%'],
+                        'label'=>'',
                     ],
                 ],
             ],
@@ -186,7 +231,17 @@ Modal::end();
                                 [
                                     [
                                         'content'=>
-                                            Html::button('Add Creditors  <i class="glyphicon glyphicon-list"></i>', ['value' => Url::to(['lddapadaitem/additems', 'id'=>$model->lddapada_id]), 'title' => 'Creditor', 'class' => 'btn btn-success', 'style'=>'margin-right: 6px; display: "";', 'id'=>'buttonAddCreditor'])
+                                            /*Html::button('Add Items  <i class="glyphicon glyphicon-list"></i>', ['value' => Url::to(['lddapadaitem/additems', 'id'=>$model->lddapada_id]), 'title' => 'Items', 'class' => 'btn btn-success', 'style'=>'margin-right: 6px; display: "";', 'id'=>'buttonAddItems']) . */
+                                        
+                                            Html::button('Add Creditors  <i class="glyphicon glyphicon-plus"></i>', ['value' => Url::to(['lddapadaitem/addcreditors', 'id'=>$model->lddapada_id]), 'title' => 'Creditor', 'class' => 'btn btn-success', 'style'=>'margin-right: 6px; display: "";', 'id'=>'buttonAddCreditors']) .
+                                        
+                                            Html::button('Save  <i class="glyphicon glyphicon-floppy-save"></i>', ['value' => Url::to(['lddapada/save', 'id'=>$model->lddapada_id]), 'title' => 'LDDAPADA', 'class' => 'btn btn-info', 'style'=>'margin-right: 6px;'.(($model->saved === Lddapada::CHANGED) ? '' : 'display: none;'), 'id'=>'buttonSave']) .
+                                        
+                                            Html::button('Print  <i class="glyphicon glyphicon-print"></i>', ['value' => Url::to(['lddapada/preview', 'id'=>$model->lddapada_id]), 'title' => 'LDDAPADA', 'class' => 'btn btn-info', 'style'=>'margin-right: 6px;'.(($model->saved === Lddapada::SAVED) ? '' : 'display: none;'), 'id'=>'buttonPrintPreview']) 
+                                        
+                                            //$EnablePrint="<a href='/reports/preview?url=/lab/request/print-request?id=".$model->request_id."' class='btn btn-primary' style='margin-left: 5px'><i class='fa fa-print'></i> Print Request</a>";
+                                        
+                                        
                                     ],
                                 ],
                 // set export properties

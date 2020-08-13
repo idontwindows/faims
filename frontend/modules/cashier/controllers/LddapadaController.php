@@ -7,6 +7,10 @@ use common\models\cashier\Creditor;
 use common\models\cashier\Lddapada;
 use common\models\cashier\Lddapadaitem;
 use common\models\cashier\LddapadaSearch;
+use common\models\finance\Osdv;
+use common\models\procurement\Assignatory;
+use frontend\modules\cashier\components\Report;
+
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -16,6 +20,8 @@ use yii\data\ArrayDataProvider;
 use yii\db\Query;
 
 use yii\helpers\Json;
+
+use kartik\mpdf\Pdf;
 /**
  * LddapadaController implements the CRUD actions for Lddapada model.
  */
@@ -59,7 +65,7 @@ class LddapadaController extends Controller
     public function actionView($id)
     {
         $model = $this->findModel($id);
-        
+        $items = Lddapadaitem::find()->where(['lddapada_id' => $id])->all();
         $lddapadaItemsDataProvider = new ActiveDataProvider([
             'query' => $model->getLddapadaItems(),
             'pagination' => false,
@@ -74,6 +80,7 @@ class LddapadaController extends Controller
         
         return $this->render('view', [
             'model' => $model,
+            'items' => $items,
             'lddapadaItemsDataProvider' => $lddapadaItemsDataProvider,
         ]);
     }
@@ -86,7 +93,8 @@ class LddapadaController extends Controller
     public function actionCreate() 
     {
         $model = new Lddapada();
-        
+        $signatories = Assignatory::find()->where(['report_title' => 'LDDAP-ADA'])->one();
+        $model->created_by = Yii::$app->user->identity->user_id;
         /*$listYear = ['2019' => '2019', '2018' => '2018'];
         
         $divisions = Division::find()->orderBy('name')->asArray()->all();
@@ -95,22 +103,26 @@ class LddapadaController extends Controller
         $units = Unit::find()->orderBy('name')->asArray()->all();
         $listUnits = ArrayHelper::map($units, 'unit_id', 'name');*/
         
-        /*if ($model->load(Yii::$app->request->post())) {
+        if ($model->load(Yii::$app->request->post())) {
             $model->batch_number = Lddapada::generateBatchNumber();
             
             date_default_timezone_set('Asia/Manila');
             $model->batch_date = date("Y-m-d H:i:s", strtotime("now"));
             if($model->save())
-                return $this->redirect(['view', 'id' => (string) $model->lddapada_id]);*/
+                return $this->redirect(['view', 'id' => (string) $model->lddapada_id]);
+        }
+        
         if ($model->load(Yii::$app->request->post()) && $model->save(false)) {
             return $this->redirect(['view', 'id' => $model->lddapada_id]);    
         }elseif (Yii::$app->request->isAjax) {
             return $this->renderAjax('_form', [
                         'model' => $model,
+                        'signatories' => $signatories,
             ]);
         } else {
             return $this->render('_form', [
                         'model' => $model,
+                        'signatories' => $signatories,
             ]);
         }
     }
@@ -176,13 +188,14 @@ class LddapadaController extends Controller
             checked:checked},
         **/
         $lddapadaId = $_POST['lddapadaId'];
-        $creditorId = $_POST['creditorId'];
+        $osdvId = $_POST['osdvId'];
         $checked = $_POST['checked'];
         
-        $creditor = Creditor::findOne($creditorId);
+        //$creditor = Creditor::findOne($creditorId);
+        $osdv = Osdv::findOne($osdvId);
         $lddapada_item = Lddapadaitem::find()->where([
                                     'lddapada_id' => $lddapadaId, 
-                                    'creditor_id' => $creditorId])->one();
+                                    'osdv_id' => $osdvId])->one();
         
         if($lddapada_item)
         {
@@ -200,11 +213,13 @@ class LddapadaController extends Controller
         
             //lddapada_item_id 	lddapada_id 	creditor_id 	creditor_type_id 	name 	bank_name 	account_number 	gross_amount 	alobs_id 	expenditure_object_id 	check_number 	active
             $model->lddapada_id = $lddapadaId;
-            $model->creditor_id = $creditor->creditor_id;
-            $model->creditor_type_id = $creditor->creditor_type_id;
-            $model->name = $creditor->name;
-            $model->bank_name = $creditor->bank_name;
-            $model->account_number = $creditor->account_number;
+            $model->osdv_id = $osdv->osdv_id;
+            $model->creditor_id = $osdv->request->payee_id;
+            $model->creditor_type_id = $osdv->request->creditor->creditor_type_id;
+            $model->name = $osdv->request->creditor->name;
+            $model->bank_name = $osdv->request->creditor->bank_name;
+            $model->account_number = $osdv->request->creditor->account_number;
+            $model->gross_amount = $osdv->request->amount;
             $model->active = 1;
             $model->save(false);
         }
@@ -246,5 +261,68 @@ class LddapadaController extends Controller
                return false;
                //return Yii::$app->session->setFlash('failure', "Quantity not updated. Please refresh this page.");
        }
+    }
+    
+    function actionSave()
+    {
+        $model = $this->findModel($_GET['id']);
+        
+        if(Yii::$app->user->can('access-cashiering')){
+            if (Yii::$app->request->post()) {
+                $model->saved = Lddapada::SAVED ; //20
+                if($model->save(false)){
+                    
+                    /*$index = $model->lddapada_id;
+                    $scope = 'Lddapada';
+                    $data = $model->batch_number.':'.$model-> 	batch_date .':'.$model->request_type_id.':'.$model->payee_id.':'.$model->particulars.':'.$model->amount.':'.$model->status_id;
+                    Blockchain::createBlock($index, $scope, $data);
+                    
+                    $content = 'Request Number: '.$model->request_number.PHP_EOL;
+                    $content .= 'Payee: '.$model->creditor->name.PHP_EOL;
+                    $content .= 'Amount: '.$model->amount.PHP_EOL.PHP_EOL;
+                    $content .= 'Particulars: '.PHP_EOL.$model->particulars;
+                    $recipient = Notificationrecipient::find()->where(['status_id' => $model->status_id])->one();
+                    
+                    Yii::$app->Notification->sendSMS('', 2, $recipient->primary->sms, 'Request for Obligation', $content, 'FAIMS', $this->module->id, $this->action->id);
+                    
+                    Yii::$app->Notification->sendEmail('', 2, $recipient->primary->email, 'Request for Verification', $content, 'FAIMS', $this->module->id, $this->action->id);*/
+                    
+                    Yii::$app->session->setFlash('success', 'Successfully Saved!');
+                }else{
+                    Yii::$app->session->setFlash('success', $model->getErrors());                 
+                }
+                return $this->redirect(['view', 'id' => $model->lddapada_id]);
+                    
+            }
+
+            if (Yii::$app->request->isAjax) {
+                    return $this->renderAjax('_save', ['model'=>$model]);   
+            }else {
+                return $this->render('_save', [
+                            'model' => $model,
+                ]);
+            }
+        }else{
+            if (Yii::$app->request->isAjax) {
+                    return $this->renderAjax('_notallowed', ['model'=>$model]);   
+            }
+        }
+    }
+    
+    function actionPrint($id)
+    {
+        $report = new Report();
+        $report->lddapada($id);
+    }
+    
+    function actionPreview()
+    {
+        //$url = 'http://localhost:8080/cashier/lddapada/print?id=2';
+        $url = 'D:/HP Files/2020/WFH/GCQ/W12/WFH-Report-August-7.pdf';
+        if (Yii::$app->request->isAjax) {
+            return $this->renderAjax('_preview', ['url'=>$url]);   
+        }else {
+            return $this->render('_preview', ['url'=>$url]);
+        }
     }
 }

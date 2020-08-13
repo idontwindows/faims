@@ -29,16 +29,15 @@ use common\models\cashier\Lddapada;
         ]); ?>
     
     
+    <?= $form->field($model, 'certified_correct_id')->hiddenInput(['value' => $signatories->assignatory_1])->label(false) ?>
 
-    <?= $form->field($model, 'certified_correct_id')->textInput(['value' => 1]) ?>
+    <?= $form->field($model, 'approved_id')->hiddenInput(['value' => $signatories->assignatory_2])->label(false) ?>
 
-    <?= $form->field($model, 'approved_id')->textInput(['value' => 1]) ?>
+    <?= $form->field($model, 'validated1_id')->hiddenInput(['value' => $signatories->assignatory_3])->label(false) ?>
 
-    <?= $form->field($model, 'validated1_id')->textInput(['value' => 1]) ?>
-
-    <?= $form->field($model, 'validated2_id')->textInput(['value' => 1]) ?>
+    <?= $form->field($model, 'validated2_id')->hiddenInput(['value' => $signatories->assignatory_4])->label(false) ?>
     
-    <?= $form->field($model, 'create_by')->textInput(['value' => 'No Admin']) ?>
+    <?= $form->field($model, 'created_by')->hiddenInput()->label(false) ?>
 
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
