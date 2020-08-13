@@ -35,12 +35,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'showPageSummary' => true,
         'toolbar'=> [],
         'columns' => [
-            /*[
-                'attribute' => 'item_id',
-                'value'=>function ($model, $key, $index, $widget){ 
-                            return $model->item_id;
-                        },
-            ],*/
+
             [
                 'attribute' => 'item_id',
                 'value'=>function ($model, $key, $index, $widget){ 

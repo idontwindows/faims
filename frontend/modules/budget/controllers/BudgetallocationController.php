@@ -267,4 +267,13 @@ class BudgetallocationController extends Controller
     
         //echo Json::encode(['message'=>$out]);
     }
+    
+    public function actionAdjustmenthistory($year, $section = NULL)
+    {
+        $adjustments = AllocationadjustmentSearch::find();
+        
+        //=  Allocationadjustment::find()->where(['YEAR(create_date)' => $year])->andWhere(['>','status_id',0])->with(['samples' => function($query){
+        //        $query->andWhere(['active'=>'1']);
+        //    }])->all();
+    }
 }
