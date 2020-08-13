@@ -3,6 +3,7 @@
 namespace common\models\system;
 
 use common\models\system\Profile;
+use common\models\procurement\Section;
 use Yii;
 
 /**
@@ -51,5 +52,10 @@ class Usersection extends \yii\db\ActiveRecord
     public function getProfile()
     {
         return $this->hasOne(Profile::className(), ['user_id' => 'user_id']);
+    }
+    
+    public function getSection()
+    {
+        return $this->hasOne(Section::className(), ['section_id' => 'section_id']);
     }
 }
