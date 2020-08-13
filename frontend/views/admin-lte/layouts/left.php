@@ -67,8 +67,7 @@ if(Yii::$app->user->isGuest){
                     [
                         'label' => 'Cashier', 
                         'icon' => 'archive', 
-                        //'url' => ['/settings'],
-                        'visible'=> Yii::$app->user->can('access-cashier'),
+                        'visible'=> Yii::$app->user->can('access-cashiering'),
                         'items' => [
                             ['label' => 'LDDAP-ADA', 'icon' => 'money', 'url' => ['/cashier/lddapada/index']],
                             ['label' => 'Creditors', 'icon' => 'clipboard', 'url' => ['/cashier/creditor/index']],
@@ -112,9 +111,15 @@ if(Yii::$app->user->isGuest){
                     [
                         'label' => 'Finance', 
                         'icon' => 'line-chart', 
-                        //'visible'=> Yii::$app->user->can('access-finance'),
-                        'visible'=> false,
+                        'visible'=> Yii::$app->user->can('access-finance'),
+                        //'visible'=> false,
                         'items' => [
+                            //['label' => 'Obligation and Disbursement', 'icon' => 'object-ungroup', 'url' => ['/finance/request/processingindex'], 'visible'=> Yii::$app->user->can('access-finance-processing') //|| (Yii::$app->user->identity->username == 'Admin')
+                            //],
+                            ['label' => 'Obligation and Disbursement', 'icon' => 'object-ungroup', 'url' => ['/finance/osdv/index'], 'visible'=> Yii::$app->user->can('access-finance-processing') //|| (Yii::$app->user->identity->username == 'Admin')
+                            ],
+                            ['label' => 'Validate Requests', 'icon' => 'object-ungroup', 'url' => ['/finance/request/validateindex'], 'visible'=> Yii::$app->user->can('access-finance-validation') //|| (Yii::$app->user->identity->username == 'Admin')
+                            ],
                             ['label' => 'Verify Requests', 'icon' => 'object-ungroup', 'url' => ['/finance/request/verifyindex'], 'visible'=> Yii::$app->user->can('access-finance-verification') //|| (Yii::$app->user->identity->username == 'Admin')
                             ],
                             ['label' => 'Requests', 'icon' => 'object-ungroup', 'url' => ['/finance/request/index']],
