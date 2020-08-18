@@ -83,7 +83,7 @@ class Requestattachment extends \yii\db\ActiveRecord
         //clearstatcache();
         if($model->filename != NULL){
             //$file = 'uploads/finance/request/' . $model->request->request_number.'/'. $model->filename;
-            $file = Yii::getAlias('@data') . '/finance/request/' . $model->request->request_number.'/'. $model->filename;
+            $file = Yii::getAlias('@uploads') . '/finance/request/' . $model->request->request_number.'/'. $model->filename;
         }else{
             $file = false;
         }
