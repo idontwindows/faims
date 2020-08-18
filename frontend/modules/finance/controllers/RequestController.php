@@ -258,13 +258,16 @@ class RequestController extends Controller
             $random = Yii::$app->security->generateRandomString(40);
             $model->pdfFile = UploadedFile::getInstance($model, 'pdfFile');
             
-            $path = 'uploads/finance/request/' . $model->request->request_number.'/';
+            //echo Yii::getAlias('@data');
+            $path = Yii::getAlias('@data').'/finance/request/' . $model->request->request_number.'/';
+            //$path = 'uploads/finance/request/' . $model->request->request_number.'/';
             if(!file_exists($path)){
                 mkdir($path, 0755, true);
                 $indexFile = fopen($path.'/index.php', 'w') or die("Unable to open file!");
             }
                 
-            $model->pdfFile->saveAs('uploads/finance/request/' . $model->request->request_number.'/'. $model->request_attachment_id . $random . '.' . $model->pdfFile->extension);
+            $model->pdfFile->saveAs( $path . $model->request_attachment_id . $random . '.' . $model->pdfFile->extension);
+            //$model->pdfFile->saveAs('uploads/finance/request/' . $model->request->request_number.'/'. $model->request_attachment_id . $random . '.' . $model->pdfFile->extension);
             $model->filename = $model->request_attachment_id . $random . '.' . $model->pdfFile->extension;
             $model->save(false);
             

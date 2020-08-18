@@ -20,7 +20,8 @@ echo $form->field($model, 'pdfFile')->widget(FileInput::classname(), [
         'overwriteInitial' => true,
         //'initialPreview' =>[Requestattachment::checkFile($model->attachment_id)],
         'initialPreview' => [
-            "/uploads/finance/request/" . $model->request->request_number.'/' . $model->filename,
+            Yii::getAlias('@data') . '\finance\request\\' . $model->request->request_number. '\\' . $model->filename,
+            //'/uploads/finance/request/' . $model->request->request_number. '/' . $model->filename,
         ],
         'initialPreviewAsData'=>true,
         'initialPreviewConfig'=>[
@@ -76,5 +77,9 @@ if( !$model->status_id && (Yii::$app->user->can('access-finance-verification') |
 ActiveForm::end(); 
 
 }
+//$path = 'uploads/finance/request/' . $model->request->request_number.'/';
+//echo $path.'<br/>';
+
+echo Yii::getAlias('@data');
 ?>
 <br><br>
