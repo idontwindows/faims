@@ -35,7 +35,7 @@ echo "<div id='modalContent'><div style='text-align:center'><img src='/images/lo
 Modal::end();
 ?>
 <!--pre>
-<?php //print_r($request_status);?>
+<?php //print_r($model->owner());?>
 </pre-->
 
 
@@ -237,8 +237,9 @@ Modal::end();
                                                             
                                                             //Yii::$app->user->can('access-finance-validation')
                                                             Html::button('Validate Request', ['value' => Url::to(['request/validate', 'id'=>$model->request_id]), 'title' => 'Submit', 'class' => $params['btnClass'], 'style'=>'margin-right: 6px;'.(((($model->status_id >= Request::STATUS_VERIFIED) && ($model->status_id < Request::STATUS_VALIDATED) && Yii::$app->user->can('access-finance-validation') )) ? ($model->attachments ? '' : 'display: none;') : 'display: none;'), 'id'=>'buttonValidateRequest']) .
-                                                            (($model->status_id <= 20) ? "" : 
-                                                            '<div class="alert '.$request_status["alert"].'" style="width: 20%; ">
+                                                            (($model->status_id < 20) ? "" : 
+                                                            //($model->owner() ? "" : 
+                                                            '<div class="alert '.$request_status["alert"].'" style="width: 20%; "'.($model->owner() ? "" : "display: none;").'>
                                                                 Status: <strong>'.strtoupper($request_status["msg"]).'</strong>
                                                             </div>')
                                                             ,
