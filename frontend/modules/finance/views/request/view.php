@@ -14,6 +14,7 @@ use common\models\cashier\Creditor;
 use common\models\finance\Request;
 use common\models\finance\Requestattachment;
 use common\models\finance\Requesttype;
+use common\models\system\Comment;
 /* @var $this yii\web\View */
 /* @var $model common\models\finance\Request */
 
@@ -34,7 +35,7 @@ echo "<div id='modalContent'><div style='text-align:center'><img src='/images/lo
 Modal::end();
 ?>
 <!--pre>
-<?php //print_r($model->verifiedAttachments);?>
+<?php //print_r($request_status);?>
 </pre-->
 
 
@@ -145,9 +146,15 @@ Modal::end();
                 'width'=>'550px',
                 'format' => 'raw',
                 'value'=>function ($model, $key, $index, $widget) { 
-                    $comments = 0;
+                    
+                    $request_id = $model->request->request_id;
                     $record_id = $model->request_attachment_id;
-                    $component = 'Attachment';
+                    //$component_id = Comment::COMPONENT_ATTACHMENT;
+                    $component_id = 20;
+                    
+                    $comments = Comment::find()
+                        ->where(['component_id' => $component_id, 'record_id' => $record_id])
+                        ->count();
 
                     return $model->attachment->name. ' ' . 
                         
@@ -155,8 +162,8 @@ Modal::end();
                         
                     Html::a('<i class="fa fa-lg fa-comment"></i> '.$comments.' comments',[''], ['class' => 'btn btn-black', 'title' => 'Comments', 'onClick'=>               "{
                             //alert($(this).attr('title'));
-                            //loadModal('comments?record_id=$record_id&component=$component'); 
-                            loadModal('/system/comment/create?record_id=$record_id&component=$component'); 
+                            //loadModal('comments?record_id=$record_id&component=$component_id'); 
+                            loadModal('/system/comment/create?request_id=$request_id&record_id=$record_id&component=$component_id'); 
                             return false;
                     
                         }"])
@@ -225,9 +232,16 @@ Modal::end();
                 
                                                             Html::button('Submit for Verification', ['value' => Url::to(['request/submitforverification', 'id'=>$model->request_id]), 'title' => 'Submit', 'class' => $params['btnClass'], 'style'=>'margin-right: 6px;'.((($model->status_id < Request::STATUS_SUBMITTED)) ? ($model->attachments ? '' : 'display: none;') : 'display: none;'), 'id'=>'buttonSubmitForVerification']) .
                 
-                                                            Html::button('Submit for Validation', ['value' => Url::to(['request/submitforvalidation', 'id'=>$model->request_id]), 'title' => 'Submit', 'class' => $params['btnClass'], 'style'=>'margin-right: 6px;'.(((($model->status_id >= Request::STATUS_SUBMITTED) && ($model->status_id < Request::STATUS_VERIFIED))) ? ($model->attachments ? '' : 'display: none;') : 'display: none;'), 'id'=>'buttonSubmitForValidation']) .
-                
-                                                            Html::button('Validate Request', ['value' => Url::to(['request/validate', 'id'=>$model->request_id]), 'title' => 'Submit', 'class' => $params['btnClass'], 'style'=>'margin-right: 6px;'.(((($model->status_id >= Request::STATUS_VERIFIED) && ($model->status_id < Request::STATUS_VALIDATED))) ? ($model->attachments ? '' : 'display: none;') : 'display: none;'), 'id'=>'buttonValidateRequest']),
+                                                            //Yii::$app->user->can('access-finance-verification')
+                                                            Html::button('Submit for Validation', ['value' => Url::to(['request/submitforvalidation', 'id'=>$model->request_id]), 'title' => 'Submit', 'class' => $params['btnClass'], 'style'=>'margin-right: 6px;'.(((($model->status_id >= Request::STATUS_SUBMITTED) && ($model->status_id < Request::STATUS_VERIFIED) && Yii::$app->user->can('access-finance-verification') )) ? ($model->attachments ? '' : 'display: none;') : 'display: none;'), 'id'=>'buttonSubmitForValidation']) .
+                                                            
+                                                            //Yii::$app->user->can('access-finance-validation')
+                                                            Html::button('Validate Request', ['value' => Url::to(['request/validate', 'id'=>$model->request_id]), 'title' => 'Submit', 'class' => $params['btnClass'], 'style'=>'margin-right: 6px;'.(((($model->status_id >= Request::STATUS_VERIFIED) && ($model->status_id < Request::STATUS_VALIDATED) && Yii::$app->user->can('access-finance-validation') )) ? ($model->attachments ? '' : 'display: none;') : 'display: none;'), 'id'=>'buttonValidateRequest']) .
+                                                            (($model->status_id <= 20) ? "" : 
+                                                            '<div class="alert '.$request_status["alert"].'" style="width: 20%; ">
+                                                                Status: <strong>'.strtoupper($request_status["msg"]).'</strong>
+                                                            </div>')
+                                                            ,
                 
                 //Html::button('Submit', ['value' => Url::to(['request/submit', 'id'=>$model->request_id]), 'title' => 'Submit', 'class' => $params['btnClass'], 'style'=>'margin-right: 6px;'.((($model->status_id < Request::STATUS_SUBMITTED)) ? '' : 'display: none;'), 'id'=>'buttonSubmit']),
                 'after'=>false,

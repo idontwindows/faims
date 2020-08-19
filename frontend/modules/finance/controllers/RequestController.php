@@ -118,7 +118,7 @@ class RequestController extends Controller
         
         $params = $this->checkAttachments($model);
         
-        
+        $request_status = $this->checkStatus($model->status_id);
         
         $attachmentsDataProvider = new ActiveDataProvider([
             'query' => $model->getAttachments(),
@@ -138,6 +138,7 @@ class RequestController extends Controller
         return $this->render('view', [
             'model' => $model,
             'attachmentsDataProvider' => $attachmentsDataProvider,
+            'request_status' => $request_status,
             'params' => $params,
         ]);
     }
@@ -311,6 +312,56 @@ class RequestController extends Controller
         }else{
             return 'File was not deleted!';
         }
+    }
+    
+    function checkStatus($status_id)
+    {
+        switch ($status_id) {
+            case 20:
+                $msg = 'Submitted';
+                $alert = 'alert-info';
+                break;
+            case 30:
+                $msg = 'Verified';
+                $alert = 'alert-info';
+                break;
+            case 40:
+                $msg = 'Validated';
+                $alert = 'alert-info';
+                break;
+            case 50:
+                $msg = 'Certified Allotment Available';
+                $alert = 'alert-info';
+                break;
+            case 55:
+                $msg = 'Alloted';
+                $alert = 'alert-info';
+                break;
+            case 60:
+                $msg = 'Certified Funds Available';
+                $alert = 'alert-info';
+                break;
+            case 65:
+                $msg = 'Charged';
+                $alert = 'alert-info';
+                break;
+            case 70:
+                $msg = 'Approved for Disbursement';
+                $alert = 'alert-info';
+                break;
+            case 80:
+                $msg = 'Completed';
+                $alert = 'alert-success';
+                break;
+            default:
+                $msg = '---';
+                $alert = 'alert-info';
+        }
+
+        return [
+            'msg' => $msg,
+            'alert' => $alert,
+        ];
     }
     
     function checkAttachments($modelAttachments)

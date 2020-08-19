@@ -69,6 +69,7 @@ class CommentController extends Controller
         
         $searchModel = new CommentSearch();
         $searchModel->component_id = Comment::COMPONENT_ATTACHMENT;
+        $request_id = $_GET['request_id'];
         $searchModel->record_id = $_GET['record_id'];
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         
@@ -81,8 +82,10 @@ class CommentController extends Controller
         
         if ($model->load(Yii::$app->request->post())) {
             //$model->save(false);
-            if($model->save(false))
+            if($model->save(false)){
                 Yii::$app->session->setFlash("success", "Comment posted.");
+                return $this->redirect(['/finance/request/view?id='.$request_id]);
+            }
         }
         
         if (Yii::$app->request->isAjax) {
