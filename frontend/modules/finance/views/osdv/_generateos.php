@@ -21,7 +21,7 @@ use common\models\finance\Os;
     <div class="container">
       <h1>Generate OS Number</h1>
         
-        <p class="md-info">This will assign the OS Number : <span class="label label-warning"><?= Os::generateDvNumber($model->expenditure_class_id,date("Y-m-d H:i:s")); ?></span> to this Financial Request.
+        <p class="md-info">This will assign the OS Number : <span class="label label-warning"><?= Os::generateOsNumber($model->expenditure_class_id,date("Y-m-d H:i:s")); ?></span> to this Financial Request.
         <br/>This action will notify the <span class="badge btn-info">Budget Officer</span>.</p>
         
         <br/>Note: Updates on this request will sent via email.

@@ -227,7 +227,10 @@ Modal::end();
             'panel' => [
                 'heading' => '<h3 class="panel-title">Attachments</h3>',
                 'type' => GridView::TYPE_PRIMARY,
-                'before'=>Html::button('View Attachments', ['value' => Url::to(['request/viewattachments', 'id'=>$model->request_id]),     
+                //'before'=> (($model->status_id == Request::STATUS_VALIDATED) || ($model->status_id == Request::STATUS_VERIFIED)) ? 
+                'before'=> (Yii::$app->user->can('access-finance-validation') || Yii::$app->user->can('access-finance-verification')) ? 
+                
+                (Html::button('View Attachments', ['value' => Url::to(['request/viewattachments', 'id'=>$model->request_id]),     
                                                             'title' => 'Attachments', 'class' => 'btn btn-info', 'style'=>'margin-right: 6px;'.($model->attachments ? 'display: none;' : ''), 'id'=>'buttonViewAttachments']) . 
                 
                                                             Html::button('Submit for Verification', ['value' => Url::to(['request/submitforverification', 'id'=>$model->request_id]), 'title' => 'Submit', 'class' => $params['btnClass'], 'style'=>'margin-right: 6px;'.((($model->status_id < Request::STATUS_SUBMITTED)) ? ($model->attachments ? '' : 'display: none;') : 'display: none;'), 'id'=>'buttonSubmitForVerification']) .
@@ -236,12 +239,15 @@ Modal::end();
                                                             Html::button('Submit for Validation', ['value' => Url::to(['request/submitforvalidation', 'id'=>$model->request_id]), 'title' => 'Submit', 'class' => $params['btnClass'], 'style'=>'margin-right: 6px;'.(((($model->status_id >= Request::STATUS_SUBMITTED) && ($model->status_id < Request::STATUS_VERIFIED) && Yii::$app->user->can('access-finance-verification') )) ? ($model->attachments ? '' : 'display: none;') : 'display: none;'), 'id'=>'buttonSubmitForValidation']) .
                                                             
                                                             //Yii::$app->user->can('access-finance-validation')
-                                                            Html::button('Validate Request', ['value' => Url::to(['request/validate', 'id'=>$model->request_id]), 'title' => 'Submit', 'class' => $params['btnClass'], 'style'=>'margin-right: 6px;'.(((($model->status_id >= Request::STATUS_VERIFIED) && ($model->status_id < Request::STATUS_VALIDATED) && Yii::$app->user->can('access-finance-validation') )) ? ($model->attachments ? '' : 'display: none;') : 'display: none;'), 'id'=>'buttonValidateRequest']) .
-                                                            (($model->status_id < 20) ? "" : 
+                                                            Html::button('Validate Request', ['value' => Url::to(['request/validate', 'id'=>$model->request_id]), 'title' => 'Submit', 'class' => $params['btnClass'], 'style'=>'margin-right: 6px;'.(((($model->status_id >= Request::STATUS_VERIFIED) && ($model->status_id < Request::STATUS_VALIDATED) && Yii::$app->user->can('access-finance-validation') )) ? ($model->attachments ? '' : 'display: none;') : 'display: none;'), 'id'=>'buttonValidateRequest']) ) 
+                
+                                                            :
+                
+                                                            //(($model->status_id < 20) ? "" : 
                                                             //($model->owner() ? "" : 
-                                                            '<div class="alert '.$request_status["alert"].'" style="width: 20%; "'.($model->owner() ? "" : "display: none;").'>
+                                                            '<div class="alert '.$request_status["alert"].'" style="width: 20%; ">
                                                                 Status: <strong>'.strtoupper($request_status["msg"]).'</strong>
-                                                            </div>')
+                                                            </div>'
                                                             ,
                 
                 //Html::button('Submit', ['value' => Url::to(['request/submit', 'id'=>$model->request_id]), 'title' => 'Submit', 'class' => $params['btnClass'], 'style'=>'margin-right: 6px;'.((($model->status_id < Request::STATUS_SUBMITTED)) ? '' : 'display: none;'), 'id'=>'buttonSubmit']),

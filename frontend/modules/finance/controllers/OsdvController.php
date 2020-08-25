@@ -405,4 +405,13 @@ class OsdvController extends Controller
             }
         }
     }
+    
+    public function actionNotallowed()
+    {
+        $model = $this->findModel($_GET['id']);
+        
+        if (Yii::$app->request->isAjax) {
+                return $this->renderAjax('_notallowed', ['model'=>$model]);   
+            }
+    }
 }

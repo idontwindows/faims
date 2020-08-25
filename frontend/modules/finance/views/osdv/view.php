@@ -158,9 +158,9 @@ Modal::end();
                 'displayOnly'=>true, //$model->os 
                 'value' =>  
                     ($model->os ? '<h4><span class="label label-success">'.$model->os->os_number.'</span></h4>' : 
-                    '<h4><span class="label label-warning">'.Os::generateOsNumber($model->expenditure_class_id, date("Y-m-d H:i:s")).'</span></h4>'.Html::button('Generate', ['value' => Url::to(['osdv/generateosnumber', 'id'=>$model->osdv_id]),     
-                                                                        'title' => 'Approve for Disbursement', 'class' => 'btn btn-md btn-success ',
-                                                                        //.($model->status_id == Request::STATUS_CERTIFIED_ALLOTMENT_AVAILABLE ? 'disabled' : ''),
+                    '<h4><span class="label label-warning">'.Os::generateOsNumber($model->expenditure_class_id, date("Y-m-d H:i:s")).'</span></h4>'.Html::button('Generate', ['value' => Yii::$app->user->can('access-finance-generateosnumber') ? Url::to(['osdv/generatedvnumber', 'id'=>$model->osdv_id]) : Url::to(['osdv/notallowed', 'id'=>$model->osdv_id]),     
+                                                                        'title' => 'Generate OS', 'class' => 'btn btn-md btn-success '
+                                                                        .(Yii::$app->user->can('access-finance-generateosnumber') ? '': 'disabled'),
                                                                    'id'=>'buttonGenerateOSNumber'])) .
                     
                     Html::button('Obligate', ['value' => Url::to(['osdv/obligate', 'id'=>$model->osdv_id]),     
@@ -174,9 +174,9 @@ Modal::end();
                 'displayOnly'=>true, //$model->os 
                 'value' =>  
                     ($model->dv ? '<h4><span class="label label-success">'.$model->dv->dv_number.'</span></h4>' : 
-                    '<h4><span class="label label-warning">'.Dv::generateDvNumber($model->expenditure_class_id, date("Y-m-d H:i:s")).'</span></h4>'.Html::button('Generate', ['value' => Url::to(['osdv/generatedvnumber', 'id'=>$model->osdv_id]),     
-                                                                        'title' => 'Approve for Disbursement', 'class' => 'btn btn-md btn-success ',
-                                                                        //.($model->status_id == Request::STATUS_CERTIFIED_ALLOTMENT_AVAILABLE ? 'disabled' : ''),
+                    '<h4><span class="label label-warning">'.Dv::generateDvNumber($model->expenditure_class_id, date("Y-m-d H:i:s")).'</span></h4>'.Html::button('Generate', ['value' => Yii::$app->user->can('access-finance-generatedvnumber') ? Url::to(['osdv/generatedvnumber', 'id'=>$model->osdv_id]) : Url::to(['osdv/notallowed', 'id'=>$model->osdv_id]),
+                                                                        'title' => 'Generate DV', 'class' => 'btn btn-md btn-success '
+                                                                        .(Yii::$app->user->can('access-finance-generatedvnumber') ? '' : 'disabled'),
                                                                    'id'=>'buttonGenerateDVNumber'])) .
                     
                     Html::button('Certify Funds Available', ['value' => Url::to(['osdv/certifycashavailable', 'id'=>$model->osdv_id]),     
