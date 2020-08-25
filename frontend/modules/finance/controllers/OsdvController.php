@@ -91,7 +91,7 @@ class OsdvController extends Controller
                 ]
             ],*/
         ]);
-        $accountTransactionsDataProvider
+
         $accountTransactionsDataProvider = new ActiveDataProvider([
             'query' => $model->getAccounttransactions(),
             'pagination' => false,
