@@ -19,7 +19,7 @@ use common\models\finance\Dv;
     
     <!--?= $form->field($model, 'status_id')->textInput() ?-->
     <div class="container">
-      <h1>Generate OS Number</h1>
+      <h1>Generate DV Number</h1>
         
         <p class="md-info">This will assign the DV Number : <span class="label label-warning"><?= Dv::generateDvNumber($model->expenditure_class_id,date("Y-m-d H:i:s")); ?></span> to this Financial Request.
         <br/>This action will notify the <span class="badge btn-info">Accountant</span>.</p>

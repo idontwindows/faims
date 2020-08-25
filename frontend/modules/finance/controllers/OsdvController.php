@@ -91,7 +91,7 @@ class OsdvController extends Controller
                 ]
             ],*/
         ]);
-        
+        $accountTransactionsDataProvider
         $accountTransactionsDataProvider = new ActiveDataProvider([
             'query' => $model->getAccounttransactions(),
             'pagination' => false,
@@ -329,79 +329,94 @@ class OsdvController extends Controller
     {
         $model = $this->findModel($_GET['id']);
         
-        if(Yii::$app->user->can('access-finance-generateosnumber')){
-            if (Yii::$app->request->post()) {
-                $model->status_id = Request::STATUS_CERTIFIED_ALLOTMENT_AVAILABLE; //50
-                
-                if($model->save(false)){
-                    
-                    $model->request->status_id = $model->status_id; //50;
-                    $model->request->save(false);
-                    
-                    if($model->type_id == 1){
-                        $os = new Os();
-                        $os->osdv_id = $model->osdv_id;
-                        $os->request_id = $model->request->request_id;
-                        $os->os_number = Os::generateOsNumber($model->expenditure_class_id, date("Y-m-d H:i:s"));
-                        $os->os_date = date("Y-m-d", strtotime($model->create_date));
-                        $os->save(false);
+        if($model->allotments){
+            if(Yii::$app->user->can('access-finance-generateosnumber')){
+                if (Yii::$app->request->post()) {
+                    $model->status_id = Request::STATUS_CERTIFIED_ALLOTMENT_AVAILABLE; //50
+
+                    if($model->save(false)){
+
+                        $model->request->status_id = $model->status_id; //50;
+                        $model->request->save(false);
+
+                        if($model->type_id == 1){
+                            $os = new Os();
+                            $os->osdv_id = $model->osdv_id;
+                            $os->request_id = $model->request->request_id;
+                            $os->os_number = Os::generateOsNumber($model->expenditure_class_id, date("Y-m-d H:i:s"));
+                            $os->os_date = date("Y-m-d", strtotime($model->create_date));
+                            $os->save(false);
+                        }
+                        
+                        Yii::$app->session->setFlash('success', 'OS Number Successfully Generated!');
+                        return $this->redirect(['view', 'id' => $model->osdv_id]);
+                    }else{
+                        Yii::$app->session->setFlash('warning', $model->getErrors());                 
                     }
                     
-                    Yii::$app->session->setFlash('success', 'OS Number Successfully Generated!');
-                }else{
-                    Yii::$app->session->setFlash('warning', $model->getErrors());                 
                 }
-                return $this->redirect(['view', 'id' => $model->request_id]);
-            }
-            
-            if (Yii::$app->request->isAjax) {
-                return $this->renderAjax('_generateos', ['model' => $model]);
-            } else {
-                return $this->render('_generateos', ['model' => $model]);
+
+                if (Yii::$app->request->isAjax) {
+                    return $this->renderAjax('_generateos', ['model' => $model]);
+                } else {
+                    return $this->render('_generateos', ['model' => $model]);
+                }
+            }else{
+                if (Yii::$app->request->isAjax) {
+                    return $this->renderAjax('_notallowed', ['model'=>$model]);   
+                }
             }
         }else{
             if (Yii::$app->request->isAjax) {
-                return $this->renderAjax('_notallowed', ['model'=>$model]);   
+                return $this->renderAjax('_requireos', ['model'=>$model]);   
             }
         }
+        
+        
     }
     
     public function actionGeneratedvnumber()
     {
         $model = $this->findModel($_GET['id']);
         
-        if(Yii::$app->user->can('access-finance-generatedvnumber')){
-            if (Yii::$app->request->post()) {
-                $model->status_id = Request::STATUS_CERTIFIED_FUNDS_AVAILABLE; //60
-                
-                if($model->save(false)){
-                    
-                    $model->request->status_id = $model->status_id; //60;
-                    if($model->request->save(false)){
-                    //if($model->type_id == 1){
-                        $dv = new Dv();
-                        $dv->osdv_id = $model->osdv_id;
-                        $dv->request_id = $model->request->request_id;
-                        $dv->dv_number = Dv::generateDvNumber($model->expenditure_class_id, date("Y-m-d H:i:s"));
-                        $dv->dv_date = date("Y-m-d", strtotime($model->create_date));
-                        $dv->save(false);
+        if($model->accounttransactions){
+            if(Yii::$app->user->can('access-finance-generatedvnumber')){
+                if (Yii::$app->request->post()) {
+                    $model->status_id = Request::STATUS_CERTIFIED_FUNDS_AVAILABLE; //60
+
+                    if($model->save(false)){
+
+                        $model->request->status_id = $model->status_id; //60;
+                        if($model->request->save(false)){
+                        //if($model->type_id == 1){
+                            $dv = new Dv();
+                            $dv->osdv_id = $model->osdv_id;
+                            $dv->request_id = $model->request->request_id;
+                            $dv->dv_number = Dv::generateDvNumber($model->expenditure_class_id, date("Y-m-d H:i:s"));
+                            $dv->dv_date = date("Y-m-d", strtotime($model->create_date));
+                            $dv->save(false);
+                        }
+
+                        Yii::$app->session->setFlash('success', 'DV Number Successfully Generated!');
+                        return $this->redirect(['view', 'id' => $model->osdv_id]);
+                    }else{
+                        Yii::$app->session->setFlash('warning', $model->getErrors());                 
                     }
-                    
-                    Yii::$app->session->setFlash('success', 'DV Number Successfully Generated!');
-                }else{
-                    Yii::$app->session->setFlash('warning', $model->getErrors());                 
                 }
-                return $this->redirect(['view', 'id' => $model->request_id]);
-            }
-            
-            if (Yii::$app->request->isAjax) {
-                return $this->renderAjax('_generatedv', ['model' => $model]);
-            } else {
-                return $this->render('_generatedv', ['model' => $model]);
+
+                if (Yii::$app->request->isAjax) {
+                    return $this->renderAjax('_generatedv', ['model' => $model]);
+                } else {
+                    return $this->render('_generatedv', ['model' => $model]);
+                }
+            }else{
+                if (Yii::$app->request->isAjax) {
+                    return $this->renderAjax('_notallowed', ['model'=>$model]);   
+                }
             }
         }else{
             if (Yii::$app->request->isAjax) {
-                return $this->renderAjax('_notallowed', ['model'=>$model]);   
+                return $this->renderAjax('_requiredv', ['model'=>$model]);   
             }
         }
     }

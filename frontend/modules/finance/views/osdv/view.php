@@ -41,7 +41,7 @@ Modal::end();
 //echo Os::generateOsNumber($model->request->obligation_type_id,$model->request->request_date);
 ?>
 <!--pre>
-<?php //print_r($model->verifiedAttachments);?>
+<?php //print_r($model->accounttransactions);?>
 </pre-->
 <div>
    
@@ -158,7 +158,7 @@ Modal::end();
                 'displayOnly'=>true, //$model->os 
                 'value' =>  
                     ($model->os ? '<h4><span class="label label-success">'.$model->os->os_number.'</span></h4>' : 
-                    '<h4><span class="label label-warning">'.Os::generateOsNumber($model->expenditure_class_id, date("Y-m-d H:i:s")).'</span></h4>'.Html::button('Generate', ['value' => Yii::$app->user->can('access-finance-generateosnumber') ? Url::to(['osdv/generatedvnumber', 'id'=>$model->osdv_id]) : Url::to(['osdv/notallowed', 'id'=>$model->osdv_id]),     
+                    '<h4><span class="label label-warning">'.Os::generateOsNumber($model->expenditure_class_id, date("Y-m-d H:i:s")).'</span></h4>'.Html::button('Generate', ['value' => Yii::$app->user->can('access-finance-generateosnumber') ? Url::to(['osdv/generateosnumber', 'id'=>$model->osdv_id]) : Url::to(['osdv/notallowed', 'id'=>$model->osdv_id]),     
                                                                         'title' => 'Generate OS', 'class' => 'btn btn-md btn-success '
                                                                         .(Yii::$app->user->can('access-finance-generateosnumber') ? '': 'disabled'),
                                                                    'id'=>'buttonGenerateOSNumber'])) .
