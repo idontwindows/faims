@@ -109,7 +109,7 @@ if(Yii::$app->user->isGuest){
                         ]
                     ],
                     [
-                        'label' => 'Finance', 
+                        'label' => 'Financial Request', 
                         'icon' => 'folder-open text-aqua', 
                         
                         'visible'=> Yii::$app->user->can('access-finance'),
