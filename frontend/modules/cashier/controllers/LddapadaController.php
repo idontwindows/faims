@@ -201,10 +201,12 @@ class LddapadaController extends Controller
         {
             //echo Json::encode(['message'=>$ppmp_item]);
             if($checked == 'true'){
+                $lddapada_item->lddapada_id = $lddapadaId;
                 $lddapada_item->active = 1;
                 $lddapada_item->save(false);
             }
             else{
+                //$lddapada_item->lddapada_id = 0;
                 $lddapada_item->active = 0;
                 $lddapada_item->save(false);
             }

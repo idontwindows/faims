@@ -114,8 +114,8 @@ if(Yii::$app->user->isGuest){
                         'visible'=> Yii::$app->user->can('access-finance'),
                         //'visible'=> false,
                         'items' => [
-                            //['label' => 'Obligation and Disbursement', 'icon' => 'object-ungroup', 'url' => ['/finance/request/processingindex'], 'visible'=> Yii::$app->user->can('access-finance-processing') //|| (Yii::$app->user->identity->username == 'Admin')
-                            //],
+                            ['label' => 'For Approval', 'icon' => 'object-ungroup', 'url' => ['/finance/osdv/approvalindex'], 'visible'=> Yii::$app->user->can('access-finance-approval') //|| (Yii::$app->user->identity->username == 'Admin')
+                            ],
                             ['label' => 'Obligation and Disbursement', 'icon' => 'object-ungroup', 'url' => ['/finance/osdv/index'], 'visible'=> Yii::$app->user->can('access-finance-processing') //|| (Yii::$app->user->identity->username == 'Admin')
                             ],
                             ['label' => 'Validate Requests', 'icon' => 'object-ungroup', 'url' => ['/finance/request/validateindex'], 'visible'=> Yii::$app->user->can('access-finance-validation') //|| (Yii::$app->user->identity->username == 'Admin')

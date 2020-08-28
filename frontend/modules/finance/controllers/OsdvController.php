@@ -58,6 +58,28 @@ class OsdvController extends Controller
             'numberOfRequests' => $numberOfRequests,
         ]);
     }
+    
+    /**
+     * Lists all Osdv models.
+     * @return mixed
+     */
+    public function actionApprovalindex()
+    {
+        $searchModel = new OsdvSearch();
+        
+        //Yii::$app->user->can('access-finance-validation');
+        $status_id = Request::STATUS_CHARGED;
+        $searchModel->status_id = $status_id;
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        
+        $numberOfRequests = Request::find()->where('status_id =:status_id',[':status_id'=>$status_id])->count();
+        
+        return $this->render('approvalindex', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            'numberOfRequests' => $numberOfRequests,
+        ]);
+    }
 
     /**
      * Displays a single Osdv model.
@@ -102,6 +124,52 @@ class OsdvController extends Controller
         }
         
         return $this->render('view', [
+            'model' => $model,
+            'attachmentsDataProvider' => $attachmentsDataProvider,
+            'allotmentsDataProvider' => $allotmentsDataProvider,
+            'accountTransactionsDataProvider' => $accountTransactionsDataProvider,
+            'year' => date('Y', strtotime($model->request->request_date)),
+        ]);
+    }
+    
+    public function actionApprovalview($id)
+    {
+        $model = $this->findModel($id);
+        
+        $attachmentsDataProvider = new ActiveDataProvider([
+            'query' => $model->request->getAttachments(),
+            'pagination' => false,
+            /*'sort' => [
+                'defaultOrder' => [
+                    'availability' => SORT_ASC,
+                    'item_category_id' => SORT_ASC,
+                    //'title' => SORT_ASC, 
+                ]
+            ],*/
+        ]);
+
+        $allotmentsDataProvider = new ActiveDataProvider([
+            'query' => $model->getAllotments(),
+            'pagination' => false,
+            /*'sort' => [
+                'defaultOrder' => [
+                    'availability' => SORT_ASC,
+                    'item_category_id' => SORT_ASC,
+                    //'title' => SORT_ASC, 
+                ]
+            ],*/
+        ]);
+
+        $accountTransactionsDataProvider = new ActiveDataProvider([
+            'query' => $model->getAccounttransactions(),
+            'pagination' => false,
+        ]);
+        
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            Yii::$app->session->setFlash('kv-detail-success', 'Request Updated!');
+        }
+        
+        return $this->render('approvalview', [
             'model' => $model,
             'attachmentsDataProvider' => $attachmentsDataProvider,
             'allotmentsDataProvider' => $allotmentsDataProvider,
@@ -234,10 +302,11 @@ class OsdvController extends Controller
                     $model->request->save(false);
                     
                     Yii::$app->session->setFlash('success', 'Request Successfully Approved!');
+                    return $this->redirect(['view', 'id' => $model->osdv_id]);
                 }else{
                     Yii::$app->session->setFlash('warning', $model->getErrors());                 
                 }
-                return $this->redirect(['view', 'id' => $model->request_id]);
+                
             }
             
             if (Yii::$app->request->isAjax) {
@@ -266,10 +335,11 @@ class OsdvController extends Controller
                     $model->request->save(false);
                     
                     Yii::$app->session->setFlash('success', 'Request Successfully Obligated!');
+                    return $this->redirect(['view', 'id' => $model->osdv_id]);
                 }else{
                     Yii::$app->session->setFlash('warning', $model->getErrors());                 
                 }
-                return $this->redirect(['view', 'id' => $model->request_id]);
+                
             }
             
             if (Yii::$app->request->isAjax) {
@@ -307,10 +377,11 @@ class OsdvController extends Controller
                     $model->request->save(false);
                     
                     Yii::$app->session->setFlash('success', 'Request Successfully Certified Cash Available!');
+                    return $this->redirect(['view', 'id' => $model->osdv_id]);
                 }else{
                     Yii::$app->session->setFlash('warning', $model->getErrors());                 
                 }
-                return $this->redirect(['view', 'id' => $model->request_id]);
+                
             }
             
             if (Yii::$app->request->isAjax) {

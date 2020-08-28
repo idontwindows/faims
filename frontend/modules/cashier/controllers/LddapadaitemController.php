@@ -7,6 +7,7 @@ use common\models\cashier\Lddapadaitem;
 use common\models\cashier\LddapadaitemSearch;
 use common\models\cashier\CreditorSearch;
 use common\models\finance\OsdvSearch;
+use common\models\finance\Request;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -173,6 +174,8 @@ class LddapadaitemController extends Controller
         }*/
         
         $searchModel = new OsdvSearch();
+        $status_id = Request::STATUS_APPROVED_FOR_DISBURSEMENT;
+        $searchModel->status_id = $status_id;
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         
         if (Yii::$app->request->isAjax) {
