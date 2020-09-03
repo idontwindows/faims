@@ -99,3 +99,9 @@ $("body").on("click","#buttonCreateOsdv",function () {
         $("#btnrefresh").click();
     },1500);
 });
+
+$("#modalContainer").on("hidden.bs.modal", function () {
+    // put your default event here
+    $.pjax.reload({container:'#request-obligation'});
+    $.pjax.reload({container:'#account-transactions'});
+});

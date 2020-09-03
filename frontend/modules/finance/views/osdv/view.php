@@ -365,6 +365,7 @@ Modal::end();
                 [
                     'attribute'=>'account_id',
                     'header' => 'Account Title',
+                    'format' => 'raw',
                     'headerOptions' => ['style' => 'text-align: center; vertical-align: middle;'],
                     'contentOptions' => ['style' => 'text-align: left; padding-left: 25px; vertical-align: middle;'],
                     'width'=>'750px',
@@ -384,27 +385,34 @@ Modal::end();
                 ],
                 [
                     'class'=>'kartik\grid\EditableColumn',
-                    'attribute'=>'amount',
-                    'header'=>'Debit',
+                    'attribute'=>'debitcreditflag',
+                    'header'=>'Entry Type',
                     //'width'=>'350px',
                     'refreshGrid'=>true,
                     //'readonly' => !$isMember,
-                    'value'=>function ($model, $key, $index, $widget) { 
-                            $fmt = Yii::$app->formatter;
-                            //return $fmt->asDecimal($model->amount);
-                            return ($model->transaction_type == Accounttransaction::DEBIT) ? $fmt->asDecimal($model->amount) : '';
+                    'value'=>function ($model, $key, $index, $widget) {
+                            if($model->debitcreditflag == 1)
+                                return 'DEBIT';
+                            if($model->debitcreditflag == 2)
+                                return 'CREDIT';
                         },
                     'editableOptions'=> function ($model , $key , $index) {
                         return [
                             'options' => ['id' => $index . '_10_' . $model->account_transaction_id],
+                            'contentOptions' => ['style' => 'text-align: center;'],
                             'placement'=>'left',
-                            'disabled'=>!Yii::$app->user->can('access-finance-obligation'),
-                            //'disabled'=>true,
+                            'disabled'=>!Yii::$app->user->can('access-finance-disbursement'),
                             'name'=>'amount',
                             'asPopover' => true,
-                            'value' => $model->amount,
-                            'inputType' => \kartik\editable\Editable::INPUT_TEXT,
-                            'formOptions'=>['action' => ['/finance/accounttransaction/updateamount']], // point to the new action
+                            'value'=>function ($model, $key, $index, $widget) {
+                                if($model->debitcreditflag == 1)
+                                    return 'DEBIT';
+                                if($model->debitcreditflag == 2)
+                                    return 'CREDIT';
+                            },
+                            'inputType' => Editable::INPUT_DROPDOWN_LIST,
+                            'data'=>['1'=>'Debit', '2'=>'Credit', ], // any list of values
+                            'formOptions'=>['action' => ['/finance/accounttransaction/updateflag']], // point to the new action
                         ];
                     },
                     'headerOptions' => ['style' => 'text-align: center'],
@@ -416,7 +424,7 @@ Modal::end();
                 [
                     'class'=>'kartik\grid\EditableColumn',
                     'attribute'=>'amount',
-                    'header'=>'Credit',
+                    'header'=>'Amount',
                     //'width'=>'350px',
                     'refreshGrid'=>true,
                     //'readonly' => !$isMember,

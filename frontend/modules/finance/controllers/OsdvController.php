@@ -45,9 +45,15 @@ class OsdvController extends Controller
     {
         $searchModel = new OsdvSearch();
         
-        //Yii::$app->user->can('access-finance-validation');
-        $status_id = Request::STATUS_VALIDATED;
-        //$searchModel->status_id = $status_id;
+        if(Yii::$app->user->can('access-finance-obligation'))
+            $status_id = Request::STATUS_VALIDATED;
+        if(Yii::$app->user->can('access-finance-obligate'))
+            $status_id = Request::STATUS_CERTIFIED_ALLOTMENT_AVAILABLE;
+        if(Yii::$app->user->can('access-finance-disbursement'))
+            $status_id = Request::STATUS_ALLOTTED;
+        
+                
+        $searchModel->status_id = $status_id;
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         
         $numberOfRequests = Request::find()->where('status_id =:status_id',[':status_id'=>$status_id])->count();

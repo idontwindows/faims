@@ -34,9 +34,9 @@ Modal::begin([
 echo "<div id='modalContent'><div style='text-align:center'><img src='/images/loading.gif'></div></div>";
 Modal::end();
 ?>
-<!--pre>
-<?php //print_r($model->owner());?>
-</pre-->
+<pre>
+<?php echo time();//print_r($model->owner());?>
+</pre>
 
 
 <?php //echo $this->render('_stepper'); ?>
@@ -196,6 +196,17 @@ Modal::end();
                     
                     return Html::button('<i class="glyphicon glyphicon-file"></i> View', ['value' => Url::to(['request/uploadattachment', 'id'=>$model->request_attachment_id]), 'title' => Yii::t('app', "Attachment"), 'class' => $btnCss, 'style'=>'margin-right: 6px; display: "";', 'id'=>'buttonUploadAttachments']);
                 },
+            ],
+            [   
+                'attribute'=>'filecode',
+                'header' => 'File Code',
+                'headerOptions' => ['style' => 'text-align: center;'],
+                'contentOptions' => ['style' => 'text-align: center; vertical-align: middle;'],
+                'format' => 'raw',
+                'width'=>'80px',
+                /*'value'=>function ($model, $key, $index, $widget) { 
+                    return Requestattachment::generateCode($model->request_attachment_id);
+                },*/
             ],
             [
                 'class' => 'kartik\grid\BooleanColumn',

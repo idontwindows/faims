@@ -116,6 +116,13 @@ if(Yii::$app->user->isGuest){
                         //'visible'=> false,
                         'items' => [
                             [
+                                'label' => 'Dashboard' , 
+                                'icon' => 'dashboard text-aqua', 
+                                'url' => ['/finance/dashboard/index'], 
+                                //'badge' => '<span class="fa fa-angle-left pull-right">dry-run</span>',
+                                //'visible'=> Yii::$app->user->can('access-finance-approval') //|| (Yii::$app->user->identity->username == 'Admin')
+                            ],
+                            [
                                 'label' => 'For Approval' , 
                                 'icon' => 'thumbs-up text-aqua', 
                                 'url' => ['/finance/osdv/approvalindex'], 
@@ -151,6 +158,13 @@ if(Yii::$app->user->isGuest){
                                 'url' => ['/finance/requesttype/index'], 
                                 //'visible'=> (Yii::$app->user->identity->username == 'Admin')
                                 'visible'=> Yii::$app->user->can('access-finance-verification')//  || (Yii::$app->user->identity->username == 'Admin')
+                            ],
+                            [
+                                'label' => 'Attachment Uploader' , 
+                                'icon' => 'upload text-aqua', 
+                                'url' => ['/finance/osdv/approvalindex'], 
+                                'badge' => '<span class="fa fa-angle-left pull-right">dry-run</span>',
+                                'visible'=> Yii::$app->user->can('access-finance-fileupload') //|| (Yii::$app->user->identity->username == 'Admin')
                             ],
                             //['label' => 'Request', 'icon' => 'object-ungroup', 'url' => ['/finance/request/index']],
                         ]

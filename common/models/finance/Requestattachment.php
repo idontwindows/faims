@@ -94,4 +94,21 @@ class Requestattachment extends \yii\db\ActiveRecord
             return 0;
         }
     }
+    
+    public static function generateCode($id)
+    {
+        $model  = Requestattachment::findOne($id);
+        $code = Yii::$app->user->id;
+        for($i=0;$i<5;$i++){
+            $code .= Requestattachment::randomChars(2);
+        }
+        return $code;
+    }
+    
+    public static function randomChars($numChars)
+    {
+        $str = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
+        //Return the characters.
+        return substr(str_shuffle($str), 0, $numChars);
+    }
 }

@@ -175,6 +175,7 @@ class RequestController extends Controller
     public function actionViewattachments()
     {
         $model = $this->findModel($_GET['id']);
+        date_default_timezone_set('Asia/Manila');
         
         if (Yii::$app->request->post()) {
             foreach($model->requesttype->requesttypeattachments as $requesttypeattachment)
@@ -183,6 +184,7 @@ class RequestController extends Controller
                 $modelRequestattachment->request_id = $model->request_id;
                 //$modelRequestattachment->name = $requesttypeattachment->attachment->name;
                 $modelRequestattachment->attachment_id = $requesttypeattachment->attachment_id;
+                $modelRequestattachment->last_update = date("Y-m-d H:i:s");
                 $modelRequestattachment->save(false);
             }
             return $this->redirect(['view', 'id' => $model->request_id]);  
@@ -254,6 +256,7 @@ class RequestController extends Controller
     {
         //Yii::$app->params['uploadPath'] = Yii::$app->basePath . '/uploads/';
         $model = Requestattachment::findOne($id);
+        date_default_timezone_set('Asia/Manila');
         
         if (Yii::$app->request->post()) {
             $random = Yii::$app->security->generateRandomString(40);
@@ -269,6 +272,8 @@ class RequestController extends Controller
             $model->pdfFile->saveAs( $path ."/". $model->request_attachment_id . $random . '.' . $model->pdfFile->extension);
             //$model->pdfFile->saveAs('uploads/finance/request/' . $model->request->request_number.'/'. $model->request_attachment_id . $random . '.' . $model->pdfFile->extension);
             $model->filename = $model->request_attachment_id . $random . '.' . $model->pdfFile->extension;
+            $model->last_update = date("Y-m-d H:i:s");
+            $model->filecode = Requestattachment::generateCode($model->request_attachment_id);
             $model->save(false);
             
             Yii::$app->session->setFlash('success', 'Document Successfully Uploaded!');

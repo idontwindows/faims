@@ -41,7 +41,7 @@ class Accounttransaction extends \yii\db\ActiveRecord
     {
         return [
             [['request_id', 'account_id', 'transaction_type', 'amount'], 'required'],
-            [['request_id', 'account_id', 'transaction_type'], 'integer'],
+            [['request_id', 'account_id', 'transaction_type', 'debitcreditflag'], 'integer'],
             [['amount'], 'number'],
         ];
     }
@@ -57,6 +57,7 @@ class Accounttransaction extends \yii\db\ActiveRecord
             'account_id' => 'Account ID',
             'transaction_type' => 'Transaction Type',
             'amount' => 'Amount',
+            'debitcreditflag' => 'Entry Type',
         ];
     }
     
