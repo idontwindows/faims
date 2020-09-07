@@ -68,11 +68,35 @@ class RequestSearch extends Request
             'status_id' => $this->status_id,
             'created_by' => $this->created_by,
         ]);
-
-        $query->andFilterWhere(['like', 'payee_id', $this->payee_id])
-            ->andFilterWhere(['>=', 'status_id', $this->status_id])
-            ->andFilterWhere(['like', 'particulars', $this->particulars]);
-
+        
+        if((Yii::$app->user->identity->user_id == 2)){
+            $query->andFilterWhere(['in', 'payee_id', $this->payee_id])
+                  ->andFilterWhere(['>=', 'status_id', $this->status_id]);
+        }elseif((Yii::$app->user->identity->user_id == 4)){
+            $query->andFilterWhere(['in', 'division_id', $this->division_id])
+                ->andFilterWhere(['>=', 'status_id', $this->status_id]);
+                //->andFilterWhere(['', 'payee_id', 129]);
+        }elseif((Yii::$app->user->identity->user_id == 20)){
+            $query->andFilterWhere(['in', 'division_id', $this->division_id])
+                ->andFilterWhere(['>=', 'status_id', $this->status_id]);
+        }
+        /*if(($this->user_id == 2)){
+            $query->andFilterWhere(['in', 'payee_id', $this->payee_id])
+                  ->andFilterWhere(['>=', 'status_id', $this->status_id]);
+        }elseif(($this->user_id == 4)){
+            //$query->andFilterWhere(['<>', 'payee_id', 129])
+                //->andFilterWhere(['!=', 'payee_id', 129])
+            $query->andFilterWhere(['in', 'division_id', $this->division_id])
+                ->andFilterWhere(['>=', 'status_id', $this->status_id])
+                ->andFilterWhere(['!=', 'payee_id', 129]);
+            //->andFilterWhere(['<>', 'payee_id', $this->payee_id]);
+        }else{
+             $query->andFilterWhere(['like', 'payee_id', $this->payee_id])
+                ->andFilterWhere(['>=', 'status_id', $this->status_id])
+                ->andFilterWhere(['like', 'particulars', $this->particulars]);    
+        }*/
+        
+        
         return $dataProvider;
     }
 }

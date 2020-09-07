@@ -45,6 +45,8 @@ class Request extends \yii\db\ActiveRecord
     const STATUS_APPROVED_FOR_DISBURSEMENT = 70;  // Head of Agency (Regional Director / OIC)
     const STATUS_COMPLETED = 80; // 
     const STATUS_RATED = 90;     // end user
+    
+    public $user_id;
     /**
      * @inheritdoc
      */

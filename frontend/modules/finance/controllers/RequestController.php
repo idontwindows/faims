@@ -9,9 +9,11 @@ use common\models\finance\Requestattachment;
 use common\models\finance\Requesttype;
 use common\models\finance\RequestSearch;
 use common\models\procurement\Disbursement;
+use common\models\procurement\Divisionhead;
 use common\models\sec\Blockchain;
 use common\models\system\Comment;
 use common\models\system\CommentSearch;
+use common\models\system\User;
 
 use kartik\mpdf\Pdf;
 use yii\filters\VerbFilter;
@@ -57,6 +59,7 @@ class RequestController extends Controller
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            
         ]);
     }
     
@@ -69,10 +72,13 @@ class RequestController extends Controller
         $searchModel = new RequestSearch();
         $searchModel->status_id = Request::STATUS_SUBMITTED;
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
+        
+        $CurrentUser= User::findOne(['user_id'=> Yii::$app->user->identity->user_id]);
+        
         return $this->render('verifyindex', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            
         ]);
     }
     
@@ -82,13 +88,42 @@ class RequestController extends Controller
      */
     public function actionValidateindex()
     {
+        //$divisions = Divisionhead::find(['user_id'=> Yii::$app->user->identity->user_id])
+        $divisions = Divisionhead::find(['user_id'=> 20])
+                        //->select('division_head_id')
+                        ->asArray()
+                        ->all();
+        $divisions = array_values($divisions);
         $searchModel = new RequestSearch();
         $searchModel->status_id = Request::STATUS_VERIFIED;
+        
+        if(Yii::$app->user->identity->user_id == 2){
+            $searchModel->payee_id = [129,117];
+            //$searchModel->user_id = 2;
+        }elseif(Yii::$app->user->identity->user_id == 4){
+            $searchModel->division_id = [1,2,3];
+            //$searchModel->payee_id = [129,117];
+        }if(Yii::$app->user->identity->user_id == 20){
+            $searchModel->division_id = [4];
+        }
+        /*if(Yii::$app->user->identity->user_id == 2){
+            $searchModel->payee_id = [129,117];
+            $searchModel->user_id = 2;
+        }elseif(Yii::$app->user->identity->user_id == 4){
+            $searchModel->division_id = [1,2,3];
+            $searchModel->user_id = 4;
+            //$searchModel->payee_id = [129,117];
+        }elseif(Yii::$app->user->identity->user_id == 20){
+            $searchModel->division_id = [4];
+            $searchModel->user_id = 20;
+        }*/
+        $searchModel->user_id = 2;
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('validateindex', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'divisions' => $divisions,
         ]);
     }
     
@@ -135,11 +170,13 @@ class RequestController extends Controller
             Yii::$app->session->setFlash('kv-detail-success', 'Request Updated!');
         }
         
+        $CurrentUser= User::findOne(['user_id'=> Yii::$app->user->identity->user_id]);
         return $this->render('view', [
             'model' => $model,
             'attachmentsDataProvider' => $attachmentsDataProvider,
             'request_status' => $request_status,
             'params' => $params,
+            'user' => $CurrentUser,
         ]);
     }
 

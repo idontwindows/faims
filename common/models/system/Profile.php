@@ -138,10 +138,10 @@ class Profile extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    /*public function getLab()
+    public function getDivision()
     {
-        return $this->hasOne(Lab::className(), ['lab_id' => 'lab_id']);
-    }*/
+        return $this->hasOne(Division::className(), ['division_id' => 'division_id']);
+    }
     /**
      * @return \yii\db\ActiveQuery
      */

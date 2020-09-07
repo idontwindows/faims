@@ -107,10 +107,10 @@ Modal::end();
             ],
             [
                 'attribute'=>'request_id',
-                'label'=>'Amount (P)',
-                'format'=>['decimal', 2],
-                'inputContainer' => ['class'=>'col-sm-6'],
-                'value' => $model->request->amount,
+                'label'=>'Links',
+                //'format'=>['decimal', 2],
+                //'inputContainer' => ['class'=>'col-sm-6'],
+                //'value' => $model->request->amount,
             ],
         ];?>
     <?= DetailView::widget([
@@ -148,7 +148,7 @@ Modal::end();
                     
                     
                 </div>
-                <span class="badge badge-success">Approved</span>
+                <!--span class="badge badge-success">Approved</span-->
                 
             </div>
         </div>

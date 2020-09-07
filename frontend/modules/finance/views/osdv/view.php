@@ -41,7 +41,7 @@ Modal::end();
 //echo Os::generateOsNumber($model->request->obligation_type_id,$model->request->request_date);
 ?>
 <!--pre>
-<?php //print_r($model->accounttransactions);?>
+<?php //print_r(yii::$app->user->profile);?>
 </pre-->
 <div>
    
@@ -431,7 +431,7 @@ Modal::end();
                     'value'=>function ($model, $key, $index, $widget) { 
                             $fmt = Yii::$app->formatter;
                             //return $fmt->asDecimal($model->amount);
-                            return ($model->transaction_type == Accounttransaction::CREDIT) ? $fmt->asDecimal($model->amount) : '';
+                            return $fmt->asDecimal($model->amount);
                         },
                     'editableOptions'=> function ($model , $key , $index) {
                         return [

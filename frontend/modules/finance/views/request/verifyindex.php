@@ -42,6 +42,7 @@ Modal::end();
     <p>
         <!--?= Html::a('Create', ['create'], ['class' => 'btn btn-success', 'id' => 'buttonCreateRequest']) ?-->
     </p>
+    
 <?php Pjax::begin(); ?>
       <?php
         echo GridView::widget([
@@ -136,3 +137,17 @@ Modal::end();
         ?>
         <?php Pjax::end(); ?>
 </div>
+
+<script>
+/*$( document ).ready(function() {
+    setTimeout(function(){
+        window.location = 'verifyindex';
+    }, 5000);
+});)*/
+
+$( document ).ready(function() {
+    setTimeout(function(){
+       window.location.reload(1);
+    }, 5000);
+});
+</script>

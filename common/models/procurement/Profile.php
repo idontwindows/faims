@@ -83,9 +83,4 @@ class Profile extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Division::className(), ['division_id' => 'division_id']);
     }
-    
-    public function getTest()
-    {
-        return 'hahaha';
-    }
 }

@@ -20,7 +20,15 @@ use kartik\select2\Select2;
     <!--?= $form->field($model, 'status_id')->textInput() ?-->
     <div class="container">
       <h1>Request Attachments</h1>    
-      <p class="md-info">Attachments will be the basis for processing this request.<br/>Scanned copy of the Required Documents must be uploaded accordingly in PDF format.<br/><br/>Note: Only requests with complete documents can be submitted for processing.</p>
+        <p class="md-info">Attachments will be the basis for processing this request.<br/>Scanned copy of the Required Documents must be uploaded accordingly in PDF format.</p><br/>
+       <ol>
+        <?php
+            foreach($model->requesttype->requesttypeattachments as $requesttype){
+                echo '<li>'.$requesttype->attachment->name.'</li>';
+            }
+        ?>
+        </ol>
+      <br/><p>Note: Only requests with complete documents can be submitted for processing.</p>
     </div>
     
     <div class="form-group">

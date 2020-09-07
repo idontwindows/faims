@@ -18,7 +18,7 @@ use common\models\system\Profile;
 /* @var $searchModel common\models\finance\RequestSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Request Verification';
+$this->title = 'Request Validation';
 $this->params['breadcrumbs'][] = $this->title;
 
 // Modal Create Request
@@ -34,6 +34,9 @@ Modal::begin([
 echo "<div id='modalContent'><div style='text-align:center'><img src='/images/loading.gif'></div></div>";
 Modal::end();
 ?>
+<!--pre>
+<?php //print_r($divisions);?>
+</pre-->
 <div class="request-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
@@ -136,3 +139,16 @@ Modal::end();
         ?>
         <?php Pjax::end(); ?>
 </div>
+<script>
+/*$( document ).ready(function() {
+    setTimeout(function(){
+        window.location = 'verifyindex';
+    }, 5000);
+});)*/
+
+$( document ).ready(function() {
+    setTimeout(function(){
+       window.location.reload(1);
+    }, 5000);
+});
+</script>
