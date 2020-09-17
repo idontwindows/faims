@@ -10,7 +10,8 @@ use common\models\finance\Taxcategory;
 $taxcat = Taxcategory::find()->where([
                                     'rate1' => $model->rate1, 'rate2' => $model->rate2, 
                                         ])->one();
-$model->tax_category_id = $taxcat->tax_category_id;
+if($taxcat)
+    $model->tax_category_id = $taxcat->tax_category_id;
 /* @var $this yii\web\View */
 /* @var $model common\models\finance\Accounttransaction */
 /* @var $form yii\widgets\ActiveForm */
