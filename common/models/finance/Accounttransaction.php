@@ -41,8 +41,8 @@ class Accounttransaction extends \yii\db\ActiveRecord
     {
         return [
             [['request_id', 'account_id', 'transaction_type', 'amount'], 'required'],
-            [['request_id', 'account_id', 'transaction_type', 'debitcreditflag'], 'integer'],
-            [['amount'], 'number'],
+            [['request_id', 'account_id', 'transaction_type', 'tax_registered', 'debitcreditflag'], 'integer'],
+            [['amount','rate1','rate2'], 'number'],
         ];
     }
 
@@ -64,5 +64,15 @@ class Accounttransaction extends \yii\db\ActiveRecord
     public function getAccount()  
     {  
       return $this->hasOne(Account::className(), ['account_id' => 'account_id']);  
+    } 
+    
+    public function getTaxcategory()  
+    {  
+      return $this->hasOne(Taxcategory::className(), ['tax_category_id' => 'tax_category_id']);  
+    } 
+    
+    public function getOsdv()  
+    {  
+      return $this->hasOne(Osdv::className(), ['osdv_id' => 'request_id']);  
     } 
 }

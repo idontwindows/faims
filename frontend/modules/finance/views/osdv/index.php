@@ -128,11 +128,40 @@ Modal::end();
                                     },
                                 ],
                             ],
+                            [
+                                'class' => 'kartik\grid\CheckboxColumn',
+                                'headerOptions' => ['class' => 'kartik-sheet-style'],
+                                'pageSummary' => '<small>(amounts in $)</small>',
+                                'pageSummaryOptions' => ['colspan' => 3, 'data-colspan-dir' => 'rtl']
+                            ],
                     ],
             'containerOptions' => ['style' => 'overflow: auto'], // only set when $responsive = false
             'headerRowOptions' => ['class' => 'kartik-sheet-style'],
             'filterRowOptions' => ['class' => 'kartik-sheet-style'],
             'pjax' => true, // pjax is set to always true for this demo
+            'rowOptions' => function($model){
+                switch ($model->status_id) {
+                    case Request::STATUS_VALIDATED:
+                        return ['class'=>'warning'];
+                        break;
+                    case Request::STATUS_CERTIFIED_ALLOTMENT_AVAILABLE:
+                        return ['class'=>'warning'];
+                        break;
+                    case Request::STATUS_ALLOTTED:
+                        return ['class'=>'warning'];
+                        break;
+                    case Request::STATUS_CERTIFIED_FUNDS_AVAILABLE:
+                        return ['class'=>'warning'];
+                        break;
+                    case Request::STATUS_CHARGED:
+                        return ['class'=>'warning'];
+                        break;
+                    case Request::STATUS_APPROVED_FOR_DISBURSEMENT:
+                        return ['class'=>'success'];
+                        break;
+                }
+                 
+            },
             'panel' => [
                     'heading' => '',
                     'type' => GridView::TYPE_PRIMARY,
@@ -162,3 +191,16 @@ Modal::end();
         ?>
         <?php Pjax::end(); ?>
 </div>
+<script>
+/*$( document ).ready(function() {
+    setTimeout(function(){
+        window.location = 'verifyindex';
+    }, 5000);
+});)*/
+
+$( document ).ready(function() {
+    setTimeout(function(){
+       window.location.reload(1);
+    }, 20000);
+});
+</script>

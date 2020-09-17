@@ -13,6 +13,7 @@ use yii\bootstrap\Modal;
 
 use common\models\cashier\Creditor;
 use common\models\finance\Request;
+use common\models\finance\Requestdistrict;
 use common\models\system\Profile;
 use common\models\system\Usersection;
 use common\models\sec\Blockchain;
@@ -105,7 +106,7 @@ Modal::end();
                                 'contentOptions' => ['style' => 'text-align: center; vertical-align:middle;'],
                                 'width'=>'250px',
                                 'value'=>function ($model, $key, $index, $widget) { 
-                                    return $model->status_id;
+                                    return $model->status->name;
                                 },
                             ],
 //                            [
@@ -117,6 +118,38 @@ Modal::end();
 //                                    return Profile::find($model->created_by)->one()->fullname;
 //                                },
 //                            ],
+                            [
+                                'class'=>'kartik\grid\EditableColumn',
+                                'attribute'=>'district_id',
+                                'header'=>'District',
+                                //'width'=>'350px',
+                                'refreshGrid'=>true,
+                                //'readonly' => !$isMember,
+                                'value'=>function ($model, $key, $index, $widget) {
+                                        return $model->district->name;
+                                    },
+                                'editableOptions'=> function ($model , $key , $index) {
+                                    return [
+                                        'options' => ['id' => $index . '_10_' . $model->district_id],
+                                        'contentOptions' => ['style' => 'text-align: center;'],
+                                        'placement'=>'left',
+                                        //'disabled'=>!Yii::$app->user->can('access-finance-disbursement'),
+                                        'name'=>'district',
+                                        'asPopover' => true,
+                                        'value'=>function ($model, $key, $index, $widget) {
+                                            return $model->district->name;
+                                        },
+                                        'inputType' => Editable::INPUT_DROPDOWN_LIST,
+                                        'data'=>ArrayHelper::map(Requestdistrict::find()->all(),'request_district_id','name'),
+                                        'formOptions'=>['action' => ['/finance/request/updatedistrict']], // point to the new action
+                                    ];
+                                },
+                                'headerOptions' => ['style' => 'text-align: center'],
+                                'contentOptions' => ['style' => 'padding-right: 20px;'],
+                                'hAlign'=>'right',
+                                //'vAlign'=>'middle',
+                                'width'=>'250px',
+                            ],
                             [
                                 'class' => kartik\grid\ActionColumn::className(),
                                 'template' => '{view}',

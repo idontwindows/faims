@@ -66,7 +66,7 @@ class OsdvSearch extends Osdv
             'created_by' => $this->created_by,
         ]);
         
-        $query->andFilterWhere(['=', 'status_id', $this->status_id]);
+        //$query->andFilterWhere(['>=', 'status_id', $this->status_id]);
 
         return $dataProvider;
     }

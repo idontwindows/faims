@@ -4,6 +4,8 @@ namespace common\models\finance;
 
 use Yii;
 use common\models\cashier\Creditor;
+use common\models\finance\Request;
+use common\models\finance\Requestdistrict;
 use common\models\finance\Requesttype;
 /**
  * This is the model class for table "tbl_request".
@@ -71,7 +73,7 @@ class Request extends \yii\db\ActiveRecord
         return [
             [['request_number', 'request_date', 'division_id', 'request_type_id', 'obligation_type_id', 'payee_id', 'particulars', 'amount'], 'required'],
             [['request_date'], 'safe'],
-            [['request_type_id', 'payee_id', 'status_id', 'created_by'], 'integer'],
+            [['request_type_id', 'payee_id', 'status_id', 'district_id', 'created_by'], 'integer'],
             [['particulars'], 'string'],
             [['amount'], 'number'],
             [['request_number'], 'string', 'max' => 20],
@@ -95,6 +97,7 @@ class Request extends \yii\db\ActiveRecord
             'particulars' => 'Particulars',
             'amount' => 'Amount',
             'status_id' => 'Status',
+            'district_id' => 'District',
             'created_by' => 'Created By',
         ];
     }
@@ -118,6 +121,21 @@ class Request extends \yii\db\ActiveRecord
     public function getRequesttype()
     {
         return $this->hasOne(Requesttype::className(), ['request_type_id' => 'request_type_id']);
+    }
+    
+    public function getStatus()
+    {
+        return $this->hasOne(Requeststatus::className(), ['request_status_id' => 'status_id']);
+    }
+    
+    public function getDistrict()
+    {
+        return $this->hasOne(Requestdistrict::className(), ['request_district_id' => 'district_id']);
+    }
+    
+    public function getOsdv()  
+    {  
+      return $this->hasOne(Osdv::className(), ['request_id' => 'request_id']);  
     }
     
     static function generateRequestNumber($date = NULL, $count = NULL)

@@ -208,6 +208,7 @@ Modal::end();
                     return Requestattachment::generateCode($model->request_attachment_id);
                 },*/
             ],
+            
             [
                 'class' => 'kartik\grid\BooleanColumn',
                 'attribute'=>'status_id',

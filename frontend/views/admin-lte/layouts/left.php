@@ -136,6 +136,12 @@ if(Yii::$app->user->isGuest){
                                 'visible'=> Yii::$app->user->can('access-finance-processing') //|| (Yii::$app->user->identity->username == 'Admin')
                             ],
                             [
+                                'label' => 'Disbursement Report', 
+                                'icon' => 'ruble text-aqua', 
+                                'url' => ['/finance/osdv/report'], 
+                                'visible'=> Yii::$app->user->can('access-finance-processing') //|| (Yii::$app->user->identity->username == 'Admin')
+                            ],
+                            [
                                 'label' => 'Validate Requests', 
                                 'icon' => 'search text-aqua', 
                                 'url' => ['/finance/request/validateindex'], 

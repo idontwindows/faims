@@ -149,6 +149,6 @@ Modal::end();
 $( document ).ready(function() {
     setTimeout(function(){
        window.location.reload(1);
-    }, 5000);
+    }, 20000);
 });
 </script>

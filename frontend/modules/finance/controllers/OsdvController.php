@@ -45,17 +45,19 @@ class OsdvController extends Controller
     {
         $searchModel = new OsdvSearch();
         
-        if(Yii::$app->user->can('access-finance-obligation'))
+        /*if(Yii::$app->user->can('access-finance-obligation'))
             $status_id = Request::STATUS_VALIDATED;
         if(Yii::$app->user->can('access-finance-obligate'))
             $status_id = Request::STATUS_CERTIFIED_ALLOTMENT_AVAILABLE;
         if(Yii::$app->user->can('access-finance-disbursement'))
             $status_id = Request::STATUS_ALLOTTED;
         if(Yii::$app->user->can('access-finance-certifycashavailable'))
-            $status_id =  Request::STATUS_CERTIFIED_FUNDS_AVAILABLE;
+            $status_id =  Request::STATUS_CERTIFIED_FUNDS_AVAILABLE;*/
+        
+        $status_id = Request::STATUS_VALIDATED;
         
         //$status_id = Request::STATUS_VALIDATED;
-        $searchModel->status_id = $status_id;
+        //$searchModel->status_id = $status_id;
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         
         $numberOfRequests = Request::find()->where('status_id >=:status_id',[':status_id'=>$status_id])->count();
@@ -64,6 +66,24 @@ class OsdvController extends Controller
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
             'numberOfRequests' => $numberOfRequests,
+        ]);
+    }
+    
+    /**
+     * Lists all Osdv models.
+     * @return mixed
+     */
+    public function actionReport()
+    {
+        $searchModel = new OsdvSearch();
+        
+        $status_id = Request::STATUS_CHARGED;
+        
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        
+        return $this->render('_report', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
         ]);
     }
     
@@ -125,6 +145,12 @@ class OsdvController extends Controller
         $accountTransactionsDataProvider = new ActiveDataProvider([
             'query' => $model->getAccounttransactions(),
             'pagination' => false,
+            'sort' => [
+                'defaultOrder' => [
+                    'debitcreditflag' => SORT_ASC,
+                    'tax_category_id' => SORT_DESC,
+                ]
+            ],
         ]);
         
         if ($model->load(Yii::$app->request->post()) && $model->save()) {

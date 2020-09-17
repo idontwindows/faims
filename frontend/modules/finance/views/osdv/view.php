@@ -17,6 +17,7 @@ use common\models\finance\Os;
 use common\models\finance\Request;
 use common\models\finance\Requestattachment;
 use common\models\finance\Requesttype;
+use common\models\finance\Taxcategory;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\finance\Request */
@@ -241,6 +242,17 @@ Modal::end();
                     //'mergeHeader' => true,
                 ],
                 [
+                    'attribute'=>'expenditure_object_id',
+                    'header' => 'Expenditure Object',
+                    'headerOptions' => ['style' => 'padding-left: 25px;'],
+                    'contentOptions' => ['style' => 'padding-left: 25px; vertical-align: middle;     font-weight: bold;'],
+                    'width'=>'200px',
+                    'value'=>function ($model, $key, $index, $widget) { 
+                        //return $model->expenditure_object_id;
+                        return $model->expenditureobject->name;
+                    },
+                ],
+                [
                     'attribute'=>'expenditure_class_id',
                     'header' => 'Expenditure Class',
                     'headerOptions' => ['style' => 'padding-left: 25px;'],
@@ -249,17 +261,6 @@ Modal::end();
                     'value'=>function ($model, $key, $index, $widget) { 
                         //return $model->expenditure_class_id;
                         return $model->expenditureclass->name;
-                    },
-                ],
-                [
-                    'attribute'=>'expenditure_object_id',
-                    'header' => 'Expenditure Object',
-                    'headerOptions' => ['style' => 'padding-left: 25px;'],
-                    'contentOptions' => ['style' => 'padding-left: 25px; vertical-align: middle;'],
-                    'width'=>'200px',
-                    'value'=>function ($model, $key, $index, $widget) { 
-                        //return $model->expenditure_object_id;
-                        return $model->expenditureobject->name;
                     },
                 ],
                 [
@@ -367,7 +368,7 @@ Modal::end();
                     'header' => 'Account Title',
                     'format' => 'raw',
                     'headerOptions' => ['style' => 'text-align: center; vertical-align: middle;'],
-                    'contentOptions' => ['style' => 'text-align: left; padding-left: 25px; vertical-align: middle;'],
+                    'contentOptions' => ['style' => 'text-align: left; padding-left: 25px; vertical-align: middle; font-weight: bold;'],
                     'width'=>'750px',
                     'value'=>function ($model, $key, $index, $widget) { 
                         return $model->account->title;
@@ -411,7 +412,7 @@ Modal::end();
                                     return 'CREDIT';
                             },
                             'inputType' => Editable::INPUT_DROPDOWN_LIST,
-                            'data'=>['1'=>'Debit', '2'=>'Credit', ], // any list of values
+                            'data'=>['1'=>'Debit', '2'=>'Credit'], // any list of values
                             'formOptions'=>['action' => ['/finance/accounttransaction/updateflag']], // point to the new action
                         ];
                     },
@@ -421,29 +422,76 @@ Modal::end();
                     //'vAlign'=>'middle',
                     'width'=>'250px',
                 ],
+                /*
                 [
                     'class'=>'kartik\grid\EditableColumn',
-                    'attribute'=>'amount',
-                    'header'=>'Amount',
+                    'attribute'=>'tax_category_id',
+                    'header'=>'Tax',
                     //'width'=>'350px',
                     'refreshGrid'=>true,
                     //'readonly' => !$isMember,
-                    'value'=>function ($model, $key, $index, $widget) { 
-                            $fmt = Yii::$app->formatter;
-                            //return $fmt->asDecimal($model->amount);
-                            return $fmt->asDecimal($model->amount);
+                    'value'=>function ($model, $key, $index, $widget) {
+                            return isset($model->tax_category_id) ? $model->taxcategory->name : '-';
                         },
                     'editableOptions'=> function ($model , $key , $index) {
                         return [
-                            'options' => ['id' => $index . '_20_' . $model->account_transaction_id],
+                            'options' => ['id' => $index . '_20_' . $model->tax_category_id],
+                            'contentOptions' => ['style' => 'text-align: center;'],
                             'placement'=>'left',
-                            'disabled'=>!Yii::$app->user->can('access-finance-disbursement'),
-                            //'disabled'=>true,
-                            'name'=>'amount',
+                            //'disabled'=>!Yii::$app->user->can('access-finance-disbursement'),
+                            'name'=>'district',
                             'asPopover' => true,
-                            'value' => $model->amount,
-                            'inputType' => \kartik\editable\Editable::INPUT_TEXT,
-                            'formOptions'=>['action' => ['/finance/accounttransaction/updateamount']], // point to the new action
+                            'value'=>function ($model, $key, $index, $widget) {
+                                return isset($model->tax_category_id) ? $model->taxcategory->name : '-';
+                            },
+                            'inputType' => Editable::INPUT_DROPDOWN_LIST,
+                            'data'=>ArrayHelper::map(Taxcategory::find()->all(),'tax_category_id','name'),
+                            'formOptions'=>['action' => ['/finance/accounttransaction/updatetax']], // point to the new action
+                        ];
+                    },
+                    'headerOptions' => ['style' => 'text-align: center'],
+                    'contentOptions' => ['style' => 'padding-right: 20px;'],
+                    'hAlign'=>'right',
+                    //'vAlign'=>'middle',
+                    'width'=>'250px',
+                ],*/
+                [
+                    'class'=>'kartik\grid\EditableColumn',
+                    'attribute'=>'taxable',
+                    'header'=>'Taxable',
+                    //'width'=>'350px',
+                    'refreshGrid'=>true,
+                    'value'=>function ($model, $key, $index, $widget) {
+                        if($model->debitcreditflag == 2){
+                            if($model->taxable == 0)
+                                return 'NO';
+                            if($model->taxable == 1)
+                                return 'YES';
+                        }else{
+                            return 'NO';
+                        }
+                    },
+                    'editableOptions'=> function ($model , $key , $index) {
+                        return [
+                            'options' => ['id' => $index . '_30_' . $model->taxable],
+                            'contentOptions' => ['style' => 'text-align: center;'],
+                            'placement'=>'left',
+                            'disabled'=>($model->debitcreditflag == 1),
+                            'name'=>'district',
+                            'asPopover' => true,
+                            'value'=>function ($model, $key, $index, $widget) {
+                                if($model->debitcreditflag == 2){
+                                    if($model->taxable == 0)
+                                        return 'NO';
+                                    if($model->taxable == 1)
+                                        return 'YES';
+                                }else{
+                                    return 'NO';
+                                }
+                            },
+                            'inputType' => Editable::INPUT_DROPDOWN_LIST,
+                            'data'=>['0'=>'NO', '1'=>'YES'],
+                            'formOptions'=>['action' => ['/finance/accounttransaction/updatetaxreg']], // point to the new action
                         ];
                     },
                     'headerOptions' => ['style' => 'text-align: center'],
@@ -452,6 +500,120 @@ Modal::end();
                     //'vAlign'=>'middle',
                     'width'=>'250px',
                 ],
+                /*[
+                    'class' => 'kartik\grid\CheckboxColumn',
+                    'headerOptions' => ['class' => 'kartik-sheet-style'],
+                    'pageSummary' => '<small>(amounts in $)</small>',
+                    'pageSummaryOptions' => ['colspan' => 3, 'data-colspan-dir' => 'rtl']
+                ],*/
+                [
+                    'class'=>'kartik\grid\EditableColumn',
+                    'attribute'=>'amount',
+                    'header'=>'Amount',
+                    //'width'=>'350px',
+                    'refreshGrid'=>true,
+                    //'readonly' => !$isMember,
+                    'value' => function($model , $key , $index){
+                                $fmt = Yii::$app->formatter;
+                                $tax_amount = 0.00;
+                                if($model->tax_registered)
+                                    $taxable_amount = $model->amount / 1.12;
+                                else
+                                    $taxable_amount = $model->amount;
+
+                                if($model->amount < 10000.00){
+                                    $tax_amount = $taxable_amount * $model->rate1;
+                                }else{
+                                    $tax_amount = ($taxable_amount * $model->rate1) + ($taxable_amount * $model->rate2);
+                                }
+                                
+                                return $fmt->asDecimal($model->amount - $tax_amount);
+                            },
+                    'editableOptions'=> function ($model , $key , $index) {
+                        return [
+                            'options' => ['id' => $index . '_20_' . $model->account_transaction_id],
+                            'placement'=>'left',
+                            'disabled'=>!Yii::$app->user->can('access-finance-disbursement'),
+                            //'disabled'=>true,
+                            'name'=>'amount',
+                            'asPopover' => true,
+                            'value' => function($model , $key , $index){
+                                $fmt = Yii::$app->formatter;
+                                $tax_amount = 0.00;
+                                if($model->tax_registered)
+                                    $taxable_amount = $model->amount / 1.12;
+                                else
+                                    $taxable_amount = $model->amount;
+
+                                if($model->amount < 10000.00){
+                                    $tax_amount = $taxable_amount * $model->rate1;
+                                }else{
+                                    $tax_amount = ($taxable_amount * $model->rate1) + ($taxable_amount * $model->rate2);
+                                }
+                                
+                                return $fmt->asDecimal($model->amount - $tax_amount);
+                            },
+                            //'inputType' => \kartik\editable\Editable::INPUT_TEXT,
+                            'inputType' => \kartik\editable\Editable::INPUT_SPIN,
+                            'options' => [
+                                'pluginOptions' => ['min' => 0, 'max' => 5000000]
+                            ],
+                            'formOptions'=>['action' => ['/finance/accounttransaction/updateamount']], // point to the new action
+                        ];
+                    },
+                    'headerOptions' => ['style' => 'text-align: center'],
+                    'contentOptions' => ['style' => 'padding-right: 20px;'],
+                    'hAlign'=>'right',
+                    //'vAlign'=>'middle',
+                    'width'=>'250px',
+                    'pageSummary' => true
+                ],
+                [   
+                    'attribute'=>'amount',
+                    'header' => 'Tax',
+                    'headerOptions' => ['style' => 'text-align: center;'],
+                    'contentOptions' => ['style' => 'text-align: center; vertical-align: middle;'],
+                    'format' => 'raw',
+                    'width'=>'80px',
+                    'value'=>function ($model, $key, $index, $widget) { 
+                        $btnCss = 'btn btn-success';
+                        
+                        if($model->taxable){
+                            return Html::button('<i class="glyphicon glyphicon-list-alt"></i>', ['value' => Url::to(['accounttransaction/applytax', 'id'=>$model->account_transaction_id]), 'title' => Yii::t('app', "Apply Tax"), 'class' => $btnCss, 'style'=>'margin-right: 6px; display: "";', 'id'=>'buttonUploadAttachments']);
+                        }else{
+                            return '';
+                        }
+                        
+                    },
+                ],
+                /*
+                [
+                    'attribute'=>'amount',
+                    'header' => 'Tax Amount',
+                    'format' => 'raw',
+                    'headerOptions' => ['style' => 'text-align: center; vertical-align: middle;'],
+                    'contentOptions' => ['style' => 'text-align: left; padding-left: 25px; vertical-align: middle; font-weight: bold;'],
+                    'width'=>'750px',
+                    'value'=>function ($model, $key, $index, $widget) { 
+                        $fmt = Yii::$app->formatter;
+                        $tax_amount = 0.00;
+                        
+                            //return $fmt->asDecimal($model->amount);
+                        if($model->tax_registered)
+                            $taxable_amount = $model->amount / 1.12;
+                        else
+                            $taxable_amount = $model->amount;
+                        
+                        if($model->amount < 10000.00){
+                            $tax_amount = $taxable_amount * $model->rate1;
+                        }else{
+                            $tax_amount = ($taxable_amount * $model->rate1) + ($taxable_amount * $model->rate2);
+                        }
+                        
+                        return $fmt->asDecimal($tax_amount);
+                    },
+                ],
+                */                                      
             ];
     ?>
         

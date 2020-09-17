@@ -5,6 +5,7 @@ namespace frontend\modules\finance\controllers;
 use Yii;
 use common\models\apiservice\Notificationrecipient;
 use common\models\finance\Request;
+use common\models\finance\Requestdistrict;
 use common\models\finance\Requestattachment;
 use common\models\finance\Requesttype;
 use common\models\finance\RequestSearch;
@@ -658,5 +659,20 @@ class RequestController extends Controller
         ]); 
     }
     
+    public function actionUpdatedistrict() {
+       if (Yii::$app->request->post('hasEditable')) {
+           $ids = Yii::$app->request->post('editableKey');
+           
+           $index = Yii::$app->request->post('editableIndex');
+           $attr = Yii::$app->request->post('editableAttribute');
+           $qty = $_POST['Request'][$index][$attr];
+           $model = Request::findOne($ids);
+           $model->$attr = $qty; //$fmt->asDecimal($amt,2);
+           if($model->save(false))
+               return true;
+           else
+               return false;
+       }
+    }
     
 }

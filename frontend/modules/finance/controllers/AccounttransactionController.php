@@ -7,6 +7,7 @@ use common\models\finance\Account;
 use common\models\finance\AccountSearch;
 use common\models\finance\Accounttransaction;
 use common\models\finance\AccounttransactionSearch;
+use common\models\finance\Taxcategory;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -214,6 +215,51 @@ class AccounttransactionController extends Controller
        }
     }
     
+    public function actionApplytax()
+    {
+        $id = $_GET['id'];
+        $model = $this->findModel($id);
+        
+        if($model->load(Yii::$app->request->post())) {
+            
+            $data = Yii::$app->request->post();
+            
+            $taxcat = Taxcategory::findOne($data['Accounttransaction']['tax_category_id']);
+            $model->rate1 = $taxcat->rate1;
+            $model->rate2 = $taxcat->rate2;
+            
+            if($model->save(false)){
+                $hasTax = $this->hasTax($model);
+                $tax = $this->computeTax($model);
+                if($hasTax){
+                    $hasTax->amount = $tax;
+                    $hasTax->save(false);
+                }else{
+                    $accounttransaction = new Accounttransaction();
+                    $accounttransaction->request_id = $model->request_id;
+                    $accounttransaction->account_id = 31;
+                    $accounttransaction->transaction_type = $model->transaction_type;
+                    $accounttransaction->amount = $tax;
+                    $accounttransaction->tax_registered = $model->tax_registered;
+                    $accounttransaction->debitcreditflag = $model->debitcreditflag;
+                    $accounttransaction->save(false);
+                }   
+                Yii::$app->session->setFlash('success', 'Tax Successfully Applied!');
+                return $this->redirect(['/finance/osdv/view', 'id' => $model->osdv->osdv_id]);
+            }else{
+                Yii::$app->session->setFlash('warning', $model->getErrors());                 
+            }
+        }
+        
+        if (Yii::$app->request->isAjax) {
+            return $this->renderAjax('_applytax', [
+                        'model' => $model,
+            ]);
+        } else {
+            return $this->render('_applytax', [ ]);
+        }
+    }
+    
     public function actionUpdateflag() {
        if (Yii::$app->request->post('hasEditable')) {
            $ids = Yii::$app->request->post('editableKey');
@@ -228,5 +274,81 @@ class AccounttransactionController extends Controller
            else
                return false;
        }
+    }
+    
+    public function actionUpdatetax() {
+       if (Yii::$app->request->post('hasEditable')) {
+           $ids = Yii::$app->request->post('editableKey');
+           
+           $index = Yii::$app->request->post('editableIndex');
+           $attr = Yii::$app->request->post('editableAttribute');
+           $qty = $_POST['Accounttransaction'][$index][$attr];
+           $model = Accounttransaction::findOne($ids);
+           
+           $tax = Taxcategory::find($_POST['Accounttransaction'][$index]['tax_category_id'])->one();
+           $model->$attr = $qty; //$fmt->asDecimal($amt,2);
+           $model->rate1 = $tax->rate1;
+           $model->rate2 = $tax->rate2;
+           if($model->save(false))
+               return true;
+           else
+               return false;
+       }
+    }
+    
+    public function actionUpdatetaxreg() {
+       if (Yii::$app->request->post('hasEditable')) {
+           $ids = Yii::$app->request->post('editableKey');
+           
+           $index = Yii::$app->request->post('editableIndex');
+           $attr = Yii::$app->request->post('editableAttribute');
+           $qty = $_POST['Accounttransaction'][$index][$attr];
+           $model = Accounttransaction::findOne($ids);
+           $model->$attr = $qty; //$fmt->asDecimal($amt,2);
+           if(!$model->taxable){
+               $model->rate1 = 0.00;
+               $model->rate2 = 0.00;
+           }
+           if($model->save(false)){
+               if(!$model->taxable){
+                $del = Accounttransaction::find()
+                  ->where(['request_id'=>$model->request_id])
+                  ->andwhere(['account_id'=>31])
+                  ->one()
+                  ->delete(); 
+               }
+               
+               return true;
+           }else
+               return false;
+       }
+    }
+    
+    private function computeTax($model){
+        $tax_amount = 0.00;
+        
+        if($model->tax_registered)
+            $taxable_amount = $model->amount / 1.12;
+        else
+            $taxable_amount = $model->amount;
+
+        if($model->amount < 10000.00){
+            $tax_amount = $taxable_amount * $model->rate1;
+        }else{
+            $tax_amount = ($taxable_amount * $model->rate1) + ($taxable_amount * $model->rate2);
+        }
+        return $tax_amount;
+    }
+    
+    private function hasTax($model)
+    {
+        $hasTax = Accounttransaction::find()
+                  ->where(['request_id'=>$model->request_id])
+                  ->andwhere(['account_id'=>31])
+                  ->one();
+        if($hasTax)
+            return $hasTax;
+        else
+            return false;
     }
 }

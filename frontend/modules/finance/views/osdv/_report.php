@@ -18,7 +18,7 @@ use common\models\system\Profile;
 /* @var $searchModel common\models\finance\RequestSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Obligation and Disbursement';
+$this->title = 'Disbursement Report';
 $this->params['breadcrumbs'][] = $this->title;
 
 // Modal Create Request
@@ -59,6 +59,28 @@ Modal::end();
                                 },
                             ],*/
                             [
+                                'attribute'=>'request_date',
+                                'headerOptions' => ['style' => 'text-align: center;'],
+                                'contentOptions' => ['style' => 'text-align: center;'],
+                                'width'=>'150px',
+                                'value'=>function ($model, $key, $index, $widget) { 
+                                    return date('Y-m-d', strtotime($model->request->request_date));
+                                },
+                            ],
+                            [
+                                'attribute'=>'payee_id',
+                                'contentOptions' => ['style' => 'padding-left: 25px; font-weigth: bold;'],
+                                'width'=>'550px',
+                                'contentOptions' => [
+                                    'style'=>'max-width:300px; overflow: auto; white-space: normal; word-wrap: break-word;'
+                                ],
+                                'format' => 'raw',
+                                'value'=>function ($model, $key, $index, $widget) { 
+                                    return '<b>' . Creditor::findOne($model->request->payee_id)->name. '</b><br>' .$model->request->particulars;
+                                },
+                            ],
+                            
+                            [
                                 'attribute'=>'osdv_id',
                                 'header'=>'OS Number',
                                 'headerOptions' => ['style' => 'text-align: center;'],
@@ -80,30 +102,9 @@ Modal::end();
                                 },
                             ],
                             [
-                                'attribute'=>'request_date',
-                                'headerOptions' => ['style' => 'text-align: center;'],
-                                'contentOptions' => ['style' => 'text-align: center;'],
-                                'width'=>'150px',
-                                'value'=>function ($model, $key, $index, $widget) { 
-                                    return date('Y-m-d', strtotime($model->request->request_date));
-                                },
-                            ],
-                            [
-                                'attribute'=>'payee_id',
-                                'contentOptions' => ['style' => 'padding-left: 25px; font-weigth: bold;'],
-                                'width'=>'550px',
-                                'contentOptions' => [
-                                    'style'=>'max-width:300px; overflow: auto; white-space: normal; word-wrap: break-word;'
-                                ],
-                                'format' => 'raw',
-                                'value'=>function ($model, $key, $index, $widget) { 
-                                    return '<b>' . Creditor::findOne($model->request->payee_id)->name. '</b><br>' .$model->request->particulars;
-                                },
-                            ],
-                            [
                                 'attribute'=>'amount',
                                 'headerOptions' => ['style' => 'text-align: center;'],
-                                'contentOptions' => ['style' => 'text-align: center;'],
+                                'contentOptions' => ['style' => 'text-align: right; padding-right: 25px;'],
                                 'width'=>'150px',
                                 'value'=>function ($model, $key, $index, $widget) {
                                     $fmt = Yii::$app->formatter;
@@ -111,32 +112,47 @@ Modal::end();
                                 },
                             ],
                             [
-                                'attribute'=>'created_by',
-                                'contentOptions' => ['style' => 'padding-left: 25px;'],
+                                'attribute'=>'amount',
+                                'header'=>'Tax',
+                                'contentOptions' => ['style' => 'text-align: right; padding-right: 25px;'],
                                 'width'=>'250px',
                                 'value'=>function ($model, $key, $index, $widget) { 
-                                    return Profile::find($model->created_by)->one()->fullname;
+                                    $fmt = Yii::$app->formatter;
+                                    return $fmt->asDecimal($model->request->amount);
                                 },
-                            ],
-                            [
-                                'class' => kartik\grid\ActionColumn::className(),
-                                'template' => '{view}',
-                                'buttons' => [
-
-                                    'view' => function ($url, $model){
-                                        return Html::button('<span class="glyphicon glyphicon-eye-open"></span>', ['value' => '/finance/osdv/approvalview?id=' . $model->osdv_id,'onclick'=>'location.href=this.value', 'class' => 'btn btn-primary', 'title' => Yii::t('app', "View Request")]);
-                                    },
-                                ],
                             ],
                     ],
             'containerOptions' => ['style' => 'overflow: auto'], // only set when $responsive = false
             'headerRowOptions' => ['class' => 'kartik-sheet-style'],
             'filterRowOptions' => ['class' => 'kartik-sheet-style'],
             'pjax' => true, // pjax is set to always true for this demo
+            /*'rowOptions' => function($model){
+                switch ($model->status_id) {
+                    case Request::STATUS_VALIDATED:
+                        return ['class'=>'warning'];
+                        break;
+                    case Request::STATUS_CERTIFIED_ALLOTMENT_AVAILABLE:
+                        return ['class'=>'warning'];
+                        break;
+                    case Request::STATUS_ALLOTTED:
+                        return ['class'=>'warning'];
+                        break;
+                    case Request::STATUS_CERTIFIED_FUNDS_AVAILABLE:
+                        return ['class'=>'warning'];
+                        break;
+                    case Request::STATUS_CHARGED:
+                        return ['class'=>'warning'];
+                        break;
+                    case Request::STATUS_APPROVED_FOR_DISBURSEMENT:
+                        return ['class'=>'success'];
+                        break;
+                }
+                 
+            },*/
             'panel' => [
                     'heading' => '',
                     'type' => GridView::TYPE_PRIMARY,
-                    'before'=>'',//Html::button('Validated Requests  &nbsp;&nbsp;<span class="badge badge-light">'.$numberOfRequests.'</span>', ['value' => Url::to(['osdv/create']), 'title' => 'Request', 'class' => 'btn btn-success', 'style'=>'margin-right: 6px;', 'id'=>'buttonCreateOsdv']),
+                    'before'=>'',/*Html::button('Validated Requests  &nbsp;&nbsp;<span class="badge badge-light"></span>', ['value' => Url::to(['osdv/create']), 'title' => 'Request', 'class' => 'btn btn-success', 'style'=>'margin-right: 6px;', 'id'=>'buttonCreateOsdv']),*/
                     'after'=>false,
                 ],
             // set your toolbar
@@ -162,18 +178,3 @@ Modal::end();
         ?>
         <?php Pjax::end(); ?>
 </div>
-
-
-<script>
-/*$( document ).ready(function() {
-    setTimeout(function(){
-        window.location = 'verifyindex';
-    }, 5000);
-});)*/
-
-$( document ).ready(function() {
-    setTimeout(function(){
-       window.location.reload(1);
-    }, 20000);
-});
-</script>
