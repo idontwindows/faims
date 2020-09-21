@@ -5,6 +5,7 @@ use yii\helpers\ArrayHelper;
 use yii\widgets\Pjax;
 
 use kartik\datecontrol\DateControl;
+use kartik\widgets\DatePicker;
 use kartik\detail\DetailView;
 use kartik\editable\Editable; 
 use kartik\grid\GridView;
@@ -49,6 +50,11 @@ Modal::end();
         echo GridView::widget([
             'id' => 'request',
             'dataProvider' => $dataProvider,
+            'filterModel' => $searchModel,
+            'containerOptions' => ['style' => 'overflow-x: none!important','class'=>'kv-grid-container'], // only set when $responsive = false
+            //'containerOptions' => ['style' => 'overflow: auto'], // only set when $responsive = false
+            'headerRowOptions' => ['class' => 'kartik-sheet-style'],
+            'filterRowOptions' => ['class' => 'kartik-sheet-style'],
             'columns' => [
                             /*[
                                 'attribute'=>'request_id',
@@ -83,14 +89,29 @@ Modal::end();
                                 'attribute'=>'request_date',
                                 'headerOptions' => ['style' => 'text-align: center;'],
                                 'contentOptions' => ['style' => 'text-align: center;'],
-                                'width'=>'150px',
+                                'width'=>'250px',
                                 'value'=>function ($model, $key, $index, $widget) { 
                                     return date('Y-m-d', strtotime($model->request->request_date));
                                 },
+                                'filter'=>DatePicker::widget([
+                                    //'model' => $searchModel,
+                                    'name' => 'request_date',
+                                    //'attribute' => 'request.request_date',
+                                    //'value' => date('Y-m-d', strtotime('+2 days')),
+                                    'value' => date('Y-m-d'),
+                                    'options' => ['placeholder' => 'Select date ...'],
+                                    'pluginOptions' => [
+                                        'format' => 'yyyy-mm-dd',
+                                        'todayHighlight' => true
+                                    ],
+                                    //'contentOptions' => ['style' => 'width: 20%;word-wrap: break-word;white-space:pre-line;'],
+                                ]),
                             ],
                             [
                                 'attribute'=>'payee_id',
-                                'contentOptions' => ['style' => 'padding-left: 25px; font-weigth: bold;'],
+                                'header'=>'Payee',
+                                'headerOptions' => ['style' => 'text-align: center;'],
+                                'contentOptions' => ['style' => 'padding-left: 25px; font-weigth: bold; text-align: center;'],
                                 'width'=>'550px',
                                 'contentOptions' => [
                                     'style'=>'max-width:300px; overflow: auto; white-space: normal; word-wrap: break-word;'
@@ -99,6 +120,13 @@ Modal::end();
                                 'value'=>function ($model, $key, $index, $widget) { 
                                     return '<b>' . Creditor::findOne($model->request->payee_id)->name. '</b><br>' .$model->request->particulars;
                                 },
+                                'filterType' => GridView::FILTER_SELECT2,
+                                'filter' => ArrayHelper::map(Creditor::find()->asArray()->all(), 'creditor_id', 'name'), 
+                                'filterWidgetOptions' => [
+                                    'pluginOptions' => ['allowClear' => true],
+                                ],
+                                'filterInputOptions' => ['placeholder' => 'Select Payee'],
+                                //'contentOptions' => ['style' => 'width: 50%;word-wrap: break-word;white-space:pre-line;'],
                             ],
                             [
                                 'attribute'=>'amount',
@@ -110,34 +138,33 @@ Modal::end();
                                     return $fmt->asDecimal($model->request->amount);
                                 },
                             ],
-                            [
+                            /*[
                                 'attribute'=>'created_by',
                                 'contentOptions' => ['style' => 'padding-left: 25px;'],
                                 'width'=>'250px',
                                 'value'=>function ($model, $key, $index, $widget) { 
                                     return Profile::find($model->created_by)->one()->fullname;
                                 },
-                            ],
+                            ],*/
                             [
                                 'class' => kartik\grid\ActionColumn::className(),
+                                //'class' => kartik\grid\ActionColumn::className(),
                                 'template' => '{view}',
+                                'headerOptions' => ['style' => 'background-color: #fff;'],
                                 'buttons' => [
-
                                     'view' => function ($url, $model){
                                         return Html::button('<span class="glyphicon glyphicon-eye-open"></span>', ['value' => '/finance/osdv/view?id=' . $model->osdv_id,'onclick'=>'location.href=this.value', 'class' => 'btn btn-primary', 'title' => Yii::t('app', "View Request")]);
                                     },
                                 ],
                             ],
-                            [
+                            /*[
                                 'class' => 'kartik\grid\CheckboxColumn',
                                 'headerOptions' => ['class' => 'kartik-sheet-style'],
                                 'pageSummary' => '<small>(amounts in $)</small>',
                                 'pageSummaryOptions' => ['colspan' => 3, 'data-colspan-dir' => 'rtl']
-                            ],
+                            ],*/
                     ],
-            'containerOptions' => ['style' => 'overflow: auto'], // only set when $responsive = false
-            'headerRowOptions' => ['class' => 'kartik-sheet-style'],
-            'filterRowOptions' => ['class' => 'kartik-sheet-style'],
+            
             'pjax' => true, // pjax is set to always true for this demo
             'rowOptions' => function($model){
                 switch ($model->status_id) {

@@ -67,4 +67,12 @@ class Creditor extends \yii\db\ActiveRecord
     {
         return $this->hasMany(LddapadaItem::className(), ['creditor_id' => 'creditor_id']);
     }
+    
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getType()
+    {
+        return $this->hasOne(Creditortype::className(), ['creditor_type_id' => 'creditor_type_id']);
+    }
 }

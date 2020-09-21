@@ -7,6 +7,7 @@ use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use common\models\finance\Osdv;
 
+
 /**
  * OsdvSearch represents the model behind the search form about `common\models\finance\Osdv`.
  */
@@ -60,10 +61,12 @@ class OsdvSearch extends Osdv
         $query->andFilterWhere([
             'osdv_id' => $this->osdv_id,
             'request_id' => $this->request_id,
+            //'request.payee_id' => $this->request->payee_id,
             'type_id' => $this->type_id,
             'expenditure_class_id' => $this->expenditure_class_id,
             'status_id' => $this->status_id,
             'created_by' => $this->created_by,
+            //$model->request->payee_id
         ]);
         
         //$query->andFilterWhere(['>=', 'status_id', $this->status_id]);

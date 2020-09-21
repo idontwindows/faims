@@ -121,4 +121,20 @@ class CreditorController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+    
+    public function actionUpdatetin() {
+       if (Yii::$app->request->post('hasEditable')) {
+           $ids = Yii::$app->request->post('editableKey');
+           
+           $index = Yii::$app->request->post('editableIndex');
+           $attr = Yii::$app->request->post('editableAttribute');
+           $qty = $_POST['Creditor'][$index][$attr];
+           $model = Creditor::findOne($ids);
+           $model->$attr = $qty; //$fmt->asDecimal($amt,2);
+           if($model->save(false))
+               return true;
+           else
+               return false;
+       }
+    }
 }
