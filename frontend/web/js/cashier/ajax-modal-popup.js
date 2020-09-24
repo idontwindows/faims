@@ -44,6 +44,17 @@ $("body").on("click","#buttonAddCreditors",function () {
     },1500);
 });
 
+$("body").on("click","#buttonAssignCheckNo",function () {
+    
+    $('#modalPreview').modal('show')
+        .find('#modalContent')
+        .load($(this).attr('value'));
+    $('#modalHeader').html($(this).attr('title'));
+    setTimeout(function () {
+        $("#btnrefresh").click();
+    },1500);
+});
+
 $("body").on("click","#buttonSave",function () {
     loadModal($(this).attr('value'));
 });
