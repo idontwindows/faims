@@ -46,5 +46,4 @@ $(document).ready(function(){
         $('#btnOK').prop("disabled",true);
     }
 });
-
 </script>

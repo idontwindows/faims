@@ -289,14 +289,16 @@ class LddapadaController extends Controller
                 
                 if($model->save(false)){
                     
+                    $keys = explode(',', $_POST['Checknumber']['selected_keys']);
                     $items = Lddapadaitem::find()
-                        ->where(['IN', 'lddapada_item_id', [$_POST['Checknumber']['selected_keys']]])
+                        //->where(['IN', 'lddapada_item_id', [1,2]])
+                        ->where(['IN', 'lddapada_item_id', $keys])
                         ->all();
-                
                     foreach($items as $item){
                         $item->check_number = $_POST['Checknumber']['check_number'];
                         $item->save(false);
                     }
+                    
                     /*$index = $model->lddapada_id;
                     $scope = 'Lddapada';
                     $data = $model->batch_number.':'.$model-> 	batch_date .':'.$model->request_type_id.':'.$model->payee_id.':'.$model->particulars.':'.$model->amount.':'.$model->status_id;

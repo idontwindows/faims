@@ -9,7 +9,9 @@ use kartik\grid\GridView;
 use yii\bootstrap\Modal;
 
 use common\models\procurementplan\Ppmp;
+use common\models\cashier\Checknumber;
 use common\models\cashier\Lddapada;
+use common\models\cashier\Lddapadaitem;
 /* @var $this yii\web\View */
 /* @var $model common\models\cashier\Lddapada */
 
@@ -167,7 +169,7 @@ Modal::end();
                     'attribute'=>'name',
                     'header' => 'NAME',
                     'headerOptions' => ['style' => 'text-align: center; vertical-align: middle;'],
-                    'contentOptions' => ['style' => 'text-align: center; vertical-align: middle;'],
+                    'contentOptions' => ['style' => 'text-align: left; padding-left: 10px; vertical-align: middle;'],
                     'format' => 'raw',
                     'width'=>'80px',
                     /*'value'=>function ($model, $key, $index, $widget) { 
