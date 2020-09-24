@@ -25,6 +25,8 @@ class Lddapada extends \yii\db\ActiveRecord
     const FUND_CLUSTER = '01101101';
     const FUND_CODE = '101';
     const ACCOUNT = 'LBP Centro 2195-9000-54';
+    
+
     /**
      * @inheritdoc
      */

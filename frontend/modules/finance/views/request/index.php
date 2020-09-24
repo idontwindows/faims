@@ -126,7 +126,10 @@ Modal::end();
                                 'refreshGrid'=>true,
                                 //'readonly' => !$isMember,
                                 'value'=>function ($model, $key, $index, $widget) {
-                                        return $model->district->name;
+                                        if($model->district_id)
+                                            return $model->district->name;
+                                        else
+                                            return '-';
                                     },
                                 'editableOptions'=> function ($model , $key , $index) {
                                     return [
@@ -137,7 +140,10 @@ Modal::end();
                                         'name'=>'district',
                                         'asPopover' => true,
                                         'value'=>function ($model, $key, $index, $widget) {
-                                            return $model->district->name;
+                                            if($model->district_id)
+                                                return $model->district->name;
+                                            else
+                                                return '-';
                                         },
                                         'inputType' => Editable::INPUT_DROPDOWN_LIST,
                                         'data'=>ArrayHelper::map(Requestdistrict::find()->all(),'request_district_id','name'),

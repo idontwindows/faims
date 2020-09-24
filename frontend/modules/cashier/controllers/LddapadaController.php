@@ -3,6 +3,7 @@
 namespace frontend\modules\cashier\controllers;
 
 use Yii;
+use common\models\cashier\Checknumber;
 use common\models\cashier\Creditor;
 use common\models\cashier\Lddapada;
 use common\models\cashier\Lddapadaitem;
@@ -82,6 +83,7 @@ class LddapadaController extends Controller
             'model' => $model,
             'items' => $items,
             'lddapadaItemsDataProvider' => $lddapadaItemsDataProvider,
+            'id' => $id,
         ]);
     }
 
@@ -265,9 +267,77 @@ class LddapadaController extends Controller
        }
     }
     
+    public function actionAssigncheck($id){
+        $model = new Checknumber;
+        
+        $year = date("Y");
+        $month = date("m");
+        $model->check_number = Checknumber::getCheckNumber(1,$year, $month);
+        
+        if(Yii::$app->user->can('access-cashiering')){
+            if (Yii::$app->request->post()) {
+                //$model->saved = Lddapada::SAVED ; //20
+                
+                $counter = Checknumber::find()->where(['type_id' => 1, 'year' => $year, 'month' => $month])->count();
+                $counter += 1;
+                
+                $model->type_id = 1;	
+                $model->prefix = Checknumber::PREP;
+                $model->year = $year;
+                $model->month = $month;
+                $model->counter = $counter;
+                
+                if($model->save(false)){
+                    
+                    $items = Lddapadaitem::find()
+                        ->where(['IN', 'lddapada_item_id', [$_POST['Checknumber']['selected_keys']]])
+                        ->all();
+                
+                    foreach($items as $item){
+                        $item->check_number = $_POST['Checknumber']['check_number'];
+                        $item->save(false);
+                    }
+                    /*$index = $model->lddapada_id;
+                    $scope = 'Lddapada';
+                    $data = $model->batch_number.':'.$model-> 	batch_date .':'.$model->request_type_id.':'.$model->payee_id.':'.$model->particulars.':'.$model->amount.':'.$model->status_id;
+                    Blockchain::createBlock($index, $scope, $data);
+                    
+                    $content = 'Request Number: '.$model->request_number.PHP_EOL;
+                    $content .= 'Payee: '.$model->creditor->name.PHP_EOL;
+                    $content .= 'Amount: '.$model->amount.PHP_EOL.PHP_EOL;
+                    $content .= 'Particulars: '.PHP_EOL.$model->particulars;
+                    $recipient = Notificationrecipient::find()->where(['status_id' => $model->status_id])->one();
+                    
+                    Yii::$app->Notification->sendSMS('', 2, $recipient->primary->sms, 'Request for Obligation', $content, 'FAIMS', $this->module->id, $this->action->id);
+                    
+                    Yii::$app->Notification->sendEmail('', 2, $recipient->primary->email, 'Request for Verification', $content, 'FAIMS', $this->module->id, $this->action->id);*/
+                    
+                    Yii::$app->session->setFlash('success', 'Successfully Saved!');
+                }else{
+                    Yii::$app->session->setFlash('success', $model->getErrors());                 
+                }
+                return $this->redirect(['view', 'id' => $_GET['id']]);
+                    
+            }
+
+            if (Yii::$app->request->isAjax) {
+                    return $this->renderAjax('_assigncheck', ['model'=>$model]);   
+            }else {
+                return $this->render('_assigncheck', [
+                            'model' => $model,
+                ]);
+            }
+        }else{
+            if (Yii::$app->request->isAjax) {
+                    return $this->renderAjax('_notallowed', ['model'=>$model]);   
+            }
+        }
+    }
+    
     function actionSave()
     {
-        $model = $this->findModel($_GET['id']);
+        //$model = $this->findModel($_GET['id']);
+        $model = new Lddapada();
         
         if(Yii::$app->user->can('access-cashiering')){
             if (Yii::$app->request->post()) {
@@ -319,12 +389,22 @@ class LddapadaController extends Controller
     
     function actionPreview()
     {
-        //$url = 'http://localhost:8080/cashier/lddapada/print?id=2';
-        $url = 'D:/HP Files/2020/WFH/GCQ/W12/WFH-Report-August-7.pdf';
+        $url = 'http://localhost:8080/cashier/lddapada/print?id=2';
+        //$url = 'D:/HP Files/2020/WFH/GCQ/W12/WFH-Report-August-7.pdf';
         if (Yii::$app->request->isAjax) {
             return $this->renderAjax('_preview', ['url'=>$url]);   
         }else {
             return $this->render('_preview', ['url'=>$url]);
         }
+    }
+    
+    function getItems()
+    {
+        $keys = $_POST['keys'];
+        
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        return Json::encode([
+                    'message' => 'success'
+        ]);
     }
 }
