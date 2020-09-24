@@ -195,7 +195,10 @@ Modal::end();
                     'format' => 'raw',
                     'width'=>'150px',
                     'value'=>function ($model, $key, $index, $widget) { 
-                        return $model->osdv->os->os_number;
+                        if($model->osdv->os)
+                            return $model->osdv->os->os_number;
+                        else
+                            return '-';
                     },
                 ],
                 //'expenditure_object_id',
