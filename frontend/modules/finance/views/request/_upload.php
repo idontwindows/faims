@@ -43,7 +43,7 @@ echo $form->field($model, 'pdfFile')->widget(FileInput::classname(), [
 ]);
 
 if($model->request->owner()){
-    echo Html::submitButton($model->isNewRecord ? 'Upload' : 'Update', [
+    echo Html::submitButton('Upload', [
         'class'=>$model->isNewRecord ? 'btn btn-success' : 'btn btn-primary', 'style' => 'float: right;']
     );
 }
@@ -81,6 +81,14 @@ ActiveForm::end();
 //echo $path.'<br/>';
 
 //echo Yii::getAlias('@uploads');
-echo Url::base();
+//echo Url::base();
 ?>
 <br><br>
+<script>
+$(document).ready(function(){
+    $(".fileinput-upload-button").hide();
+    //$(".file-caption").change(function(){
+        //alert($(".file-caption-name").prop('title'));
+    //});
+});
+</script>

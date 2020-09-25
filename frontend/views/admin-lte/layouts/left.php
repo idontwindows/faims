@@ -165,7 +165,7 @@ if(Yii::$app->user->isGuest){
                                 //'visible'=> (Yii::$app->user->identity->username == 'Admin')
                                 'visible'=> Yii::$app->user->can('access-finance-verification')//  || (Yii::$app->user->identity->username == 'Admin')
                             ],
-                            ['label' => 'Creditors', 'icon' => 'clipboard', 'url' => ['/cashier/creditor/index']],
+                            ['label' => 'Creditors', 'icon' => 'clipboard text-aqua', 'url' => ['/cashier/creditor/index'], 'visible'=> Yii::$app->user->can('access-finance-processing')],
                             [
                                 'label' => 'Attachment Uploader' , 
                                 'icon' => 'upload text-aqua', 
