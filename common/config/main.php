@@ -23,5 +23,6 @@ return [
         ],
     ],
     
-    'components' => $components
+    'components' => $components,
+    'defaultRoute' => 'finance/request',
 ];
