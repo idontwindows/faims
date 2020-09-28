@@ -27,7 +27,9 @@ use common\models\procurement\Division;
     <!--?= $form->field($model, 'request_date')->textInput() ?-->
     
     <div class="row">
+        
         <div class="col-md-6"> 
+                <h5 data-step="1" data-intro="Select Request type.">
                 <?= $form->field($model, 'request_type_id')->widget(Select2::classname(), [
                     'data' => ArrayHelper::map(Requesttype::find()->where('active =:active',[':active'=>1])->all(),'request_type_id','name'),
                     'language' => 'en',
@@ -52,7 +54,9 @@ use common\models\procurement\Division;
                         }
                     ',]
                 ])->label('Request Type'); ?>
+                </h5>
         </div>
+        
         <div class="col-md-6">
             <?= $form->field($model, 'request_date')->widget(DateTimePicker::classname(), [
                 'readonly' => true,
@@ -69,6 +73,7 @@ use common\models\procurement\Division;
     
     <div class="row">
         <div class="col-md-6"> 
+                <h5 data-step="2" data-intro="Specify Source of Fund.">
                 <?= $form->field($model, 'obligation_type_id')->widget(Select2::classname(), [
                     'data' => ArrayHelper::map(Obligationtype::find()->all(),'type_id','name'),
                     'language' => 'en',
@@ -93,9 +98,11 @@ use common\models\procurement\Division;
                         }
                     ',]*/
                 ])->label('Fund Source'); ?>
+            </h5>
         </div>
         
-        <div class="col-md-6"> 
+        <div class="col-md-6">
+                <h5 data-step="4" data-intro="Select Division.">
                 <?= $form->field($model, 'division_id')->widget(Select2::classname(), [
                     'data' => ArrayHelper::map(Division::find()->all(),'division_id','name'),
                     'language' => 'en',
@@ -103,9 +110,10 @@ use common\models\procurement\Division;
                         'allowClear' => false
                     ],
                 ])->label('Division'); ?>
+                </h5>
         </div>
     </div>
-
+    <h5 data-step="5" data-intro="Search for Payee / Creditor.">
     <?= $form->field($model, 'payee_id')->widget(Select2::classname(), [
                     'data' => ArrayHelper::map(Creditor::find()->orderBy(['name'=>SORT_ASC])->all(),'creditor_id','name'),
                     'language' => 'en',
@@ -113,16 +121,29 @@ use common\models\procurement\Division;
                     'pluginOptions' => [
                         'allowClear' => false
                     ],
-                ])->label('Payee / Creditor'); ?>
+])->label('Payee / Creditor'); ?></h5>
 
+    <h5 data-step="6" data-intro="Indicate the details of this financial request.">
     <?= $form->field($model, 'particulars')->textarea(['rows' => 6]) ?>
-
+    </h5>
+    <h5 data-step="7" data-intro="Enter amount.">
     <?= $form->field($model, 'amount')->textInput() ?>
-
+    </h5>
     <div class="form-group">
+        <h5 data-step="7" data-intro="Hit Create to proceed.">
         <?= Html::submitButton($model->isNewRecord ? 'Create' : 'Update', ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        </h5>
+        
+        <a id="startButton"  href="javascript:void(0);">Show guide</a>
     </div>
 
     <?php ActiveForm::end(); ?>
-
+    
 </div>
+<script type="text/javascript">
+    document.getElementById('startButton').onclick = function() {
+        introJs().setOption('doneLabel', 'Next page').start().oncomplete(function() {
+            window.location.href = 'index?multipage=true';
+        });
+    };
+</script>
