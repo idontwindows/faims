@@ -81,13 +81,13 @@ Modal::end();
                                 'format'=>'raw',
                                 'value'=>function ($model, $key, $index, $widget) {
                                     switch ($model->status_id) {
-                                      case (50):
+                                      case ($model->status_id==50):
                                         $label = 'label-warning';
                                         break;
-                                      case (55):
+                                      case ($model->status_id==55):
                                         $label = 'label-success';
                                         break;
-                                      case (70):
+                                      case ($model->status_id>55):
                                         $label = 'label-info';
                                         break;
                                       default:
@@ -106,13 +106,13 @@ Modal::end();
                                 'format'=>'raw',
                                 'value'=>function ($model, $key, $index, $widget) {
                                     switch ($model->status_id) {
-                                      case (60):
+                                      case ($model->status_id==60):
                                         $label = 'label-warning';
                                         break;
-                                      case (65):
+                                      case ($model->status_id==65):
                                         $label = 'label-success';
                                         break;
-                                      case (70):
+                                      case ($model->status_id>65):
                                         $label = 'label-info';
                                         break;
                                       default:
