@@ -60,7 +60,7 @@ class OsdvController extends Controller
         //$searchModel->status_id = $status_id;
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         
-        $numberOfRequests = Request::find()->where('status_id >=:status_id',[':status_id'=>$status_id])->count();
+        $numberOfRequests = Request::find()->where('status_id =:status_id',[':status_id'=>40])->count();
         
         return $this->render('index', [
             'searchModel' => $searchModel,

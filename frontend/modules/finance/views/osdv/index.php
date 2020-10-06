@@ -65,14 +65,36 @@ Modal::end();
                                 },
                             ],*/
                             [
+                                'attribute'=>'status_id',
+                                'contentOptions' => ['style' => 'padding-left: 25px; font-weigth: bold;'],
+                                'width'=>'80px',
+                                /*'value'=>function ($model, $key, $index, $widget) { 
+                                    return $model->request->request_number;
+                                },*/
+                            ],
+                            [
                                 'attribute'=>'osdv_id',
                                 'header'=>'OS Number',
                                 'headerOptions' => ['style' => 'text-align: center;'],
                                 'contentOptions' => ['style' => 'text-align: center;'],
                                 'width'=>'150px',
                                 'format'=>'raw',
-                                'value'=>function ($model, $key, $index, $widget) { 
-                                    return isset($model->os->os_id) ? $model->os->os_number.'<br/>'.$model->os->os_date : '';
+                                'value'=>function ($model, $key, $index, $widget) {
+                                    switch ($model->status_id) {
+                                      case (50):
+                                        $label = 'label-warning';
+                                        break;
+                                      case (55):
+                                        $label = 'label-success';
+                                        break;
+                                      case (70):
+                                        $label = 'label-info';
+                                        break;
+                                      default:
+                                        $label = 'label-warning';
+                                            
+                                    }
+                                    return (isset($model->os->os_id) ? '<span class="label '.$label.'">'.$model->os->os_number.'</span><br/>'.$model->os->os_date : '');
                                 },
                             ],
                             [
@@ -81,8 +103,23 @@ Modal::end();
                                 'headerOptions' => ['style' => 'text-align: center;'],
                                 'contentOptions' => ['style' => 'text-align: center;'],
                                 'width'=>'150px',
-                                'value'=>function ($model, $key, $index, $widget) { 
-                                    return isset($model->dv->dv_id) ? $model->dv->dv_number : '';
+                                'format'=>'raw',
+                                'value'=>function ($model, $key, $index, $widget) {
+                                    switch ($model->status_id) {
+                                      case (60):
+                                        $label = 'label-warning';
+                                        break;
+                                      case (65):
+                                        $label = 'label-success';
+                                        break;
+                                      case (70):
+                                        $label = 'label-info';
+                                        break;
+                                      default:
+                                        $label = 'label-warning';
+                                            
+                                    }
+                                    return (isset($model->dv->dv_id) ? '<span class="label '.$label.'">'.$model->dv->dv_number.'</span><br/>'.$model->dv->dv_date : '');
                                 },
                             ],
                             [
@@ -228,6 +265,6 @@ Modal::end();
 $( document ).ready(function() {
     setTimeout(function(){
        window.location.reload(1);
-    }, 20000);
+    }, 40000);
 });
 </script>
