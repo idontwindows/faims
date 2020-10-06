@@ -422,39 +422,6 @@ Modal::end();
                     //'vAlign'=>'middle',
                     'width'=>'250px',
                 ],
-                /*
-                [
-                    'class'=>'kartik\grid\EditableColumn',
-                    'attribute'=>'tax_category_id',
-                    'header'=>'Tax',
-                    //'width'=>'350px',
-                    'refreshGrid'=>true,
-                    //'readonly' => !$isMember,
-                    'value'=>function ($model, $key, $index, $widget) {
-                            return isset($model->tax_category_id) ? $model->taxcategory->name : '-';
-                        },
-                    'editableOptions'=> function ($model , $key , $index) {
-                        return [
-                            'options' => ['id' => $index . '_20_' . $model->tax_category_id],
-                            'contentOptions' => ['style' => 'text-align: center;'],
-                            'placement'=>'left',
-                            //'disabled'=>!Yii::$app->user->can('access-finance-disbursement'),
-                            'name'=>'district',
-                            'asPopover' => true,
-                            'value'=>function ($model, $key, $index, $widget) {
-                                return isset($model->tax_category_id) ? $model->taxcategory->name : '-';
-                            },
-                            'inputType' => Editable::INPUT_DROPDOWN_LIST,
-                            'data'=>ArrayHelper::map(Taxcategory::find()->all(),'tax_category_id','name'),
-                            'formOptions'=>['action' => ['/finance/accounttransaction/updatetax']], // point to the new action
-                        ];
-                    },
-                    'headerOptions' => ['style' => 'text-align: center'],
-                    'contentOptions' => ['style' => 'padding-right: 20px;'],
-                    'hAlign'=>'right',
-                    //'vAlign'=>'middle',
-                    'width'=>'250px',
-                ],*/
                 [
                     'class'=>'kartik\grid\EditableColumn',
                     'attribute'=>'taxable',
