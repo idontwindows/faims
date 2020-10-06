@@ -72,7 +72,7 @@ class Osdv extends \yii\db\ActiveRecord
     
     public function getAllotments()  
     {  
-      return $this->hasMany(Osallotment::className(), ['osdv_id' => 'osdv_id']);  
+      return $this->hasMany(Osallotment::className(), ['osdv_id' => 'osdv_id'])->andOnCondition(['active' => 1]);  
     }
     
     public function getAccounttransactions()  
