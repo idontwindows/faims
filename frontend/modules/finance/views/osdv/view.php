@@ -473,7 +473,7 @@ Modal::end();
                     'pageSummary' => '<small>(amounts in $)</small>',
                     'pageSummaryOptions' => ['colspan' => 3, 'data-colspan-dir' => 'rtl']
                 ],*/
-                [
+                /*[
                     'class'=>'kartik\grid\EditableColumn',
                     'attribute'=>'amount',
                     'header'=>'Amount',
@@ -498,7 +498,7 @@ Modal::end();
                             },
                     'editableOptions'=> function ($model , $key , $index) {
                         return [
-                            'options' => ['id' => $index . '_20_' . $model->account_transaction_id],
+                            'options' => ['id' => $index . '_90_' . $model->account_transaction_id],
                             'placement'=>'left',
                             'disabled'=>!Yii::$app->user->can('access-finance-disbursement'),
                             //'disabled'=>true,
@@ -519,6 +519,7 @@ Modal::end();
                                 }
                                 
                                 return $fmt->asDecimal($model->amount - $tax_amount);
+                                //return ($model->amount - $tax_amount);
                             },
                             //'inputType' => \kartik\editable\Editable::INPUT_TEXT,
                             'inputType' => \kartik\editable\Editable::INPUT_SPIN,
@@ -534,6 +535,50 @@ Modal::end();
                     //'vAlign'=>'middle',
                     'width'=>'250px',
                     'pageSummary' => true
+                ],*/
+                [
+                    'class'=>'kartik\grid\EditableColumn',
+                    'attribute'=>'amount',
+                    'header'=>'Amount',
+                    'width'=>'350px',
+                    'refreshGrid'=>true,
+                    //'readonly' => !$isMember,
+                    'value'=>function ($model, $key, $index, $widget) { 
+                            //$fmt = Yii::$app->formatter;
+                            //return $fmt->asDecimal($model->amount);
+                            $fmt = Yii::$app->formatter;
+                                $tax_amount = 0.00;
+                                if($model->tax_registered)
+                                    $taxable_amount = $model->amount / 1.12;
+                                else
+                                    $taxable_amount = $model->amount;
+
+                                if($model->amount < 10000.00){
+                                    $tax_amount = $taxable_amount * $model->rate1;
+                                }else{
+                                    $tax_amount = ($taxable_amount * $model->rate1) + ($taxable_amount * $model->rate2);
+                                }
+                                
+                                return $fmt->asDecimal($model->amount - $tax_amount);
+                        },
+                    'editableOptions'=> function ($model , $key , $index) {
+                        return [
+                            'options' => ['id' => $index . '_' . $model->account_transaction_id],
+                            'placement'=>'left',
+                            'disabled'=>!Yii::$app->user->can('access-finance-disbursement'),
+                            //'disabled'=>true,
+                            'name'=>'amount',
+                            'asPopover' => true,
+                            'value' => $model->amount,
+                            'inputType' => \kartik\editable\Editable::INPUT_TEXT,
+                            'formOptions'=>['action' => ['/finance/accounttransaction/updateamount']], // point to the new action
+                        ];
+                    },
+                    'headerOptions' => ['style' => 'text-align: center'],
+                    'contentOptions' => ['style' => 'padding-right: 20px;'],
+                    'hAlign'=>'right',
+                    'vAlign'=>'left',
+                    'width'=>'100px',
                 ],
                 [   
                     'attribute'=>'amount',
