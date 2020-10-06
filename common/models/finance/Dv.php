@@ -66,9 +66,17 @@ class Dv extends \yii\db\ActiveRecord
         
         $dv_type = Expenditureclass::findOne($expenditurClassId)->account_code;
 
-        $count = Dv::find()->where(['year(dv_date)' => date("Y", strtotime($createDate))])->count();
-        $count += 1;
+        $dv = Dv::find()->where(['year(dv_date)' => date("Y", strtotime($createDate))])->orderBy(['dv_id' => SORT_DESC])->one();
+
+        if($dv){
+            $data = explode('-',$dv->dv_number);
+            $count = (int)$data[4] + 1;
+        }else{
+            $count = 1;
+        }
     
         return 'DV-'.$dv_type.'-'.$year.'-'.$month.'-'.str_pad($count, 4, '0', STR_PAD_LEFT);
+        
+        
     }
 }

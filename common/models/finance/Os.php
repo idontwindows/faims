@@ -66,8 +66,13 @@ class Os extends \yii\db\ActiveRecord
         
         $os_type = Expenditureclass::findOne($expenditurClassId)->account_code;
 
-        $count = Os::find()->where(['year(os_date)' => date("Y", strtotime($createDate))])->count();
-        $count += 1;
+        $os = Os::find()->where(['year(os_date)' => date("Y", strtotime($createDate))])->orderBy(['os_id' => SORT_DESC])->one();
+        if($os){
+            $data = explode('-',$os->os_number);
+            $count = (int)$data[4] + 1;
+        }else{
+            $count = 1;
+        }
     
         return 'OS-'.$os_type.'-'.$year.'-'.$month.'-'.str_pad($count, 4, '0', STR_PAD_LEFT);
     }
