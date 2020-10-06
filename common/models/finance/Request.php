@@ -7,6 +7,7 @@ use common\models\cashier\Creditor;
 use common\models\finance\Request;
 use common\models\finance\Requestdistrict;
 use common\models\finance\Requesttype;
+use common\models\system\Profile;
 /**
  * This is the model class for table "tbl_request".
  *
@@ -27,11 +28,17 @@ class Request extends \yii\db\ActiveRecord
         Disbursements of government funds shall comply with the following basic requirements and certifications:
         
             a. Availability of allotment/budget for obligation/utilization certified by the Budget Officer/Head of Budget Unit;
+            
             b. Obligations/Utilizations properly charged against available allotment/budget by the Chief Accountant/Head of Accounting Unit;
+            
             c. Availability of funds certified by the Chief Accountant. The Head of the Accounting Unit shall certify the availability of funds before an Agency Head or his duly authorized representative enter into any contract that involves the expenditure of public funds based on the copy of budget release documents;
+            
             d. Availability of cash certified by the Chief Accountant. The Head of the Accounting Unit shall certify the availability of cash and completeness of the supporting documents in the disbursement voucher and payroll based on the Registry of Allotments and Notice of Cash Allocation/Registry of Allotment and Notice of Transfer of Allocation;
+            
             e. Legality of the transactions and conformity with existing rules and regulations. The requesting and approving officials shall ensure that the disbursements of government funds are legal and in conformity with applicable rules and regulations;
+            
             f. Submission of proper evidence to establish validity of the claim. The Head of the Requesting Unit shall certify on the necessity and legality of charges to allotments under his/her supervision as well as the validity, propriety and legality of supporting documents. All payments of government obligations and payables shall be covered by Disbursement Vouchers (DV)/Payrolls together with the original copy of the supporting documents which will serve as basis in the evaluation of authenticity and authority of the claim. It should be cleared, however, that the submission of the supporting documents does not preclude reasonable questions on the funding, legality, regularity, necessity and/or economy of the expenditures or transactions; and
+            
             g. Approval of the disbursement by the Head of Agency or by his duly authorized representative. Disbursement or disposition of government funds or property shall invariably bear the approval of the proper officials. The DVs/Payrolls shall be signed and approved by the head of the agencies or his duly authorized representatives.
     ***/
     
@@ -170,5 +177,8 @@ class Request extends \yii\db\ActiveRecord
         return $verified;
     }
     
-    
+    public function getProfile()  
+    {  
+      return $this->hasOne(Profile::className(), ['user_id' => 'created_by']);  
+    }
 }

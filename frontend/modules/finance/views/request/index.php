@@ -100,19 +100,21 @@ Modal::end();
                                 'headerOptions' => ['style' => 'text-align: center;'],
                                 'contentOptions' => ['style' => 'text-align: center; vertical-align:middle;'],
                                 'width'=>'250px',
+                                'format'=>'raw',
                                 'value'=>function ($model, $key, $index, $widget) { 
-                                    return $model->status->name;
+                                    return '<span class="label label-info">'.$model->status->name.'</span>';
                                 },
                             ],
-//                            [
-//                                'attribute'=>'created_by',
-//                                'headerOptions' => ['style' => 'text-align: center;'],
-//                                'contentOptions' => ['style' => 'text-align: center;'],
-//                                'width'=>'250px',
-//                                'value'=>function ($model, $key, $index, $widget) { 
-//                                    return Profile::find($model->created_by)->one()->fullname;
-//                                },
-//                            ],
+                            [
+                                'attribute'=>'created_by',
+                                'headerOptions' => ['style' => 'text-align: center;'],
+                                'contentOptions' => ['style' => 'text-align: center; vertical-align:middle; '],
+                                'width'=>'250px',
+                                'value'=>function ($model, $key, $index, $widget) { 
+                                    //return Profile::find($model->created_by)->one()->fullname;
+                                    return $model->profile->fullname;
+                                },
+                            ],
                             [
                                 'class'=>'kartik\grid\EditableColumn',
                                 'attribute'=>'district_id',
@@ -129,7 +131,7 @@ Modal::end();
                                 'editableOptions'=> function ($model , $key , $index) {
                                     return [
                                         'options' => ['id' => $index . '_10_' . $model->district_id],
-                                        'contentOptions' => ['style' => 'text-align: center;'],
+                                        'contentOptions' => ['style' => 'text-align: center;  vertical-align:middle;'],
                                         'placement'=>'left',
                                         //'disabled'=>!Yii::$app->user->can('access-finance-disbursement'),
                                         'name'=>'district',
@@ -146,7 +148,7 @@ Modal::end();
                                     ];
                                 },
                                 'headerOptions' => ['style' => 'text-align: center'],
-                                'contentOptions' => ['style' => 'padding-right: 20px;'],
+                                'contentOptions' => ['style' => 'text-align: center; vertical-align:middle;'],
                                 'hAlign'=>'right',
                                 //'vAlign'=>'middle',
                                 'width'=>'250px',

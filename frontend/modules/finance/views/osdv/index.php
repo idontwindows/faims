@@ -64,14 +64,14 @@ Modal::end();
                                     return $model->request->request_number;
                                 },
                             ],*/
-                            [
+                            /*[
                                 'attribute'=>'status_id',
                                 'contentOptions' => ['style' => 'padding-left: 25px; font-weigth: bold;'],
                                 'width'=>'80px',
-                                /*'value'=>function ($model, $key, $index, $widget) { 
+                                'value'=>function ($model, $key, $index, $widget) { 
                                     return $model->request->request_number;
-                                },*/
-                            ],
+                                },
+                            ],*/
                             [
                                 'attribute'=>'osdv_id',
                                 'header'=>'OS Number',
