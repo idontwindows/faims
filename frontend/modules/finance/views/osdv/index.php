@@ -182,7 +182,7 @@ Modal::end();
                                 'width'=>'250px',
                                 'value'=>function ($model, $key, $index, $widget) { 
                                     //return Profile::find($model->created_by)->one()->fullname;
-                                    return $model->profile->fullname;
+                                    return $model->request->profile->fullname;
                                 },
                             ],
                             [
