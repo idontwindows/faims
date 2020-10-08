@@ -561,8 +561,10 @@ Modal::end();
                                     $tax_amount = ($taxable_amount * $model->rate1) + ($taxable_amount * $model->rate2);
                                 }
                                 
-                                //return $fmt->asDecimal($model->amount - $tax_amount);
-                                return $tax_amount;
+                                if($model->debitcreditflag == 2)
+                                    return round($model->amount - $tax_amount, 2);
+                                else
+                                    return round($tax_amount, 2);
                             }else{
                                 return $model->amount;
                             }
