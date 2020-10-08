@@ -53,7 +53,7 @@ Modal::end();
             'columns' => [
                             [
                                 'attribute'=>'request_number',
-                                'contentOptions' => ['style' => 'padding-left: 25px; font-weigth: bold;'],
+                                'contentOptions' => ['style' => 'padding-left: 25px; font-weight: bold;'],
                                 'width'=>'80px',
                                 'value'=>function ($model, $key, $index, $widget) { 
                                     return $model->request_number;
@@ -69,7 +69,7 @@ Modal::end();
                             ],
                             [
                                 'attribute'=>'payee_id',
-                                'contentOptions' => ['style' => 'padding-left: 25px; font-weigth: bold;'],
+                                //'contentOptions' => ['style' => 'padding-left: 25px; font-weigth: bold;'],
                                 'width'=>'450px',
                                 'contentOptions' => [
                                     'style'=>'max-width:300px; overflow: auto; white-space: normal; word-wrap: break-word;'
@@ -81,7 +81,8 @@ Modal::end();
                             ],
                             [
                                 'attribute'=>'amount',
-                                'contentOptions' => ['style' => 'text-align: right; padding-right: 25px;'],
+                                'headerOptions' => ['style' => 'text-align: center;'],
+                                'contentOptions' => ['style' => 'text-align: right; padding-right: 25px; font-weight: bold;'],
                                 'width'=>'250px',
                                 'format'=>['decimal', 2],
                                 'value'=>function ($model, $key, $index, $widget) { 
