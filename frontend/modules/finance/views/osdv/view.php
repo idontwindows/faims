@@ -541,12 +541,14 @@ Modal::end();
                     'attribute'=>'amount',
                     'header'=>'Amount',
                     'width'=>'350px',
+                    'format'=>['decimal',2],
                     'refreshGrid'=>true,
                     //'readonly' => !$isMember,
                     'value'=>function ($model, $key, $index, $widget) { 
                             //$fmt = Yii::$app->formatter;
                             //return $fmt->asDecimal($model->amount);
-                            $fmt = Yii::$app->formatter;
+                            //$fmt = Yii::$app->formatter;
+                            if($model->taxable){
                                 $tax_amount = 0.00;
                                 if($model->tax_registered)
                                     $taxable_amount = $model->amount / 1.12;
@@ -561,6 +563,9 @@ Modal::end();
                                 
                                 //return $fmt->asDecimal($model->amount - $tax_amount);
                                 return $tax_amount;
+                            }else{
+                                return $model->amount;
+                            }
                         },
                     'editableOptions'=> function ($model , $key , $index) {
                         return [
