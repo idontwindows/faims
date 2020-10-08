@@ -559,7 +559,8 @@ Modal::end();
                                     $tax_amount = ($taxable_amount * $model->rate1) + ($taxable_amount * $model->rate2);
                                 }
                                 
-                                return $fmt->asDecimal($model->amount - $tax_amount);
+                                //return $fmt->asDecimal($model->amount - $tax_amount);
+                                return $tax_amount;
                         },
                     'editableOptions'=> function ($model , $key , $index) {
                         return [

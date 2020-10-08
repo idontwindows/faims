@@ -82,7 +82,7 @@ Modal::end();
                             [
                                 'attribute'=>'amount',
                                 'headerOptions' => ['style' => 'text-align: center;'],
-                                'contentOptions' => ['style' => 'text-align: right; padding-right: 25px; font-weight: bold;'],
+                                'contentOptions' => ['style' => 'text-align: right; vertical-align:middle; padding-right: 25px; font-weight: bold;'],
                                 'width'=>'250px',
                                 'format'=>['decimal', 2],
                                 'value'=>function ($model, $key, $index, $widget) { 
