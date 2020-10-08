@@ -81,10 +81,11 @@ Modal::end();
                             ],
                             [
                                 'attribute'=>'amount',
-                                'contentOptions' => ['style' => 'padding-left: 25px;'],
+                                'contentOptions' => ['style' => 'text-align: center; padding-left: 25px;'],
                                 'width'=>'250px',
                                 'value'=>function ($model, $key, $index, $widget) { 
-                                    return $model->amount;
+                                    $fmt = Yii::$app->formatter;
+                                    return $fmt->asDecimal($model->amount);
                                 },
                             ],
                             [
