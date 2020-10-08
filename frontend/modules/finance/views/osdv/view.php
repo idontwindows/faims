@@ -548,7 +548,7 @@ Modal::end();
                             //$fmt = Yii::$app->formatter;
                             //return $fmt->asDecimal($model->amount);
                             //$fmt = Yii::$app->formatter;
-                            if($model->taxable){
+                            if($model->taxable && $model->tax_registered){
                                 $tax_amount = 0.00;
                                 if($model->tax_registered)
                                     $taxable_amount = $model->amount / 1.12;
