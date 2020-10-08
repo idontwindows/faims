@@ -79,8 +79,9 @@ Modal::end();
                             ],
                             [
                                 'attribute'=>'amount',
-                                'contentOptions' => ['style' => 'padding-left: 25px;'],
+                                'contentOptions' => ['style' => 'text-align: right; padding-right: 25px;'],
                                 'width'=>'250px',
+                                'format'=>['decimal', 2],
                                 'value'=>function ($model, $key, $index, $widget) { 
                                     return $model->amount;
                                 },
