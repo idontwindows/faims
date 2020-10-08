@@ -551,14 +551,16 @@ Modal::end();
                             if($model->taxable && $model->tax_registered){
                                 $tax_amount = 0.00;
                                 if($model->tax_registered)
-                                    $taxable_amount = $model->amount / 1.12;
+                                    $taxable_amount = round($model->amount / 1.12, 2);
                                 else
                                     $taxable_amount = $model->amount;
 
                                 if($model->amount < 10000.00){
-                                    $tax_amount = $taxable_amount * $model->rate1;
+                                    $tax_amount = round($taxable_amount * $model->rate1, 2);
                                 }else{
-                                    $tax_amount = ($taxable_amount * $model->rate1) + ($taxable_amount * $model->rate2);
+                                    $tax1 = round(($taxable_amount * $model->rate1), 2);
+                                    $tax2 = round(($taxable_amount * $model->rate2), 2);
+                                    $tax_amount = $tax1 + $tax2;
                                 }
                                 
                                 if($model->debitcreditflag == 2)
