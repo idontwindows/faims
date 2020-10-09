@@ -704,7 +704,7 @@ Modal::end();
                     
                     $request_id = $model->request->request_id;
                     $record_id = $model->request_attachment_id;
-                    $component = 'Attachment';
+                    $component_id = 20;
                     $comments = Comment::find()
                         ->where(['component_id' => $component_id, 'record_id' => $record_id])
                         ->count();
