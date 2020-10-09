@@ -18,6 +18,7 @@ use common\models\finance\Request;
 use common\models\finance\Requestattachment;
 use common\models\finance\Requesttype;
 use common\models\finance\Taxcategory;
+use common\models\system\Comment;
 
 /* @var $this yii\web\View */
 /* @var $model common\models\finance\Request */
