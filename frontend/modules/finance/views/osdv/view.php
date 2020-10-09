@@ -715,8 +715,8 @@ Modal::end();
                         
                     Html::a('<i class="fa fa-lg fa-comment"></i> '.$comments.' comments',[''], ['class' => 'btn btn-black', 'title' => 'Comments', 'onClick'=>               "{
                             //alert($(this).attr('title'));
-                            //loadModal('comments?record_id=$record_id&component=$component'); 
-                            loadModal('/system/comment/create?request_id=$request_id&record_id=$record_id&component=$component'); 
+                            //loadModal('comments?record_id=$record_id&component=$component_id'); 
+                            loadModal('/system/comment/create?request_id=$request_id&record_id=$record_id&component=$component_id'); 
                             return false;
                     
                         }"])
