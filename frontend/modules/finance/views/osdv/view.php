@@ -700,11 +700,14 @@ Modal::end();
                 'width'=>'550px',
                 'format' => 'raw',
                 'value'=>function ($model, $key, $index, $widget) { 
-                    $comments = 0;
+                    
                     $request_id = $model->request->request_id;
                     $record_id = $model->request_attachment_id;
                     $component = 'Attachment';
-
+                    $comments = Comment::find()
+                        ->where(['component_id' => $component_id, 'record_id' => $record_id])
+                        ->count();
+                    
                     return $model->attachment->name. ' ' . 
                         
                     //Html::button('', ['value' => Url::to(['request/comments', 'id'=>$model->request_id]), 'title' => 'comments', 'class' => 'glyphicon glyphicon-comment', 'id'=>'buttonComment']) .
