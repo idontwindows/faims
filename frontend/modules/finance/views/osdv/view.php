@@ -545,9 +545,6 @@ Modal::end();
                     'refreshGrid'=>true,
                     //'readonly' => !$isMember,
                     'value'=>function ($model, $key, $index, $widget) { 
-                            //$fmt = Yii::$app->formatter;
-                            //return $fmt->asDecimal($model->amount);
-                            //$fmt = Yii::$app->formatter;
                             if($model->taxable && $model->tax_registered){
                                 $tax_amount = 0.00;
                                 if($model->tax_registered)
@@ -704,6 +701,7 @@ Modal::end();
                 'format' => 'raw',
                 'value'=>function ($model, $key, $index, $widget) { 
                     $comments = 0;
+                    $request_id = $model->request->request_id;
                     $record_id = $model->request_attachment_id;
                     $component = 'Attachment';
 
@@ -714,7 +712,7 @@ Modal::end();
                     Html::a('<i class="fa fa-lg fa-comment"></i> '.$comments.' comments',[''], ['class' => 'btn btn-black', 'title' => 'Comments', 'onClick'=>               "{
                             //alert($(this).attr('title'));
                             //loadModal('comments?record_id=$record_id&component=$component'); 
-                            loadModal('/system/comment/create?record_id=$record_id&component=$component'); 
+                            loadModal('/system/comment/create?request_id=$request_id&record_id=$record_id&component=$component'); 
                             return false;
                     
                         }"])
