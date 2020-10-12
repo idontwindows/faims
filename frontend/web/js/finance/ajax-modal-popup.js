@@ -84,11 +84,25 @@ $("body").on("click","#buttonAddAccounttransaction",function () {
     loadModal($(this).attr('value'));
 });
 
-//$("body").on("click","#buttonComment",function () {
-    //loadModal();
-    //alert($(this).attr('title'));
-    //return false;
-//});
+$("body").on("click","#buttonCreateObligationtype",function () {
+    $('#modalObligationtype').modal('show')
+        .find('#modalContent')
+        .load($(this).attr('value'));
+    $('#modalHeader').html($(this).attr('title'));
+    setTimeout(function () {
+        $("#btnrefresh").click();
+    },1500);
+});
+
+$("body").on("click","#buttonAddCreditor",function () {
+    $('#modalCreditor').modal('show')
+        .find('#modalContent')
+        .load($(this).attr('value'));
+    $('#modalCreditorHeader').html($(this).attr('title'));
+    setTimeout(function () {
+        $("#btnrefresh").click();
+    },1500);
+});
 
 $("body").on("click","#buttonCreateOsdv",function () {
     $('#modalRequest').modal('show')
