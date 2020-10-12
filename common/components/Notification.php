@@ -36,7 +36,7 @@ class Notification extends Component {
         {
             Yii::$app->mailer->compose()
             //Yii::$app->mailer->compose(['html' => 'html', 'text' => 'passwordResetToken-text'], ['user' => 'aris'])
-            ->setFrom([Yii::$app->params['supportEmail'] => Yii::$app->name . ' Mailer'])
+            ->setFrom([Yii::$app->params['supportEmail'] => 'FAIMS Mailer'])
             ->setTo($recipients[$i])
             ->setSubject($title)
             ->setHtmlBody($message)
