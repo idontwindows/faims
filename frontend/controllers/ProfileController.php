@@ -69,13 +69,23 @@ class ProfileController extends Controller
      */
     public function actionView($id)
     {
-        //$model=$this->findModel($id);
-        //$content= $this->renderPartial('view',['model'=>$model]);
-        //$PDF=new MyPDF($content);
-        //$PDF->renderPDF();
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
+        
+        $model = $this->findModel($id);
+        
+        if(Yii::$app->user->can('access-his-profile'))
+        {
+            if($model->user_id!=Yii::$app->user->identity->user_id){
+                throw new NotFoundHttpException('Action not allowed.');
+            }else{
+                return $this->render('view', [
+                'model' => $this->findModel($id),
+            ]);
+            }
+            
+        }else{
+            throw new NotFoundHttpException('Action not allowed.');
+        }
+        
     }
     /**
      * Creates a new Profile model.
