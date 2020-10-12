@@ -210,7 +210,6 @@ class RequestController extends Controller
     public function actionCreate()
     {
         $model = new Request();
-        $newcreditor_model = new Creditortmp();
         
         date_default_timezone_set('Asia/Manila');
         $model->request_date=date("Y-m-d H:i:s");
@@ -225,12 +224,10 @@ class RequestController extends Controller
         }elseif (Yii::$app->request->isAjax) {
             return $this->renderAjax('_form', [
                         'model' => $model,
-                        'newcreditor_model' => $newcreditor_model,
             ]);
         } else {
             return $this->render('_form', [
                         'model' => $model,
-                        'newcreditor_model' => $newcreditor_model,
             ]);
         }
     }

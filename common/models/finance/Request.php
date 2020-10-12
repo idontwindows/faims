@@ -56,6 +56,7 @@ class Request extends \yii\db\ActiveRecord
     const STATUS_RATED = 90;     // end user
     
     public $user_id;
+    public $new_payee;
     /**
      * @inheritdoc
      */
