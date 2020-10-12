@@ -2,6 +2,8 @@
 
 namespace common\models\procurement;
 
+use common\models\system\Profile;
+use common\models\system\User;
 use Yii;
 
 /**
@@ -63,5 +65,10 @@ class Divisionhead extends \yii\db\ActiveRecord
     public function getUser()
     {
         return $this->hasOne(User::className(), ['user_id' => 'user_id']);
+    }
+    
+    public function getProfile()
+    {
+        return $this->hasOne(Profile::className(), ['user_id' => 'user_id']);
     }
 }
