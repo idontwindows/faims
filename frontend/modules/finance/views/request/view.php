@@ -242,8 +242,8 @@ Modal::end();
                 //'before'=> (($model->status_id == Request::STATUS_VALIDATED) || ($model->status_id == Request::STATUS_VERIFIED)) ? 
                 'before'=> (Yii::$app->user->can('access-finance-validation') || Yii::$app->user->can('access-finance-verification')) ? 
                 
-                (                                           Html::button('View Attachments', ['value' => Url::to(['request/viewattachments', 'id'=>$model->request_id]),                                             'title' => 'Attachments', 'class' => 'btn btn-info', 'style'=>'margin-right: 6px;'.
-                                                            ($model->attachments ? 'display: none;' : ''), 'id'=>'buttonViewAttachments']) . 
+                (                                           '<h5 data-step="1" data-intro="Indicate the details of this financial request.">'.Html::button('View Attachments', ['value' => Url::to(['request/viewattachments', 'id'=>$model->request_id]),                                             'title' => 'Attachments', 'class' => 'btn btn-info', 'style'=>'margin-right: 6px;'.
+                                                            ($model->attachments ? 'display: none;' : ''), 'id'=>'buttonViewAttachments']).'</h5>' . 
                 
                                                             Html::button('Submit for Verification', ['value' => Url::to(['request/submitforverification', 'id'=>$model->request_id]), 'title' => 'Submit', 'class' => $params['btnClass'], 'style'=>'margin-right: 6px;'.((($model->status_id < Request::STATUS_SUBMITTED)) ? ($model->attachments ? '' : 'display: none;') : 'display: none;'), 'id'=>'buttonSubmitForVerification']) .
                 
@@ -273,13 +273,14 @@ Modal::end();
                 'after'=>false,
             ],
             // set right toolbar buttons
-            /*'toolbar' => 
+            'toolbar' => 
                             [
                                 [
                                     'content'=>
-                                        Html::button('Generate Attachments  <i class="glyphicon glyphicon-list"></i>', ['value' => Url::to(['request/generateattachments', 'id'=>$model->request_id]), 'title' => 'Attachment', 'class' => 'btn btn-success', 'style'=>'margin-right: 6px; display: "";', 'id'=>'buttonGenerateAttachments'])
+                                        Html::a('Obligation Request  <i class="glyphicon glyphicon-print"></i>', Url::to(['request/printos', 'id'=>$model->request_id]), ['target' => '_blank', 'data-pjax'=>0, 'class'=>'btn btn-primary']) .'<a></a>'.
+                                        Html::a('Disbursement Voucher  <i class="glyphicon glyphicon-print"></i>', Url::to(['request/printdv', 'id'=>$model->request_id]), ['target' => '_blank', 'data-pjax'=>0, 'class'=>'btn btn-primary'])
                                 ],
-                            ],*/
+                            ],
             // set export properties
             'export' => [
                 'fontAwesome' => true
@@ -291,10 +292,13 @@ Modal::end();
             'itemLabelPlural' => 'items'
         ]);
     ?>
-<script>
-/*$( document ).ready(function() {
-    setTimeout(function(){
-       window.location.reload(1);
-    }, 5000);
-});*/
+
+<a id="startButton"  href="javascript:void(0);">Show guide</a>
+
+<script type="text/javascript">
+    document.getElementById('startButton').onclick = function() {
+        introJs().setOption('doneLabel', 'Next page').start().oncomplete(function() {
+            window.location.href = 'index?multipage=true';
+        });
+    };
 </script>

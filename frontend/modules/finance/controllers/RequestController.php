@@ -4,6 +4,9 @@ namespace frontend\modules\finance\controllers;
 
 use Yii;
 use common\models\apiservice\Notificationrecipient;
+use frontend\modules\finance\components\Report;
+
+use common\models\cashier\Creditortmp;
 use common\models\finance\Request;
 use common\models\finance\Requestdistrict;
 use common\models\finance\Requestattachment;
@@ -64,6 +67,24 @@ class RequestController extends Controller
         ]);
     }
     
+    /**
+     * Lists all Request models.
+     * @return mixed
+     */
+    public function actionApprovedindex()
+    {
+        $searchModel = new RequestSearch();
+        //if(Yii::$app->user->identity->username != 'Admin')
+            //$searchModel->created_by =  Yii::$app->user->identity->user_id;
+        $searchModel->status_id = Request::STATUS_APPROVED_FOR_DISBURSEMENT;
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        
+        return $this->render('approvedindex', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            
+        ]);
+    }
     /**
      * Lists all Request models.
      * @return mixed
@@ -189,6 +210,8 @@ class RequestController extends Controller
     public function actionCreate()
     {
         $model = new Request();
+        $newcreditor_model = new Creditortmp();
+        
         date_default_timezone_set('Asia/Manila');
         $model->request_date=date("Y-m-d H:i:s");
         if ($model->load(Yii::$app->request->post())) {
@@ -202,10 +225,12 @@ class RequestController extends Controller
         }elseif (Yii::$app->request->isAjax) {
             return $this->renderAjax('_form', [
                         'model' => $model,
+                        'newcreditor_model' => $newcreditor_model,
             ]);
         } else {
             return $this->render('_form', [
                         'model' => $model,
+                        'newcreditor_model' => $newcreditor_model,
             ]);
         }
     }
@@ -673,6 +698,48 @@ class RequestController extends Controller
            else
                return false;
        }
+    }
+    
+    function actionPrintos($id)
+    {
+        $report = new Report();
+        $report->obligationrequest($id);
+    }
+    
+    function actionPrintdv($id)
+    {
+        $report = new Report();
+        $report->disbursementvoucher($id);
+    }
+    
+    public function actionAddcreditor() 
+    {
+        $model = new Demo; // your model can be loaded here
+
+        // Check if there is an Editable ajax request
+        if (isset($_POST['hasEditable'])) {
+            // use Yii's response format to encode output as JSON
+            \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+
+            // read your posted model attributes
+            if ($model->load($_POST)) {
+                // read or convert your posted information
+                $value = $model->name;
+
+                // return JSON encoded output in the below format
+                return ['output'=>$value, 'message'=>''];
+
+                // alternatively you can return a validation error
+                // return ['output'=>'', 'message'=>'Validation error'];
+            }
+            // else if nothing to do always return an empty JSON encoded output
+            else {
+                return ['output'=>'', 'message'=>''];
+            }
+        }
+
+        // Else return to rendering a normal view
+        return $this->render('view', ['model'=>$model]);
     }
     
 }

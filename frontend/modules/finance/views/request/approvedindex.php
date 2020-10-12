@@ -36,19 +36,6 @@ Modal::begin([
 
 echo "<div id='modalContent'><div style='text-align:center'><img src='/images/loading.gif'></div></div>";
 Modal::end();
-
-// Modal Create New Creditor
-Modal::begin([
-    'header' => '<h4 id="modalCreditorHeader" style="color: #ffffff"></h4>',
-    'id' => 'modalCreditor',
-    'size' => 'modal-md',
-    'options'=> [
-             'tabindex'=>false,
-        ],
-]);
-
-echo "<div id='modalContent'><div style='text-align:center'><img src='/images/loading.gif'></div></div>";
-Modal::end();
 ?>
 
 <div class="request-index">
@@ -101,11 +88,11 @@ Modal::end();
                             [
                                 'attribute'=>'amount',
                                 'headerOptions' => ['style' => 'text-align: center;'],
-                                'contentOptions' => ['style' => 'vertical-align: middle; text-align: right; padding-right: 20px; font-weight: bold;'],
+                                'contentOptions' => ['style' => 'vertical-align:middle; text-align: right; padding-right: 20px; font-weight: bold;'],
                                 'width'=>'200px',
-                                'format'=>['decimal',2],
                                 'value'=>function ($model, $key, $index, $widget) { 
-                                    return $model->amount;
+                                    $fmt = Yii::$app->formatter;
+                                    return $fmt->asDecimal($model->amount);
                                 },
                             ],
                             [
@@ -184,7 +171,7 @@ Modal::end();
             'panel' => [
                     'heading' => '',
                     'type' => GridView::TYPE_PRIMARY,
-                    'before'=>Html::button('New Request', ['value' => Url::to(['request/create']), 'title' => 'Create Request', 'class' => 'btn btn-info', 'disabled' => 'disabled', 'style'=>'margin-right: 6px;', 'id'=>'buttonCreateRequest']),
+                    'before'=>'',//Html::button('New Request', ['value' => Url::to(['request/create']), 'title' => 'Request', 'class' => 'btn btn-info', 'style'=>'margin-right: 6px;', 'id'=>'buttonCreateRequest']),
                     'after'=>false,
                 ],
             // set your toolbar
