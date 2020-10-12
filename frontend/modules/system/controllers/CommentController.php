@@ -3,8 +3,12 @@
 namespace frontend\modules\system\controllers;
 
 use Yii;
+use common\models\finance\Request;
+use common\models\finance\Requestattachment;
 use common\models\system\Comment;
 use common\models\system\CommentSearch;
+use common\models\system\Profile;
+
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -70,6 +74,7 @@ class CommentController extends Controller
         $searchModel = new CommentSearch();
         $searchModel->component_id = Comment::COMPONENT_ATTACHMENT;
         $request_id = $_GET['request_id'];
+        //$request = Request::findOne($request_id);
         $searchModel->record_id = $_GET['record_id'];
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         
@@ -83,6 +88,13 @@ class CommentController extends Controller
         if ($model->load(Yii::$app->request->post())) {
             //$model->save(false);
             if($model->save(false)){
+                
+                $content = $this->composeContent($model->message, $model->component_id, $model->record_id, $model->created_by);
+                
+                Yii::$app->Notification->sendSMS('', 2, $content['sms'], 'Comment', $content['message'], 'FAIMS', $this->module->id, $this->action->id);
+                    
+                Yii::$app->Notification->sendEmail('', 2, $content['email'], 'Comment', $content['message'], 'FAIMS', $this->module->id, $this->action->id);
+                
                 Yii::$app->session->setFlash("success", "Comment posted.");
                 return $this->redirect(['/finance/request/view?id='.$request_id]);
             }
@@ -169,5 +181,36 @@ class CommentController extends Controller
         $out = 'Comment Succefully Posted';
     
         echo Json::encode(['message'=>$out]);
+    }
+    
+    /*
+    * $component_id refers to Model Name
+    * $record_id refers to ID of a certain record
+    */
+    private function composeContent($message, $component_id, $record_id, $sender)
+    {
+        switch ($component_id) {
+            case 10:
+            case 20:
+                //$recipientContactNumber = Profile::findOne($model->created_by)->contact_numbers;
+                //$recipientEmail = Profile::findOne($model->created_by)->user->email;
+                $model = Requestattachment::findOne($record_id);
+                
+                $msg = 'The following comment was posted by: '.Profile::findOne($sender)->fullname.'<br/><br/>';
+                
+                $msg .= 'Attachment : <b>'.$model->attachment->name.'</b> on ';
+                $msg .= 'Request Number : <b>'.$model->request->request_number.'</b>.<br/><br/>';
+                $msg .= 'Message : '.$message.'<br/><br/>';
+                $msg .= 'Kindly comply to this query.'.'<br/><br/>';
+                $msg .= 'Thank you!';
+                
+                return [
+                    'message' => $msg,
+                    'sms' => Profile::findOne($model->request->created_by)->contact_numbers,
+                    'email' => Profile::findOne($model->request->created_by)->user->email,
+                ];
+                break;
+            case 30:
+        }
     }
 }
