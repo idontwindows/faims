@@ -59,4 +59,9 @@ class Obligationtype extends \yii\db\ActiveRecord
     {
         return $this->hasMany(SubType::className(), ['type_id' => 'type_id']);
     }
+    
+    public function getFundcategory()  
+    {  
+      return $this->hasOne(Fundcategory::className(), ['fund_category_id' => 'fund_category_id']);  
+    }
 }
