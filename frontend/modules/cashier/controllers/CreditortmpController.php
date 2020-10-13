@@ -99,7 +99,7 @@ class CreditortmpController extends Controller
                     
                 //Yii::$app->Notification->sendSMS('', 2, $recipient->primary->sms.','.$recipient->secondary->sms, 'Request for Verification', $content, 'FAIMS', $this->module->id, $this->action->id);
                     
-                Yii::$app->Notification->sendEmail('', 2, 'arismoratalla@gmail.com', 'New Payee / Creditor Request', $content, 'FAIMS', $this->module->id, $this->action->id);
+                Yii::$app->Notification->sendEmail('', 2, 'fass.procurement@gmail.com', 'New Payee / Creditor Request', $content, 'FAIMS', $this->module->id, $this->action->id);
                 
                 Yii::$app->session->setFlash('success', 'Payee / Creditor information sent!');
                 return $this->redirect(['/finance/request/index']);
