@@ -217,7 +217,7 @@ class Report {
                                 <td style="width: 43%;text-align:right;padding-right:50px;border-top:none;">Total</td>
                                 <td style="width: 12%;border-top:none;"></td>
                                 <td style="width: 10%;border-top:none;"></td>
-                                <td style="width: 20%;border-top:none;padding-left:15px;text-align:right;padding:5px;"><b>'.$fmt->asCurrency($model->amount, 'P').'<b/></td>
+                                <td style="width: 20%;border-top:none;padding-left:15px;text-align:right;padding:5px;"><b>'.$fmt->asDecimal($model->amount).'<b/></td>
                                 </tr>
                                 </tbody>
                             </table>';
@@ -417,7 +417,7 @@ class Report {
 <tr style="height: 14px;">
 <td style="width: 50%; height: 14px; text-align: center;" colspan="3">Amount Due&nbsp;&nbsp;&nbsp;</td>
 <td style="width: 25%; height: 14px;" colspan="2">&nbsp;&nbsp;</td>
-<td style="width: 25%; height: 14px;text-align:right;padding:5px;" colspan="2">'.$fmt->asCurrency($model->amount, "P").'</td>
+<td style="width: 25%; height: 14px;text-align:right;padding:5px;" colspan="2">'.$fmt->asDecimal($model->amount).'</td>
 </tr>
 <tr style="height: 14px;">
 <td style="width: 100%; height: 0px; text-align: left;border-bottom:none;" colspan="7"><span style="vertical-align:top;"><span style="border:1px solid black;">A.</span> Certified: Expenses/Cash Advance necessary, lawful and incurred under my direct supervision.</span></td>
