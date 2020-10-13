@@ -13,7 +13,8 @@ use yii\helpers\Url;
 use common\models\cashier\Creditor;
 use common\models\finance\Request;
 use common\models\procurement\Expenditureclass;
-use common\models\procurement\Type;
+use common\models\finance\Obligationtype;
+//use common\models\procurement\Type;
 /* @var $this yii\web\View */
 /* @var $model common\models\finance\Request */
 /* @var $form yii\widgets\ActiveForm */
@@ -78,7 +79,7 @@ use common\models\procurement\Type;
     
     
     <?= $form->field($model, 'type_id')->widget(Select2::classname(), [
-                    'data' => ArrayHelper::map(Type::find()->orderBy(['type_id'=>SORT_ASC])->all(),'type_id','name', 'fundcategory.name'),
+                    'data' => ArrayHelper::map(Obligationtype::find()->orderBy(['type_id'=>SORT_ASC])->all(),'type_id','name', 'fundcategory.name'),
                     'language' => 'en',
                     'options' => ['placeholder' => 'Select Source of Fund','readonly'=>'readonly'],
                     'pluginOptions' => [
