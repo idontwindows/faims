@@ -655,10 +655,10 @@ Modal::end();
                     'heading' => '<h3 class="panel-title">DISBURSEMENT</h3>',
                     'type' => GridView::TYPE_WARNING,
                     'before'=>Html::button('Add', ['value' => Url::to(['accounttransaction/additems', 'id'=>$model->osdv_id, 'year'=>$year]),     
-                                                                'title' => 'Account Transactions', 'class' => 'btn btn-success'.($model->status_id == Request::STATUS_CERTIFIED_FUNDS_AVAILABLE ? 'disabled' : ''), 'style'=>'margin-right: 6px;'.(Yii::$app->user->can('access-finance-disbursement') ? '' : 'display: none;'), 'id'=>'buttonAddAccounttransaction']),
+                                                                'title' => 'Account Transactions', 'class' => 'btn btn-success'.($model->status_id == Request::STATUS_CERTIFIED_FUNDS_AVAILABLE ? 'disabled' : ''), 'style'=>'margin-right: 6px;', 'id'=>'buttonAddAccounttransaction']),
                     
                                 /*Html::button('Add', ['value' => Url::to(['accounttransaction/additems', 'id'=>$model->osdv_id, 'year'=>$year]),     
-                                                                'title' => 'Account Transactions', 'class' => 'btn btn-success'.($model->status_id == Request::STATUS_CERTIFIED_FUNDS_AVAILABLE ? 'disabled' : ''), 'style'=>'margin-right: 6px;', 'id'=>'buttonAddAccounttransaction']),.
+                                                                'title' => 'Account Transactions', 'class' => 'btn btn-success'.($model->status_id == Request::STATUS_CERTIFIED_FUNDS_AVAILABLE ? 'disabled' : ''), 'style'=>'margin-right: 6px;'.(Yii::$app->user->can('access-finance-disbursement') ? '' : 'display: none;'), 'id'=>'buttonAddAccounttransaction']),.
                               Html::button('Certify Cash Available', ['value' => Url::to(['osdv/certifycashavailable', 'id'=>$model->osdv_id]),     
                                                                 'title' => 'Allotment', 'class' => 'btn btn-info '.($model->status_id == Request::STATUS_CERTIFIED_FUNDS_AVAILABLE ? 'disabled' : ''), 'style'=>'margin-right: 6px; '.(Yii::$app->user->can('access-finance-certifycashavailable') ? ($model->status_id == Request::STATUS_CERTIFIED_FUNDS_AVAILABLE ? 'display: none;' : '') : 'display: none;'), 'id'=>'buttonObligate']),*/
                     'after'=>false,
