@@ -184,7 +184,7 @@ Modal::end();
             'panel' => [
                     'heading' => '',
                     'type' => GridView::TYPE_PRIMARY,
-                    'before'=>Html::button('New Request', ['value' => Url::to(['request/create']), 'title' => 'Create Request', 'class' => 'btn btn-info', 'disabled' => 'disabled', 'style'=>'margin-right: 6px;', 'id'=>'buttonCreateRequest']),
+                    'before'=>Html::button('New Request', ['value' => Url::to(['request/create']), 'title' => 'Create Request', 'class' => 'btn btn-info', 'style'=>'margin-right: 6px;', 'id'=>'buttonCreateRequest']),
                     'after'=>false,
                 ],
             // set your toolbar
