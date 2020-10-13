@@ -78,7 +78,7 @@ use common\models\procurement\Type;
     
     
     <?= $form->field($model, 'type_id')->widget(Select2::classname(), [
-                    'data' => ArrayHelper::map(Type::find()->orderBy(['type_id'=>SORT_ASC])->all(),'type_id','name'),
+                    'data' => ArrayHelper::map(Type::find()->orderBy(['type_id'=>SORT_ASC])->all(),'type_id','name', 'fundcategory.name'),
                     'language' => 'en',
                     'options' => ['placeholder' => 'Select Source of Fund','readonly'=>'readonly'],
                     'pluginOptions' => [
