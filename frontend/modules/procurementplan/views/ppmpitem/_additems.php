@@ -116,6 +116,10 @@ function onPPMP(item_id,checked){
     return false;
   //});
 }    
+$("#modalPpmpItem").on("hidden.bs.modal", function () {
+    location.reload()
+    
+});
 </script>
 
 

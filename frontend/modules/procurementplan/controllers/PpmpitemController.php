@@ -114,18 +114,6 @@ class PpmpitemController extends Controller
         $searchModel = new ItemSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         
-        /*$queryItems = Item::find();
-        $itemsDataProvider = new ActiveDataProvider([
-            'query' => $queryItems,
-            'pagination' => false,
-            'sort' => [
-                'defaultOrder' => [
-                    'item_category_id' => SORT_ASC,
-                    'item_name' => SORT_ASC,
-                ]
-            ],
-        ]);*/
-        
         if (Yii::$app->request->isAjax) {
             return $this->renderAjax('_additems', [
                         'searchModel' => $searchModel,

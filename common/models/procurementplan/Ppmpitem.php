@@ -5,6 +5,7 @@ namespace common\models\procurementplan;
 use common\models\procurementplan\Itemcategory;
 use common\models\procurementplan\Ppmpitem;
 use common\models\procurementplan\Unitofmeasure;
+use common\models\procurementplan\Ppmp;
 
 use Yii;
 
@@ -38,6 +39,9 @@ use Yii;
 class Ppmpitem extends \yii\db\ActiveRecord
 {
     public $q1prime;
+    public $jan, $feb, $mar, $apr, $may, $jun, $jul, $aug, $sep, $oct, $nov, $dec;
+    public $q1amount, $q2amount, $q3amount, $q4amount, $totalamount,$year;
+
     /**
      * @inheritdoc
      */
@@ -100,7 +104,12 @@ class Ppmpitem extends \yii\db\ActiveRecord
             'q10' => 'Q10',
             'q11' => 'Q11',
             'q12' => 'Q12',
+            'month' => 'Month',
             'active' => 'Active',
+            'status_id' => 'Status',
+            'supplemental' => 'isSupplemental',
+            'date' => 'Date Created',
+            'user_id' => 'Created by',
         ];
     }
 
@@ -138,6 +147,35 @@ class Ppmpitem extends \yii\db\ActiveRecord
         $total = $this->q1 + $this->q2 + $this->q3 + $this->q4 + $this->q5 + $this->q6 + $this->q7 + $this->q8 + $this->q9 + $this->q10 + $this->q11 + $this->q12;
         return $total;
     }
+
+    public function getSupplementalqty()
+    {
+        if($this->month == 1){
+             return $this->q1;
+        }elseif ($this->month == 2) {
+            return $this->q2;
+        }elseif ($this->month == 3) {
+            return $this->q3;
+        }elseif ($this->month == 4) {
+            return $this->q4;
+        }elseif ($this->month == 5) {
+            return $this->q5;
+        }elseif ($this->month == 6) {
+            return $this->q6;
+        }elseif ($this->month == 7) {
+            return $this->q7;
+        }elseif ($this->month == 8) {
+            return $this->q8;
+        }elseif ($this->month == 9) {
+            return $this->q9;
+        }elseif ($this->month == 10) {
+            return $this->q10;
+        }elseif ($this->month == 11) {
+            return $this->q11;
+        }elseif ($this->month == 12) {
+            return $this->q12;
+        }
+    }
     
     public function getTotalamount()
     {
@@ -156,8 +194,32 @@ class Ppmpitem extends \yii\db\ActiveRecord
     public function getItemQuantity()
     {
         $queryPpmpItems = $this->find()
-                            ->where(['item_id' => $this->item_id,'active' => 1])
+                            ->where(['item_id' => $this->item_id,'active' => 1, 'supplemental' => 0])
                             ->sum('q1+q2+q3+q4+q5+q6+q7+q8+q9+q10+q11+q12');
         return $queryPpmpItems;
     }
+    /*
+    public function getTotalQ1()
+    {
+        $queryPpmpItems = $this->find()
+                            ->where(['ppmp_id' => $this->ppmp_id, 'item_id' => $this->item_id,'active' => 1, 'supplemental' => 1])
+                            ->sum('q1');
+        $querySupplemetalItems = $this->find()
+                            ->where(['ppmp_id' => $this->ppmp_id, 'item_id' => $this->item_id,'active' => 1, 'supplemental' => 1, 'status_id' => 2])
+                            ->sum('q1');
+
+        if($queryPpmpItems){
+            $total1 = $queryPpmpItems;
+        }else{
+            $total1 = 0;
+        }
+
+        if($querySupplemetalItems){
+            $total2 = $querySupplemetalItems;
+        }else{
+            $total2 = 0;
+        }
+        return $querySupplemetalItems;
+    }*/
+
 }

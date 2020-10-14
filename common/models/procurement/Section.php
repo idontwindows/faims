@@ -142,7 +142,7 @@ class Section extends \yii\db\ActiveRecord
     public function getPpmps()
     {
         $ppmps = Ppmp::find()
-            ->where(['unit_id' => $this->section_id])
+            ->where(['unit_id' => $this->section_id, 'year' => 2020])
             ->all();
         $status = [
                 '0' => 'btn-default',   
@@ -162,7 +162,7 @@ class Section extends \yii\db\ActiveRecord
     
     public function getBudgetallocation()
     {
-        return $this->hasOne(Budgetallocation::className(), ['section_id' => 'section_id']);
+        return $this->hasOne(Budgetallocation::className(), ['section_id' => 'section_id'])->andWhere(['year' => 2020]);
     }
     
     /*public function getBudgetallocation()

@@ -50,6 +50,7 @@ Modal::end();
     <div class="ppmp-index">
     <h3 style="text-align: center"><?= Html::encode('PROJECT PROCUREMENT MANAGEMENT PLAN (PPMP)') ?></h3>
     <br>
+        
         <?php
         echo GridView::widget([
             'id' => 'ppmp',
@@ -79,7 +80,7 @@ Modal::end();
                                 },
                             ],
                             [
-                                'attribute'=>'name',
+                                //'attribute'=>'name',
                                 'header'=>'Budget Allocation',
                                 'contentOptions' => ['style' => 'padding-left: 25px; text-align: right; font-weight: bold;'],
                                 'width'=>'200px',
@@ -175,7 +176,6 @@ Modal::end();
             'itemLabelPlural' => 'items'
         ]);
         ?>
-        
         
         
         

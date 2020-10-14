@@ -25,7 +25,8 @@ use yii\filters\VerbFilter;
 use yii\helpers\Url;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Json;
-
+use yii\db\Expression;
+use yii\web\HttpException;
 /**
  * PpmpController implements the CRUD actions for Ppmp model.
  */
@@ -34,6 +35,7 @@ class PpmpController extends Controller
     /**
      * @inheritdoc
      */
+
     public function behaviors()
     {
         return [
@@ -93,7 +95,7 @@ class PpmpController extends Controller
             'ppmpDataProvider' => $ppmpDataProvider,
             'projectDataProvider' => $projectDataProvider,
             'listDivisions' => $listDivisions,
-            
+        
             'listUnits' => $listUnits,
             'selected_year' => $selected_year,
         ]);
@@ -109,12 +111,54 @@ class PpmpController extends Controller
         //$queryPpmpItems = Ppmpitem::find();
         $model = $this->findModel($id);
         $isMember = $model->isMember();
-        $disableSubmitPpmp = ($model->status_id != 1) ? true : false;
-        $disableAddItem = ($model->status_id != 1) ? true : false;
+        //$disableSubmitPpmp = ($model->status_id != 1) ? true : false;
+        //$status = ($model->status_id != 1) ? true : false;
 
-        $queryPpmpItems = Ppmpitem::find()->where([
+        /*$queryPpmpItems = Ppmpitem::find()->where([
                                     'ppmp_id' => $id, 
-                                    'active' => 1]);
+                                    'active' => 1,
+                                    'supplemental' => 0,]);*/
+        $queryPpmpItems = Ppmpitem::find()->select([
+            'ppmp_item_id' => 'tbl_ppmp_item.ppmp_item_id',
+            'ppmp_id' => 'tbl_ppmp_item.ppmp_id',
+            'item_id' => 'tbl_ppmp_item.item_id',
+            'availability' => 'tbl_ppmp_item.availability',
+            'item_category_id' => 'tbl_ppmp_item.item_category_id',
+            'description' => 'tbl_ppmp_item.description',
+            'unit' => 'tbl_ppmp_item.unit',
+            'cost' => 'tbl_ppmp_item.cost',
+            'q1' => 'SUM(tbl_ppmp_item.q1)',
+            'q2' => 'SUM(tbl_ppmp_item.q2)',
+            'q3' => 'SUM(tbl_ppmp_item.q3)',
+            'q4' => 'SUM(tbl_ppmp_item.q4)',
+            'q5' => 'SUM(tbl_ppmp_item.q5)',
+            'q6' => 'SUM(tbl_ppmp_item.q6)',
+            'q7' => 'SUM(tbl_ppmp_item.q7)',
+            'q8' => 'SUM(tbl_ppmp_item.q8)',
+            'q9' => 'SUM(tbl_ppmp_item.q9)',
+            'q10' => 'SUM(tbl_ppmp_item.q10)',
+            'q11' => 'SUM(tbl_ppmp_item.q11)',
+            'q12' => 'SUM(tbl_ppmp_item.q12)',
+            'quantity' => 'tbl_ppmp_item.quantity',
+            'estimated_budget' => 'tbl_ppmp_item.estimated_budget',
+            'ppmp_status_id' => 'tbl_ppmp.status_id',
+            'active' => 'tbl_ppmp_item.active',
+            'supplemental' => 'tbl_ppmp_item.supplemental',
+            'status_id' => 'tbl_ppmp_item.status_id'])->where([
+                         'tbl_ppmp_item.ppmp_id' => $id, 
+                         'tbl_ppmp_item.active' => 1,])->groupBy([
+                                    'tbl_ppmp_item.item_id',
+                                    'tbl_ppmp_item.ppmp_id'])->joinWith(['ppmp']);
+
+        $supplemental = Ppmpitem::find()->where([
+                                    'ppmp_id' => $id, 
+                                    'active' => 1,
+                                    'supplemental' => 1]);
+        //$ppmp = Ppmp::find()->where(['ppmp_id' => $id])->one();
+
+        $supplementalDataProvider = new ActiveDataProvider([
+            'query' => $supplemental,
+        ]);
         
         $ppmpItemsDataProvider = new ActiveDataProvider([
             'query' => $queryPpmpItems,
@@ -131,9 +175,10 @@ class PpmpController extends Controller
         return $this->render('view', [
             'model' => $model,
             'ppmpItemsDataProvider' => $ppmpItemsDataProvider,
-            'disableSubmitPpmp' => $disableSubmitPpmp,
-            'disableAddItem' => $disableAddItem,
-            'isMember' => $isMember
+            //'status' => $status,
+            'isMember' => $isMember,
+            'supplementalDataProvider' => $supplementalDataProvider,
+            //'ppmp' => $ppmp,
         ]);
     }
     
@@ -256,6 +301,7 @@ class PpmpController extends Controller
             $model->description = $item->item_name;
             $model->unit = $item->unit_of_measure_id ? $item->unit_of_measure_id : 18;
             $model->cost = $item->price_catalogue;
+            $model->availability = $item->availability;
             $model->active = 1;
             $model->save(false);
         }
@@ -281,11 +327,28 @@ class PpmpController extends Controller
        }
     }
     
-    public function actionSubmit()
+    public function actionSubmit($id)
     {
-        
+        $ppmp = Ppmp::find()->where(['ppmp_id' => $id])->one();
+        //$ppmpitem = Ppmpitem::updateAll(['status_id' => 1],['ppmp_id' => $id]);
+        if(Yii::$app->request->isAjax){
+            $data = Yii::$app->request->post('status');
+            $ppmp->status_id = $data;
+            $ppmp->submitted_date = new Expression('NOW()');
+            $ppmp->submitted_user = Yii::$app->user->id;
+            if($data){
+                    if($ppmp->save(false)){
+                        //$ppmpitem;
+                        Yii::$app->session->setFlash('success', "PPMP successfully submitted.");
+                        return $this->redirect(['view', 'id' => (string) $ppmp->ppmp_id]);
+                    }
+               }
+      
+        }else{
+            throw new HttpException(403, 'You are not allowed to perform this action.');
+        }
+        /*
         $model = $this->findModel($_GET['id']);
-        
         if (Yii::$app->request->isAjax) {
             if(!$model->isMember())
             {
@@ -295,18 +358,116 @@ class PpmpController extends Controller
             }
         }
         if (Yii::$app->request->post()) {
-            
             $model->status_id = 2;
             if($model->save(false)){
                 Yii::$app->session->setFlash('success', "PPMP successfully submitted.");
                 return $this->redirect(['view', 'id' => (string) $model->ppmp_id]);
             }
         }
-        
         if (Yii::$app->request->isAjax) {
             return $this->renderAjax('_submit', [
                         'model' => $model,
             ]);
-        } 
+        }*/ 
+    }
+
+    public function actionApproved($id)
+    {
+        //$model = $this->findModel($_GET['id']);
+        $model = Ppmp::find()->where(['ppmp_id' => $id])->one();
+        $ppmpitemupdateall = Ppmpitem::updateAll(['status_id' => 2],['ppmp_id' => $id, 'supplemental' => 0]);
+        if(Yii::$app->request->isAjax){
+            $data = Yii::$app->request->post('status');
+            $model->status_id = $data;
+            $model->approved_date = new Expression('NOW()');
+            $model->approved_user = Yii::$app->user->id;
+            if($data){
+                   if($model->save(false)){
+                        $ppmpitemupdateall;
+                        Yii::$app->session->setFlash('success', "PPMP successfully approved.");
+                        return $this->redirect(['view', 'id' => (string) $model->ppmp_id]);
+                }
+            }
+         
+        }else{
+                throw new HttpException(403, 'You are not allowed to perform this action.');
+        }
+    }
+    /*
+    public function actionSupplementalitem($id)
+
+    {
+        $model = $this->findModel($id);
+        $query = Ppmpitem::find()
+                    ->where(['ppmp_id' => $id,'supplemental' => true]);
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+            'pagination' => [
+                'pageSize' => 20,],
+        ]);
+
+        return $this->render('supplementalitem', [
+
+            'dataProvider' => $dataProvider,
+            'model' => $model,
+
+        ]);
+    }*/
+
+    public function actionAddsupplementalitems()
+    {
+        $ppmpId = $_POST['ppmpId'];
+        $itemId = $_POST['itemId'];
+        $checked = $_POST['checked'];
+        $year = $_POST['year'];
+        $month = $_POST['month'];
+        $userid = Yii::$app->user->id;
+
+        
+        $item = Item::findOne($itemId);
+        $ppmp_item = Ppmpitem::find()->where([
+                                    'ppmp_id' => $ppmpId, 
+                                    'item_id' => $itemId,
+                                    'status_id' => 0,
+                                    'month' => $month])->one();
+        
+        if($ppmp_item)
+        {
+            //echo Json::encode(['message'=>$ppmp_item]);
+            if($checked == 'true'){
+                $ppmp_item->active = 1;
+                $ppmp_item->create_date = new Expression('NOW()');
+                $ppmp_item->create_user = $userid;
+                $ppmp_item->save(false);
+
+            }
+            else{
+                $ppmp_item->active = 0;
+                $ppmp_item->create_date = NULL;
+                $ppmp_item->create_user = NULL;
+                $ppmp_item->save(false);
+
+            }
+        }else{
+            $model = new Ppmpitem();
+        
+            $model->ppmp_id = $ppmpId;
+            $model->item_id = $item->item_id;
+            $model->item_category_id = $item->item_category_id;
+            $model->code = $item->item_code;
+            $model->description = $item->item_name;
+            $model->unit = $item->unit_of_measure_id ? $item->unit_of_measure_id : 18;
+            $model->cost = $item->price_catalogue;
+            $model->availability = $item->availability;
+            $model->month = $month;
+            $model->supplemental = 1;
+            $model->active = 1;
+            $model->create_date = new Expression('NOW()');
+            $model->create_user = $userid;
+            $model->save(false);
+        }
+        
+        echo Json::encode(['message'=>$ppmpId]);
     }
 }

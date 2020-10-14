@@ -180,11 +180,11 @@ class PurchaseorderController extends \yii\web\Controller
          `tbl_bids_details`.`bids_quantity` , 
          `fais`.`fnGetUnits`(`tbl_purchase_request_details`.`unit_id`) AS bids_unit ,
          `tbl_bids_details`.`bids_price`,
- `tbl_purchase_order`.`purchase_order_id`,
- `tbl_purchase_order_details`.`delivered`,
- `tbl_purchase_order`.`purchase_order_date`,
- `tbl_purchase_request`.`purchase_request_number`,
- `tbl_purchase_request`.`purchase_request_date`
+        `tbl_purchase_order`.`purchase_order_id`,
+        `tbl_purchase_order_details`.`delivered`,
+        `tbl_purchase_order`.`purchase_order_date`,
+        `tbl_purchase_request`.`purchase_request_number`,
+        `tbl_purchase_request`.`purchase_request_date`
          FROM `fais-procurement`.`tbl_purchase_order`
          INNER JOIN `fais-procurement`.`tbl_purchase_order_details`
          ON `tbl_purchase_order_details`.`purchase_order_id` = `tbl_purchase_order`.`purchase_order_id`

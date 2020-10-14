@@ -29,6 +29,7 @@ class AppAsset extends AssetBundle
         'js/cashier/ajax-modal-popup.js',
         'js/finance/ajax-modal-popup.js',
         'js/intro.js',
+        //'js/supplemental/ajax-modal-popup.js',
         
     ];
     public $depends = [

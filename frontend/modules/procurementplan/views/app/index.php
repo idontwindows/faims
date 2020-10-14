@@ -1,191 +1,84 @@
 <?php
 
 use yii\helpers\Html;
-use yii\helpers\Url;
-
-use kartik\detail\DetailView;
-use kartik\editable\Editable;
 use kartik\grid\GridView;
 
-use yii\bootstrap\Modal;
-
+use yii\widgets\ActiveForm;
 use common\models\procurementplan\Ppmp;
+use yii\helpers\ArrayHelper;
+use kartik\editable\Editable;
+
+
 
 /* @var $this yii\web\View */
-/* @var $model common\models\procurementplan\Ppmp */
+/* @var $searchModel common\models\procurementplan\AppSearch */
+/* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Annual Procurement Plan - 2020';
-$this->params['breadcrumbs'][] = ['label' => 'Ppmps', 'url' => ['index']];
+$this->title = 'Annual Procurement Plan';
 $this->params['breadcrumbs'][] = $this->title;
-
-Modal::begin([
-    'header' => '<h4 id="modalHeader" style="color: #ffffff"></h4>',
-    'id' => 'modalSubmitPpmp',
-    'size' => 'modal-sm',
-    'options'=> [
-             'tabindex'=>false,
-        ],
-]);
-
-echo "<div id='modalContent'><div style='text-align:center'><img src='/images/loading.gif'></div></div>";
-Modal::end();
-
-Modal::begin([
-    'header' => '<h4 id="modalHeader" style="color: #ffffff"></h4>',
-    'id' => 'modalPpmpItem',
-    'size' => 'modal-lg',
-    'options'=> [
-             'tabindex'=>false,
-        ],
-]);
-
-echo "<div id='modalContent'><div style='text-align:center'><img src='/images/loading.gif'></div></div>";
-Modal::end();
 ?>
-<div class="ppmp-view">
-   <?php
-        /*$attributes = [
-            [
-                'group'=>true,
-                'label'=>'PPMP DETAILS'.
-                    Html::button('Submit PPMP  <i class="glyphicon glyphicon-hand-right"></i>', ['disabled' => $disableSubmitPpmp OR !$isMember, 'value' => Url::to(['ppmp/submit', 'id'=>$model->ppmp_id]), 'title' => 'Submit PPMP', 'class' => 'btn btn-primary', 'style'=>'float: right; margin-right: 6px; display: "";', 'id'=>'buttonSubmitPpmp'])
-                    ,
-                'rowOptions'=>['class'=>'info'],
-            ],
-            [
-                'columns' => [
-                    [
-                        'attribute'=>'unit_id',
-                        'value'=>$model->unit->name,
-                        'valueColOptions'=>['style'=>'width:30%'],
-                    ],
-                    [
-                        'attribute'=>'year',
-                        'valueColOptions'=>['style'=>'width:30%'],
-                        'label'=>'Year',
-                    ],
-                ],
-            ],
-            [
-                'columns' => [
-                    
-                    [
-                        'attribute'=>'division_id', 
-                        'label'=>'Division',
-                        'displayOnly'=>true,
-                        'value'=>$model->division->name,
-                        'valueColOptions'=>['style'=>'width:30%']
-                    ],
-                    [
-                        'attribute'=>'status_id', 
-                        'label'=>'Status',
-                        'format'=>'raw', 
-                        'value'=>$model->getStatus(),
-                        'valueColOptions'=>['style'=>'width:30%'], 
-                        'displayOnly'=>true
-                    ],
-                    
-                ],
-            ],
-            [
-                'columns' => [
-                    [
-                        'attribute'=>'project_id',
-                        'valueColOptions'=>['style'=>'width:30%'],
-                    ],
-                    [
-                        'attribute'=>'unit_id',
-                        'valueColOptions'=>['style'=>'width:30%'],
-                        'label'=>'Last Update',
-                    ],
-                ],
-            ],
-            [
-                'group'=>true,
-                'label'=>'BUDGET ALLOCATION',
-                'rowOptions'=>['class'=>'info'],
-                //'groupOptions'=>['class'=>'text-center']
-            ],
-            [
-                'attribute'=>'charged_to',
-                'label'=>'Approved Budget (Php)',
-                'value'=>$model->getBudgetAllocation(),
-                'format'=>['decimal', 2],
-                'inputContainer' => ['class'=>'col-sm-6'],
-            ],
-            [
-                'attribute'=>'year',
-                'label'=>'Running Total (Php)',
-                'value'=>$model->getRunningTotal(),
-                'format'=>['decimal', 2],
-                'inputContainer' => ['class'=>'col-sm-6'],
-            ],
-            [
-                'label'=>'Remaining Balance (Php)',
-                //'value'=>$model->buy_amount - $model->sale_amount,
-                'value'=>$model->getBudgetAllocation() - $model->getRunningTotal(),
-                'format'=>['decimal', 2],
-                'inputContainer' => ['class'=>'col-sm-6'],
-                // hide this in edit mode by adding `kv-edit-hidden` CSS class
-                'rowOptions'=>['class'=>'warning kv-edit-hidden', 'style'=>'border-top: 5px double #dedede; texl-align: right;'],
-            ],
-        ];
-        
-        echo DetailView::widget([
-            'model' => $model,
-            'mode'=>DetailView::MODE_VIEW,
-            'container' => ['id'=>'kv-demo'],
-            //'formOptions' => ['action' => Url::current(['#' => 'kv-demo'])] // your action to delete
-            
-            'buttons1' => '', //hides buttons on detail view
-            'attributes' => $attributes,
-            'condensed' => true,
-            'responsive' => true,
-            'hover' => true,
-            'panel' => [
-                //'type' => 'Primary', 
-                'heading'=>'<i class="glyphicon glyphicon-book"></i> PPMP - '.$model->unit->name.' - '.$model->year,
-                'type'=>DetailView::TYPE_PRIMARY,
-                //'footer' => '<div class="text-center text-muted">This is a sample footer message for the detail view.</div>'
-            ],
-            
-        ]);*/
-    ?>
-</div>
+<div class="ppmpitem-index">
 
-        <?php
-            
-            $gridColumns = [
-                [
+    <?php $selectyear = $this->render('_selectyear', ['model' => $searchModel]); ?>
+
+    <?php
+
+    $columns = [
+               [
                     'class' => 'kartik\grid\SerialColumn',
                     'contentOptions' => ['class' => 'kartik-sheet-style'],
                     'width' => '20px',
-                    'header' => '',
-                    'headerOptions' => ['class' => 'kartik-sheet-style'],
+                    'header' => '#',
+                    'headerOptions' => [
+                        'class' => 'kartik-sheet-style',
+                        'style' => 'text-align: left; background-color: #7e9fda;'
+                    ],
                     //'mergeHeader' => true,
+                ],
+                [
+                    'attribute'=>'availability',
+                    'header'=>'Category',
+                    'visible' =>  $dataProvider->totalCount > 0 ? true : false,
+                    'value'=>function ($model, $key, $index, $widget) { 
+                            if($model->availability == 1){
+                                return 'PART I. AVAILABLE AT PROCUREMENT SERVICE STORES';
+                            }elseif($model->availability == 2){
+                                return 'PART II. OTHER ITEMS NOT AVAILABLE AT PS BUT REGULARLY PURCHASED FROM OTHER SOURCES (Note: Please indicate price of items)';
+                            }
+                        },
+                    'headerOptions' => ['style' => 'background-color: #fee082;'],
+                    'contentOptions'=>['style'=>'background-color: #fee082; font-weight: bold;'],
+                
+                    'group'=>true,  // enable grouping,
+                    'groupedRow'=>true,                    // move grouped column to a single grouped row
+                    //'contentOptions' => ['style' => 'text-align: left; background-color: #ffe699;'],
+                    
+                    'groupOddCssClass'=>'',  // configure odd group cell css class
+                    'groupEvenCssClass'=>'', // configure even group cell css class
                 ],
                 [
                     'attribute'=>'item_category_id',
                     'header'=>'Category',
+                    'visible' =>  $dataProvider->totalCount > 0 ? true : false,
                     'width'=>'100px',
                     'value'=>function ($model, $key, $index, $widget) { 
                             return $model->itemcategory->category_name;
                         },
-                    'headerOptions' => ['style' => 'text-align: left'],
-                    'contentOptions' => ['style' => 'text-align: left'],
+                    'headerOptions' => ['style' => 'text-align: left; background-color: #7e9fda;'],
+                    'contentOptions' => ['style' => 'text-align: left; background-color: #7e9fda;'],
                 
                     'group'=>true,  // enable grouping,
                     'groupedRow'=>true,                    // move grouped column to a single grouped row
-                    'groupOddCssClass'=>'kv-grouped-row',  // configure odd group cell css class
-                    'groupEvenCssClass'=>'kv-grouped-row', // configure even group cell css class
+                    'groupOddCssClass'=>'',  // configure odd group cell css class
+                    'groupEvenCssClass'=>'', // configure even group cell css class
                 ],
                 [
                     'attribute'=>'description', 
-                    'header'=>'General Description',
+                    'header'=>'Items & Specification',
                     'width'=>'650px',
-                    'headerOptions' => ['style' => 'text-align: center'],
-                    'contentOptions' => ['style' => 'text-align: left'],
-                        'mergeHeader' => true,
+                    'headerOptions' => ['style' => 'text-align: center; background-color: #f7ab78; color: black'],
+                    'contentOptions' => ['style' => 'text-align: left;'],
+                    //'mergeHeader' => true,
                 ],
                 [
                     'attribute'=>'unit', 
@@ -194,191 +87,199 @@ Modal::end();
                             return $model->unitofmeasure->name;
                         },
                     'width'=>'100px',
-                    'headerOptions' => ['style' => 'text-align: center'],
+                    'headerOptions' => ['style' => 'text-align: center; background-color: #f7ab78; color: black'],
                     'contentOptions' => ['style' => 'text-align: center'], 
-                    'mergeHeader' => true,
+                    //'mergeHeader' => true,
                 ],
                 [
-                    'attribute'=>'cost',
-                    'header'=>'Unit Cost',
+                    'attribute'=>'jan',
+                    'header'=>'Jan',
                     'width'=>'100px',
-                    'value'=>function ($model, $key, $index, $widget) { 
-                            $fmt = Yii::$app->formatter;
-                            return $fmt->asDecimal($model->cost);
-                        },
-                    'headerOptions' => ['style' => 'text-align: center'],
+                    'headerOptions' => ['style' => 'text-align: center; background-color: #f7ab78; color: black'],
+                    'contentOptions' => ['style' => 'text-align: right'],
+                ],
+                [
+                    'attribute'=>'feb',
+                    'header'=>'Feb',
+                    'width'=>'75px',
+                    'headerOptions' => ['style' => 'text-align: center; background-color: #f7ab78; color: black'],
+                    'contentOptions' => ['style' => 'text-align: right'],
+                ],
+                [
+                    'attribute'=>'mar',
+                    'header'=>'Mar',
+                    'width'=>'75px',
+                    'headerOptions' => ['style' => 'text-align: center; background-color: #f7ab78; color: black'],
                     'contentOptions' => ['style' => 'text-align: right'],
                 ],
                 [
                     'attribute'=>'q1',
-                    'header'=>'J',
+                    'header'=>'Q1',
                     'width'=>'75px',
-                    'value'=>function ($model, $key, $index, $widget) { 
-                            return $model->getMonthItemQuantity('q1');
-                        },
-                    'headerOptions' => ['style' => 'text-align: center'],
+                    'headerOptions' => ['style' => 'text-align: center; background-color: #f7ab78; color: black'],
+                    'contentOptions' => ['style' => 'text-align: right; background-color: #ededed'],
+                ],
+                [
+                    'attribute'=>'q1amount',
+                    'header'=>'Q1 AMOUNT',
+                    'width'=>'75px',
+                    'headerOptions' => ['style' => 'text-align: center; background-color: #f7ab78; color: black'],
+                    'contentOptions' => ['style' => 'text-align: right; background-color: #ededed; font-weight: bold;'],
+                ],
+                [
+                    'attribute'=>'apr',
+                    'header'=>'Apr',
+                    'width'=>'75px',
+                    'headerOptions' => ['style' => 'text-align: center; background-color: #f7ab78; color: black'],
+                    'contentOptions' => ['style' => 'text-align: right'],
+                ],
+                [
+                    'attribute'=>'may',
+                    'header'=>'May',
+                    'width'=>'75px',
+                    'headerOptions' => ['style' => 'text-align: center; background-color: #f7ab78; color: black'],
+                    'contentOptions' => ['style' => 'text-align: right'],
+                ],
+                [
+                    'attribute'=>'jun',
+                    'header'=>'Jun',
+                    'width'=>'75px',
+                    'headerOptions' => ['style' => 'text-align: center; background-color: #f7ab78; color: black'],
                     'contentOptions' => ['style' => 'text-align: right'],
                 ],
                 [
                     'attribute'=>'q2',
-                    'header'=>'F',
+                    'header'=>'Q2',
                     'width'=>'75px',
-                    'value'=>function ($model, $key, $index, $widget) { 
-                            return $model->getMonthItemQuantity('q2');
-                        },
-                    'headerOptions' => ['style' => 'text-align: center'],
+                    'headerOptions' => ['style' => 'text-align: center; background-color: #f7ab78; color: black'],
+                    'contentOptions' => ['style' => 'text-align: right; background-color: #ededed'],
+                ],
+                [
+                    'attribute'=>'q2amount',
+                    'header'=>'Q2 AMOUNT',
+                    'width'=>'75px',
+                    'headerOptions' => ['style' => 'text-align: center; background-color: #f7ab78; color: black'],
+                    'contentOptions' => ['style' => 'text-align: right; background-color: #ededed; font-weight: bold;'],
+                ],
+                [
+                    'attribute'=>'jul',
+                    'header'=>'Jul',
+                    'width'=>'75px',
+                    'headerOptions' => ['style' => 'text-align: center; background-color: #f7ab78; color: black'],
+                    'contentOptions' => ['style' => 'text-align: right'],
+                ],
+                [
+                    'attribute'=>'aug',
+                    'header'=>'Aug',
+                    'width'=>'75px',
+                    'headerOptions' => ['style' => 'text-align: center; background-color: #f7ab78; color: black'],
+                    'contentOptions' => ['style' => 'text-align: right'],
+                ],
+                [
+                    'attribute'=>'sep',
+                    'header'=>'Sep',
+                    'width'=>'75px',
+                    'headerOptions' => ['style' => 'text-align: center; background-color: #f7ab78; color: black'],
                     'contentOptions' => ['style' => 'text-align: right'],
                 ],
                 [
                     'attribute'=>'q3',
-                    'header'=>'M',
+                    'header'=>'Q3',
                     'width'=>'75px',
-                    'value'=>function ($model, $key, $index, $widget) { 
-                            return $model->getMonthItemQuantity('q3');
-                        },
-                    'headerOptions' => ['style' => 'text-align: center'],
+                    'headerOptions' => ['style' => 'text-align: center; background-color: #f7ab78; color: black'],
+                    'contentOptions' => ['style' => 'text-align: right; background-color: #ededed'],
+                ],
+                [
+                    'attribute'=>'q3amount',
+                    'header'=>'Q3 AMOUNT',
+                    'width'=>'75px',
+                    'headerOptions' => ['style' => 'text-align: center; background-color: #f7ab78; color: black'],
+                    'contentOptions' => ['style' => 'text-align: right; background-color: #ededed; font-weight: bold;'],
+                ],
+                [
+                    'attribute'=>'oct',
+                    'header'=>'Oct',
+                    'width'=>'75px',
+                    'headerOptions' => ['style' => 'text-align: center; background-color: #f7ab78; color: black'],
+                    'contentOptions' => ['style' => 'text-align: right'],
+                ],
+                [
+                    'attribute'=>'nov',
+                    'header'=>'Nov',
+                    'width'=>'75px',
+                    'headerOptions' => ['style' => 'text-align: center; background-color: #f7ab78; color: black'],
+                    'contentOptions' => ['style' => 'text-align: right'],
+                ],
+                [
+                    'attribute'=>'dec',
+                    'header'=>'Dec',
+                    'width'=>'75px',
+                    'headerOptions' => ['style' => 'text-align: center; background-color: #f7ab78; color: black'],
                     'contentOptions' => ['style' => 'text-align: right'],
                 ],
                 [
                     'attribute'=>'q4',
-                    'header'=>'A',
+                    'header'=>'Q4',
                     'width'=>'75px',
-                    'value'=>function ($model, $key, $index, $widget) { 
-                            return $model->getMonthItemQuantity('q4');
-                        },
-                    'headerOptions' => ['style' => 'text-align: center'],
-                    'contentOptions' => ['style' => 'text-align: right'],
+                    'headerOptions' => ['style' => 'text-align: center; background-color: #f7ab78; color: black'],
+                    'contentOptions' => ['style' => 'text-align: right; background-color: #ededed'],
                 ],
                 [
-                    'attribute'=>'q5',
-                    'header'=>'M',
+                    'attribute'=>'q4amount',
+                    'header'=>'Q4 AMOUNT',
                     'width'=>'75px',
-                    'value'=>function ($model, $key, $index, $widget) { 
-                            return $model->getMonthItemQuantity('q5');
-                        },
-                    'headerOptions' => ['style' => 'text-align: center'],
-                    'contentOptions' => ['style' => 'text-align: right'],
-                ],
-                [
-                    'attribute'=>'q6',
-                    'header'=>'J',
-                    'width'=>'75px',
-                    'value'=>function ($model, $key, $index, $widget) { 
-                            return $model->getMonthItemQuantity('q6');
-                        },
-                    'headerOptions' => ['style' => 'text-align: center'],
-                    'contentOptions' => ['style' => 'text-align: right'],
-                ],
-                [
-                    'attribute'=>'q7',
-                    'header'=>'J',
-                    'width'=>'75px',
-                    'value'=>function ($model, $key, $index, $widget) { 
-                            return $model->getMonthItemQuantity('q7');
-                        },
-                    'headerOptions' => ['style' => 'text-align: center'],
-                    'contentOptions' => ['style' => 'text-align: right'],
-                ],
-                [
-                    'attribute'=>'q8',
-                    'header'=>'A',
-                    'width'=>'75px',
-                    'value'=>function ($model, $key, $index, $widget) { 
-                            return $model->getMonthItemQuantity('q8');
-                        },
-                    'headerOptions' => ['style' => 'text-align: center'],
-                    'contentOptions' => ['style' => 'text-align: right'],
-                ],
-                [
-                    'attribute'=>'q9',
-                    'header'=>'S',
-                    'width'=>'75px',
-                    'value'=>function ($model, $key, $index, $widget) { 
-                            return $model->getMonthItemQuantity('q9');
-                        },
-                    'headerOptions' => ['style' => 'text-align: center'],
-                    'contentOptions' => ['style' => 'text-align: right'],
-                ],
-                [
-                    'attribute'=>'q10',
-                    'header'=>'O',
-                    'width'=>'75px',
-                    'value'=>function ($model, $key, $index, $widget) { 
-                            return $model->getMonthItemQuantity('q10');
-                        },
-                    'headerOptions' => ['style' => 'text-align: center'],
-                    'contentOptions' => ['style' => 'text-align: right'],
-                ],
-                [
-                    'attribute'=>'q11',
-                    'header'=>'N',
-                    'width'=>'75px',
-                    'value'=>function ($model, $key, $index, $widget) { 
-                            return $model->getMonthItemQuantity('q11');
-                        },
-                    'headerOptions' => ['style' => 'text-align: center'],
-                    'contentOptions' => ['style' => 'text-align: right'],
-                ],
-                [
-                    'attribute'=>'q12',
-                    'header'=>'D',
-                    'width'=>'75px',
-                    'value'=>function ($model, $key, $index, $widget) { 
-                            return $model->getMonthItemQuantity('q12');
-                        },
-                    'headerOptions' => ['style' => 'text-align: center'],
-                    'contentOptions' => ['style' => 'text-align: right'],
+                    'headerOptions' => ['style' => 'text-align: center; background-color: #f7ab78; color: black'],
+                    'contentOptions' => ['style' => 'text-align: right; background-color: #ededed; font-weight: bold;'],
                 ],
                 [
                     'attribute'=>'quantity',
-                    'header'=>'QTY',
+                    'header'=>'Total Quantity for the year',
                     'width'=>'75px',
-                    'value'=>function ($model, $key, $index, $widget) { 
-                            return $model->getItemQuantity();
-                        },
-                    'headerOptions' => ['style' => 'text-align: center'],
-                    'contentOptions' => ['style' => 'text-align: center; font-weight: bold;'],
+                    'headerOptions' => ['style' => 'text-align: center; background-color: #f7ab78; color: black'],
+                    'contentOptions' => ['style' => 'text-align: center;'],
                 ],
                 [
-                    'attribute'=>'estimated_budget',
-                    'header'=>'Estimated Budget',
-                    'width'=>'75px',
-                    'value'=>function ($model, $key, $index, $widget) { 
-                            $fmt = Yii::$app->formatter;
-                            return $fmt->asDecimal($model->getTotalamount());
-                        },
-                    'headerOptions' => ['style' => 'text-align: center'],
+                    'attribute'=>'cost',
+                    'header'=>'Price Catalogue',
+                    'width'=>'100px',
+                    'headerOptions' => ['style' => 'text-align: center; background-color: #f7ab78; color: black'],
                     'contentOptions' => ['style' => 'text-align: right'],
+                    'pageSummary' => 'TOTAL'
+                ],
+                [
+                    'attribute'=>'totalamount',
+                    'header'=>'Total Amount for the year',
+                    'width'=>'75px',
+                    'mergeHeader' => true,
+                    'headerOptions' => ['style' => 'text-align: center; background-color: #f7ab78; color: black'],
+                    'contentOptions' => ['style' => 'text-align: right; background-color: #ededed; font-weight: bold;'],
+                    'format' => ['decimal', 2],
+                    'pageSummary' => true
                 ],
             ];
-            
-            echo GridView::widget([
-                'id' => 'ppmp-items',
-                'dataProvider' => $ppmpItemsDataProvider,
-                //'filterModel' => $searchModel,
-                'columns' => $gridColumns, // check the configuration for grid columns by clicking button above
+
+    ?>
+
+
+    <?= GridView::widget([
+        'dataProvider' => $dataProvider,
+        //'filterModel' => $searchModel,
+        'showPageSummary' => true,
+        'columns' => $columns,
                 'containerOptions' => ['style' => 'overflow: auto'], // only set when $responsive = false
                 'headerRowOptions' => ['class' => 'kartik-sheet-style'],
                 'filterRowOptions' => ['class' => 'kartik-sheet-style'],
                 'pjax' => true, // pjax is set to always true for this demo
                 // set left panel buttons
                 'panel' => [
-                    'heading'=>'<h3 class="panel-title">Common Supplies and Equipment</h3>',
+                    'heading'=>'<h3 class="panel-title">Annual Procurement Plan</h3>',
                     'type'=>'primary',
-                    /*'before'=>Html::button('Add Items', ['value' => Url::to(['ppmpitem/additems', 'id'=>$model->ppmp_id, 'year'=>$model->year]), 'title' => 'PPMP Item', 'class' => 'btn btn-success', 'style'=>'margin-right: 6px; display: "";', 'id'=>'buttonAddPpmpItem']),
-                    'after'=>false,*/
+                    
                 ],
-                // set right toolbar buttons
-                'toolbar' => 
-                                [
-                                    [
-                                        'content'=> '',
-                                            /*Html::button('Submit PPMP', ['value' => Url::to(['ppmp/submit', 'id'=>$model->ppmp_id]), 'title' => 'Submit PPMP', 'class' => 'btn btn-info', 'style'=>'margin-right: 6px; display: "";', 'id'=>'buttonSubmitPpmp']).*/
-                                            /*Html::button('Add Item  <i class="glyphicon glyphicon-list"></i>', ['disabled' => $disableAddItem OR !$isMember, 'value' => Url::to(['ppmpitem/additems', 'id'=>$model->ppmp_id, 'year'=>$model->year]), 'title' => 'PPMP Item', 'class' => 'btn btn-success', 'style'=>'margin-right: 6px; display: "";', 'id'=>'buttonAddPpmpItem'])*/
-                                    ],
-                                ],
-                // set export properties
-                'export' => [
+                'toolbar' => [
+                    'content' => $selectyear,
+            ],
+                 'export' => [
                     'fontAwesome' => true
                 ],
                 'persistResize' => false,
@@ -386,7 +287,9 @@ Modal::end();
                 //'exportConfig' => $exportConfig,
                 'itemLabelSingle' => 'item',
                 'itemLabelPlural' => 'items'
-            ]);
-    
-        ?>
+    ]); ?>
 
+
+        
+
+</div>

@@ -127,13 +127,19 @@ class Ppmp extends \yii\db\ActiveRecord
     
     public function getRunningTotal()
     {
-        $items = Ppmpitem::find()->where(['ppmp_id' => $this->ppmp_id, 'active' => 1])->all();
+        $items = Ppmpitem::find()->where(['ppmp_id' => $this->ppmp_id, 'active' => 1, 'supplemental' => 0])->all();
+        $supplementalitems = Ppmpitem::find()->where(['ppmp_id' => $this->ppmp_id, 'supplemental' => 1, 'active' => 1, 'status_id' => 2])->all();
         $runningtotal = 0;
+        $supplementaltotal = 0;
         foreach($items as $item)
         {
             $runningtotal += $item->getTotalamount();
         }
-        return $runningtotal;
+        foreach($supplementalitems as $supplementalitem)
+        {
+            $supplementaltotal += $supplementalitem->getTotalamount();
+        }
+        return $runningtotal + $supplementaltotal;
     }
     
     public function isPending()

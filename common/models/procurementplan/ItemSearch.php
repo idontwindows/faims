@@ -15,6 +15,8 @@ class ItemSearch extends Item
     /**
      * @inheritdoc
      */
+    public $selectMonth;
+
     public function rules()
     {
         return [
@@ -40,6 +42,7 @@ class ItemSearch extends Item
      *
      * @return ActiveDataProvider
      */
+    
     public function search($params)
     {
         $query = Item::find();
@@ -80,4 +83,5 @@ class ItemSearch extends Item
 
         return $dataProvider;
     }
+
 }

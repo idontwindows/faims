@@ -15,11 +15,12 @@ class PpmpitemSearch extends Ppmpitem
     /**
      * @inheritdoc
      */
+
     public function rules()
     {
         return [
             [['ppmp_item_id', 'ppmp_id', 'ppmp_item_category_id', 'quantity', 'unit', 'mode_of_procurement', 'q1', 'q2', 'q3', 'q4', 'q5', 'q6', 'q7', 'q8', 'q9', 'q10', 'q11', 'q12'], 'integer'],
-            [['code', 'description', 'item_specification'], 'safe'],
+            [['selectyear','code', 'description', 'item_specification'], 'safe'],
             [['cost', 'estimated_budget'], 'number'],
         ];
     }
