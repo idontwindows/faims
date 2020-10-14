@@ -58,24 +58,40 @@ class Dv extends \yii\db\ActiveRecord
         ];
     }
     
-    static function generateDvNumber($expenditurClassId, $createDate)
+    static function generateDvNumber($obligationTypeId, $expenditureClassId, $createDate)
     {
         //OS-200-20-02-1516
         $year = date("y", strtotime($createDate));
         $month = date("m", strtotime($createDate));
         
-        $dv_type = Expenditureclass::findOne($expenditurClassId)->account_code;
+        if($obligationTypeId == 1){
+            $dv_type = Expenditureclass::findOne($expenditureClassId)->account_code;
 
-        $dv = Dv::find()->where(['year(dv_date)' => date("Y", strtotime($createDate))])->orderBy(['dv_id' => SORT_DESC])->one();
+            $dv = Dv::find()->where(['obligation_type_id' => $obligationTypeId, 'year(dv_date)' => date("Y", strtotime($createDate))])->orderBy(['dv_id' => SORT_DESC])->one();
 
-        if($dv){
-            $data = explode('-',$dv->dv_number);
-            $count = (int)$data[4] + 1;
+            if($dv){
+                $data = explode('-',$dv->dv_number);
+                $count = (int)$data[4] + 1;
+            }else{
+                $count = 1;
+            }
+            
+            return 'DV-'.$dv_type.'-'.$year.'-'.$month.'-'.str_pad($count, 4, '0', STR_PAD_LEFT);
         }else{
-            $count = 1;
+            
+            $dv = Dv::find()->where(['obligation_type_id' => $obligationTypeId, 'year(dv_date)' => date("Y", strtotime($createDate))])->orderBy(['dv_id' => SORT_DESC])->one();
+
+            if($dv){
+                $data = explode('-',$dv->dv_number);
+                $count = (int)$data[3] + 1;
+            }else{
+                $count = 1;
+            }
+            
+            return 'DV-'.$year.'-'.$month.'-'.str_pad($count, 4, '0', STR_PAD_LEFT);
         }
     
-        return 'DV-'.$dv_type.'-'.$year.'-'.$month.'-'.str_pad($count, 4, '0', STR_PAD_LEFT);
+        
         
         
     }

@@ -497,7 +497,7 @@ class OsdvController extends Controller
                             $dv = new Dv();
                             $dv->osdv_id = $model->osdv_id;
                             $dv->request_id = $model->request->request_id;
-                            $dv->dv_number = Dv::generateDvNumber($model->expenditure_class_id, date("Y-m-d H:i:s"));
+                            $dv->dv_number = Dv::generateDvNumber($model->request->obligation_type_id, $model->expenditure_class_id, date("Y-m-d H:i:s"));
                             $dv->dv_date = date("Y-m-d", strtotime($model->create_date));
                             $dv->save(false);
                         }

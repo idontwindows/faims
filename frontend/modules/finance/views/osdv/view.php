@@ -176,7 +176,7 @@ Modal::end();
                 'displayOnly'=>true, //$model->os 
                 'value' =>  
                     ($model->dv ? '<h4><span class="label label-success">'.$model->dv->dv_number.'</span></h4>' : 
-                    '<h4><span class="label label-warning">'.Dv::generateDvNumber($model->expenditure_class_id, date("Y-m-d H:i:s")).'</span></h4>'.Html::button('Generate', ['value' => Yii::$app->user->can('access-finance-generatedvnumber') ? Url::to(['osdv/generatedvnumber', 'id'=>$model->osdv_id]) : Url::to(['osdv/notallowed', 'id'=>$model->osdv_id]),
+                    '<h4><span class="label label-warning">'.Dv::generateDvNumber($model->request->obligation_type_id, $model->expenditure_class_id, date("Y-m-d H:i:s")).'</span></h4>'.Html::button('Generate', ['value' => Yii::$app->user->can('access-finance-generatedvnumber') ? Url::to(['osdv/generatedvnumber', 'id'=>$model->osdv_id]) : Url::to(['osdv/notallowed', 'id'=>$model->osdv_id]),
                                                                         'title' => 'Generate DV', 'class' => 'btn btn-md btn-success '
                                                                         .(Yii::$app->user->can('access-finance-generatedvnumber') ? '' : 'disabled'),
                                                                    'id'=>'buttonGenerateDVNumber'])) .
