@@ -36,7 +36,7 @@ if(Yii::$app->user->isGuest){
 ?>
 
 <header class="main-header">
-    <?= Html::a(Html::img(Yii::$app->request->baseUrl."/images/logo.png",['title'=>'Enhanced ULIMS','alt'=>'Enhanced ULIMS','height'=>'30px']), Yii::$app->homeUrl, ['class' => 'logo']) ?>
+    <?= Html::a(Html::img(Yii::$app->request->baseUrl."/images/logo.png",['title'=>'Finance and Administrative Information Management System','alt'=>'Enhanced FAIMS','height'=>'30px']), Yii::$app->homeUrl, ['class' => 'logo']) ?>
     <nav class="navbar navbar-static-top" role="navigation">
         <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
             <span class="sr-only">Toggle navigation</span>

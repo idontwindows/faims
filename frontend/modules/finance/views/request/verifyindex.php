@@ -42,6 +42,7 @@ Modal::end();
     <p>
         <!--?= Html::a('Create', ['create'], ['class' => 'btn btn-success', 'id' => 'buttonCreateRequest']) ?-->
     </p>
+    
 <?php Pjax::begin(); ?>
       <?php
         echo GridView::widget([
@@ -78,18 +79,21 @@ Modal::end();
                             ],
                             [
                                 'attribute'=>'amount',
-                                'contentOptions' => ['style' => 'padding-left: 25px;'],
+                                'contentOptions' => ['style' => 'text-align: right; padding-right: 25px;'],
                                 'width'=>'250px',
+                                'format'=>['decimal', 2],
                                 'value'=>function ($model, $key, $index, $widget) { 
                                     return $model->amount;
                                 },
                             ],
                             [
                                 'attribute'=>'created_by',
-                                'contentOptions' => ['style' => 'padding-left: 25px;'],
+                                'headerOptions' => ['style' => 'text-align: center;'],
+                                'contentOptions' => ['style' => 'text-align: center; vertical-align:middle; '],
                                 'width'=>'250px',
                                 'value'=>function ($model, $key, $index, $widget) { 
-                                    return Profile::find($model->created_by)->one()->fullname;
+                                    //return Profile::find($model->created_by)->one()->fullname;
+                                    return $model->profile->fullname;
                                 },
                             ],
                             [
@@ -136,3 +140,17 @@ Modal::end();
         ?>
         <?php Pjax::end(); ?>
 </div>
+
+<script>
+/*$( document ).ready(function() {
+    setTimeout(function(){
+        window.location = 'verifyindex';
+    }, 5000);
+});)*/
+
+$( document ).ready(function() {
+    setTimeout(function(){
+       window.location.reload(1);
+    }, 20000);
+});
+</script>

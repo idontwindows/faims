@@ -20,7 +20,8 @@ echo $form->field($model, 'pdfFile')->widget(FileInput::classname(), [
         'overwriteInitial' => true,
         //'initialPreview' =>[Requestattachment::checkFile($model->attachment_id)],
         'initialPreview' => [
-            "/uploads/finance/request/" . $model->request->request_number.'/' . $model->filename,
+            //Yii::getAlias('@uploads') . "finance/request/" . $model->request->request_number. "/" . $model->filename,
+            "/uploads/finance/request/" . $model->request->request_number. "/" . $model->filename,
         ],
         'initialPreviewAsData'=>true,
         'initialPreviewConfig'=>[
@@ -42,7 +43,7 @@ echo $form->field($model, 'pdfFile')->widget(FileInput::classname(), [
 ]);
 
 if($model->request->owner()){
-    echo Html::submitButton($model->isNewRecord ? 'Upload' : 'Update', [
+    echo Html::submitButton('Upload', [
         'class'=>$model->isNewRecord ? 'btn btn-success' : 'btn btn-primary', 'style' => 'float: right;']
     );
 }
@@ -76,5 +77,18 @@ if( !$model->status_id && (Yii::$app->user->can('access-finance-verification') |
 ActiveForm::end(); 
 
 }
+//$path = 'uploads/finance/request/' . $model->request->request_number.'/';
+//echo $path.'<br/>';
+
+//echo Yii::getAlias('@uploads');
+//echo Url::base();
 ?>
 <br><br>
+<script>
+$(document).ready(function(){
+    $(".fileinput-upload-button").hide();
+    //$(".file-caption").change(function(){
+        //alert($(".file-caption-name").prop('title'));
+    //});
+});
+</script>

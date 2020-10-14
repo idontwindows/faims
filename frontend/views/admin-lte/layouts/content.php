@@ -9,6 +9,7 @@ if($StartYear>=$CurYear){
     $CopyrightYear=$StartYear.'-'.$CurYear;
 }
 $Host= "//".Yii::$app->getRequest()->serverName;
+
 ?>
 
 <div class="content-wrapper">
@@ -37,7 +38,7 @@ $Host= "//".Yii::$app->getRequest()->serverName;
         FAIS <b>Version</b> 1.0
     </div>
     <strong>Copyright &copy; <?= $CopyrightYear ?> <a href="//region9.dost.gov.ph" target="_blank">DOST-IX</a>.</strong> All rights
-    reserved. | <a href="<?= $Host ?>">frontend</a>.</strong>
+    reserved. | <a href="<?= $Host ?>">frontend</a>.
 </footer>
 <script>
 $(document).ready(function () {

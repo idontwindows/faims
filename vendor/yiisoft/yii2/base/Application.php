@@ -96,7 +96,7 @@ abstract class Application extends Module
     /**
      * @var string the application name.
      */
-    public $name = 'Enhanced ULIMS';
+    public $name = 'Finance and Administrative Information Management System';
     /**
      * @var string the charset currently used for the application.
      */

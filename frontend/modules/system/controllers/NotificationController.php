@@ -65,13 +65,7 @@ class NotificationController extends Controller
     {
         $model = new Notification();
 
-        $myfile = fopen("sms/qwerty1", "w") or die("Unable to open file!");
-        $txt = "To: 639177975944 \r\n \r\n";
-        fwrite($myfile, $txt);
-        $txt = 'Message FAIMS';
-        fwrite($myfile, $txt);
-        fclose($myfile);
-        copy('sms/qwerty', '/var/spool/sms/modem1');
+        
         
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->notification_id]);

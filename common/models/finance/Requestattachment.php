@@ -70,6 +70,11 @@ class Requestattachment extends \yii\db\ActiveRecord
       return $this->hasOne(Request::className(), ['request_id' => 'request_id']);  
     }
     
+    public function getComments()
+    {
+        return $this->hasMany(Comment::className(), ['request_attachment_id' => 'record_id']);
+    }
+    
     public static function hasAttachment($id)
     {
         $model  = Requestattachment::findOne($id);
@@ -77,7 +82,8 @@ class Requestattachment extends \yii\db\ActiveRecord
         //$file = 'uploads/finance/request/' . $model->request->request_number.'/'. $model->filename;
         //clearstatcache();
         if($model->filename != NULL){
-            $file = 'uploads/finance/request/' . $model->request->request_number.'/'. $model->filename;
+            //$file = 'uploads/finance/request/' . $model->request->request_number.'/'. $model->filename;
+            $file = Yii::getAlias('@uploads') . '/finance/request/' . $model->request->request_number.'/'. $model->filename;
         }else{
             $file = false;
         }
@@ -87,5 +93,22 @@ class Requestattachment extends \yii\db\ActiveRecord
         } else {
             return 0;
         }
+    }
+    
+    public static function generateCode($id)
+    {
+        $model  = Requestattachment::findOne($id);
+        $code = Yii::$app->user->id;
+        for($i=0;$i<5;$i++){
+            $code .= Requestattachment::randomChars(2);
+        }
+        return $code;
+    }
+    
+    public static function randomChars($numChars)
+    {
+        $str = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
+        //Return the characters.
+        return substr(str_shuffle($str), 0, $numChars);
     }
 }

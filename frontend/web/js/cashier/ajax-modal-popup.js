@@ -1,5 +1,16 @@
 //$.pjax.defaults.timeout = 25000;
 
+function loadModal(url){
+    $('#modalContainer').modal('show')
+        .find('#modalContent')
+        .load(url);
+        //.load($(this).attr('value'));
+    $('#modalHeader').html($(this).attr('title'));
+    setTimeout(function () {
+        $("#btnrefresh").click();
+    },1500);
+}
+
 $("body").on("click","#buttonCreateLddapada",function () {
     
     $('#modalLddapada').modal('show')
@@ -11,9 +22,46 @@ $("body").on("click","#buttonCreateLddapada",function () {
     },1500);
 });
 
-$("body").on("click","#buttonAddCreditor",function () {
+$("body").on("click","#buttonAddItems",function () {
     
     $('#modalCreditor').modal('show')
+        .find('#modalContent')
+        .load($(this).attr('value'));
+    $('#modalHeader').html($(this).attr('title'));
+    setTimeout(function () {
+        $("#btnrefresh").click();
+    },1500);
+});
+
+$("body").on("click","#buttonAddCreditors",function () {
+    
+    $('#modalCreditor').modal('show')
+        .find('#modalContent')
+        .load($(this).attr('value'));
+    $('#modalHeader').html($(this).attr('title'));
+    setTimeout(function () {
+        $("#btnrefresh").click();
+    },1500);
+});
+
+$("body").on("click","#buttonAssignCheckNo",function () {
+    
+    $('#modalPreview').modal('show')
+        .find('#modalContent')
+        .load($(this).attr('value'));
+    $('#modalHeader').html($(this).attr('title'));
+    setTimeout(function () {
+        $("#btnrefresh").click();
+    },1500);
+});
+
+$("body").on("click","#buttonSave",function () {
+    loadModal($(this).attr('value'));
+});
+
+$("body").on("click","#buttonPrintPreview",function () {
+    //loadModal($(this).attr('value'));
+    $('#modalPreview').modal('show')
         .find('#modalContent')
         .load($(this).attr('value'));
     $('#modalHeader').html($(this).attr('title'));

@@ -32,6 +32,7 @@ echo "<div id='modalContent'><div style='text-align:center'><img src='/images/lo
 Modal::end();
 
 $this->title = 'Expenditures';
+$this->params['breadcrumbs'][] = ['label' => ucfirst(Yii::$app->controller->module->id), 'url' => ['/index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="expenditure-index">

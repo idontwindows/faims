@@ -655,15 +655,6 @@ return array (
       '@kartik/editable' => $vendorDir . '/kartik-v/yii2-editable',
     ),
   ),
-  'kartik-v/yii2-money' => 
-  array (
-    'name' => 'kartik-v/yii2-money',
-    'version' => '9999999-dev',
-    'alias' => 
-    array (
-      '@kartik/money' => $vendorDir . '/kartik-v/yii2-money',
-    ),
-  ),
   'kartik-v/yii2-icons' => 
   array (
     'name' => 'kartik-v/yii2-icons',
@@ -680,6 +671,42 @@ return array (
     'alias' => 
     array (
       '@miloschuman/highcharts' => $vendorDir . '/miloschuman/yii2-highcharts-widget/src',
+    ),
+  ),
+  'drsdre/yii2-wizardwidget' => 
+  array (
+    'name' => 'drsdre/yii2-wizardwidget',
+    'version' => '1.2.3.0',
+    'alias' => 
+    array (
+      '@drsdre/wizardwidget' => $vendorDir . '/drsdre/yii2-wizardwidget',
+    ),
+  ),
+  'yidas/yii2-bower-asset' => 
+  array (
+    'name' => 'yidas/yii2-bower-asset',
+    'version' => '2.0.13.1',
+    'alias' => 
+    array (
+      '@yidas/yii2BowerAsset' => $vendorDir . '/yidas/yii2-bower-asset',
+    ),
+  ),
+  'linslin/yii2-curl' => 
+  array (
+    'name' => 'linslin/yii2-curl',
+    'version' => '1.4.0.0',
+    'alias' => 
+    array (
+      '@linslin/yii2/curl' => $vendorDir . '/linslin/yii2-curl',
+    ),
+  ),
+  'yii2assets/yii2-pdfjs' => 
+  array (
+    'name' => 'yii2assets/yii2-pdfjs',
+    'version' => '1.0.2.0',
+    'alias' => 
+    array (
+      '@yii2assets/pdfjs' => $vendorDir . '/yii2assets/yii2-pdfjs',
     ),
   ),
 );

@@ -9,6 +9,9 @@ use kartik\grid\GridView;
 use yii\bootstrap\Modal;
 
 use common\models\procurementplan\Ppmp;
+use common\models\cashier\Checknumber;
+use common\models\cashier\Lddapada;
+use common\models\cashier\Lddapadaitem;
 /* @var $this yii\web\View */
 /* @var $model common\models\cashier\Lddapada */
 
@@ -27,6 +30,31 @@ Modal::begin([
 
 echo "<div id='modalContent'><div style='text-align:center'><img src='/images/loading.gif'></div></div>";
 Modal::end();
+
+Modal::begin([
+    'header' => '<h4 id="modalHeader" style="color: #ffffff"></h4>',
+    'id' => 'modalContainer',
+    'size' => 'modal-sm',
+    'options'=> [
+             'tabindex'=>false,
+        ],
+]);
+
+echo "<div id='modalContent'><div style='text-align:center'><img src='/images/loading.gif'></div></div>";
+Modal::end();
+
+Modal::begin([
+    'header' => '<h4 id="modalHeader" style="color: #ffffff"></h4>',
+    'id' => 'modalPreview',
+    'size' => 'modal-md',
+    'options'=> [
+             'tabindex'=>false,
+        ],
+]);
+
+echo "<div id='modalContent'><div style='text-align:center'><img src='/images/loading.gif'></div></div>";
+Modal::end();
+
 ?>
 <div class="lddapada-view">
 
@@ -46,9 +74,9 @@ Modal::end();
                     ],
                     [
                         'attribute'=>'batch_number',
-                        'label'=>'Operating Unit',
-                        'value'=>'MDS-GSB Branch/Account No.:',
-                        'valueColOptions'=>['style'=>'width:30%'],
+                        'format'=>'raw',
+                        'value'=>'<kbd>'.$model->batch_number.'</kbd>',
+                        'valueColOptions'=>['style'=>'width:30%; font-size:18px; font-weight: bold;'],
                     ],
                 ],
             ],
@@ -62,6 +90,7 @@ Modal::end();
                     ],
                     [
                         'attribute'=>'batch_date',
+                        'value'=>date('m/d/Y', strtotime($model->batch_date)),
                         'valueColOptions'=>['style'=>'width:30%'],
                         'label'=>'Date',
                     ],
@@ -77,9 +106,26 @@ Modal::end();
                     ],
                     [
                         'attribute'=>'batch_number',
-                        'value' => '011011',
+                        'value' => Lddapada::FUND_CLUSTER,
                         'valueColOptions'=>['style'=>'width:30%'],
                         'label'=>'Fund Cluster',
+                    ],
+                ],
+            ],
+            [
+                'columns' => [
+                    [
+                        'attribute'=>'batch_number',
+                        'value' => 'LBP Centro 2195-9000-54',
+                        'valueColOptions'=>['style'=>'width:30%'],
+                        'label'=>'MDS-GSB BRANCH / MDS SUB ACCOUNT NO.',
+                        'inputContainer' => ['class'=>'col-sm-6'],
+                    ],
+                    [
+                        'attribute'=>'batch_number',
+                        'value' => '',
+                        'valueColOptions'=>['style'=>'width:30%'],
+                        'label'=>'',
                     ],
                 ],
             ],
@@ -115,55 +161,117 @@ Modal::end();
                     'width' => '20px',
                     'header' => '',
                     'headerOptions' => ['style' => 'text-align: center; background-color: #f7ab78'],
-                    //'mergeHeader' => true,
+                    'pageSummary'=>'Total',
+                    'pageSummaryOptions' => ['colspan' => 5],
                 ],
-                'name',
-                'account_number',
+                //'name',
+                [   
+                    'attribute'=>'name',
+                    'header' => 'NAME',
+                    'headerOptions' => ['style' => 'text-align: center; vertical-align: middle;'],
+                    'contentOptions' => ['style' => 'text-align: left; padding-left: 10px; vertical-align: middle;'],
+                    'format' => 'raw',
+                    'width'=>'80px',
+                    /*'value'=>function ($model, $key, $index, $widget) { 
+                        return Requestattachment::generateCode($model->request_attachment_id);
+                    },*/
+                ],
+                //'account_number',
+                [   
+                    'attribute'=>'account_number',
+                    'header' => 'PREFERRED<br/>SERVICING BANK<br/>SAVINGS/CURRENT<br/>ACCOUNT NO.',
+                    'headerOptions' => ['style' => 'text-align: center; vertical-align: middle;'],
+                    'contentOptions' => ['style' => 'text-align: center; vertical-align: middle;'],
+                    'format' => 'raw',
+                    'width'=>'150px',
+                    /*'value'=>function ($model, $key, $index, $widget) { 
+                        return Requestattachment::generateCode($model->request_attachment_id);
+                    },*/
+                ],
                 //'alobs_id',
-                //'expenditure_object_id',
-                'gross_amount',
-                //'check_number',
-                [
-                    'class'=>'kartik\grid\EditableColumn',
+                [   
                     'attribute'=>'alobs_id',
-                    'header'=>'ROA/ALOBS NO.',
-                    //'headerOptions' => ['style' => 'text-align: center; background-color: #f7ab78'],
-                    'refreshGrid'=>true,
-                    'editableOptions'=> function ($model , $key , $index) {
-                        return [
-                            'options' => ['id' => $index . '_' . $model->lddapada_id . 'alobs'],
-                            'placement'=>'left',
-                            'name'=>'alobs_id',
-                            'asPopover' => true,
-                            'inputType' => Editable::INPUT_DROPDOWN_LIST,
-                            'data' => [0 => 'pass', 1 => 'fail', 2 => 'waived', 3 => 'todo'],
-                            'formOptions'=>['action' => ['/cashier/lddapada/updatealobs']], // point to the new action
-                        ];
+                    'header' => 'Obligation<br/>Request and<br/>Status No.',
+                    'headerOptions' => ['style' => 'text-align: center; vertical-align: middle;'],
+                    'contentOptions' => ['style' => 'text-align: center; vertical-align: middle;'],
+                    'format' => 'raw',
+                    'width'=>'150px',
+                    'value'=>function ($model, $key, $index, $widget) { 
+                        if($model->osdv->os)
+                            return $model->osdv->os->os_number;
+                        else
+                            return '-';
                     },
-                    'hAlign'=>'center',
-                    'vAlign'=>'left',
-                    'width'=>'100px',
+                ],
+                //'expenditure_object_id',
+                [   
+                    'attribute'=>'alobs_id',
+                    'header' => 'ALLOTMENT<br/>CLASS per<br/>(UACS)',
+                    'headerOptions' => ['style' => 'text-align: center; vertical-align: middle;'],
+                    'contentOptions' => ['style' => 'text-align: center; vertical-align: middle;'],
+                    'format' => 'raw',
+                    'width'=>'150px',
+                    /*'value'=>function ($model, $key, $index, $widget) { 
+                        return Requestattachment::generateCode($model->request_attachment_id);
+                    },*/
+                ],
+                [   
+                    'attribute'=>'gross_amount',
+                    'header' => 'GROSS<br/>AMOUNT',
+                    'headerOptions' => ['style' => 'text-align: center; vertical-align: middle;'],
+                    'contentOptions' => ['style' => 'text-align: center; vertical-align: middle;'],
+                    'format' => 'raw',
+                    'width'=>'150px',
+                    'value'=>function ($model, $key, $index, $widget) {
+                        $fmt = Yii::$app->formatter;
+                        return $fmt->asDecimal($model->gross_amount);
+                    },
+                ],
+                [   
+                    'attribute'=>'gross_amount',
+                    'header' => 'WITHHOLDING<br/>TAX',
+                    'headerOptions' => ['style' => 'text-align: center; vertical-align: middle;'],
+                    'contentOptions' => ['style' => 'text-align: center; vertical-align: middle;'],
+                    'format' => 'raw',
+                    'width'=>'150px',
+                    'value'=>function ($model, $key, $index, $widget) {
+                        $fmt = Yii::$app->formatter;
+                        return $fmt->asDecimal($model->gross_amount);
+                    },
+                    'pageSummary' => true
+                ],
+                [   
+                    'attribute'=>'gross_amount',
+                    'header' => 'NET<br/>AMOUNT',
+                    'headerOptions' => ['style' => 'text-align: center; vertical-align: middle;'],
+                    'contentOptions' => ['style' => 'text-align: center; vertical-align: middle;'],
+                    'format' => 'raw',
+                    'width'=>'150px',
+                    'value'=>function ($model, $key, $index, $widget) {
+                        $fmt = Yii::$app->formatter;
+                        return $fmt->asDecimal($model->gross_amount);
+                    },
+                    'pageSummary' => true
+                ],
+                [   
+                    'attribute'=>'check_number',
+                    'header' => 'REMARKS',
+                    'headerOptions' => ['style' => 'text-align: center; vertical-align: middle;'],
+                    'contentOptions' => ['style' => 'text-align: center; vertical-align: middle;'],
+                    'format' => 'raw',
+                    'width'=>'150px',
+                    /*'value'=>function ($model, $key, $index, $widget) { 
+                        return Requestattachment::generateCode($model->request_attachment_id);
+                    },*/
+                    'pageSummary' => true
                 ],
                 [
-                    'class'=>'kartik\grid\EditableColumn',
-                    'attribute'=>'check_number',
-                    'header'=>'Check Number',
-                    //'headerOptions' => ['style' => 'text-align: center; background-color: #f7ab78'],
-                    'refreshGrid'=>true,
-                    'editableOptions'=> function ($model , $key , $index) {
-                        return [
-                            'options' => ['id' => $index . '_' . $model->lddapada_id . 'checck'],
-                            'placement'=>'left',
-                            'name'=>'check_number',
-                            'asPopover' => true,
-                            'value' => $model->check_number,
-                            'inputType' => \kartik\editable\Editable::INPUT_TEXT,
-                            'formOptions'=>['action' => ['/cashier/lddapada/updatechecknumber']], // point to the new action
-                        ];
-                    },
-                    'hAlign'=>'center',
-                    'vAlign'=>'left',
-                    'width'=>'100px',
+                    'class' => 'kartik\grid\CheckboxColumn',
+                    'headerOptions' => ['class' => 'kartik-sheet-style'],
+                    'contentOptions' => ['style' => 'disabled'],
+                    //'pageSummary' => '<small>(amounts in $)</small>',
+                    //'pageSummaryOptions' => ['colspan' => 3, 'data-colspan-dir' => 'rtl']
+                    'pageSummary' => false
                 ],
             ];
     ?>
@@ -186,7 +294,20 @@ Modal::end();
                                 [
                                     [
                                         'content'=>
-                                            Html::button('Add Creditors  <i class="glyphicon glyphicon-list"></i>', ['value' => Url::to(['lddapadaitem/additems', 'id'=>$model->lddapada_id]), 'title' => 'Creditor', 'class' => 'btn btn-success', 'style'=>'margin-right: 6px; display: "";', 'id'=>'buttonAddCreditor'])
+                                            /*Html::button('Add Items  <i class="glyphicon glyphicon-list"></i>', ['value' => Url::to(['lddapadaitem/additems', 'id'=>$model->lddapada_id]), 'title' => 'Items', 'class' => 'btn btn-success', 'style'=>'margin-right: 6px; display: "";', 'id'=>'buttonAddItems']) . */
+                                            Html::button('Assign Check No.  <i class="glyphicon glyphicon-check"></i>', ['value' => Url::to(['lddapada/assigncheck', 'id'=>$model->lddapada_id]), 
+                                                'title' => 'Check Number', 'class' => 'btn btn-warning', 'style'=>'margin-right: 6px; display: "";', 'id'=>'buttonAssignCheckNo', 'onclick'=>'checkKeys()'
+                                            ]) .
+                                        
+                                            Html::button('Add Creditors  <i class="glyphicon glyphicon-plus"></i>', ['value' => Url::to(['lddapadaitem/addcreditors', 'id'=>$model->lddapada_id]), 'title' => 'Creditor', 'class' => 'btn btn-success', 'style'=>'margin-right: 6px; display: "";', 'id'=>'buttonAddCreditors']) .
+                                        
+                                            Html::button('Save  <i class="glyphicon glyphicon-floppy-save"></i>', ['value' => Url::to(['lddapada/save', 'id'=>$model->lddapada_id]), 'title' => 'LDDAPADA', 'class' => 'btn btn-info', 'style'=>'margin-right: 6px;'.(($model->saved === Lddapada::CHANGED) ? '' : 'display: none;'), 'id'=>'buttonSave']) .
+                                        
+                                            /*Html::button('Print  <i class="glyphicon glyphicon-print"></i>', ['value' => Url::to(['lddapada/preview', 'id'=>$model->lddapada_id]), 'title' => 'LDDAPADA', 'class' => 'btn btn-info',  'data-pjax'=>0, 'style'=>'margin-right: 6px;'.(($model->saved === Lddapada::SAVED) ? '' : 'display: none;'), 'id'=>'buttonPrintPreview']) .*/
+                                        
+                                            Html::a('Print  <i class="glyphicon glyphicon-print"></i>', Url::to(['lddapada/print', 'id'=>$model->lddapada_id]), ['target' => '_blank', 'data-pjax'=>0, 'class'=>'btn btn-primary'])
+                                        
+                                            //$EnablePrint="<a href='/reports/preview?url=/lab/request/print-request?id=".$model->request_id."' class='btn btn-primary' style='margin-left: 5px'><i class='fa fa-print'></i> Print Request</a>";
                                     ],
                                 ],
                 // set export properties
@@ -199,6 +320,14 @@ Modal::end();
                 'itemLabelSingle' => 'item',
                 'itemLabelPlural' => 'items'
             ]);
-    
     ?>
 </div>
+
+<script>
+$(document).ready(function(){
+    $(".kv-row-checkbox").each(function(){
+        if($(this).parent().prev().html().length != 0)
+            $(this).prop("disabled",true);
+    });
+});
+</script>

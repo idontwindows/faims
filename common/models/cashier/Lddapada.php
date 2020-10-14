@@ -20,6 +20,13 @@ use Yii;
  */
 class Lddapada extends \yii\db\ActiveRecord
 {
+    const CHANGED = 10;   
+    const SAVED = 20;   
+    const FUND_CLUSTER = '01101101';
+    const FUND_CODE = '101';
+    const ACCOUNT = 'LBP Centro 2195-9000-54';
+    
+
     /**
      * @inheritdoc
      */
@@ -71,10 +78,11 @@ class Lddapada extends \yii\db\ActiveRecord
      */
     public function getLddapadaItems()
     {
-        return $this->hasMany(LddapadaItem::className(), ['lddapada_id' => 'lddapada_id'])->andOnCondition(['active' => 1]);
+        return $this->hasMany(Lddapadaitem::className(), ['lddapada_id' => 'lddapada_id'])->andOnCondition(['active' => 1]);
     }
+   
     
-    static function generateBatchNumber()
+    static function generateBatchNumber1()
     {
         $year = date("y", strtotime("now"));
         $month = date("m", strtotime("now"));
@@ -86,5 +94,30 @@ class Lddapada extends \yii\db\ActiveRecord
         $count += 1;
     
         return $year.'-'.$month.'-'.str_pad($count, 3, '0', STR_PAD_LEFT);
+    }
+    
+    static function generateBatchNumber()
+    {
+        $year = date("Y", strtotime("now"));
+        $month = date("m", strtotime("now"));
+        
+        $start_date = date("Y-m-d", strtotime($year.'-'.$month.'-1'));
+        $end_date = date("Y-m-t", strtotime($start_date));
+
+        $count = Lddapada::find()->where(['between', 'batch_date', $start_date, $end_date])->count();
+        $count += 1;
+    
+        return Lddapada::FUND_CODE.'-'.$month.'-'.str_pad($count, 3, '0', STR_PAD_LEFT).'-'.$year;
+    }
+    
+    public function getTotal()
+    {
+        $items = Lddapadaitem::find()->where(['lddapada_id' => $this->lddapada_id, 'active' => 1])->all();
+        $runningtotal = 0;
+        foreach($items as $item)
+        {
+            $runningtotal += $item->gross_amount;
+        }
+        return $runningtotal;
     }
 }

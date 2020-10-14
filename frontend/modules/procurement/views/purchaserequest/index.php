@@ -36,7 +36,7 @@ $this->registerJsFile($BaseURL.'js/jquery.tabletojson.js');
 $this->registerJsFile($BaseURL.'js/app.js');
 $this->registerJsFile($BaseURL.'js/custom.js');
 
-
+//echo Yii::$app->user->identity->id;
 ?>
 
 

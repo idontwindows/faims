@@ -6,6 +6,8 @@ use Yii;
 use common\models\cashier\Lddapadaitem;
 use common\models\cashier\LddapadaitemSearch;
 use common\models\cashier\CreditorSearch;
+use common\models\finance\OsdvSearch;
+use common\models\finance\Request;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -142,6 +144,42 @@ class LddapadaitemController extends Controller
         
         if (Yii::$app->request->isAjax) {
             return $this->renderAjax('_additems', [
+                        'searchModel' => $searchModel,
+                        'dataProvider' => $dataProvider,
+                        'id' => $id,
+                        //'year' => $year,
+            ]);
+        } else {
+            return $this->render('_additems', [
+                        'searchModel' => $searchModel,
+                        'dataProvider' => $dataProvider,
+                        'id' => $id,
+                        //'year' => $year,
+            ]);
+        }
+    }
+    
+    public function actionAddcreditors()
+    {
+        $id = $_GET['id'];
+        /*$year = $_GET['year'];
+        if (Yii::$app->request->isAjax) {
+            $ppmp = Ppmp::findOne($id); 
+            if(!$ppmp->isMember())
+            {
+                return $this->renderAjax('_info', ['message'=>'You are not Authorized to do this action.']);   
+            }elseif($ppmp->status_id == Ppmp::STATUS_SUBMITTED){
+                return $this->renderAjax('_info', ['message'=>'This PPMP has been submitted for Approval.']);   
+            }
+        }*/
+        
+        $searchModel = new OsdvSearch();
+        $status_id = Request::STATUS_APPROVED_FOR_DISBURSEMENT;
+        $searchModel->status_id = $status_id;
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+        
+        if (Yii::$app->request->isAjax) {
+            return $this->renderAjax('_addcreditors', [
                         'searchModel' => $searchModel,
                         'dataProvider' => $dataProvider,
                         'id' => $id,

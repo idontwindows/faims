@@ -32,13 +32,24 @@ class Notification extends \yii\db\ActiveRecord
     public function afterSave($insert, $changedAttributes)
     {
         if ($insert === true) {
-            $myfile = fopen("d:/sms/newfile.txt", "w") or die("Unable to open file!");
-            $txt = "To: 639177975944\n\nMessage Content";
-            fwrite($myfile, $txt);
-            fclose($myfile);
+            switch ($this->via) {
+                case 'sms':
+                    $this->createSMS();
+                    break;
+                case 'email':
+                    $this->createEmail();
+                    break;
+                case 'sms,email':
+                    $this->createSMS();
+                    $this->createEmail();
+                    break;
+                default:
+                    return '';
+            }
         }
         return parent::afterSave($insert, $changedAttributes);
      }
+    
     /**
      * @inheritdoc
      */
@@ -75,5 +86,19 @@ class Notification extends \yii\db\ActiveRecord
         ];
     }
     
+    public function createSMS()
+    {
+        $myfile = fopen("sms/qwerty1", "w") or die("Unable to open file!");
+        $txt = "To: 639177975944 \r\n \r\n";
+        fwrite($myfile, $txt);
+        $txt = 'Message FAIMS';
+        fwrite($myfile, $txt);
+        fclose($myfile);
+        copy('sms/qwerty', '/var/spool/sms/modem1');
+    }
     
+    public function createEmail()
+    {
+        return '';
+    } 
 }

@@ -5,6 +5,7 @@ namespace common\models\cashier;
 use Yii;
 use common\models\procurement\Expenditureobject;
 use common\models\cashier\Creditor;
+use common\models\finance\Osdv;
 /**
  * This is the model class for table "tbl_lddapada_item".
  *
@@ -88,6 +89,15 @@ class Lddapadaitem extends \yii\db\ActiveRecord
     public function getLddapada()
     {
         return $this->hasOne(Lddapada::className(), ['lddapada_id' => 'lddapada_id']);
+    }
+    
+     
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getOsdv()
+    {
+        return $this->hasOne(Osdv::className(), ['osdv_id' => 'osdv_id']);
     }
 
     /**

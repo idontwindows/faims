@@ -1,4 +1,4 @@
-l<?php
+<?php
 
 use yii\helpers\Html;
 //use yii\grid\GridView;
@@ -84,7 +84,7 @@ $gridColumn = [
 <div class="profile-index">
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
     <p>
-        <?= Html::a('Create Profile', ['create'], ['class' => 'btn btn-success']) ?>
+        <!--?= Html::a('Create Profile', ['create'], ['class' => 'btn btn-success']) ?-->
     </p>
     <div class="table-responsive">
         <?=
