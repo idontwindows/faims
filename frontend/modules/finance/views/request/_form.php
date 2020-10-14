@@ -79,9 +79,9 @@ use common\models\procurement\Division;
         <div class="col-md-6"> 
                 <h5 data-step="2" data-intro="Specify Source of Fund.">
                 <?= $form->field($model, 'obligation_type_id')->widget(Select2::classname(), [
-                    'data' => ArrayHelper::map(Obligationtype::find()->all(),'type_id','name', 'fundcategory.name'),
+                    'data' => ArrayHelper::map(Obligationtype::find()->all(),'type_id','name'),
                     'language' => 'en',
-                    //'theme' => Select2::THEME_DEFAULT,
+                    //'theme' => Select2::THEME_DEFAULT,`
                     //'options' => ['placeholder' => 'Select Request Type','readonly'=>'readonly'],
                     'pluginOptions' => [
                         'allowClear' => false

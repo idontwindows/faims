@@ -231,8 +231,7 @@ Modal::end();
 </div>
     
     
-    <!--div class="obligation" style='<?php //echo ($model->type_id == 1) ? "" : "display: none;" ?>' -->
-    <div class="obligation">
+    <div class="obligation" style='<?php echo ($model->type_id == 1) ? "" : "display: none;" ?>'>
     <?php
         $gridColumns = [
                 [
