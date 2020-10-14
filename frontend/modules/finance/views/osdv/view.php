@@ -281,10 +281,10 @@ Modal::end();
                     'header'=>'Amount',
                     'width'=>'350px',
                     'refreshGrid'=>true,
+                    'format'=>['decimal',2],
                     //'readonly' => !$isMember,
                     'value'=>function ($model, $key, $index, $widget) { 
-                            $fmt = Yii::$app->formatter;
-                            return $fmt->asDecimal($model->amount);
+                            return $model->amount;
                         },
                     'editableOptions'=> function ($model , $key , $index) {
                         return [
