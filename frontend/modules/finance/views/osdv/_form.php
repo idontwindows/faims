@@ -13,8 +13,8 @@ use yii\helpers\Url;
 use common\models\cashier\Creditor;
 use common\models\finance\Request;
 use common\models\procurement\Expenditureclass;
-//use common\models\finance\Obligationtype;
-use common\models\procurement\Type;
+use common\models\finance\Obligationtype;
+//use common\models\procurement\Type;
 /* @var $this yii\web\View */
 /* @var $model common\models\finance\Request */
 /* @var $form yii\widgets\ActiveForm */
