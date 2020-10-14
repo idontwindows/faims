@@ -21,7 +21,7 @@ use common\models\finance\Dv;
     <div class="container">
       <h1>Generate DV Number</h1>
         
-        <p class="md-info">This will assign the DV Number : <span class="label label-warning"><?= Dv::generateDvNumber($model->expenditure_class_id,date("Y-m-d H:i:s")); ?></span> to this Financial Request.
+        <p class="md-info">This will assign the DV Number : <span class="label label-warning"><?= Dv::generateDvNumber($model->request->obligation_type_id,$model->expenditure_class_id,date("Y-m-d H:i:s")); ?></span> to this Financial Request.
         <br/>This action will notify the <span class="badge btn-info">Accountant</span>.</p>
         
         <br/>Note: Updates on this request will sent via email.
