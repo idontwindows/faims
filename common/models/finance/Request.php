@@ -49,6 +49,7 @@ class Request extends \yii\db\ActiveRecord
     const STATUS_VALIDATED = 40;  // Head of the Requesting Unit (ARD)
     const STATUS_CERTIFIED_ALLOTMENT_AVAILABLE = 50; // Head of Budget Unit (Budget Officer)
     const STATUS_ALLOTTED = 55; // finance processing team / budgetting staff
+    const STATUS_FOR_DISBURSEMENT = 58; // finance processing team / budgetting staff
     const STATUS_CERTIFIED_FUNDS_AVAILABLE = 60; // Head of the Accounting Unit (Accountant)
     const STATUS_CHARGED = 65; // finance processing team / accounting staff
     const STATUS_APPROVED_FOR_DISBURSEMENT = 70;  // Head of Agency (Regional Director / OIC)

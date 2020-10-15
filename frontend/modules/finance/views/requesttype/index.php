@@ -58,7 +58,7 @@ Modal::end();
 <?php Pjax::begin(); ?>
       <?php
         echo GridView::widget([
-            'id' => 'request',
+            'id' => 'requesttype',
             'dataProvider' => $dataProvider,
             'columns' => [
                             [

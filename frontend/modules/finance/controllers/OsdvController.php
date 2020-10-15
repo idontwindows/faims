@@ -60,7 +60,11 @@ class OsdvController extends Controller
         //$searchModel->status_id = $status_id;
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
         
-        $numberOfRequests = Request::find()->where('status_id =:status_id',[':status_id'=>40])->count();
+        if(Yii::$app->user->can('access-finance-obligation'))
+            $numberOfRequests = Request::find()->where('status_id =:status_id',[':status_id'=>Request::STATUS_VALIDATED])->count();
+        
+        if(Yii::$app->user->can('access-finance-disbursement'))
+            $numberOfRequests = Request::find()->where('status_id =:status_id',[':status_id'=>Request::STATUS_FOR_DISBURSEMENT])->count();
         
         return $this->render('index', [
             'searchModel' => $searchModel,
@@ -221,11 +225,12 @@ class OsdvController extends Controller
     {
         
         $model = new Osdv();
+
+        if(Yii::$app->user->can('access-finance-obligation'))
+            $requests = ArrayHelper::map(Request::find()->where('status_id =:status_id',[':status_id'=>Request::STATUS_VALIDATED])->all(),'request_id','request_number');
         
-//        if(isset($_POST['request_id']))
-//            $request = Request::findOne($_POST['request_id']);
-//        else
-//            $request = null;
+        if(Yii::$app->user->can('access-finance-disbursement'))
+            $requests = ArrayHelper::map(Request::find()->where('status_id =:status_id',[':status_id'=>Request::STATUS_FOR_DISBURSEMENT])->all(),'request_id','request_number');
         
         date_default_timezone_set('Asia/Manila');
         $model->create_date = date("Y-m-d H:i:s");
@@ -244,7 +249,7 @@ class OsdvController extends Controller
                 //$request->status_id = Request::STATUS_ALLOTTED;
                 //$request->save(false);
                 
-                $model->request->status_id = Request::STATUS_ALLOTTED;
+                $model->request->status_id = Yii::$app->user->can('access-finance-disbursement') ? Request::STATUS_FOR_DISBURSEMENT : Request::STATUS_ALLOTTED;
                 $model->request->save(false);
                 return $this->redirect(['view', 'id' => $model->osdv_id]);   
             }
@@ -252,12 +257,12 @@ class OsdvController extends Controller
         }elseif (Yii::$app->request->isAjax) {
             return $this->renderAjax('_form', [
                         'model' => $model,
-                        //'request' => $request,
+                        'requests' => $requests,
             ]);
         } else {
             return $this->render('_form', [
                         'model' => $model,
-                        //'request' => $request,
+                        'requests' => $requests,
             ]);
         }
     }

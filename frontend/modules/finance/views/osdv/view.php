@@ -150,7 +150,7 @@ Modal::end();
                 'attribute'=>'expenditure_class_id',
                 'label'=>'Expenditure Class',
                 'inputContainer' => ['class'=>'col-sm-2'],
-                'value' => $model->expenditureClass->name,
+                'value' => $model->expenditure_class_id ? $model->expenditureClass->name : '-',
             ],    
             [
                 'attribute'=>'request_id',

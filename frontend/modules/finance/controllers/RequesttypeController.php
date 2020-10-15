@@ -63,7 +63,7 @@ class RequesttypeController extends Controller
         
         $documents = Requesttypeattachment::find()
            ->select('attachment_id')
-           ->where(['request_type_id' => $id])
+           ->where(['request_type_id' => $id, 'active' => 1])
            ->asArray()
            ->all();
         $docs = [];

@@ -8,6 +8,7 @@ use kartik\select2\Select2;
 use kartik\detail\DetailView;
 use kartik\editable\Editable;
 use kartik\grid\GridView;
+use kartik\widgets\SwitchInput;
 
 use yii\bootstrap\Modal;
 use common\models\cashier\Creditor;
@@ -184,14 +185,14 @@ Modal::end();
                     
                     switch($status){
                         case 0:
-                                $btnCss = 'btn btn-danger';
-                                break;
+                            $btnCss = 'btn btn-danger';
+                            break;
                         case 1:
-                                if($model->status_id)
-                                    $btnCss = 'btn btn-success';
-                                else
-                                    $btnCss = 'btn btn-warning';
-                                break;
+                            if($model->status_id)
+                                $btnCss = 'btn btn-success';
+                            else
+                                $btnCss = 'btn btn-warning';
+                            break;
                     }
                     
                     return Html::button('<i class="glyphicon glyphicon-file"></i> View', ['value' => Url::to(['request/uploadattachment', 'id'=>$model->request_attachment_id]), 'title' => Yii::t('app', "Attachment"), 'class' => $btnCss, 'style'=>'margin-right: 6px; display: "";', 'id'=>'buttonUploadAttachments']);
@@ -208,16 +209,50 @@ Modal::end();
                     return Requestattachment::generateCode($model->request_attachment_id);
                 },*/
             ],
-            
             [
                 'class' => 'kartik\grid\BooleanColumn',
                 'attribute'=>'status_id',
                 'header' => 'Verified',
                 'contentOptions' => ['style' => 'text-align: center; vertical-align: middle;'],
                 'width'=>'60px',
+                'visible' => !Yii::$app->user->can('access-finance-verification'),
                 //'value'=>function ($model, $key, $index, $widget) { 
                     //return $model->status_id;
                 //},
+            ],
+            [
+                'class' => 'kartik\grid\EditableColumn',
+                'attribute' => 'status_id',
+                'header' => 'Verified',
+                'format' => 'raw',
+                'refreshGrid'=>true,
+                'visible' => Yii::$app->user->can('access-finance-verification'),
+                'headerOptions' => ['style' => 'text-align: center;'],
+                'contentOptions' => ['style' => 'text-align: center; vertical-align: middle;'],
+                'value'=>function ($model, $key, $index, $widget) { 
+                    return $model->status_id ? '<i class="glyphicon glyphicon-ok"></i>' : '<i class="glyphicon glyphicon-remove text-red"></i>';
+                },
+                'editableOptions'=> function ($model , $key , $index) {
+                                    return [
+                                        'options' => ['id' => $index . '_10_' . $model->status_id],
+                                        'contentOptions' => ['style' => 'text-align: center;  vertical-align:middle;'],
+                                        'placement'=>'left',
+                                        'disabled'=>!$model->status_id,
+                                        'name'=>'district',
+                                        'asPopover' => true,
+                                        'value'=>function ($model, $key, $index, $widget) {
+                                            return $model->status_id ? '<i class="glyphicon glyphicon-ok"></i>' : '<i class="glyphicon glyphicon-remove text-red"></i>';
+                                        },
+                                        'inputType' => Editable::INPUT_DROPDOWN_LIST,
+                                        'data'=>['0'=>'Mark Unverified'],
+                                        'formOptions'=>['action' => ['/finance/request/togglestatus']], // point to the new action
+                                    ];
+                                },
+                'hAlign' => 'right', 
+                'vAlign' => 'middle',
+                'width' => '7%',
+                //'format' => ['decimal', 2],
+                'pageSummary' => true
             ],
         ];
 ?>

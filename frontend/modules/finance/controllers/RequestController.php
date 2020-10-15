@@ -356,11 +356,33 @@ class RequestController extends Controller
         
         if (Yii::$app->request->post()) {
             $model->status_id = 10;
-            if($model->save())
+            if($model->save()){
+                $index = $model->request_attachment_id;
+                $scope = 'Requestattachment';
+                $data = $model->request_attachment_id.':'.$model->last_update.':'.$model->filename.':'.$model->filecode.':'.$model->status_id;
+                    
+                $block = Blockchain::createBlock($index, $scope, $data);
+            }
                 Yii::$app->session->setFlash('success', 'Attachment has been Verified!');
             
             return $this->redirect(['view?id='.$model->request_id]);
         }
+    }
+    
+    public function actionTogglestatus() {
+       if (Yii::$app->request->post('hasEditable')) {
+           $ids = Yii::$app->request->post('editableKey');
+           
+           $index = Yii::$app->request->post('editableIndex');
+           $attr = Yii::$app->request->post('editableAttribute');
+           $qty = $_POST['Requestattachment'][$index][$attr];
+           $model = Requestattachment::findOne($ids);
+           $model->$attr = $qty ? 10 : 0; //$fmt->asDecimal($amt,2);
+           if($model->save(false))
+               return true;
+           else
+               return false;
+       }
     }
     
     public function actionDeleteattachment(){
@@ -592,7 +614,8 @@ class RequestController extends Controller
         
         if(Yii::$app->user->can('access-finance-validation')){
             if (Yii::$app->request->post()) {
-                $model->status_id = ($model->obligation_type_id == 1) ? Request::STATUS_VALIDATED : Request::STATUS_ALLOTTED ; //40 : 55
+                //$model->status_id = ($model->obligation_type_id == 1) ? Request::STATUS_VALIDATED : Request::STATUS_ALLOTTED ; //40 : 55
+                $model->status_id = ($model->obligation_type_id == 1) ? Request::STATUS_VALIDATED : 58 ; //40 : 58
                 if($model->save(false)){
                     
                     $index = $model->request_id;

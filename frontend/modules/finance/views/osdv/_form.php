@@ -31,7 +31,7 @@ use common\models\finance\Obligationtype;
     <div class="row">
         <div class="col-md-6"> 
                 <?= $form->field($model, 'request_id')->widget(Select2::classname(), [
-                    'data' => ArrayHelper::map(Request::find()->where('status_id =:status_id',[':status_id'=>Request::STATUS_VALIDATED])->all(),'request_id','request_number'),
+                    'data' => $requests,
                     'language' => 'en',
                     'options' => ['placeholder' => 'Select Request','readonly'=>'readonly'],
                     'pluginOptions' => [
@@ -90,10 +90,10 @@ use common\models\finance\Obligationtype;
                             var typeId = $(this).val();
                             if (typeId > 1){
                                 //$('.field-osdv-expenditure_class_id').prop('disabled', false);
-                                $('.field-osdv-expenditure_class_id').hide();
+                                //$('.field-osdv-expenditure_class_id').hide();
                             } else {
                                 //$('.field-osdv-expenditure_class_id').prop('disabled', true);
-                                $('.field-osdv-expenditure_class_id').show();
+                                //$('.field-osdv-expenditure_class_id').show();
                             }
                         }",
                     ],
@@ -122,6 +122,6 @@ use common\models\finance\Obligationtype;
 <script>
 $( document ).ready(function() {
     //$('#Osdv-expenditure_class_id').select2({disabled:readonly});
-    $('.field-osdv-expenditure_class_id').hide();
+    //$('.field-osdv-expenditure_class_id').hide();
 });
 </script>

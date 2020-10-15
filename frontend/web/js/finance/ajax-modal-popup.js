@@ -119,3 +119,8 @@ $("#modalContainer").on("hidden.bs.modal", function () {
     $.pjax.reload({container:'#request-obligation'});
     $.pjax.reload({container:'#account-transactions'});
 });
+
+$("#modalViewRequesttype").on("hidden.bs.modal", function () {
+    // put your default event here
+    $.pjax.reload({container:'#requesttype'});
+});

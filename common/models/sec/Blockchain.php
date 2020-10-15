@@ -75,11 +75,6 @@ class Blockchain extends \yii\db\ActiveRecord
         date_default_timezone_set('Asia/Manila');
         $timestamp = time();
         
-        //$request = Request::findOne(1);
-        //$index = $request->request_id;
-
-        //$data = $request->request_number.':'.$request->request_date.':'.$request->request_type_id.':'.$request->payee_id.':'.$request->particulars.':'.$request->amount.':'.$request->status_id;
-        
         $block = new Blockchain();
         $block->index_id = $index;
         $block->scope = $scope;
@@ -88,6 +83,7 @@ class Blockchain extends \yii\db\ActiveRecord
         //$block->previousHash = $previousHash;
         $block->hash = $block->calculateHash();
         $block->nonce = $timestamp;
+        $block->user_id = Yii::$app->user->identity->user_id;
         $block->save();
         
         return $block;
