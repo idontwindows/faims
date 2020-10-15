@@ -341,7 +341,7 @@ class OsdvController extends Controller
                     $model->request->save(false);
                     
                     Yii::$app->session->setFlash('success', 'Request Successfully Approved!');
-                    return $this->redirect(['view', 'id' => $model->osdv_id]);
+                    return $this->redirect(['approvalindex']);
                 }else{
                     Yii::$app->session->setFlash('warning', $model->getErrors());                 
                 }
