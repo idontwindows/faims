@@ -132,7 +132,7 @@ Modal::end();
                                 'attribute'=>'created_by',
                                 'headerOptions' => ['style' => 'text-align: center;'],
                                 'contentOptions' => ['style' => 'text-align: center; vertical-align:middle; '],
-                                'width'=>'150px',
+                                'width'=>'80px',
                                 'value'=>function ($model, $key, $index, $widget) { 
                                     //return Profile::find($model->created_by)->one()->fullname;
                                     return $model->profile->fullname;
