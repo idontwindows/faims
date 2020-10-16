@@ -128,6 +128,11 @@ class Request extends \yii\db\ActiveRecord
         return $this->hasOne(Creditor::className(), ['creditor_id' => 'payee_id']);
     }
     
+    public function getFundsource()
+    {
+        return $this->hasOne(Obligationtype::className(), ['type_id' => 'obligation_type_id']);
+    }
+    
     public function getRequesttype()
     {
         return $this->hasOne(Requesttype::className(), ['request_type_id' => 'request_type_id']);

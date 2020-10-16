@@ -15,6 +15,7 @@ use common\models\cashier\Creditor;
 use common\models\finance\Request;
 use common\models\finance\Requestattachment;
 use common\models\finance\Requesttype;
+use common\models\finance\Obligationtype;
 use common\models\procurement\Division;
 use common\models\system\Comment;
 /* @var $this yii\web\View */
@@ -71,6 +72,27 @@ Modal::end();
                 'pluginOptions' => ['allowClear'=>true, 'width'=>'100%'],
             ],
         ],
+        [
+            'attribute'=>'obligation_type_id',
+            'label'=>'Fund Source',
+            'inputContainer' => ['class'=>'col-sm-6'],
+            'value' => $model->fundsource->name,
+            'type'=>DetailView::INPUT_SELECT2, 
+            'widgetOptions'=>[
+                'data'=>ArrayHelper::map(Obligationtype::find()->all(),'type_id','name'),
+                'options' => ['placeholder' => 'Fund Source'],
+                'pluginOptions' => ['allowClear'=>true, 'width'=>'100%'],
+            ],
+        ],
+        /*$form->field($model, 'obligation_type_id')->widget(Select2::classname(), [
+                    'data' => ArrayHelper::map(Obligationtype::find()->all(),'type_id','name'),
+                    'language' => 'en',
+                    //'theme' => Select2::THEME_DEFAULT,`
+                    //'options' => ['placeholder' => 'Select Request Type','readonly'=>'readonly'],
+                    'pluginOptions' => [
+                        'allowClear' => false
+                    ],
+                    ])->label('Fund Source'); */
         [
             'attribute'=>'division_id',
             'label'=>'Division',
