@@ -8,6 +8,7 @@ use common\models\finance\Request;
 use common\models\finance\Requestdistrict;
 use common\models\finance\Requesttype;
 use common\models\system\Profile;
+use common\models\procurement\Division;
 /**
  * This is the model class for table "tbl_request".
  *
@@ -130,6 +131,11 @@ class Request extends \yii\db\ActiveRecord
     public function getRequesttype()
     {
         return $this->hasOne(Requesttype::className(), ['request_type_id' => 'request_type_id']);
+    }
+    
+    public function getDivision()
+    {
+        return $this->hasOne(Division::className(), ['division_id' => 'division_id']);
     }
     
     public function getStatus()

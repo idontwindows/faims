@@ -15,6 +15,7 @@ use common\models\cashier\Creditor;
 use common\models\finance\Request;
 use common\models\finance\Requestattachment;
 use common\models\finance\Requesttype;
+use common\models\procurement\Division;
 use common\models\system\Comment;
 /* @var $this yii\web\View */
 /* @var $model common\models\finance\Request */
@@ -66,6 +67,18 @@ Modal::end();
             'type'=>DetailView::INPUT_SELECT2, 
             'widgetOptions'=>[
                 'data'=>ArrayHelper::map(Requesttype::find()->orderBy(['name'=>SORT_ASC])->all(),'request_type_id','name'),
+                'options' => ['placeholder' => 'Select Type'],
+                'pluginOptions' => ['allowClear'=>true, 'width'=>'100%'],
+            ],
+        ],
+        [
+            'attribute'=>'division_id',
+            'label'=>'Division',
+            'inputContainer' => ['class'=>'col-sm-6'],
+            'value' => $model->division->name,
+            'type'=>DetailView::INPUT_SELECT2, 
+            'widgetOptions'=>[
+                'data'=>ArrayHelper::map(Division::find()->all(),'division_id','name'),
                 'options' => ['placeholder' => 'Select Type'],
                 'pluginOptions' => ['allowClear'=>true, 'width'=>'100%'],
             ],
